@@ -3,6 +3,21 @@
 Newest first. One entry per bug: symptom, cause, fix, and the command that proves it.
 Entries 015–026 came from a pre-release review of the whole codebase.
 
+## 028 — Every command panicked on a Linux system without CA certificates
+
+**Cause:** `Embedder::from_env` built the Ollama HTTP client eagerly with `.expect(...)`, and every
+`Lens` creates an embedder. reqwest's rustls backend refuses to build a client when the system has
+no CA certificates (slim Docker images), so `serve` and keyword `discover` died at startup though
+they never contact Ollama. Repro, v0.1.0 Linux release archive in `debian:12-slim`:
+`./toollens discover --config examples/gateway.json --goal "..."` → `panicked at
+src/semantic.rs:32:18: reqwest client: ... No CA certificates were loaded from the system`, exit 101.
+**Fix:** keep the build result and report it on the first embedding request (src/semantic.rs:16,
+:34, :89).
+**Verified:** Linux build from rust:1.99-bookworm, run in `debian:12-slim`: keyword `discover`
+exits 0 with deploy/get_deployment, list_deployments, search, vcs/get_commit, get_logs;
+`--mode semantic` exits 1 with `cannot create an HTTP client for http://localhost:11434/api/embed:
+builder error: unexpected error: No CA certificates were loaded from the system`.
+
 ## 027 — The crates.io package would have shipped the local audit database
 
 **Cause:** Cargo's `include` overrides `.gitignore`, and unanchored patterns match at any depth.

@@ -3,7 +3,7 @@
 
 use std::time::Duration;
 
-use anyhow::{Context, bail};
+use anyhow::{Context, anyhow, bail};
 use serde_json::{Value, json};
 
 use crate::{catalog::fnv1a, store::Store};
@@ -11,7 +11,9 @@ use crate::{catalog::fnv1a, store::Store};
 const BATCH: usize = 64;
 
 pub struct Embedder {
-    http: reqwest::Client,
+    /// Building fails on a system with no CA certificates (slim containers). Keep the error for
+    /// the first embedding request, so keyword-only use still works there.
+    http: anyhow::Result<reqwest::Client>,
     url: String,
     pub model: String,
 }
@@ -29,7 +31,7 @@ impl Embedder {
             http: reqwest::Client::builder()
                 .timeout(Duration::from_secs(120))
                 .build()
-                .expect("reqwest client"),
+                .map_err(Into::into),
             url: format!("{}/api/embed", host.trim_end_matches('/')),
             model: std::env::var("TOOLLENS_EMBED_MODEL")
                 .unwrap_or_else(|_| "nomic-embed-text".into()),
@@ -81,8 +83,11 @@ impl Embedder {
     }
 
     async fn request(&self, input: &[&str]) -> anyhow::Result<Vec<Vec<f32>>> {
-        let resp = self
+        let http = self
             .http
+            .as_ref()
+            .map_err(|e| anyhow!("cannot create an HTTP client for {}: {e:#}", self.url))?;
+        let resp = http
             .post(&self.url)
             .json(&json!({"model": self.model, "input": input}))
             .send()
