@@ -1,0 +1,122 @@
+{
+  "task": "memory-remember",
+  "arm": "native",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Remember in the knowledge-graph memory that the project 'ToolLens' is owned by the platform team.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "names": [
+              "ToolLens",
+              "platform team"
+            ]
+          },
+          "name": "memory__open_nodes"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"entities\":[{\"entityType\":\"project\",\"name\":\"ToolLens\",\"observations\":[\"Owned by the platform team\"]}],\"relations\":[]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "memory__open_nodes"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "entities": [
+              {
+                "entityType": "team",
+                "name": "platform team",
+                "observations": [
+                  "Owns the ToolLens project"
+                ]
+              }
+            ]
+          },
+          "name": "memory__create_entities"
+        },
+        {
+          "input": {
+            "relations": [
+              {
+                "from": "platform team",
+                "relationType": "owns",
+                "to": "ToolLens"
+              }
+            ]
+          },
+          "name": "memory__create_relations"
+        }
+      ],
+      "kind": "assistant",
+      "text": "ToolLens already has the observation; I'll also add the team entity and an explicit ownership relation."
+    },
+    {
+      "content": "{\"entities\":[{\"entityType\":\"team\",\"name\":\"platform team\",\"observations\":[\"Owns the ToolLens project\"]}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "memory__create_entities"
+    },
+    {
+      "content": "{\"relations\":[{\"from\":\"platform team\",\"relationType\":\"owns\",\"to\":\"ToolLens\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "memory__create_relations"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I've saved in the knowledge-graph memory that the platform team owns ToolLens.\n\n- **Already there:** a `ToolLens` entry (type: project) that already said \"Owned by the platform team\". I left it as it was.\n- **New team entry:** `platform team` (type: team), with the note \"Owns the ToolLens project\".\n- **New link:** `platform team` → **owns** → `ToolLens`.\n\nAll the changes went through."
+    }
+  ],
+  "final_text": "I've saved in the knowledge-graph memory that the platform team owns ToolLens.\n\n- **Already there:** a `ToolLens` entry (type: project) that already said \"Owned by the platform team\". I left it as it was.\n- **New team entry:** `platform team` (type: team), with the note \"Owns the ToolLens project\".\n- **New link:** `platform team` → **owns** → `ToolLens`.\n\nAll the changes went through.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "memory/search_nodes"
+    },
+    {
+      "outcome": "ok",
+      "tool": "memory/search_nodes"
+    },
+    {
+      "outcome": "ok",
+      "tool": "memory/open_nodes"
+    },
+    {
+      "outcome": "ok",
+      "tool": "memory/create_entities"
+    },
+    {
+      "outcome": "ok",
+      "tool": "memory/create_relations"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 3,
+    "input_tokens": 6907,
+    "output_tokens": 584,
+    "cache_read_tokens": 3492,
+    "cache_write_tokens": 2381,
+    "tool_schema_tokens_per_request": 643,
+    "tool_schema_tokens_total": 1929,
+    "invocations": 5,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 0,
+    "discovery_latency_ms_mean": 0.0,
+    "first_pick_correct": false,
+    "wall_ms": 42233.7985,
+    "cost_usd": 0.0284194
+  }
+}

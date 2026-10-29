@@ -1,0 +1,62 @@
+{
+  "task": "twilio-sms",
+  "arm": "native",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Send the SMS 'Your verification code is 482913' to +15555550100 from +15555550199 using Twilio.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "AccountSid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "Body": "Your verification code is 482913",
+            "From": "+15555550199",
+            "To": "+15555550100"
+          },
+          "name": "twilio__TwilioApiV2010--CreateMessage"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"error\":\"twilio/TwilioApiV2010--CreateMessage failed: Mcp error: -32603: {\\\"code\\\":70051,\\\"message\\\":\\\"The authorization with Key failed\\\",\\\"more_info\\\":\\\"https://www.twilio.com/docs/errors/70051\\\",\\\"status\\\":401}\",\"outcome\":\"failed\"}",
+      "is_error": true,
+      "kind": "tool",
+      "name": "twilio__TwilioApiV2010--CreateMessage"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I couldn't send the SMS. Twilio rejected the request because the credentials didn't work, so no message went to +15555550100.\n\n- **What I sent:** \"Your verification code is 482913\" from +15555550199 to +15555550100, using the default AccountSid `ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`.\n- **Error:** HTTP 401, Twilio code 70051, \"The authorization with Key failed\" (https://www.twilio.com/docs/errors/70051).\n\nI didn't try again, because sending the same request would fail the same way. Someone will need to fix the Twilio API key or credentials set up for this integration. If the default AccountSid isn't the right account, they'll need to give the correct one. Once that's done, I can send the message again."
+    }
+  ],
+  "final_text": "I couldn't send the SMS. Twilio rejected the request because the credentials didn't work, so no message went to +15555550100.\n\n- **What I sent:** \"Your verification code is 482913\" from +15555550199 to +15555550100, using the default AccountSid `ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`.\n- **Error:** HTTP 401, Twilio code 70051, \"The authorization with Key failed\" (https://www.twilio.com/docs/errors/70051).\n\nI didn't try again, because sending the same request would fail the same way. Someone will need to fix the Twilio API key or credentials set up for this integration. If the default AccountSid isn't the right account, they'll need to give the correct one. Once that's done, I can send the message again.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "failed",
+      "tool": "twilio/TwilioApiV2010--CreateMessage"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 2,
+    "input_tokens": 15917,
+    "output_tokens": 525,
+    "cache_read_tokens": 1576,
+    "cache_write_tokens": 7712,
+    "tool_schema_tokens_per_request": 643,
+    "tool_schema_tokens_total": 1286,
+    "invocations": 1,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 0,
+    "discovery_latency_ms_mean": 0.0,
+    "first_pick_correct": true,
+    "wall_ms": 199845.54069999998,
+    "cost_usd": 0.07589119999999999
+  }
+}

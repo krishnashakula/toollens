@@ -1,0 +1,139 @@
+{
+  "task": "context7-react",
+  "arm": "lens",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Use Context7 to pull up the current React documentation for the useEffect hook.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "Context7 library documentation lookup (resolve library id, get docs)",
+            "limit": 5
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"context7/query-docs\",\"role\":\"match\",\"summary\":\"Retrieves and queries up-to-date documentation and code examples from Context7 for any programming library or framework.\\n\\nYou must call 'Res…\",\"why\":\"matches context7, library, documentation, resolv, library, id, doc\"},{\"id\":\"context7/resolve-library-id\",\"role\":\"match\",\"summary\":\"Resolves a package/product name to a Context7-compatible library ID and returns matching libraries.\\n\\nYou MUST call this function before 'Que…\",\"why\":\"matches context7, library, documentation, resolv, library, id\"},{\"id\":\"apify/search-apify-docs\",\"role\":\"match\",\"summary\":\"Search Apify and Crawlee documentation using full-text search.\\nDo not also search the Apify Store unless the user asks to find Actors.\\n\\nYou …\",\"why\":\"matches library, documentation, library, get, doc\"},{\"id\":\"tavily/tavily_map\",\"role\":\"dependency\",\"summary\":\"Map a website's structure\",\"why\":\"can use `instructions` returned by apify/search-apify-docs\"},{\"id\":\"tavily/tavily_crawl\",\"role\":\"dependency\",\"summary\":\"Crawl a website starting from a URL\",\"why\":\"can use `instructions` returned by apify/search-apify-docs\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "context7/resolve-library-id"
+          },
+          "name": "inspect_tool"
+        },
+        {
+          "input": {
+            "tool_id": "context7/query-docs"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"idempotentHint\":true,\"openWorldHint\":true,\"readOnlyHint\":true},\"description\":\"Resolves a package/product name to a Context7-compatible library ID and returns matching libraries.\\n\\nYou MUST call this function before 'Query Documentation' tool to obtain a valid Context7-compatible library ID UNLESS the user explicitly provides a library ID in the format '/org/project' or '/org/project/version' in their query.\\n\\nEach result includes:\\n- Library ID: Context7-compatible identifier (format: /org/project)\\n- Name: Library or package name\\n- Description: Short summary\\n- Code Snippets: Number of available code examples\\n- Source Reputation: Authority indicator (High, Medium, Low, or Unknown)\\n- Benchmark Score: Quality indicator (100 is the highest score)\\n- Versions: List of versions if available. Use one of those versions if the user provides a version in their query. The format of the version is /org/project/version.\\n\\nFor best results, select libraries based on name match, source reputation, snippet coverage, benchmark score, and relevance to your use case.\\n\\nSelection Process:\\n1. Analyze the query to understand what library/package the user is looking for\\n2. Return the most relevant match based on:\\n- Name similarity to the query (exact matches prioritized)\\n- Description relevance to the query's intent\\n- Documentation coverage (prioritize libraries with higher Code Snippet counts)\\n- Source reputation (consider libraries with High or Medium reputation more authoritative)\\n- Benchmark Score: Quality indicator (100 is the highest score)\\n\\nResponse Format:\\n- Return the selected library ID in a clearly marked section\\n- Provide a brief explanation for why this library was chosen\\n- If multiple good matches exist, acknowledge this but proceed with the most relevant one\\n- If no good matches exist, clearly state this and suggest query refinements\\n\\nFor ambiguous queries, request clarification before proceeding with a best-guess match.\\n\\nIMPORTANT: Do not call this tool more than 3 times per question. If you cannot find what you need after 3 calls, use the best result you have.\",\"id\":\"context7/resolve-library-id\",\"input_schema\":{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"properties\":{\"libraryName\":{\"description\":\"Library name to search for and retrieve a Context7-compatible library ID. Use the official library name with proper punctuation — e.g., 'Next.js' instead of 'nextjs', 'Customer.io' instead of 'customerio', 'Three.js' instead of 'threejs'.\",\"type\":\"string\"},\"query\":{\"description\":\"What to look up in the library's documentation. This is used to rank library results by relevance to what the user is trying to accomplish. The query is sent to the Context7 API for processing. Do not include any sensitive or confidential information such as API keys, passwords, credentials, personal data, or proprietary code in your query.\",\"type\":\"string\"}},\"required\":[\"query\",\"libraryName\"],\"type\":\"object\"},\"name\":\"resolve-library-id\",\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache toollens-sandbox:1 npx -y @upstash/context7-mcp@4.4.4\",\"first_seen\":\"2026-10-25T23:19:01.863Z\",\"last_seen\":\"2026-10-25T23:50:45.363Z\",\"schema_hash\":\"b41304c34cbe5334\",\"server\":\"context7\"},\"schema_hash\":\"b41304c34cbe5334\",\"server\":\"context7\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"idempotentHint\":true,\"openWorldHint\":true,\"readOnlyHint\":true},\"description\":\"Retrieves and queries up-to-date documentation and code examples from Context7 for any programming library or framework.\\n\\nYou must call 'Resolve Context7 Library ID' tool first to obtain the exact Context7-compatible library ID required to use this tool, UNLESS the user explicitly provides a library ID in the format '/org/project' or '/org/project/version' in their query.\\n\\nDo not call this tool more than 3 times per question.\\n\\nIf you know the programming language the user is working in, pass it as `language` so the results match their setup.\",\"id\":\"context7/query-docs\",\"input_schema\":{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"properties\":{\"language\":{\"description\":\"Programming language the user is writing code in, such as 'Python', 'TypeScript', 'Go', or 'C#'. Ranks code examples in that language first. Leave it out when the language is unknown or does not apply.\",\"type\":\"string\"},\"libraryId\":{\"description\":\"Exact Context7-compatible library ID (e.g., '/mongodb/docs', '/vercel/next.js', '/supabase/supabase', '/vercel/next.js/v16.2.9') retrieved from 'resolve-library-id' or directly from user query in the format '/org/project' or '/org/project/version'.\",\"type\":\"string\"},\"query\":{\"description\":\"What to look up in the library's documentation, scoped to a single concept. Be specific and include relevant details, but keep each query to one topic — if the user's question spans multiple distinct concepts, make a separate call per concept instead of combining them, unless the question is about how the concepts interact. Good: 'How to set up authentication with JWT in Express.js' or 'React useEffect cleanup function examples'. Bad (too vague): 'auth' or 'hooks'. Bad (too broad): 'routing and auth and caching in Next.js'. The query is sent to the Context7 API for processing. Do not include any sensitive or confidential information such as API keys, passwords, credentials, personal data, or proprietary code in your query.\",\"type\":\"string\"}},\"required\":[\"libraryId\",\"query\"],\"type\":\"object\"},\"name\":\"query-docs\",\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache toollens-sandbox:1 npx -y @upstash/context7-mcp@4.4.4\",\"first_seen\":\"2026-10-25T23:19:01.863Z\",\"last_seen\":\"2026-10-25T23:50:45.364Z\",\"schema_hash\":\"f3cfd9c60c58aa44\",\"server\":\"context7\"},\"schema_hash\":\"f3cfd9c60c58aa44\",\"server\":\"context7\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "libraryName": "React",
+              "query": "useEffect hook documentation"
+            },
+            "tool_id": "context7/resolve-library-id"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "Available Libraries:\n\n- Title: React\n- Context7-compatible library ID: /reactjs/react.dev\n- Description: React.dev is the official documentation website for React, a JavaScript library for building user interfaces, providing guides, API references, and tutorials.\n- Code Snippets: 4410\n- Source Reputation: High\n- Benchmark Score: 82.26\n- Versions: __branch__v18\n----------\n- Title: React\n- Context7-compatible library ID: /websites/react_dev\n- Description: React is a JavaScript library for building user interfaces. It allows developers to create interactive web and native applications using reusable components, enabling efficient and scalable UI development.\n- Code Snippets: 5159\n- Source Reputation: High\n- Benchmark Score: 82.43\n----------\n- Title: React\n- Context7-compatible library ID: /websites/react_dev_reference\n- Description: React is a JavaScript library for building user interfaces with reusable components, hooks, and APIs for managing state and side effects.\n- Code Snippets: 2673\n- Source Reputation: High\n- Benchmark Score: 83.26\n----------\n- Title: React\n- Context7-compatible library ID: /websites/react_dev_reference_react\n- Description: React is a JavaScript library for building user interfaces using reusable components with reactive data binding and server-side rendering capabilities.\n- Code Snippets: 1039\n- Source Reputation: High\n- Benchmark Score: 86.71\n----------\n- Title: React\n- Context7-compatible library ID: /websites/es_react_dev_reference\n- Description: React is a JavaScript library for building user interfaces with reusable components, hooks, and APIs for creating interactive web applications.\n- Code Snippets: 1286\n- Source Reputation: High\n- Benchmark Score: 83.06",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "language": "JavaScript",
+              "libraryId": "/reactjs/react.dev",
+              "query": "useEffect hook reference: signature, dependencies, cleanup function, usage examples"
+            },
+            "tool_id": "context7/query-docs"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "### useEffect(setup, dependencies?)\n\nSource: https://github.com/reactjs/react.dev/blob/main/src/content/reference/react/useEffect.md\n\nCall useEffect at the top level of your component to declare an Effect. It synchronizes a component with an external system and runs after the component commits changes to the DOM.\n\n```APIDOC\n## useEffect(setup, dependencies?)\n\n### Description\nA React Hook that lets you synchronize a component with an external system.\n\n### Syntax\n```js\nuseEffect(setup, dependencies?)\n```\n\n### Parameters\n- **setup** (`Function`) - Required. The function containing your Effect's logic. It may optionally return a cleanup function. React runs the setup function when the component commits. After commits with changed dependencies, React runs the cleanup function with old values, then runs setup with new values. React also runs cleanup when the component is unmounted.\n- **dependencies** (`Array`) - Optional. The list of all reactive values (props, state, component variables/functions) referenced inside `setup`. React compares each dependency using `Object.is`. If omitted, the Effect re-runs after every commit.\n\n### Returns\n- `undefined`\n\n### Usage Example\n```js\nimport { useState, useEffect } from 'react';\nimport { createConnection } from './chat.js';\n\nfunction ChatRoom({ roomId }) {\n  const [serverUrl, setServerUrl] = useState('https://localhost:1234');\n\n  useEffect(() => {\n    const connection = createConnection(serverUrl, roomId);\n    connection.connect();\n    return () => {\n      connection.disconnect();\n    };\n  }, [serverUrl, roomId]);\n  // ...\n}\n```\n```\n\n--------------------------------\n\n### Connecting to an external system using useEffect\n\nSource: https://github.com/reactjs/react.dev/blob/main/src/content/reference/react/useEffect.md\n\nCall useEffect at the top level of your component to synchronize with an external system. Pass a setup function that initiates the connection and returns a cleanup function to disconnect, along with all reactive dependencies.\n\n```javascript\nimport { useState, useEffect } from 'react';\nimport { createConnection } from './chat.js';\n\nfunction ChatRoom({ roomId }) {\n  const [serverUrl, setServerUrl] = useState('https://localhost:1234');\n\n  useEffect(() => {\n  \tconst connection = createConnection(serverUrl, roomId);\n    connection.connect();\n  \treturn () => {\n      connection.disconnect();\n  \t};\n  }, [serverUrl, roomId]);\n  // ...\n}\n```\n\n--------------------------------\n\n### useEffect > Reference > useEffect(setup, dependencies?) > Parameters\n\nSource: https://github.com/reactjs/react.dev/blob/main/src/content/reference/react/useEffect.md\n\n* `setup`: The function with your Effect's logic. Your setup function may also optionally return a *cleanup* function. When your [component commits](/learn/render-and-commit#step-3-react-commits-changes-to-the-dom), React will run your setup function. After every commit with changed dependencies, React will first run the cleanup function (if you provided it) with the old values, and then run your setup function with the new values. After your component is removed from the DOM, React will run your cleanup function.\n\n* **optional** `dependencies`: The list of all reactive values referenced inside of the `setup` code. Reactive values include props, state, and all the variables and functions declared directly inside your component body. If your linter is [configured for React](/learn/editor-setup#linting), it will verify that every reactive value is correctly specified as a dependency. The list of dependencies must have a constant number of items and be written inline like `[dep1, dep2, dep3]`. React will compare each dependency with its previous value using the [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) comparison. If you omit this argument, your Effect will re-run after every commit of the component. [See the difference between passing an array of dependencies, an empty array, and no dependencies at all.](#examples-dependencies)\n\n--------------------------------\n\n### Define useEffect signature\n\nSource: https://github.com/reactjs/react.dev/blob/main/src/content/reference/react/useEffect.md\n\nSynchronizes a component with an external system by providing a setup function and an optional list of reactive dependencies.\n\n```javascript\nuseEffect(setup, dependencies?)\n```\n\n--------------------------------\n\n### Connect to external chat service with useEffect and cleanup\n\nSource: https://github.com/reactjs/react.dev/blob/main/src/content/reference/react/useEffect.md\n\nCalls useEffect at the top level of a component to initiate a connection and returns a cleanup function to disconnect when dependencies change or the component unmounts.\n\n```javascript\nimport { useState, useEffect } from 'react';\nimport { createConnection } from './chat.js';\n\nfunction ChatRoom({ roomId }) {\n  const [serverUrl, setServerUrl] = useState('https://localhost:1234');\n\n  useEffect(() => {\n    const connection = createConnection(serverUrl, roomId);\n    connection.connect();\n    return () => {\n      connection.disconnect();\n    };\n  }, [serverUrl, roomId]);\n  // ...\n}\n```",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I looked up the library ID first, which returned **`/reactjs/react.dev`** (the official React docs, rated High for source reputation, with 4,410 code snippets). Then I fetched the current `useEffect` reference page (source: `react.dev/src/content/reference/react/useEffect.md`).\n\n**`useEffect(setup, dependencies?)`** is a Hook that keeps a component in sync with an external system. Call it at the top level of your component. It runs after React has applied the component's changes to the page (the DOM).\n\n**Parameters**\n- **`setup`** (required): a function with your Effect's logic. It can return a cleanup function.\n  - React runs `setup` when the component's changes are applied.\n  - When a dependency changes, React first runs the cleanup with the old values, then runs `setup` with the new values.\n  - When the component is removed, React runs the cleanup.\n- **`dependencies`** (optional): an inline array like `[dep1, dep2]` with a fixed number of items. It must list every reactive value used inside `setup`, meaning props, state, and any variables or functions declared in the component body.\n  - React compares each item to its previous value with `Object.is`.\n  - If you leave the array out, the Effect runs again after every update.\n  - A React-configured linter checks that the list is complete.\n\n**Returns:** `undefined`\n\n**Example from the docs:**\n```js\nimport { useState, useEffect } from 'react';\nimport { createConnection } from './chat.js';\n\nfunction ChatRoom({ roomId }) {\n  const [serverUrl, setServerUrl] = useState('https://localhost:1234');\n\n  useEffect(() => {\n    const connection = createConnection(serverUrl, roomId);\n    connection.connect();\n    return () => {\n      connection.disconnect();\n    };\n  }, [serverUrl, roomId]);\n  // ...\n}\n```\n\nBoth tool calls went through without being rejected. A v18 version of the docs is also available (`/reactjs/react.dev/__branch__v18`) if you need it."
+    }
+  ],
+  "final_text": "I looked up the library ID first, which returned **`/reactjs/react.dev`** (the official React docs, rated High for source reputation, with 4,410 code snippets). Then I fetched the current `useEffect` reference page (source: `react.dev/src/content/reference/react/useEffect.md`).\n\n**`useEffect(setup, dependencies?)`** is a Hook that keeps a component in sync with an external system. Call it at the top level of your component. It runs after React has applied the component's changes to the page (the DOM).\n\n**Parameters**\n- **`setup`** (required): a function with your Effect's logic. It can return a cleanup function.\n  - React runs `setup` when the component's changes are applied.\n  - When a dependency changes, React first runs the cleanup with the old values, then runs `setup` with the new values.\n  - When the component is removed, React runs the cleanup.\n- **`dependencies`** (optional): an inline array like `[dep1, dep2]` with a fixed number of items. It must list every reactive value used inside `setup`, meaning props, state, and any variables or functions declared in the component body.\n  - React compares each item to its previous value with `Object.is`.\n  - If you leave the array out, the Effect runs again after every update.\n  - A React-configured linter checks that the list is complete.\n\n**Returns:** `undefined`\n\n**Example from the docs:**\n```js\nimport { useState, useEffect } from 'react';\nimport { createConnection } from './chat.js';\n\nfunction ChatRoom({ roomId }) {\n  const [serverUrl, setServerUrl] = useState('https://localhost:1234');\n\n  useEffect(() => {\n    const connection = createConnection(serverUrl, roomId);\n    connection.connect();\n    return () => {\n      connection.disconnect();\n    };\n  }, [serverUrl, roomId]);\n  // ...\n}\n```\n\nBoth tool calls went through without being rejected. A v18 version of the docs is also available (`/reactjs/react.dev/__branch__v18`) if you need it.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "context7/resolve-library-id"
+    },
+    {
+      "outcome": "ok",
+      "tool": "context7/query-docs"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 5,
+    "input_tokens": 18207,
+    "output_tokens": 1123,
+    "cache_read_tokens": 11525,
+    "cache_write_tokens": 6670,
+    "tool_schema_tokens_per_request": 951,
+    "tool_schema_tokens_total": 4755,
+    "invocations": 2,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 1,
+    "discovery_latency_ms_mean": 7.9048,
+    "first_pick_correct": true,
+    "wall_ms": 19107.6912,
+    "cost_usd": 0.058163
+  }
+}

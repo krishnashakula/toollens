@@ -1,0 +1,76 @@
+{
+  "task": "paypal-invoice",
+  "arm": "native",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Create a PayPal invoice for $250 to client@example.com for 'Consulting - October'.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "currency_code": "USD",
+            "items": [
+              {
+                "name": "Consulting - October",
+                "quantity": "1",
+                "unit_amount": {
+                  "currency_code": "USD",
+                  "value": "250.00"
+                }
+              }
+            ],
+            "primary_recipients": [
+              {
+                "billing_info": {
+                  "email_address": "client@example.com"
+                }
+              }
+            ]
+          },
+          "name": "paypal__create_invoice"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"ok\":false,\"status\":401,\"code\":\"PAYPAL_API_HTTP_ERROR\",\"message\":\"Token signature verification failed\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "paypal__create_invoice"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I couldn't create the invoice. PayPal rejected the request with **401 (PAYPAL_API_HTTP_ERROR): \"Token signature verification failed.\"** No invoice was created, so there's no invoice ID.\n\nThis is a login problem: PayPal didn't accept the credentials my PayPal tools use. The invoice details weren't the cause. Someone with access to Acme's PayPal setup needs to check or renew those credentials, for example by refreshing an expired or wrong token.\n\nThis is what I sent:\n- **Currency:** USD\n- **Recipient:** client@example.com\n- **Line item:** \"Consulting - October\", quantity 1, $250.00\n\nOnce the credentials are fixed, I can submit it again. It will be created as a draft, and I can then send it to client@example.com if you want."
+    }
+  ],
+  "final_text": "I couldn't create the invoice. PayPal rejected the request with **401 (PAYPAL_API_HTTP_ERROR): \"Token signature verification failed.\"** No invoice was created, so there's no invoice ID.\n\nThis is a login problem: PayPal didn't accept the credentials my PayPal tools use. The invoice details weren't the cause. Someone with access to Acme's PayPal setup needs to check or renew those credentials, for example by refreshing an expired or wrong token.\n\nThis is what I sent:\n- **Currency:** USD\n- **Recipient:** client@example.com\n- **Line item:** \"Consulting - October\", quantity 1, $250.00\n\nOnce the credentials are fixed, I can submit it again. It will be created as a draft, and I can then send it to client@example.com if you want.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "paypal/create_invoice"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 2,
+    "input_tokens": 12808,
+    "output_tokens": 518,
+    "cache_read_tokens": 1562,
+    "cache_write_tokens": 6124,
+    "tool_schema_tokens_per_request": 643,
+    "tool_schema_tokens_total": 1286,
+    "invocations": 1,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 0,
+    "discovery_latency_ms_mean": 0.0,
+    "first_pick_correct": true,
+    "wall_ms": 73829.4681,
+    "cost_usd": 0.0617804
+  }
+}

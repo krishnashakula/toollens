@@ -1,0 +1,319 @@
+{
+  "task": "payworker-rollback-cause",
+  "arm": "lens",
+  "size": 30,
+  "model": "claude-opus-5-5",
+  "prompt": "The latest payments-worker deployment was rolled back automatically. Which code change caused it, and who wrote it?",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "find latest deployment of a service and its rollback, the commit/PR it contained and author"
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":30,\"tools\":[{\"id\":\"deploy/rollback\",\"role\":\"match\",\"summary\":\"Roll a service back to an earlier successful deployment\",\"why\":\"matches deploy, servic, rollback\"},{\"id\":\"deploy/list_deployments\",\"role\":\"dependency\",\"summary\":\"List recent production deployments of a service, newest first, with version, commit and status\",\"why\":\"provides `deployment_id` that deploy/rollback requires\"},{\"id\":\"deploy/search\",\"role\":\"dependency\",\"summary\":\"Search the service registry by service name, team or repository\",\"why\":\"provides `service_id` that deploy/list_deployments requires\"},{\"id\":\"deploy/get_status\",\"role\":\"match\",\"summary\":\"Get the rollout status of a service: the version currently serving traffic and the outcome of the latest deployment attempt\",\"why\":\"matches latest, deploy, servic\"},{\"id\":\"vcs/get_commit\",\"role\":\"match\",\"summary\":\"Get a commit's message, author, pull request, changed files and diff\",\"why\":\"matches commit, author\"},{\"id\":\"vcs/search\",\"role\":\"dependency\",\"summary\":\"Search commit messages, optionally within one repository\",\"why\":\"provides `commit_sha` that vcs/get_commit requires\"},{\"id\":\"vcs/compare_commits\",\"role\":\"dependency\",\"summary\":\"List the commits and changed files between two commits of a repository\",\"why\":\"can use `repo` returned by vcs/get_commit\"},{\"id\":\"vcs/get_file\",\"role\":\"dependency\",\"summary\":\"Read a file from a repository at a given ref\",\"why\":\"can use `repo` returned by vcs/get_commit\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "query": "payments-worker"
+            },
+            "tool_id": "deploy/search"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"services\":[{\"name\":\"payments-worker\",\"repo\":\"acme/payments-worker\",\"service_id\":\"svc-payworker\",\"team\":\"payments\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "deploy/list_deployments"
+          },
+          "name": "inspect_tool"
+        },
+        {
+          "input": {
+            "tool_id": "deploy/get_status"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"readOnlyHint\":true},\"description\":\"List recent production deployments of a service, newest first, with version, commit and status.\",\"id\":\"deploy/list_deployments\",\"input_schema\":{\"additionalProperties\":false,\"properties\":{\"limit\":{\"maximum\":20,\"minimum\":1,\"type\":\"integer\"},\"service_id\":{\"description\":\"Service id such as svc-checkout.\",\"type\":\"string\"}},\"required\":[\"service_id\"],\"type\":\"object\"},\"name\":\"list_deployments\",\"output_schema\":{\"properties\":{\"deployments\":{\"items\":{\"properties\":{\"commit_sha\":{\"type\":\"string\"},\"deployment_id\":{\"type\":\"string\"},\"environment\":{\"type\":\"string\"},\"failure_reason\":{\"type\":\"string\"},\"previous_commit_sha\":{\"type\":\"string\"},\"service_id\":{\"type\":\"string\"},\"started_at\":{\"type\":\"string\"},\"status\":{\"type\":\"string\"},\"version\":{\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"toollens.exe\",\"first_seen\":\"2026-10-25T21:29:32.558Z\",\"last_seen\":\"2026-10-25T21:29:32.558Z\",\"schema_hash\":\"0e80bca7d0982b23\",\"server\":\"deploy\"},\"schema_hash\":\"0e80bca7d0982b23\",\"server\":\"deploy\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"readOnlyHint\":true},\"description\":\"Get the rollout status of a service: the version currently serving traffic and the outcome of the latest deployment attempt.\",\"id\":\"deploy/get_status\",\"input_schema\":{\"additionalProperties\":false,\"properties\":{\"service_id\":{\"description\":\"Service id such as svc-checkout.\",\"type\":\"string\"}},\"required\":[\"service_id\"],\"type\":\"object\"},\"name\":\"get_status\",\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"toollens.exe\",\"first_seen\":\"2026-10-25T21:29:32.558Z\",\"last_seen\":\"2026-10-25T21:29:32.558Z\",\"schema_hash\":\"e5a7ae9475bfc1ae\",\"server\":\"deploy\"},\"schema_hash\":\"e5a7ae9475bfc1ae\",\"server\":\"deploy\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "limit": 5,
+              "service_id": "svc-payworker"
+            },
+            "tool_id": "deploy/list_deployments"
+          },
+          "name": "invoke_tool"
+        },
+        {
+          "input": {
+            "arguments": {
+              "service_id": "svc-payworker"
+            },
+            "tool_id": "deploy/get_status"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"deployments\":[{\"commit_sha\":\"5ad0b3e\",\"deployment_id\":\"dep-4815\",\"environment\":\"production\",\"previous_commit_sha\":\"3e1f2d0\",\"service_id\":\"svc-payworker\",\"started_at\":\"2026-10-23T16:40:27Z\",\"status\":\"rolled_back\",\"triggered_by\":\"sam.r\",\"version\":\"v1.9.3\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "content": "{\"latest_attempt\":{\"deployment_id\":\"dep-4815\",\"status\":\"rolled_back\"},\"service_id\":\"svc-payworker\",\"serving\":null}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "vcs/compare_commits"
+          },
+          "name": "inspect_tool"
+        },
+        {
+          "input": {
+            "tool_id": "vcs/get_commit"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"readOnlyHint\":true},\"description\":\"List the commits and changed files between two commits of a repository.\",\"id\":\"vcs/compare_commits\",\"input_schema\":{\"additionalProperties\":false,\"properties\":{\"base_sha\":{\"description\":\"Older commit.\",\"type\":\"string\"},\"head_sha\":{\"description\":\"Newer commit.\",\"type\":\"string\"},\"repo\":{\"description\":\"Repository.\",\"type\":\"string\"}},\"required\":[\"repo\",\"base_sha\",\"head_sha\"],\"type\":\"object\"},\"name\":\"compare_commits\",\"output_schema\":{\"properties\":{\"commits\":{\"items\":{\"properties\":{\"author\":{\"type\":\"string\"},\"commit_sha\":{\"type\":\"string\"},\"diff\":{\"type\":\"string\"},\"files\":{\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"message\":{\"type\":\"string\"},\"pull_request\":{\"type\":\"integer\"},\"repo\":{\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"toollens.exe\",\"first_seen\":\"2026-10-25T21:29:32.558Z\",\"last_seen\":\"2026-10-25T21:29:32.558Z\",\"schema_hash\":\"06523e5891a72ba9\",\"server\":\"vcs\"},\"schema_hash\":\"06523e5891a72ba9\",\"server\":\"vcs\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"readOnlyHint\":true},\"description\":\"Get a commit's message, author, pull request, changed files and diff.\",\"id\":\"vcs/get_commit\",\"input_schema\":{\"additionalProperties\":false,\"properties\":{\"commit_sha\":{\"description\":\"Commit sha (7+ hex chars).\",\"type\":\"string\"}},\"required\":[\"commit_sha\"],\"type\":\"object\"},\"name\":\"get_commit\",\"output_schema\":{\"properties\":{\"author\":{\"type\":\"string\"},\"commit_sha\":{\"type\":\"string\"},\"diff\":{\"type\":\"string\"},\"files\":{\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"message\":{\"type\":\"string\"},\"pull_request\":{\"type\":\"integer\"},\"repo\":{\"type\":\"string\"}},\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"toollens.exe\",\"first_seen\":\"2026-10-25T21:29:32.558Z\",\"last_seen\":\"2026-10-25T21:29:32.558Z\",\"schema_hash\":\"006a3aaa9c95808b\",\"server\":\"vcs\"},\"schema_hash\":\"006a3aaa9c95808b\",\"server\":\"vcs\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "base_sha": "3e1f2d0",
+              "head_sha": "5ad0b3e",
+              "repo": "acme/payments-worker"
+            },
+            "tool_id": "vcs/compare_commits"
+          },
+          "name": "invoke_tool"
+        },
+        {
+          "input": {
+            "arguments": {
+              "commit_sha": "5ad0b3e"
+            },
+            "tool_id": "vcs/get_commit"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "cannot compare 3e1f2d0..5ad0b3e in acme/payments-worker",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "content": "{\"author\":\"sam.r\",\"commit_sha\":\"5ad0b3e\",\"date\":\"2026-10-23T15:55:00Z\",\"diff\":\"src/ledger/client.rs: - timeout: Duration::from_secs(2) + timeout: Duration::from_millis(200)\",\"files\":[\"src/ledger/client.rs\"],\"message\":\"Lower ledger client timeout from 2s to 200ms\",\"pull_request\":412,\"repo\":\"acme/payments-worker\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "why a deployment was rolled back: failure reason, health check, alerts, incidents, logs"
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":30,\"tools\":[{\"id\":\"deploy/get_deployment\",\"role\":\"match\",\"summary\":\"Get one deployment's details, including the failure reason when it failed or was rolled back\",\"why\":\"matches deploy, roll, back, fail, reason\"},{\"id\":\"deploy/list_deployments\",\"role\":\"dependency\",\"summary\":\"List recent production deployments of a service, newest first, with version, commit and status\",\"why\":\"provides `deployment_id` that deploy/get_deployment requires\"},{\"id\":\"deploy/search\",\"role\":\"dependency\",\"summary\":\"Search the service registry by service name, team or repository\",\"why\":\"provides `service_id` that deploy/list_deployments requires\"},{\"id\":\"vcs/get_commit\",\"role\":\"dependency\",\"summary\":\"Get a commit's message, author, pull request, changed files and diff\",\"why\":\"can use `commit_sha` returned by deploy/get_deployment\"},{\"id\":\"observability/get_logs\",\"role\":\"dependency\",\"summary\":\"Fetch log lines for a service, optionally for a single deployment and minimum level\",\"why\":\"can use `deployment_id` returned by deploy/get_deployment\"},{\"id\":\"deploy/rollback\",\"role\":\"match\",\"summary\":\"Roll a service back to an earlier successful deployment\",\"why\":\"matches deploy, roll, back\"},{\"id\":\"observability/list_alerts\",\"role\":\"dependency\",\"summary\":\"List monitoring alerts, optionally for one service\",\"why\":\"can use `service_id` returned by observability/get_logs\"},{\"id\":\"observability/search\",\"role\":\"dependency\",\"summary\":\"Full-text search over log messages across all services\",\"why\":\"can use `service_id` returned by observability/get_logs\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "deployment_id": "dep-4815"
+            },
+            "tool_id": "deploy/get_deployment"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"commit_sha\":\"5ad0b3e\",\"deployment_id\":\"dep-4815\",\"environment\":\"production\",\"failure_reason\":\"automatic rollback: error rate above 5% SLO for 10 minutes\",\"previous_commit_sha\":\"3e1f2d0\",\"service_id\":\"svc-payworker\",\"started_at\":\"2026-10-23T16:40:27Z\",\"status\":\"rolled_back\",\"triggered_by\":\"sam.r\",\"version\":\"v1.9.3\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "observability/get_logs"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"readOnlyHint\":true},\"description\":\"Fetch log lines for a service, optionally for a single deployment and minimum level.\",\"id\":\"observability/get_logs\",\"input_schema\":{\"additionalProperties\":false,\"properties\":{\"deployment_id\":{\"description\":\"Only lines from this deployment.\",\"type\":\"string\"},\"level\":{\"enum\":[\"debug\",\"info\",\"warn\",\"error\",\"fatal\"],\"type\":\"string\"},\"limit\":{\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"service_id\":{\"description\":\"Service id such as svc-checkout.\",\"type\":\"string\"}},\"required\":[\"service_id\"],\"type\":\"object\"},\"name\":\"get_logs\",\"output_schema\":{\"properties\":{\"lines\":{\"items\":{\"properties\":{\"deployment_id\":{\"type\":\"string\"},\"level\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"},\"service_id\":{\"type\":\"string\"},\"ts\":{\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"toollens.exe\",\"first_seen\":\"2026-10-25T21:29:32.558Z\",\"last_seen\":\"2026-10-25T21:29:32.558Z\",\"schema_hash\":\"d57c1e0484ef8de6\",\"server\":\"observability\"},\"schema_hash\":\"d57c1e0484ef8de6\",\"server\":\"observability\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "deployment_id": "dep-4815",
+              "level": "error",
+              "limit": 20,
+              "service_id": "svc-payworker"
+            },
+            "tool_id": "observability/get_logs"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"lines\":[{\"deployment_id\":\"dep-4815\",\"level\":\"error\",\"message\":\"ledger-service call timed out after 200ms (retry budget exhausted)\",\"service_id\":\"svc-payworker\",\"ts\":\"2026-10-23T16:44:02Z\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "The rollback was caused by commit **5ad0b3e**, written by **sam.r**. It's PR **#412** in `acme/payments-worker`, titled \"Lower ledger client timeout from 2s to 200ms\".\n\n- **Deployment:** `dep-4815` (v1.9.3, service `svc-payworker`) started 2026-10-23 16:40:27Z. It moved production from commit `3e1f2d0` to `5ad0b3e`, and sam.r also triggered it.\n- **Why it was rolled back:** the error rate stayed above the 5% SLO for 10 minutes, which triggers an automatic rollback.\n- **The code change:** the commit changed only one file, `src/ledger/client.rs`, cutting the ledger client timeout from `Duration::from_secs(2)` to `Duration::from_millis(200)`.\n- **Evidence:** the error logs for `dep-4815` show \"ledger-service call timed out after 200ms (retry budget exhausted)\". That matches the new 200ms timeout exactly.\n\n**What I couldn't check:**\n- I tried to list every commit between `3e1f2d0` and `5ad0b3e`, but the system returned an error (\"cannot compare 3e1f2d0..5ad0b3e\"). So I can't rule out other commits in that range. The log error still points clearly to this timeout change.\n- `deploy/get_status` shows no version currently serving traffic (`serving: null`). That's worth checking."
+    }
+  ],
+  "final_text": "The rollback was caused by commit **5ad0b3e**, written by **sam.r**. It's PR **#412** in `acme/payments-worker`, titled \"Lower ledger client timeout from 2s to 200ms\".\n\n- **Deployment:** `dep-4815` (v1.9.3, service `svc-payworker`) started 2026-10-23 16:40:27Z. It moved production from commit `3e1f2d0` to `5ad0b3e`, and sam.r also triggered it.\n- **Why it was rolled back:** the error rate stayed above the 5% SLO for 10 minutes, which triggers an automatic rollback.\n- **The code change:** the commit changed only one file, `src/ledger/client.rs`, cutting the ledger client timeout from `Duration::from_secs(2)` to `Duration::from_millis(200)`.\n- **Evidence:** the error logs for `dep-4815` show \"ledger-service call timed out after 200ms (retry budget exhausted)\". That matches the new 200ms timeout exactly.\n\n**What I couldn't check:**\n- I tried to list every commit between `3e1f2d0` and `5ad0b3e`, but the system returned an error (\"cannot compare 3e1f2d0..5ad0b3e\"). So I can't rule out other commits in that range. The log error still points clearly to this timeout change.\n- `deploy/get_status` shows no version currently serving traffic (`serving: null`). That's worth checking.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "deploy/search"
+    },
+    {
+      "outcome": "ok",
+      "tool": "deploy/list_deployments"
+    },
+    {
+      "outcome": "ok",
+      "tool": "deploy/get_status"
+    },
+    {
+      "outcome": "tool_error",
+      "tool": "vcs/compare_commits"
+    },
+    {
+      "outcome": "ok",
+      "tool": "vcs/get_commit"
+    },
+    {
+      "outcome": "ok",
+      "tool": "deploy/get_deployment"
+    },
+    {
+      "outcome": "ok",
+      "tool": "observability/get_logs"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 11,
+    "input_tokens": 45937,
+    "output_tokens": 1817,
+    "cache_read_tokens": 39065,
+    "cache_write_tokens": 6848,
+    "tool_schema_tokens_per_request": 950,
+    "tool_schema_tokens_total": 10450,
+    "invocations": 7,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 2,
+    "discovery_latency_ms_mean": 0.07605,
+    "wall_ms": 26429.8521,
+    "cost_usd": 0.078489
+  }
+}

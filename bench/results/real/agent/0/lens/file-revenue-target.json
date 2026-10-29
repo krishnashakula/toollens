@@ -1,0 +1,81 @@
+{
+  "task": "file-revenue-target",
+  "arm": "lens",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Read the file /workspace/notes/q3-plan.md and tell me the revenue target.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "read a file from the filesystem",
+            "limit": 5
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"filesystem/read_file\",\"role\":\"match\",\"summary\":\"Read the complete contents of a file as text\",\"why\":\"matches read, file, filesystem\"},{\"id\":\"filesystem/read_media_file\",\"role\":\"match\",\"summary\":\"Read a file and return it as a base64-encoded content block with its MIME type\",\"why\":\"matches read, file, filesystem\"},{\"id\":\"filesystem/read_multiple_files\",\"role\":\"match\",\"summary\":\"Read the contents of multiple files simultaneously\",\"why\":\"matches read, file, filesystem\"},{\"id\":\"filesystem/read_text_file\",\"role\":\"match\",\"summary\":\"Read the complete contents of a file from the file system as text\",\"why\":\"matches read, file, filesystem\"},{\"id\":\"filesystem/get_file_info\",\"role\":\"match\",\"summary\":\"Retrieve detailed metadata about a file or directory\",\"why\":\"matches read, file, filesystem\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "path": "/workspace/notes/q3-plan.md"
+            },
+            "tool_id": "filesystem/read_text_file"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"content\":\"Quarterly targets: revenue 4.2M, churn under 3%.\\n\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "The Q3 revenue target is **4.2M**. I got this from `/workspace/notes/q3-plan.md`, which says: \"Quarterly targets: revenue 4.2M, churn under 3%.\" The file doesn't say which currency the target is in."
+    }
+  ],
+  "final_text": "The Q3 revenue target is **4.2M**. I got this from `/workspace/notes/q3-plan.md`, which says: \"Quarterly targets: revenue 4.2M, churn under 3%.\" The file doesn't say which currency the target is in.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "filesystem/read_text_file"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 3,
+    "input_tokens": 4199,
+    "output_tokens": 270,
+    "cache_read_tokens": 2567,
+    "cache_write_tokens": 1624,
+    "tool_schema_tokens_per_request": 951,
+    "tool_schema_tokens_total": 2853,
+    "invocations": 1,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 1,
+    "discovery_latency_ms_mean": 2.6195,
+    "first_pick_correct": true,
+    "wall_ms": 8152.1551,
+    "cost_usd": 0.0140654
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "task": "azure-devops-build-log",
+  "arm": "native",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Get the log of build 4521 in the Azure DevOps project Platform.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "action": "list",
+            "buildId": 4521,
+            "project": "Platform"
+          },
+          "name": "azure-devops__pipelines_build_log"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"error\":\"azure-devops/pipelines_build_log timed out after 30s (cancelled)\",\"outcome\":\"failed\"}",
+      "is_error": true,
+      "kind": "tool",
+      "name": "azure-devops__pipelines_build_log"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "action": "list",
+            "buildId": 4521,
+            "project": "Platform"
+          },
+          "name": "azure-devops__pipelines_build_log"
+        }
+      ],
+      "kind": "assistant",
+      "text": "Retry once."
+    },
+    {
+      "content": "{\"error\":\"azure-devops/pipelines_build_log timed out after 30s (cancelled)\",\"outcome\":\"failed\"}",
+      "is_error": true,
+      "kind": "tool",
+      "name": "azure-devops__pipelines_build_log"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I couldn't get the log for build 4521 in the Platform project. I asked Azure DevOps for the list of logs for that build twice, and both requests timed out after 30 seconds and were cancelled. The request wasn't rejected; the service just didn't respond in time.\n\nBecause the list never came back, I don't have any log IDs, so I couldn't fetch any log text. That means I can't tell you anything about the build's output or whether it passed or failed.\n\nNext steps:\n- Try again in a few minutes, in case Azure DevOps is slow or briefly unavailable.\n- If you already know a log ID for this build, I can ask for just that log, or only some of its lines, which may finish in time.\n- I can pull the build's test results instead. That uses a different tool and may work even though the log tool is timing out."
+    }
+  ],
+  "final_text": "I couldn't get the log for build 4521 in the Platform project. I asked Azure DevOps for the list of logs for that build twice, and both requests timed out after 30 seconds and were cancelled. The request wasn't rejected; the service just didn't respond in time.\n\nBecause the list never came back, I don't have any log IDs, so I couldn't fetch any log text. That means I can't tell you anything about the build's output or whether it passed or failed.\n\nNext steps:\n- Try again in a few minutes, in case Azure DevOps is slow or briefly unavailable.\n- If you already know a log ID for this build, I can ask for just that log, or only some of its lines, which may finish in time.\n- I can pull the build's test results instead. That uses a different tool and may work even though the log tool is timing out.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "failed",
+      "tool": "azure-devops/pipelines_build_log"
+    },
+    {
+      "outcome": "failed",
+      "tool": "azure-devops/pipelines_build_log"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 3,
+    "input_tokens": 9142,
+    "output_tokens": 547,
+    "cache_read_tokens": 4332,
+    "cache_write_tokens": 2948,
+    "tool_schema_tokens_per_request": 643,
+    "tool_schema_tokens_total": 1929,
+    "invocations": 2,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 0,
+    "discovery_latency_ms_mean": 0.0,
+    "first_pick_correct": true,
+    "wall_ms": 686084.4826,
+    "cost_usd": 0.0339944
+  }
+}

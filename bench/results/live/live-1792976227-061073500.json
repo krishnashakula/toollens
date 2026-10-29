@@ -1,0 +1,111 @@
+{
+  "arm": "lens",
+  "done": true,
+  "events": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "delete a DigitalOcean droplet by name"
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "elapsed_ms": 2185.0,
+      "input_tokens": 1082,
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"digitalocean/docs-find-for-service\",\"role\":\"match\",\"summary\":\"Given a DigitalOcean service name (e.g., \\\"droplets\\\", \\\"managed kubernetes\\\", \\\"app platform\\\"), return a list of relevant documentation pages wi…\",\"why\":\"matches digital, ocean, droplet, name\"},{\"id\":\"digitalocean/docs-get-quickstart\",\"role\":\"match\",\"summary\":\"Get the quickstart or getting-started guide for a DigitalOcean service\",\"why\":\"matches digital, ocean, droplet, name\"},{\"id\":\"digitalocean/functions-delete-trigger\",\"role\":\"match\",\"summary\":\"Delete a trigger from a DigitalOcean Functions namespace\",\"why\":\"matches delet, digital, ocean, name\"},{\"id\":\"digitalocean/functions-delete-action\",\"role\":\"match\",\"summary\":\"Delete an action from a DigitalOcean Functions namespace\",\"why\":\"matches delet, digital, ocean, name\"},{\"id\":\"digitalocean/marketplace-1-click-list\",\"role\":\"match\",\"summary\":\"List available 1-click applications from the DigitalOcean marketplace\",\"why\":\"matches digital, ocean, droplet\"},{\"id\":\"digitalocean/functions-delete-package\",\"role\":\"match\",\"summary\":\"Delete a package from a DigitalOcean Functions namespace\",\"why\":\"matches delet, digital, ocean, name\"},{\"id\":\"digitalocean/doks-delete-cluster\",\"role\":\"match\",\"summary\":\"Delete a DigitalOcean Kubernetes cluster\",\"why\":\"matches delet, digital, ocean\"},{\"id\":\"digitalocean/docs-get-page\",\"role\":\"match\",\"summary\":\"Fetch the full markdown content of a specific DigitalOcean docs page\",\"why\":\"matches digital, ocean, droplet\"}]}",
+      "elapsed_ms": 2192.0,
+      "gateway": {
+        "kind": "discover",
+        "latency_ms": 4.156499999999999,
+        "outcome": "ok",
+        "target": "delete a DigitalOcean droplet by name"
+      },
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "droplet delete destroy; list droplets"
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "elapsed_ms": 5879.0,
+      "input_tokens": 2843,
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"digitalocean/droplet-delete\",\"role\":\"match\",\"summary\":\"Delete a droplet\",\"why\":\"matches droplet, delet, droplet\"},{\"id\":\"digitalocean/harness-runtime-destroy-session\",\"role\":\"match\",\"summary\":\"Tear down the sandbox and permanently mark the session DESTROYED\",\"why\":\"matches destroy\"},{\"id\":\"redis-cloud/xgroup_destroy\",\"role\":\"match\",\"summary\":\"Destroy a consumer group for a Redis stream.\\n\\nArgs:\\n    key (str): The stream key.\\n    group_name (str): The consumer group name.\\n\\nReturns:\\n…\",\"why\":\"matches destroy\"},{\"id\":\"aws-iam/add_user_to_group\",\"role\":\"dependency\",\"summary\":\"Add a user to an IAM group.\\n\\nArgs:\\n    group_name: The name of the IAM group\\n    user_name: The name of the IAM user\\n    confirmed: Must be …\",\"why\":\"provides `group_name` that redis-cloud/xgroup_destroy requires\"},{\"id\":\"aws-iam/attach_group_policy\",\"role\":\"dependency\",\"summary\":\"Attach a managed policy to an IAM group.\\n\\nArgs:\\n    group_name: The name of the IAM group\\n    policy_arn: The ARN of the policy to attach\\n  …\",\"why\":\"provides `group_name` that aws-iam/add_user_to_group requires\"},{\"id\":\"aws-iam/list_role_policies\",\"role\":\"dependency\",\"summary\":\"List all inline policies for an IAM role.\\n\\nThis tool retrieves the names of all inline policies attached to the specified role.\\n\\nArgs:\\n    r…\",\"why\":\"provides `user_name` that aws-iam/add_user_to_group requires\"},{\"id\":\"digitalocean/harness-runtime-list-sessions\",\"role\":\"match\",\"summary\":\"List hosted agent sessions for the team\",\"why\":\"matches destroy, list\"},{\"id\":\"digitalocean/harness-runtime-list-config-sessions\",\"role\":\"match\",\"summary\":\"List all sessions that were created from a specific agent config\",\"why\":\"matches destroy, list\"}]}",
+      "elapsed_ms": 5884.0,
+      "gateway": {
+        "kind": "discover",
+        "latency_ms": 3.5597,
+        "outcome": "ok",
+        "target": "droplet delete destroy; list droplets"
+      },
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "digitalocean/droplet-delete"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "elapsed_ms": 7778.0,
+      "input_tokens": 5389,
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":true,\"idempotentHint\":true,\"openWorldHint\":false,\"readOnlyHint\":false},\"description\":\"Delete a droplet\",\"id\":\"digitalocean/droplet-delete\",\"input_schema\":{\"properties\":{\"ID\":{\"description\":\"ID of the droplet to delete\",\"type\":\"number\"}},\"required\":[\"ID\"],\"type\":\"object\"},\"name\":\"droplet-delete\",\"permission\":{\"decision\":\"deny\",\"rule\":\"denyDestructive (server marks this tool destructive)\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache -e DIGITALOCEAN_API_TOKEN=dummy-not-a-real-credential toollens-sandbox:1 npx -y @digitalocean/mcp@1.6.1\",\"first_seen\":\"2026-10-25T23:30:27.229Z\",\"last_seen\":\"2026-10-26T00:56:39.952Z\",\"schema_hash\":\"2318cf811225c4a1\",\"server\":\"digitalocean\"},\"schema_hash\":\"2318cf811225c4a1\",\"server\":\"digitalocean\"}",
+      "elapsed_ms": 7779.0,
+      "gateway": {
+        "kind": "inspect",
+        "latency_ms": 0.1037,
+        "outcome": "ok",
+        "target": "digitalocean/droplet-delete"
+      },
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [],
+      "elapsed_ms": 11659.0,
+      "input_tokens": 8424,
+      "kind": "assistant",
+      "text": "I didn't delete web-old-01. The gateway's permission policy blocks the only tool that can do it.\n\n- **Tool:** `digitalocean/droplet-delete`, which takes a numeric droplet ID.\n- **Reason it's blocked:** the policy rule `denyDestructive` blocks any tool that its server marks as destructive, and this one is. The gateway would reject the call, so I didn't send it. I also didn't look up the droplet's ID, since I couldn't use it.\n\nTo get this done, either ask a gateway admin to allow `digitalocean/droplet-delete` for this task, or delete web-old-01 yourself in the DigitalOcean control panel or with `doctl compute droplet delete web-old-01`."
+    },
+    {
+      "elapsed_ms": 11659.0,
+      "error": null,
+      "input_tokens": 8424,
+      "kind": "final",
+      "output_tokens": 469,
+      "requests": 4,
+      "stop_reason": "end_turn",
+      "text": "I didn't delete web-old-01. The gateway's permission policy blocks the only tool that can do it.\n\n- **Tool:** `digitalocean/droplet-delete`, which takes a numeric droplet ID.\n- **Reason it's blocked:** the policy rule `denyDestructive` blocks any tool that its server marks as destructive, and this one is. The gateway would reject the call, so I didn't send it. I also didn't look up the droplet's ID, since I couldn't use it.\n\nTo get this done, either ask a gateway admin to allow `digitalocean/droplet-delete` for this task, or delete web-old-01 yourself in the DigitalOcean control panel or with `doctl compute droplet delete web-old-01`."
+    }
+  ],
+  "id": "live-1792976227-061073500",
+  "model": "claude-opus-5-5",
+  "prompt": "Delete the DigitalOcean droplet web-old-01.",
+  "schema_tokens_per_request": 951,
+  "started_unix": 1792976227,
+  "tool_defs_sent": 3,
+  "tools_in_catalog": 2468
+}

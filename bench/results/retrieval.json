@@ -1,0 +1,3303 @@
+{
+  "generated_unix": 1792971958,
+  "limit": 8,
+  "reps": 5,
+  "sizes": [
+    {
+      "modes": [
+        {
+          "complete_rate": 0.625,
+          "deps": false,
+          "latency_p50_ms": 0.023,
+          "latency_p95_ms": 0.0446,
+          "mode": "keyword",
+          "recall_mean": 0.8645833333333334,
+          "tasks": [
+            {
+              "missing": [
+                "deploy/search",
+                "vcs/get_commit"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "vcs/search",
+                "deploy/list_deployments",
+                "deploy/get_deployment",
+                "deploy/get_status",
+                "deploy/rollback",
+                "vcs/get_status",
+                "vcs/compare_commits",
+                "observability/get_logs"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/get_oncall",
+                "deploy/search"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/query_metric",
+                "observability/search",
+                "vcs/search",
+                "bizops/search",
+                "bizops/search_contacts",
+                "bizops/search_leads",
+                "deploy/search",
+                "vcs/get_status"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.6666666666666667,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/get_status",
+                "observability/get_oncall",
+                "deploy/list_deployments",
+                "deploy/list_environments",
+                "observability/get_logs",
+                "vcs/get_commit"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "vcs/get_status",
+                "vcs/get_file",
+                "vcs/search",
+                "deploy/get_status",
+                "observability/get_status",
+                "deploy/search",
+                "vcs/list_pull_requests",
+                "vcs/compare_commits"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "vcs/search",
+                "deploy/list_deployments",
+                "deploy/search",
+                "bizops/search",
+                "bizops/search_contacts",
+                "bizops/search_leads"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/list_alerts",
+                "deploy/search",
+                "bizops/create_contact",
+                "bizops/create_lead",
+                "observability/get_oncall",
+                "deploy/rollback",
+                "observability/get_status",
+                "observability/search"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.75,
+              "returned": [
+                "vcs/list_pull_requests",
+                "vcs/get_commit",
+                "deploy/get_status",
+                "deploy/rollback",
+                "vcs/get_status",
+                "deploy/list_deployments",
+                "vcs/search",
+                "observability/get_logs"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.875,
+          "deps": true,
+          "latency_p50_ms": 0.028,
+          "latency_p95_ms": 0.0463,
+          "mode": "keyword",
+          "recall_mean": 0.96875,
+          "tasks": [
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "vcs/search",
+                "vcs/get_commit",
+                "vcs/get_status",
+                "deploy/list_deployments",
+                "deploy/search",
+                "observability/get_logs",
+                "deploy/get_deployment",
+                "deploy/get_status"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/get_oncall",
+                "deploy/search",
+                "vcs/compare_commits",
+                "vcs/get_file"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/query_metric",
+                "deploy/search",
+                "observability/search",
+                "observability/get_logs",
+                "deploy/get_deployment",
+                "vcs/search",
+                "vcs/get_commit",
+                "bizops/search"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "deploy/get_status",
+                "observability/get_oncall",
+                "deploy/list_environments"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "vcs/get_status",
+                "deploy/search",
+                "vcs/get_file",
+                "vcs/search",
+                "vcs/get_commit",
+                "vcs/list_pull_requests",
+                "deploy/get_status",
+                "observability/get_status"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "vcs/search",
+                "bizops/search",
+                "bizops/search_contacts"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/list_alerts",
+                "deploy/search",
+                "observability/get_oncall",
+                "vcs/compare_commits",
+                "bizops/create_contact",
+                "bizops/get_contact",
+                "bizops/update_contact",
+                "bizops/create_lead"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [
+                "deploy/list_deployments"
+              ],
+              "recall": 0.75,
+              "returned": [
+                "vcs/list_pull_requests",
+                "deploy/search",
+                "vcs/get_commit",
+                "vcs/search",
+                "vcs/get_status",
+                "vcs/compare_commits",
+                "deploy/get_status",
+                "deploy/rollback"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.875,
+          "deps": false,
+          "latency_p50_ms": 47.7288,
+          "latency_p95_ms": 69.6492,
+          "mode": "semantic",
+          "recall_mean": 0.96875,
+          "tasks": [
+            {
+              "missing": [
+                "observability/get_logs"
+              ],
+              "recall": 0.75,
+              "returned": [
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/get_status",
+                "deploy/search",
+                "deploy/rollback",
+                "vcs/get_commit",
+                "vcs/search",
+                "deploy/list_environments"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/get_oncall",
+                "deploy/search",
+                "observability/query_metric",
+                "vcs/get_commit",
+                "observability/get_logs",
+                "observability/search",
+                "observability/get_status",
+                "deploy/get_status"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/query_metric",
+                "observability/search",
+                "bizops/list_leads",
+                "observability/get_logs",
+                "vcs/list_pull_requests",
+                "bizops/search",
+                "deploy/search",
+                "bizops/get_lead"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/get_status",
+                "deploy/search",
+                "vcs/get_commit",
+                "observability/query_metric",
+                "deploy/list_environments"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "vcs/get_status",
+                "deploy/search",
+                "bizops/search",
+                "bizops/list_leads",
+                "deploy/get_status",
+                "vcs/search",
+                "bizops/update_contact",
+                "vcs/list_pull_requests"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/search",
+                "deploy/list_deployments",
+                "deploy/get_deployment",
+                "deploy/get_status",
+                "vcs/search",
+                "bizops/search",
+                "bizops/list_leads"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/list_alerts",
+                "bizops/get_status",
+                "observability/query_metric",
+                "observability/search",
+                "observability/get_status",
+                "deploy/search",
+                "observability/get_logs",
+                "deploy/get_status"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "vcs/list_pull_requests",
+                "deploy/get_status",
+                "vcs/get_commit",
+                "deploy/get_deployment",
+                "deploy/search",
+                "bizops/update_contact",
+                "deploy/list_deployments",
+                "bizops/get_contact"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.875,
+          "deps": true,
+          "latency_p50_ms": 39.1176,
+          "latency_p95_ms": 51.102599999999995,
+          "mode": "semantic",
+          "recall_mean": 0.96875,
+          "tasks": [
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "observability/get_logs",
+                "deploy/get_status",
+                "deploy/rollback",
+                "vcs/search"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/get_oncall",
+                "deploy/search",
+                "vcs/search",
+                "vcs/get_status",
+                "observability/query_metric",
+                "vcs/get_commit",
+                "observability/get_logs",
+                "observability/search"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/query_metric",
+                "deploy/search",
+                "observability/search",
+                "observability/get_logs",
+                "deploy/get_deployment",
+                "bizops/list_leads",
+                "bizops/get_lead",
+                "vcs/list_pull_requests"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "deploy/get_status",
+                "observability/query_metric",
+                "deploy/list_environments"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "vcs/get_status",
+                "deploy/search",
+                "observability/get_oncall",
+                "vcs/search",
+                "bizops/search",
+                "bizops/list_leads",
+                "deploy/get_status",
+                "bizops/update_contact"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/list_deployments",
+                "deploy/search",
+                "observability/get_oncall",
+                "vcs/search",
+                "deploy/get_deployment",
+                "deploy/get_status",
+                "bizops/search"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/list_alerts",
+                "bizops/get_status",
+                "observability/query_metric",
+                "deploy/search",
+                "observability/search",
+                "observability/get_status",
+                "observability/get_logs",
+                "deploy/get_status"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [
+                "deploy/list_deployments"
+              ],
+              "recall": 0.75,
+              "returned": [
+                "vcs/list_pull_requests",
+                "deploy/search",
+                "deploy/get_status",
+                "vcs/get_commit",
+                "vcs/search",
+                "vcs/get_status",
+                "vcs/get_file",
+                "deploy/get_deployment"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.875,
+          "deps": false,
+          "latency_p50_ms": 25.281000000000002,
+          "latency_p95_ms": 41.209,
+          "mode": "hybrid",
+          "recall_mean": 0.96875,
+          "tasks": [
+            {
+              "missing": [
+                "observability/get_logs"
+              ],
+              "recall": 0.75,
+              "returned": [
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/get_status",
+                "vcs/search",
+                "deploy/rollback",
+                "deploy/search",
+                "vcs/get_commit",
+                "vcs/compare_commits"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/get_oncall",
+                "deploy/search",
+                "observability/query_metric",
+                "vcs/get_commit",
+                "observability/get_logs",
+                "observability/search",
+                "observability/get_status",
+                "deploy/get_status"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/query_metric",
+                "observability/search",
+                "bizops/search",
+                "vcs/search",
+                "deploy/search",
+                "bizops/search_leads",
+                "bizops/search_contacts",
+                "vcs/get_status"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/get_status",
+                "deploy/list_deployments",
+                "deploy/list_environments",
+                "vcs/get_commit",
+                "deploy/search",
+                "observability/get_oncall"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "vcs/get_status",
+                "deploy/search",
+                "vcs/search",
+                "deploy/get_status",
+                "vcs/list_pull_requests",
+                "observability/get_status",
+                "observability/query_metric",
+                "vcs/get_file"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/search",
+                "deploy/list_deployments",
+                "vcs/search",
+                "bizops/search",
+                "bizops/search_contacts",
+                "deploy/get_status"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/list_alerts",
+                "deploy/search",
+                "observability/search",
+                "observability/get_status",
+                "observability/query_metric",
+                "observability/get_logs",
+                "deploy/get_status",
+                "bizops/create_contact"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "vcs/list_pull_requests",
+                "deploy/get_status",
+                "vcs/get_commit",
+                "deploy/list_deployments",
+                "deploy/get_deployment",
+                "deploy/rollback",
+                "deploy/search",
+                "observability/get_logs"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        },
+        {
+          "complete_rate": 1.0,
+          "deps": true,
+          "latency_p50_ms": 22.16,
+          "latency_p95_ms": 37.0177,
+          "mode": "hybrid",
+          "recall_mean": 1.0,
+          "tasks": [
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "observability/get_logs",
+                "deploy/get_status",
+                "vcs/search",
+                "deploy/rollback"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/get_oncall",
+                "deploy/search",
+                "vcs/search",
+                "vcs/get_status",
+                "observability/query_metric",
+                "vcs/get_commit",
+                "observability/get_logs",
+                "observability/search"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/query_metric",
+                "deploy/search",
+                "observability/search",
+                "observability/get_logs",
+                "deploy/get_deployment",
+                "bizops/search",
+                "vcs/search",
+                "bizops/search_leads"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "deploy/get_status",
+                "deploy/list_environments",
+                "observability/get_oncall"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "vcs/get_status",
+                "deploy/search",
+                "observability/get_oncall",
+                "vcs/search",
+                "vcs/get_commit",
+                "deploy/get_status",
+                "vcs/list_pull_requests",
+                "observability/get_status"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "vcs/search",
+                "bizops/search",
+                "bizops/search_contacts"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/list_alerts",
+                "deploy/search",
+                "observability/get_oncall",
+                "vcs/get_status",
+                "observability/search",
+                "observability/get_logs",
+                "deploy/get_deployment",
+                "observability/get_status"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "vcs/list_pull_requests",
+                "deploy/search",
+                "deploy/get_status",
+                "vcs/get_commit",
+                "vcs/search",
+                "vcs/get_status",
+                "vcs/compare_commits",
+                "deploy/list_deployments"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        }
+      ],
+      "semantic_error": null,
+      "size": 30,
+      "tools": 30
+    },
+    {
+      "modes": [
+        {
+          "complete_rate": 0.5,
+          "deps": false,
+          "latency_p50_ms": 0.0882,
+          "latency_p95_ms": 0.1556,
+          "mode": "keyword",
+          "recall_mean": 0.8020833333333334,
+          "tasks": [
+            {
+              "missing": [
+                "deploy/search",
+                "vcs/get_commit"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "vcs/search",
+                "deploy/list_deployments",
+                "deploy/get_deployment",
+                "deploy/get_status",
+                "deploy/rollback",
+                "vcs/get_status",
+                "observability/get_logs",
+                "vcs/compare_commits"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/get_oncall",
+                "deploy/search"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/query_metric",
+                "observability/search",
+                "vcs/search",
+                "bizops/search",
+                "vcs/get_status",
+                "bizops/search_contacts",
+                "bizops/search_employees",
+                "bizops/search_invoices"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.6666666666666667,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/get_status",
+                "deploy/list_deployments",
+                "deploy/list_environments",
+                "observability/get_oncall",
+                "observability/get_logs",
+                "vcs/get_commit"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "vcs/get_status",
+                "vcs/get_file",
+                "vcs/search",
+                "deploy/get_status",
+                "observability/get_status",
+                "deploy/search",
+                "vcs/list_pull_requests",
+                "vcs/compare_commits"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "vcs/search",
+                "deploy/search",
+                "deploy/list_environments",
+                "observability/get_logs",
+                "bizops/search"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/list_alerts",
+                "bizops/create_service_charge",
+                "deploy/search",
+                "bizops/archive_service_charge",
+                "deploy/rollback",
+                "observability/get_status",
+                "observability/search",
+                "deploy/list_deployments"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.75,
+              "returned": [
+                "vcs/list_pull_requests",
+                "deploy/get_status",
+                "vcs/get_commit",
+                "deploy/rollback",
+                "deploy/list_deployments",
+                "vcs/get_status",
+                "observability/get_logs",
+                "vcs/search"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.75,
+          "deps": true,
+          "latency_p50_ms": 0.0875,
+          "latency_p95_ms": 0.1483,
+          "mode": "keyword",
+          "recall_mean": 0.90625,
+          "tasks": [
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "vcs/search",
+                "vcs/get_commit",
+                "vcs/get_status",
+                "deploy/list_deployments",
+                "deploy/search",
+                "observability/get_logs",
+                "deploy/get_deployment",
+                "deploy/get_status"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/get_oncall",
+                "deploy/search",
+                "vcs/compare_commits",
+                "vcs/get_file"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/query_metric",
+                "bizops/search_invoices",
+                "observability/search",
+                "observability/get_logs",
+                "deploy/get_deployment",
+                "vcs/search",
+                "vcs/get_commit",
+                "bizops/search"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "deploy/get_status",
+                "deploy/list_environments",
+                "observability/get_oncall"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "vcs/get_status",
+                "deploy/search",
+                "vcs/get_file",
+                "vcs/search",
+                "vcs/get_commit",
+                "vcs/list_pull_requests",
+                "deploy/get_status",
+                "observability/get_status"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "vcs/search",
+                "deploy/list_environments",
+                "observability/get_logs"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/list_alerts",
+                "bizops/create_service_charge",
+                "bizops/archive_service_charge",
+                "bizops/update_service_charge",
+                "deploy/search",
+                "observability/get_oncall",
+                "vcs/compare_commits",
+                "deploy/rollback"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [
+                "deploy/list_deployments"
+              ],
+              "recall": 0.75,
+              "returned": [
+                "vcs/list_pull_requests",
+                "deploy/search",
+                "deploy/get_status",
+                "vcs/get_commit",
+                "vcs/search",
+                "vcs/get_status",
+                "vcs/compare_commits",
+                "deploy/rollback"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.5,
+          "deps": false,
+          "latency_p50_ms": 25.668400000000002,
+          "latency_p95_ms": 38.1653,
+          "mode": "semantic",
+          "recall_mean": 0.8020833333333334,
+          "tasks": [
+            {
+              "missing": [
+                "observability/get_logs"
+              ],
+              "recall": 0.75,
+              "returned": [
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/get_status",
+                "deploy/search",
+                "deploy/rollback",
+                "bizops/export_payroll_runs",
+                "vcs/get_commit",
+                "bizops/update_payroll_run"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/get_oncall",
+                "bizops/update_employee",
+                "bizops/export_payroll_runs",
+                "bizops/update_payroll_run",
+                "bizops/get_employee",
+                "deploy/search",
+                "observability/query_metric",
+                "vcs/get_commit"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/query_metric",
+                "bizops/archive_service_charge",
+                "bizops/get_timesheet",
+                "bizops/search_leave_requests",
+                "bizops/update_leave_request",
+                "observability/search",
+                "bizops/search_refunds",
+                "bizops/update_service_charge"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [
+                "vcs/get_commit"
+              ],
+              "recall": 0.6666666666666667,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "bizops/update_payroll_run",
+                "deploy/get_status",
+                "bizops/export_payroll_runs",
+                "bizops/update_employee",
+                "deploy/search"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "bizops/update_employee",
+                "vcs/get_status",
+                "bizops/export_payroll_runs",
+                "bizops/archive_payroll_run",
+                "bizops/get_employee",
+                "bizops/update_leave_request",
+                "deploy/search",
+                "bizops/update_account"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/search",
+                "bizops/export_payroll_runs",
+                "bizops/archive_payroll_run",
+                "deploy/list_deployments",
+                "deploy/get_deployment",
+                "bizops/export_refunds",
+                "bizops/list_employees"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/list_alerts",
+                "bizops/get_status",
+                "observability/query_metric",
+                "observability/search",
+                "observability/get_status",
+                "deploy/search",
+                "bizops/archive_service_charge",
+                "observability/get_logs"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [
+                "deploy/search",
+                "deploy/list_deployments"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "vcs/list_pull_requests",
+                "bizops/export_leave_requests",
+                "bizops/update_leave_request",
+                "deploy/get_status",
+                "bizops/update_payroll_run",
+                "bizops/export_payroll_runs",
+                "vcs/get_commit",
+                "bizops/update_refund"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.75,
+          "deps": true,
+          "latency_p50_ms": 28.7912,
+          "latency_p95_ms": 37.4316,
+          "mode": "semantic",
+          "recall_mean": 0.875,
+          "tasks": [
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "observability/get_logs",
+                "deploy/get_status",
+                "deploy/rollback",
+                "bizops/export_payroll_runs"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/get_oncall",
+                "deploy/search",
+                "bizops/update_employee",
+                "bizops/create_employee",
+                "bizops/export_payroll_runs",
+                "bizops/update_payroll_run",
+                "bizops/get_employee",
+                "observability/query_metric"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/query_metric",
+                "bizops/search_refunds",
+                "bizops/archive_service_charge",
+                "bizops/create_service_charge",
+                "bizops/get_timesheet",
+                "bizops/search_timesheets",
+                "bizops/update_timesheet",
+                "bizops/search_leave_requests"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "bizops/update_payroll_run",
+                "deploy/get_status",
+                "bizops/export_payroll_runs"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "bizops/update_employee",
+                "bizops/list_employees",
+                "vcs/get_status",
+                "deploy/search",
+                "bizops/export_payroll_runs",
+                "bizops/archive_payroll_run",
+                "bizops/get_employee",
+                "bizops/update_leave_request"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/list_deployments",
+                "deploy/search",
+                "observability/get_oncall",
+                "vcs/search",
+                "bizops/export_payroll_runs",
+                "bizops/archive_payroll_run",
+                "deploy/get_deployment"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/list_alerts",
+                "bizops/get_status",
+                "observability/query_metric",
+                "deploy/search",
+                "observability/search",
+                "observability/get_status",
+                "bizops/archive_service_charge",
+                "observability/get_logs"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [
+                "deploy/list_deployments",
+                "vcs/get_commit"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "vcs/list_pull_requests",
+                "deploy/search",
+                "bizops/export_leave_requests",
+                "bizops/update_leave_request",
+                "bizops/search_leave_requests",
+                "deploy/get_status",
+                "bizops/update_payroll_run",
+                "bizops/export_payroll_runs"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.75,
+          "deps": false,
+          "latency_p50_ms": 30.1682,
+          "latency_p95_ms": 39.9295,
+          "mode": "hybrid",
+          "recall_mean": 0.90625,
+          "tasks": [
+            {
+              "missing": [
+                "observability/get_logs"
+              ],
+              "recall": 0.75,
+              "returned": [
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/get_status",
+                "vcs/search",
+                "deploy/rollback",
+                "deploy/search",
+                "vcs/get_commit",
+                "deploy/list_environments"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/get_oncall",
+                "deploy/search",
+                "bizops/update_employee",
+                "bizops/export_payroll_runs",
+                "bizops/update_payroll_run",
+                "bizops/get_employee",
+                "observability/query_metric",
+                "vcs/get_commit"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/query_metric",
+                "observability/search",
+                "bizops/search",
+                "bizops/search_leave_requests",
+                "bizops/search_refunds",
+                "bizops/search_timesheets",
+                "bizops/search_invoices",
+                "vcs/search"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/get_status",
+                "vcs/get_commit",
+                "deploy/search",
+                "deploy/list_environments",
+                "observability/get_oncall"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "vcs/get_status",
+                "deploy/search",
+                "deploy/get_status",
+                "vcs/search",
+                "vcs/list_pull_requests",
+                "observability/get_status",
+                "observability/query_metric",
+                "vcs/get_file"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/search",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "vcs/search",
+                "bizops/search",
+                "bizops/search_employees",
+                "bizops/search_refunds"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/list_alerts",
+                "deploy/search",
+                "bizops/archive_service_charge",
+                "observability/search",
+                "observability/get_status",
+                "bizops/update_service_charge",
+                "observability/query_metric",
+                "deploy/get_status"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "vcs/list_pull_requests",
+                "deploy/get_status",
+                "vcs/get_commit",
+                "bizops/update_leave_request",
+                "bizops/export_leave_requests",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.75,
+          "deps": true,
+          "latency_p50_ms": 27.709899999999998,
+          "latency_p95_ms": 37.2915,
+          "mode": "hybrid",
+          "recall_mean": 0.90625,
+          "tasks": [
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "observability/get_logs",
+                "deploy/get_status",
+                "vcs/search",
+                "deploy/rollback"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/get_oncall",
+                "deploy/search",
+                "vcs/search",
+                "vcs/get_status",
+                "bizops/update_employee",
+                "bizops/create_employee",
+                "bizops/export_payroll_runs",
+                "bizops/update_payroll_run"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/query_metric",
+                "bizops/search_refunds",
+                "observability/search",
+                "observability/get_logs",
+                "deploy/get_deployment",
+                "bizops/search",
+                "bizops/search_leave_requests",
+                "bizops/search_timesheets"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "deploy/get_status",
+                "deploy/list_environments",
+                "observability/get_oncall"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "vcs/get_status",
+                "deploy/search",
+                "observability/get_oncall",
+                "vcs/search",
+                "deploy/get_status",
+                "vcs/list_pull_requests",
+                "observability/get_status",
+                "observability/query_metric"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "observability/get_oncall",
+                "vcs/search",
+                "bizops/search",
+                "bizops/search_employees"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/list_alerts",
+                "deploy/search",
+                "observability/get_oncall",
+                "vcs/get_status",
+                "bizops/archive_service_charge",
+                "bizops/create_service_charge",
+                "observability/search",
+                "observability/get_status"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [
+                "deploy/list_deployments"
+              ],
+              "recall": 0.75,
+              "returned": [
+                "vcs/list_pull_requests",
+                "deploy/search",
+                "deploy/get_status",
+                "vcs/get_commit",
+                "vcs/search",
+                "vcs/get_status",
+                "vcs/compare_commits",
+                "bizops/update_leave_request"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        }
+      ],
+      "semantic_error": null,
+      "size": 100,
+      "tools": 100
+    },
+    {
+      "modes": [
+        {
+          "complete_rate": 0.5,
+          "deps": false,
+          "latency_p50_ms": 0.14109999999999998,
+          "latency_p95_ms": 0.26659999999999995,
+          "mode": "keyword",
+          "recall_mean": 0.7604166666666667,
+          "tasks": [
+            {
+              "missing": [
+                "deploy/search",
+                "vcs/get_commit"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "vcs/search",
+                "deploy/list_deployments",
+                "deploy/get_deployment",
+                "deploy/get_status",
+                "deploy/rollback",
+                "vcs/get_status",
+                "vcs/compare_commits",
+                "observability/get_logs"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/get_oncall",
+                "deploy/search"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/query_metric",
+                "observability/search",
+                "vcs/search",
+                "vcs/get_status",
+                "bizops/search",
+                "bizops/search_builds",
+                "bizops/search_contacts",
+                "bizops/search_employees"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [
+                "deploy/search",
+                "vcs/get_commit"
+              ],
+              "recall": 0.33333333333333337,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/get_status",
+                "people-ops/archive_change_request",
+                "people-ops/delete_change_request",
+                "people-ops/archive_deploy_window",
+                "people-ops/delete_deploy_window",
+                "deploy/list_deployments"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "vcs/get_status",
+                "vcs/get_file",
+                "vcs/search",
+                "deploy/get_status",
+                "observability/get_status",
+                "deploy/search",
+                "vcs/list_pull_requests",
+                "vcs/compare_commits"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "vcs/search",
+                "deploy/search",
+                "people-ops/archive_deploy_window",
+                "people-ops/delete_deploy_window",
+                "deploy/list_environments"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/list_alerts",
+                "bizops/create_service_charge",
+                "deploy/search",
+                "bizops/archive_service_charge",
+                "deploy/rollback",
+                "observability/get_status",
+                "observability/search",
+                "deploy/list_deployments"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.75,
+              "returned": [
+                "vcs/list_pull_requests",
+                "people-ops/archive_change_request",
+                "people-ops/delete_change_request",
+                "deploy/get_status",
+                "vcs/get_commit",
+                "deploy/rollback",
+                "deploy/list_deployments",
+                "vcs/get_status"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.625,
+          "deps": true,
+          "latency_p50_ms": 0.09380000000000001,
+          "latency_p95_ms": 0.1916,
+          "mode": "keyword",
+          "recall_mean": 0.875,
+          "tasks": [
+            {
+              "missing": [
+                "observability/get_logs"
+              ],
+              "recall": 0.75,
+              "returned": [
+                "vcs/search",
+                "vcs/get_commit",
+                "vcs/get_status",
+                "deploy/list_deployments",
+                "deploy/search",
+                "deploy/get_deployment",
+                "deploy/get_status",
+                "deploy/rollback"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/get_oncall",
+                "deploy/search",
+                "vcs/compare_commits",
+                "vcs/get_file"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/query_metric",
+                "observability/search",
+                "observability/get_logs",
+                "deploy/get_deployment",
+                "vcs/search",
+                "vcs/get_commit",
+                "vcs/get_status",
+                "bizops/search"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "deploy/get_status",
+                "people-ops/archive_change_request",
+                "people-ops/delete_change_request"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "vcs/get_status",
+                "deploy/search",
+                "vcs/get_file",
+                "vcs/search",
+                "vcs/get_commit",
+                "vcs/list_pull_requests",
+                "deploy/get_status",
+                "observability/get_status"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "vcs/search",
+                "people-ops/archive_deploy_window",
+                "people-ops/delete_deploy_window"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/list_alerts",
+                "bizops/create_service_charge",
+                "bizops/archive_service_charge",
+                "bizops/update_service_charge",
+                "deploy/search",
+                "observability/get_oncall",
+                "vcs/compare_commits",
+                "deploy/rollback"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [
+                "deploy/list_deployments"
+              ],
+              "recall": 0.75,
+              "returned": [
+                "vcs/list_pull_requests",
+                "deploy/search",
+                "people-ops/archive_change_request",
+                "people-ops/list_change_requests",
+                "people-ops/delete_change_request",
+                "deploy/get_status",
+                "vcs/get_commit",
+                "deploy/rollback"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.0,
+          "deps": false,
+          "latency_p50_ms": 47.378,
+          "latency_p95_ms": 53.3561,
+          "mode": "semantic",
+          "recall_mean": 0.40625,
+          "tasks": [
+            {
+              "missing": [
+                "observability/get_logs",
+                "vcs/get_commit"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "people-ops/export_rollouts",
+                "deploy/get_status",
+                "people-ops/archive_rollout",
+                "deploy/search",
+                "people-ops/archive_deploy_window",
+                "people-ops/update_deploy_window"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/get_oncall",
+                "bizops/update_employee",
+                "bizops/export_payroll_runs",
+                "bizops/update_payroll_run",
+                "people-ops/export_rollouts",
+                "people-ops/list_rollouts",
+                "bizops/get_employee",
+                "people-ops/export_landing_pages"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/query_metric",
+                "bizops/archive_service_charge",
+                "people-ops/export_status_pages",
+                "people-ops/export_landing_pages",
+                "people-ops/search_pods",
+                "people-ops/list_change_requests",
+                "people-ops/archive_status_page",
+                "people-ops/search_postmortems"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [
+                "deploy/search",
+                "vcs/get_commit"
+              ],
+              "recall": 0.33333333333333337,
+              "returned": [
+                "deploy/rollback",
+                "people-ops/update_rollout",
+                "people-ops/list_rollouts",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "people-ops/update_deploy_window",
+                "bizops/update_payroll_run",
+                "deploy/get_status"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [
+                "vcs/get_status"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "people-ops/archive_rollout",
+                "people-ops/export_rollouts",
+                "revenue/archive_object",
+                "people-ops/archive_node",
+                "people-ops/archive_change_request",
+                "people-ops/update_node",
+                "people-ops/archive_namespace",
+                "revenue/update_object"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [
+                "deploy/list_deployments"
+              ],
+              "recall": 0.6666666666666667,
+              "returned": [
+                "deploy/rollback",
+                "people-ops/export_landing_pages",
+                "people-ops/export_status_pages",
+                "deploy/search",
+                "revenue/archive_device",
+                "revenue/list_snapshots",
+                "revenue/archive_object",
+                "bizops/export_payroll_runs"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/list_alerts",
+                "people-ops/get_status",
+                "revenue/get_status",
+                "revenue/archive_firmware_update",
+                "revenue/list_firmware_updates",
+                "people-ops/archive_status_page",
+                "people-ops/update_status_page",
+                "people-ops/list_change_requests"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [
+                "deploy/search",
+                "deploy/list_deployments",
+                "vcs/get_commit"
+              ],
+              "recall": 0.25,
+              "returned": [
+                "vcs/list_pull_requests",
+                "people-ops/export_change_requests",
+                "people-ops/list_change_requests",
+                "bizops/export_leave_requests",
+                "bizops/update_leave_request",
+                "people-ops/update_rollout",
+                "people-ops/update_release",
+                "people-ops/list_rollouts"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.375,
+          "deps": true,
+          "latency_p50_ms": 37.314,
+          "latency_p95_ms": 49.2879,
+          "mode": "semantic",
+          "recall_mean": 0.6458333333333334,
+          "tasks": [
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "observability/get_logs",
+                "people-ops/export_rollouts",
+                "deploy/get_status",
+                "people-ops/archive_rollout"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/get_oncall",
+                "deploy/search",
+                "bizops/update_employee",
+                "bizops/create_employee",
+                "bizops/export_payroll_runs",
+                "bizops/update_payroll_run",
+                "people-ops/export_rollouts",
+                "people-ops/list_rollouts"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/query_metric",
+                "observability/search",
+                "bizops/archive_service_charge",
+                "bizops/create_service_charge",
+                "people-ops/export_status_pages",
+                "people-ops/export_landing_pages",
+                "people-ops/search_pods",
+                "people-ops/list_change_requests"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [
+                "vcs/get_commit"
+              ],
+              "recall": 0.6666666666666667,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "people-ops/update_rollout",
+                "people-ops/list_rollouts",
+                "people-ops/update_deploy_window",
+                "bizops/update_payroll_run"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [
+                "vcs/get_status"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "people-ops/archive_rollout",
+                "people-ops/list_rollouts",
+                "people-ops/export_rollouts",
+                "revenue/archive_object",
+                "revenue/create_object",
+                "people-ops/archive_node",
+                "people-ops/archive_change_request",
+                "people-ops/update_node"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/list_deployments",
+                "deploy/search",
+                "people-ops/export_landing_pages",
+                "people-ops/export_status_pages",
+                "revenue/archive_device",
+                "revenue/list_snapshots",
+                "revenue/archive_object"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/list_alerts",
+                "people-ops/get_status",
+                "revenue/get_status",
+                "revenue/archive_firmware_update",
+                "revenue/list_firmware_updates",
+                "people-ops/archive_status_page",
+                "people-ops/update_status_page",
+                "people-ops/list_change_requests"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [
+                "deploy/list_deployments",
+                "vcs/get_commit"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "vcs/list_pull_requests",
+                "deploy/search",
+                "people-ops/export_change_requests",
+                "people-ops/list_change_requests",
+                "people-ops/update_change_request",
+                "people-ops/archive_change_request",
+                "bizops/export_leave_requests",
+                "bizops/update_leave_request"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.5,
+          "deps": false,
+          "latency_p50_ms": 20.919,
+          "latency_p95_ms": 31.5044,
+          "mode": "hybrid",
+          "recall_mean": 0.6979166666666667,
+          "tasks": [
+            {
+              "missing": [
+                "observability/get_logs",
+                "vcs/get_commit"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/get_status",
+                "deploy/rollback",
+                "deploy/search",
+                "vcs/search",
+                "people-ops/archive_deploy_window",
+                "people-ops/update_deploy_window"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/get_oncall",
+                "deploy/search",
+                "bizops/update_employee",
+                "bizops/export_payroll_runs",
+                "bizops/update_payroll_run",
+                "people-ops/export_rollouts",
+                "people-ops/list_rollouts",
+                "bizops/get_employee"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/query_metric",
+                "people-ops/search_pods",
+                "people-ops/search",
+                "observability/search",
+                "people-ops/search_postmortems",
+                "people-ops/search_pod_logs",
+                "people-ops/search_segments",
+                "people-ops/search_releases"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [
+                "deploy/search",
+                "vcs/get_commit"
+              ],
+              "recall": 0.33333333333333337,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/get_status",
+                "people-ops/update_change_request",
+                "people-ops/update_deploy_window",
+                "people-ops/list_change_requests",
+                "deploy/list_deployments",
+                "people-ops/archive_deploy_window"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "vcs/get_status",
+                "deploy/search",
+                "vcs/search",
+                "deploy/get_status",
+                "vcs/list_pull_requests",
+                "vcs/get_file",
+                "observability/get_status",
+                "bizops/update_artifact"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/search",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "people-ops/archive_deploy_window",
+                "vcs/search",
+                "revenue/search_dashboards",
+                "revenue/search_buckets"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/list_alerts",
+                "people-ops/list_change_requests",
+                "deploy/search",
+                "bizops/archive_service_charge",
+                "observability/get_status",
+                "observability/search",
+                "observability/query_metric",
+                "bizops/update_service_charge"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [
+                "deploy/search",
+                "deploy/list_deployments",
+                "vcs/get_commit"
+              ],
+              "recall": 0.25,
+              "returned": [
+                "vcs/list_pull_requests",
+                "people-ops/archive_change_request",
+                "people-ops/export_change_requests",
+                "bizops/update_leave_request",
+                "deploy/get_status",
+                "bizops/export_leave_requests",
+                "people-ops/update_deploy_window",
+                "people-ops/archive_deploy_window"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.75,
+          "deps": true,
+          "latency_p50_ms": 22.9895,
+          "latency_p95_ms": 33.482699999999994,
+          "mode": "hybrid",
+          "recall_mean": 0.875,
+          "tasks": [
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "observability/get_logs",
+                "deploy/get_status",
+                "deploy/rollback",
+                "vcs/search"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/get_oncall",
+                "deploy/search",
+                "vcs/search",
+                "vcs/get_status",
+                "bizops/update_employee",
+                "bizops/create_employee",
+                "bizops/export_payroll_runs",
+                "bizops/update_payroll_run"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/query_metric",
+                "observability/search",
+                "people-ops/search_pods",
+                "people-ops/get_pod",
+                "people-ops/update_pod",
+                "people-ops/search",
+                "people-ops/search_postmortems",
+                "people-ops/search_pod_logs"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "deploy/get_status",
+                "people-ops/update_change_request",
+                "people-ops/update_deploy_window"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "vcs/get_status",
+                "deploy/search",
+                "observability/get_oncall",
+                "vcs/search",
+                "vcs/get_commit",
+                "deploy/get_status",
+                "vcs/list_pull_requests",
+                "vcs/get_file"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "observability/get_oncall",
+                "people-ops/archive_deploy_window",
+                "vcs/search",
+                "revenue/search_dashboards"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/list_alerts",
+                "people-ops/list_change_requests",
+                "people-ops/archive_change_request",
+                "people-ops/update_change_request",
+                "deploy/search",
+                "observability/get_oncall",
+                "vcs/get_status",
+                "bizops/archive_service_charge"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [
+                "deploy/list_deployments",
+                "vcs/get_commit"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "vcs/list_pull_requests",
+                "deploy/search",
+                "people-ops/archive_change_request",
+                "people-ops/list_change_requests",
+                "people-ops/export_change_requests",
+                "bizops/update_leave_request",
+                "deploy/get_status",
+                "bizops/export_leave_requests"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        }
+      ],
+      "semantic_error": null,
+      "size": 300,
+      "tools": 300
+    },
+    {
+      "modes": [
+        {
+          "complete_rate": 0.375,
+          "deps": false,
+          "latency_p50_ms": 0.2985,
+          "latency_p95_ms": 0.6256999999999999,
+          "mode": "keyword",
+          "recall_mean": 0.6458333333333334,
+          "tasks": [
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.75,
+              "returned": [
+                "deploy/list_deployments",
+                "vcs/search",
+                "deploy/get_deployment",
+                "deploy/get_status",
+                "deploy/rollback",
+                "vcs/compare_commits",
+                "vcs/get_commit",
+                "observability/get_logs"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/get_oncall",
+                "deploy/search"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/query_metric",
+                "observability/search",
+                "edge/search",
+                "platform-ci/search",
+                "edge/search_incidents",
+                "edge/search_pods",
+                "edge/search_postmortems",
+                "edge/search_releases"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [
+                "deploy/search",
+                "deploy/list_deployments",
+                "vcs/get_commit"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/get_status",
+                "cluster/update_change_request",
+                "cluster/get_change_request",
+                "edge/archive_change_request",
+                "people-ops/archive_change_request",
+                "edge/delete_change_request"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "vcs/get_status",
+                "vcs/get_file",
+                "vcs/search",
+                "deploy/get_status",
+                "observability/get_status",
+                "deploy/search",
+                "vcs/list_pull_requests",
+                "vcs/compare_commits"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.6666666666666667,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "cluster/search_deploy_windows",
+                "edge/archive_deploy_window",
+                "edge/delete_deploy_window",
+                "cluster/archive_deploy_window",
+                "people-ops/archive_deploy_window"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/list_alerts",
+                "bizops/create_service_charge",
+                "growth/create_service_charge",
+                "deploy/search",
+                "platform-ci/create_service_charge",
+                "bizops/archive_service_charge",
+                "growth/archive_service_charge",
+                "platform-ci/list_service_charges"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [
+                "deploy/search",
+                "deploy/list_deployments",
+                "vcs/get_commit"
+              ],
+              "recall": 0.25,
+              "returned": [
+                "vcs/list_pull_requests",
+                "edge/archive_change_request",
+                "edge/delete_change_request",
+                "deploy/get_status",
+                "cluster/update_change_request",
+                "cluster/get_change_request",
+                "people-ops/archive_change_request",
+                "people-ops/delete_change_request"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.625,
+          "deps": true,
+          "latency_p50_ms": 0.2776,
+          "latency_p95_ms": 0.5821,
+          "mode": "keyword",
+          "recall_mean": 0.84375,
+          "tasks": [
+            {
+              "missing": [
+                "observability/get_logs"
+              ],
+              "recall": 0.75,
+              "returned": [
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "deploy/get_deployment",
+                "vcs/search",
+                "vcs/compare_commits",
+                "deploy/get_status",
+                "deploy/rollback"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/get_oncall",
+                "deploy/search",
+                "vcs/compare_commits",
+                "vcs/get_file"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/query_metric",
+                "observability/search",
+                "observability/get_logs",
+                "deploy/get_deployment",
+                "edge/search",
+                "platform-ci/search",
+                "edge/search_incidents",
+                "edge/search_pods"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "deploy/get_status",
+                "cluster/update_change_request",
+                "cluster/get_change_request"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "vcs/get_status",
+                "deploy/search",
+                "vcs/get_file",
+                "vcs/search",
+                "vcs/get_commit",
+                "vcs/list_pull_requests",
+                "deploy/get_status",
+                "observability/get_status"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "cluster/search_deploy_windows",
+                "edge/archive_deploy_window",
+                "edge/delete_deploy_window"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/list_alerts",
+                "bizops/create_service_charge",
+                "bizops/archive_service_charge",
+                "bizops/update_service_charge",
+                "growth/create_service_charge",
+                "growth/archive_service_charge",
+                "growth/update_service_charge",
+                "deploy/search"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [
+                "deploy/list_deployments",
+                "vcs/get_commit"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "vcs/list_pull_requests",
+                "deploy/search",
+                "edge/archive_change_request",
+                "edge/list_change_requests",
+                "edge/delete_change_request",
+                "deploy/get_status",
+                "cluster/update_change_request",
+                "cluster/get_change_request"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.0,
+          "deps": false,
+          "latency_p50_ms": 28.6193,
+          "latency_p95_ms": 38.659800000000004,
+          "mode": "semantic",
+          "recall_mean": 0.33333333333333337,
+          "tasks": [
+            {
+              "missing": [
+                "deploy/search",
+                "observability/get_logs",
+                "vcs/get_commit"
+              ],
+              "recall": 0.25,
+              "returned": [
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "cluster/get_rollout",
+                "people-ops/export_rollouts",
+                "deploy/get_status",
+                "people-ops/archive_rollout",
+                "platform-ci/export_employees",
+                "cluster/get_release"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/get_oncall",
+                "platform-ci/update_employee",
+                "platform-ci/archive_employee",
+                "platform-ci/list_payroll_runs",
+                "platform-ci/get_payroll_run",
+                "growth/update_employee",
+                "bizops/update_employee",
+                "growth/get_employee"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/query_metric",
+                "platform-ci/search_service_charges",
+                "platform-ci/search_refunds",
+                "platform-ci/search_accounts",
+                "platform-ci/list_service_charges",
+                "edge/search_incidents",
+                "platform-ci/search_leave_requests",
+                "platform-ci/list_leave_requests"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [
+                "deploy/search",
+                "vcs/get_commit"
+              ],
+              "recall": 0.33333333333333337,
+              "returned": [
+                "deploy/rollback",
+                "people-ops/update_rollout",
+                "people-ops/list_rollouts",
+                "platform-ci/update_employee",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "platform-ci/list_payroll_runs",
+                "people-ops/update_deploy_window"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [
+                "vcs/get_status"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "platform-ci/archive_employee",
+                "people-ops/archive_rollout",
+                "platform-ci/update_employee",
+                "people-ops/export_rollouts",
+                "revenue/archive_object",
+                "people-ops/archive_node",
+                "platform-ci/export_subscriptions",
+                "platform-ci/archive_subscription"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [
+                "deploy/search",
+                "deploy/list_deployments"
+              ],
+              "recall": 0.33333333333333337,
+              "returned": [
+                "growth/search_employees",
+                "deploy/rollback",
+                "platform-ci/search_refunds",
+                "platform-ci/search_accounts",
+                "platform-ci/export_employees",
+                "platform-ci/export_refunds",
+                "platform-ci/search_service_charges",
+                "growth/list_employees"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/list_alerts",
+                "release-mgmt/get_status",
+                "people-ops/get_status",
+                "platform-ci/get_status",
+                "release-mgmt/get_access_review",
+                "edge/get_status",
+                "revenue/get_status",
+                "revenue/archive_firmware_update"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [
+                "deploy/search",
+                "deploy/list_deployments",
+                "vcs/get_commit"
+              ],
+              "recall": 0.25,
+              "returned": [
+                "vcs/list_pull_requests",
+                "people-ops/export_change_requests",
+                "people-ops/list_change_requests",
+                "platform-ci/export_leave_requests",
+                "platform-ci/list_leave_requests",
+                "edge/list_change_requests",
+                "growth/export_leave_requests",
+                "edge/export_change_requests"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.375,
+          "deps": true,
+          "latency_p50_ms": 31.7025,
+          "latency_p95_ms": 41.267199999999995,
+          "mode": "semantic",
+          "recall_mean": 0.6458333333333334,
+          "tasks": [
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "observability/get_logs",
+                "cluster/get_rollout",
+                "people-ops/export_rollouts",
+                "deploy/get_status"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/get_oncall",
+                "deploy/search",
+                "platform-ci/update_employee",
+                "platform-ci/list_employees",
+                "platform-ci/archive_employee",
+                "platform-ci/list_payroll_runs",
+                "platform-ci/get_payroll_run",
+                "growth/update_employee"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/query_metric",
+                "observability/search",
+                "platform-ci/search_service_charges",
+                "platform-ci/archive_service_charge",
+                "platform-ci/get_service_charge",
+                "platform-ci/search_refunds",
+                "platform-ci/archive_refund",
+                "platform-ci/search_accounts"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [
+                "vcs/get_commit"
+              ],
+              "recall": 0.6666666666666667,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "people-ops/update_rollout",
+                "people-ops/list_rollouts",
+                "platform-ci/update_employee",
+                "platform-ci/list_payroll_runs"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [
+                "vcs/get_status"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "platform-ci/archive_employee",
+                "platform-ci/list_employees",
+                "people-ops/archive_rollout",
+                "people-ops/list_rollouts",
+                "platform-ci/update_employee",
+                "people-ops/export_rollouts",
+                "revenue/archive_object",
+                "people-ops/archive_node"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "growth/search_employees",
+                "platform-ci/archive_employee",
+                "growth/get_employee",
+                "deploy/rollback",
+                "deploy/list_deployments",
+                "deploy/search",
+                "platform-ci/search_refunds",
+                "platform-ci/search_accounts"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/list_alerts",
+                "release-mgmt/get_status",
+                "people-ops/get_status",
+                "platform-ci/get_status",
+                "release-mgmt/get_access_review",
+                "edge/get_status",
+                "revenue/get_status",
+                "revenue/archive_firmware_update"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [
+                "deploy/list_deployments",
+                "vcs/get_commit"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "vcs/list_pull_requests",
+                "deploy/search",
+                "people-ops/export_change_requests",
+                "people-ops/list_change_requests",
+                "people-ops/update_change_request",
+                "people-ops/archive_change_request",
+                "platform-ci/export_leave_requests",
+                "platform-ci/list_leave_requests"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.375,
+          "deps": false,
+          "latency_p50_ms": 32.581199999999995,
+          "latency_p95_ms": 42.8804,
+          "mode": "hybrid",
+          "recall_mean": 0.6875,
+          "tasks": [
+            {
+              "missing": [
+                "observability/get_logs"
+              ],
+              "recall": 0.75,
+              "returned": [
+                "deploy/list_deployments",
+                "deploy/get_deployment",
+                "deploy/get_status",
+                "deploy/search",
+                "deploy/rollback",
+                "vcs/get_commit",
+                "people-ops/archive_deploy_window",
+                "people-ops/update_deploy_window"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/get_oncall",
+                "deploy/search",
+                "platform-ci/update_employee",
+                "platform-ci/archive_employee",
+                "platform-ci/list_payroll_runs",
+                "platform-ci/get_payroll_run",
+                "growth/update_employee",
+                "bizops/update_employee"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/query_metric",
+                "edge/search_incidents",
+                "platform-ci/search_refunds",
+                "platform-ci/search_accounts",
+                "platform-ci/search_service_charges",
+                "edge/search_postmortems",
+                "platform-ci/search_leave_requests",
+                "edge/search_pods"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [
+                "deploy/search",
+                "vcs/get_commit"
+              ],
+              "recall": 0.33333333333333337,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/get_status",
+                "people-ops/update_change_request",
+                "people-ops/update_deploy_window",
+                "deploy/list_deployments",
+                "people-ops/archive_deploy_window",
+                "people-ops/export_change_requests"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "platform-ci/export_employees",
+                "platform-ci/archive_employee",
+                "platform-ci/export_subscriptions",
+                "platform-ci/archive_subscription",
+                "platform-ci/export_invoices",
+                "platform-ci/archive_contact",
+                "platform-ci/archive_lead",
+                "vcs/get_status"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [
+                "deploy/list_deployments"
+              ],
+              "recall": 0.6666666666666667,
+              "returned": [
+                "deploy/rollback",
+                "platform-ci/search_refunds",
+                "platform-ci/search_accounts",
+                "edge/search_releases",
+                "deploy/search",
+                "platform-ci/search_service_charges",
+                "growth/search_employees",
+                "platform-ci/search"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/list_alerts",
+                "platform-ci/list_service_charges",
+                "platform-ci/get_service_charge",
+                "growth/archive_service_charge",
+                "deploy/search",
+                "platform-ci/list_subscriptions",
+                "people-ops/list_change_requests",
+                "bizops/archive_service_charge"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [
+                "deploy/search",
+                "deploy/list_deployments",
+                "vcs/get_commit"
+              ],
+              "recall": 0.25,
+              "returned": [
+                "vcs/list_pull_requests",
+                "edge/list_change_requests",
+                "people-ops/export_change_requests",
+                "edge/export_change_requests",
+                "people-ops/update_change_request",
+                "cluster/get_change_request",
+                "cluster/list_change_requests",
+                "platform-ci/export_leave_requests"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.625,
+          "deps": true,
+          "latency_p50_ms": 31.8072,
+          "latency_p95_ms": 40.8866,
+          "mode": "hybrid",
+          "recall_mean": 0.75,
+          "tasks": [
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "deploy/get_deployment",
+                "observability/get_logs",
+                "deploy/get_status",
+                "deploy/rollback",
+                "people-ops/archive_deploy_window"
+              ],
+              "task": "investigate-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/get_oncall",
+                "deploy/search",
+                "vcs/search",
+                "vcs/get_status",
+                "platform-ci/update_employee",
+                "platform-ci/list_employees",
+                "platform-ci/archive_employee",
+                "platform-ci/list_payroll_runs"
+              ],
+              "task": "oncall-payments-worker"
+            },
+            {
+              "missing": [
+                "deploy/search"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "observability/query_metric",
+                "observability/search",
+                "edge/search_incidents",
+                "edge/get_incident",
+                "cluster/archive_incident",
+                "platform-ci/search_refunds",
+                "platform-ci/archive_refund",
+                "platform-ci/search_accounts"
+              ],
+              "task": "error-rate-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "vcs/get_commit",
+                "deploy/get_status",
+                "people-ops/update_change_request",
+                "people-ops/update_deploy_window"
+              ],
+              "task": "payworker-rollback-cause"
+            },
+            {
+              "missing": [
+                "vcs/get_status"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "platform-ci/export_employees",
+                "platform-ci/archive_employee",
+                "platform-ci/list_employees",
+                "platform-ci/export_subscriptions",
+                "platform-ci/archive_subscription",
+                "platform-ci/export_invoices",
+                "platform-ci/archive_contact",
+                "platform-ci/archive_lead"
+              ],
+              "task": "ci-checkout"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "deploy/rollback",
+                "deploy/get_deployment",
+                "deploy/list_deployments",
+                "deploy/search",
+                "platform-ci/search_refunds",
+                "platform-ci/archive_refund",
+                "platform-ci/search_accounts",
+                "edge/search_releases"
+              ],
+              "task": "rollback-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "observability/list_alerts",
+                "platform-ci/list_service_charges",
+                "platform-ci/get_service_charge",
+                "growth/archive_service_charge",
+                "platform-ci/archive_service_charge",
+                "bizops/archive_service_charge",
+                "deploy/search",
+                "platform-ci/list_subscriptions"
+              ],
+              "task": "alerts-auth"
+            },
+            {
+              "missing": [
+                "deploy/list_deployments",
+                "vcs/get_commit"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "vcs/list_pull_requests",
+                "deploy/search",
+                "edge/list_change_requests",
+                "people-ops/update_change_request",
+                "people-ops/archive_change_request",
+                "people-ops/export_change_requests",
+                "edge/export_change_requests",
+                "cluster/get_change_request"
+              ],
+              "task": "pr-checkout"
+            }
+          ]
+        }
+      ],
+      "semantic_error": null,
+      "size": 1000,
+      "tools": 1000
+    }
+  ]
+}

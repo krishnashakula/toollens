@@ -1,0 +1,92 @@
+{
+  "task": "notion-search",
+  "arm": "lens",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Find the page titled 'Q3 Roadmap' in our Notion workspace.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "search Notion pages by title",
+            "limit": 5
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"notion/API-post-search\",\"role\":\"match\",\"summary\":\"Notion | Search by title\\nError Responses:\\n400: Bad request\",\"why\":\"matches search, notion, page, titl\"},{\"id\":\"notion/API-update-a-data-source\",\"role\":\"match\",\"summary\":\"Notion | Update a data source\\nError Responses:\\n400: Bad request\",\"why\":\"matches notion, titl\"},{\"id\":\"aws-documentation/search_table\",\"role\":\"match\",\"summary\":\"Search for specific rows in a large documentation table.\\n\\nUse this tool when you need specific rows from a large documentation table\\n(e.g., …\",\"why\":\"matches search, page, titl\"},{\"id\":\"notion/API-create-a-data-source\",\"role\":\"match\",\"summary\":\"Notion | Create a data source\\nError Responses:\\n400: Bad request\",\"why\":\"matches notion, titl\"},{\"id\":\"supabase/search_docs\",\"role\":\"match\",\"summary\":\"Search the Supabase documentation using GraphQL\",\"why\":\"matches search, page, titl\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "notion/API-post-search"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":true,\"title\":\"Post Search\"},\"description\":\"Notion | Search by title\\nError Responses:\\n400: Bad request\",\"id\":\"notion/API-post-search\",\"input_schema\":{\"$defs\":{\"blockObjectRequest\":{\"anyOf\":[{\"$ref\":\"#/$defs/paragraphBlockRequest\"},{\"$ref\":\"#/$defs/bulletedListItemBlockRequest\"}]},\"bulletedListItemBlockRequest\":{\"additionalProperties\":false,\"properties\":{\"bulleted_list_item\":{\"additionalProperties\":false,\"properties\":{\"rich_text\":{\"items\":{\"$ref\":\"#/$defs/richTextRequest\"},\"type\":\"array\"}},\"required\":[\"rich_text\"],\"type\":\"object\"},\"type\":{\"enum\":[\"bulleted_list_item\"],\"type\":\"string\"}},\"type\":\"object\"},\"dataSourceIdParentRequest\":{\"additionalProperties\":true,\"properties\":{\"database_id\":{\"format\":\"uuid\",\"type\":\"string\"},\"type\":{\"const\":\"database_id\",\"type\":\"string\"}},\"required\":[\"database_id\"],\"type\":\"object\"},\"movePageParentRequest\":{\"oneOf\":[{\"additionalProperties\":true,\"properties\":{\"page_id\":{\"format\":\"uuid\",\"type\":\"string\"},\"type\":{\"const\":\"page_id\"}},\"required\":[\"type\",\"page_id\"],\"type\":\"object\"},{\"additionalProperties\":true,\"properties\":{\"database_id\":{\"format\":\"uuid\",\"type\":\"string\"},\"type\":{\"const\":\"database_id\"}},\"required\":[\"type\",\"database_id\"],\"type\":\"object\"},{\"additionalProperties\":true,\"properties\":{\"type\":{\"const\":\"workspace\"}},\"required\":[\"type\"],\"type\":\"object\"}]},\"pageIdParentRequest\":{\"additionalProperties\":true,\"properties\":{\"page_id\":{\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"page_id\"],\"type\":\"object\"},\"paragraphBlockRequest\":{\"additionalProperties\":false,\"properties\":{\"paragraph\":{\"additionalProperties\":false,\"properties\":{\"rich_text\":{\"items\":{\"$ref\":\"#/$defs/richTextRequest\"},\"type\":\"array\"}},\"required\":[\"rich_text\"],\"type\":\"object\"},\"type\":{\"enum\":[\"paragraph\"],\"type\":\"string\"}},\"type\":\"object\"},\"parentRequest\":{\"oneOf\":[{\"$ref\":\"#/$defs/pageIdParentRequest\"},{\"$ref\":\"#/$defs/dataSourceIdParentRequest\"},{\"additionalProperties\":true,\"properties\":{\"type\":{\"const\":\"workspace\"}},\"required\":[\"type\"],\"type\":\"object\"}]},\"richTextRequest\":{\"additionalProperties\":false,\"properties\":{\"text\":{\"additionalProperties\":false,\"properties\":{\"content\":{\"type\":\"string\"},\"link\":{\"type\":[\"object\",\"null\"]}},\"required\":[\"content\"],\"type\":\"object\"},\"type\":{\"enum\":[\"text\"],\"type\":\"string\"}},\"required\":[\"text\"],\"type\":\"object\"},\"sortObject\":{\"additionalProperties\":true,\"properties\":{\"direction\":{\"enum\":[\"ascending\",\"descending\"],\"type\":\"string\"},\"property\":{\"type\":\"string\"}},\"required\":[\"property\",\"direction\"],\"type\":\"object\"}},\"properties\":{\"filter\":{\"anyOf\":[{\"additionalProperties\":true,\"description\":\"A set of criteria, `value` and `property` keys, that limits the results to either only pages or only data sources. Possible `value` values are `\\\"page\\\"` or `\\\"data_source\\\"`. The only supported `property` value is `\\\"object\\\"`.\",\"properties\":{\"property\":{\"description\":\"The name of the property to filter by. Currently the only property you can filter by is the object type.  Possible values include `object`.   Limitation: Currently the only filter allowed is `object` which will filter by type of object (either `page` or `data_source`)\",\"type\":\"string\"},\"value\":{\"description\":\"The value of the property to filter the results by.  Possible values for object type include `page` or `data_source`.  **Limitation**: Currently the only filter allowed is `object` which will filter by type of object (either `page` or `data_source`)\",\"enum\":[\"page\",\"data_source\"],\"type\":\"string\"}},\"type\":\"object\"},{\"type\":\"string\"}]},\"page_size\":{\"default\":100,\"description\":\"The number of items from the full list to include in the response. Maximum: `100`.\",\"format\":\"int32\",\"type\":\"integer\"},\"query\":{\"description\":\"The text that the API compares page and database titles against.\",\"type\":\"string\"},\"sort\":{\"anyOf\":[{\"additionalProperties\":true,\"description\":\"A set of criteria, `direction` and `timestamp` keys, that orders the results. The **only** supported timestamp value is `\\\"last_edited_time\\\"`. Supported `direction` values are `\\\"ascending\\\"` and `\\\"descending\\\"`. If `sort` is not provided, then the most recently edited results are returned first.\",\"properties\":{\"direction\":{\"description\":\"The direction to sort. Possible values include `ascending` and `descending`.\",\"type\":\"string\"},\"timestamp\":{\"description\":\"The name of the timestamp to sort against. Possible values include `last_edited_time`.\",\"type\":\"string\"}},\"type\":\"object\"},{\"type\":\"string\"}]},\"start_cursor\":{\"description\":\"A `cursor` value returned in a previous response that If supplied, limits the response to results starting after the `cursor`. If not supplied, then the first page of results is returned. Refer to [pagination](https://developers.notion.com/reference/intro#pagination) for more details.\",\"type\":\"string\"}},\"required\":[],\"type\":\"object\"},\"name\":\"API-post-search\",\"permission\":{\"decision\":\"deny\",\"rule\":\"denyDestructive (server marks this tool destructive)\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache toollens-sandbox:1 npx -y @notionhq/notion-mcp-server@2.5.2\",\"first_seen\":\"2026-10-25T23:19:02.142Z\",\"last_seen\":\"2026-10-25T23:50:45.734Z\",\"schema_hash\":\"46e902db67afdf31\",\"server\":\"notion\"},\"schema_hash\":\"46e902db67afdf31\",\"server\":\"notion\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "find or retrieve a Notion page by name, read-only",
+            "limit": 10
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": "The search tool is denied by policy. Let me look for alternatives."
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"notion/API-retrieve-page-markdown\",\"role\":\"match\",\"summary\":\"Notion | Retrieve a page as Markdown\\nError Responses:\\n400: Bad request\\n403: The integration lacks the read/update content capability require…\",\"why\":\"matches retriev, notion, page, read\"},{\"id\":\"notion/API-update-page-markdown\",\"role\":\"match\",\"summary\":\"Notion | Update a page's content as Markdown\\nError Responses:\\n400: Bad request\\n403: The integration lacks the read/update content capability…\",\"why\":\"matches find, notion, page, read\"},{\"id\":\"notion/API-retrieve-a-page-property\",\"role\":\"match\",\"summary\":\"Notion | Retrieve a page property item\\nError Responses:\\n400: Bad request\",\"why\":\"matches retriev, notion, page\"},{\"id\":\"notion/API-retrieve-a-page\",\"role\":\"match\",\"summary\":\"Notion | Retrieve a page\\nError Responses:\\n400: Bad request\",\"why\":\"matches retriev, notion, page\"},{\"id\":\"notion/API-retrieve-a-comment\",\"role\":\"match\",\"summary\":\"Notion | Retrieve comments\\nError Responses:\\n400: Bad request\",\"why\":\"matches retriev, notion, page\"},{\"id\":\"aws-billing-cost-management/budget-actions\",\"role\":\"match\",\"summary\":\"Reads the enforcement action(s) attached to AWS Budgets.\\n\\nA budget action is what AWS Budgets automatically does when a threshold is crossed…\",\"why\":\"matches find, retriev, page, name, read, only\"},{\"id\":\"notion/API-get-block-children\",\"role\":\"match\",\"summary\":\"Notion | Retrieve block children\\nError Responses:\\n400: Bad request\",\"why\":\"matches retriev, notion, page\"},{\"id\":\"notion/API-move-page\",\"role\":\"match\",\"summary\":\"Notion | Move a page\\nError Responses:\\n400: Bad request\",\"why\":\"matches notion, page\"},{\"id\":\"notion/API-post-page\",\"role\":\"match\",\"summary\":\"Notion | Create a page\\nError Responses:\\n400: Bad request\",\"why\":\"matches notion, page\"},{\"id\":\"notion/API-retrieve-a-block\",\"role\":\"match\",\"summary\":\"Notion | Retrieve a block\\nError Responses:\\n400: Bad request\",\"why\":\"matches retriev, notion\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I couldn't find the 'Q3 Roadmap' page because the gateway blocked the search.\n\n- **Search was blocked:** The only tool that finds Notion pages by title is `notion/API-post-search`. The gateway's policy denies it under the rule \"denyDestructive (server marks this tool destructive)\". The Notion server labels this search as destructive even though it only reads, so it never ran.\n- **No other way in:** The other Notion tools I found, such as `notion/API-retrieve-a-page` and `notion/API-retrieve-page-markdown`, need the page ID before they can fetch anything. I don't have that ID, so I couldn't search for the page by name.\n\n**How to unblock this:**\n1. Send me the page's ID or URL and I'll fetch it with `notion/API-retrieve-a-page`.\n2. Or ask the gateway admin to allow `notion/API-post-search`, and I'll search for 'Q3 Roadmap' again."
+    }
+  ],
+  "final_text": "I couldn't find the 'Q3 Roadmap' page because the gateway blocked the search.\n\n- **Search was blocked:** The only tool that finds Notion pages by title is `notion/API-post-search`. The gateway's policy denies it under the rule \"denyDestructive (server marks this tool destructive)\". The Notion server labels this search as destructive even though it only reads, so it never ran.\n- **No other way in:** The other Notion tools I found, such as `notion/API-retrieve-a-page` and `notion/API-retrieve-page-markdown`, need the page ID before they can fetch anything. I don't have that ID, so I couldn't search for the page by name.\n\n**How to unblock this:**\n1. Send me the page's ID or URL and I'll fetch it with `notion/API-retrieve-a-page`.\n2. Or ask the gateway admin to allow `notion/API-post-search`, and I'll search for 'Q3 Roadmap' again.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [],
+  "metrics": {
+    "completed": false,
+    "requests": 4,
+    "input_tokens": 10890,
+    "output_tokens": 619,
+    "cache_read_tokens": 6286,
+    "cache_write_tokens": 4594,
+    "tool_schema_tokens_per_request": 951,
+    "tool_schema_tokens_total": 3804,
+    "invocations": 0,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 2,
+    "discovery_latency_ms_mean": 2.8485000000000005,
+    "first_pick_correct": null,
+    "wall_ms": 9254.8275,
+    "cost_usd": 0.0366472
+  }
+}

@@ -1,0 +1,228 @@
+{
+  "task": "payworker-rollback-cause",
+  "arm": "lens",
+  "size": 100,
+  "model": "claude-opus-5-5",
+  "prompt": "The latest payments-worker deployment was rolled back automatically. Which code change caused it, and who wrote it?",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "find latest deployment of a service and its rollback status, and the commit/code change it deployed with author"
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":100,\"tools\":[{\"id\":\"deploy/rollback\",\"role\":\"match\",\"summary\":\"Roll a service back to an earlier successful deployment\",\"why\":\"matches deploy, servic, rollback, chang, deploy\"},{\"id\":\"deploy/list_deployments\",\"role\":\"dependency\",\"summary\":\"List recent production deployments of a service, newest first, with version, commit and status\",\"why\":\"provides `deployment_id` that deploy/rollback requires\"},{\"id\":\"deploy/search\",\"role\":\"dependency\",\"summary\":\"Search the service registry by service name, team or repository\",\"why\":\"provides `service_id` that deploy/list_deployments requires\"},{\"id\":\"deploy/get_status\",\"role\":\"match\",\"summary\":\"Get the rollout status of a service: the version currently serving traffic and the outcome of the latest deployment attempt\",\"why\":\"matches latest, deploy, servic, status, deploy\"},{\"id\":\"vcs/get_commit\",\"role\":\"match\",\"summary\":\"Get a commit's message, author, pull request, changed files and diff\",\"why\":\"matches commit, chang, author\"},{\"id\":\"vcs/search\",\"role\":\"dependency\",\"summary\":\"Search commit messages, optionally within one repository\",\"why\":\"provides `commit_sha` that vcs/get_commit requires\"},{\"id\":\"vcs/compare_commits\",\"role\":\"dependency\",\"summary\":\"List the commits and changed files between two commits of a repository\",\"why\":\"can use `repo` returned by vcs/get_commit\"},{\"id\":\"vcs/get_status\",\"role\":\"dependency\",\"summary\":\"Get the CI status of a repository's main branch\",\"why\":\"can use `repo` returned by vcs/get_commit\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "query": "payments-worker"
+            },
+            "tool_id": "deploy/search"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"services\":[{\"name\":\"payments-worker\",\"repo\":\"acme/payments-worker\",\"service_id\":\"svc-payworker\",\"team\":\"payments\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "service_id": "svc-payworker"
+            },
+            "tool_id": "deploy/list_deployments"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"deployments\":[{\"commit_sha\":\"5ad0b3e\",\"deployment_id\":\"dep-4815\",\"environment\":\"production\",\"previous_commit_sha\":\"3e1f2d0\",\"service_id\":\"svc-payworker\",\"started_at\":\"2026-10-23T16:40:27Z\",\"status\":\"rolled_back\",\"triggered_by\":\"sam.r\",\"version\":\"v1.9.3\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "base": "3e1f2d0",
+              "head": "5ad0b3e",
+              "repo": "acme/payments-worker"
+            },
+            "tool_id": "vcs/compare_commits"
+          },
+          "name": "invoke_tool"
+        },
+        {
+          "input": {
+            "arguments": {
+              "service_id": "svc-payworker"
+            },
+            "tool_id": "deploy/get_status"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"error\":\"invalid arguments for vcs/compare_commits: \\\"base_sha\\\" is a required property; \\\"head_sha\\\" is a required property; Additional properties are not allowed ('base', 'head' were unexpected)\",\"outcome\":\"invalid\"}",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "content": "{\"latest_attempt\":{\"deployment_id\":\"dep-4815\",\"status\":\"rolled_back\"},\"service_id\":\"svc-payworker\",\"serving\":null}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "base_sha": "3e1f2d0",
+              "head_sha": "5ad0b3e",
+              "repo": "acme/payments-worker"
+            },
+            "tool_id": "vcs/compare_commits"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "cannot compare 3e1f2d0..5ad0b3e in acme/payments-worker",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "commit_sha": "5ad0b3e",
+              "repo": "acme/payments-worker"
+            },
+            "tool_id": "vcs/get_commit"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"error\":\"invalid arguments for vcs/get_commit: Additional properties are not allowed ('repo' was unexpected)\",\"outcome\":\"invalid\"}",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "commit_sha": "5ad0b3e"
+            },
+            "tool_id": "vcs/get_commit"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"author\":\"sam.r\",\"commit_sha\":\"5ad0b3e\",\"date\":\"2026-10-23T15:55:00Z\",\"diff\":\"src/ledger/client.rs: - timeout: Duration::from_secs(2) + timeout: Duration::from_millis(200)\",\"files\":[\"src/ledger/client.rs\"],\"message\":\"Lower ledger client timeout from 2s to 200ms\",\"pull_request\":412,\"repo\":\"acme/payments-worker\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "The rollback looks like it was caused by commit **5ad0b3e**, written by **sam.r**. I couldn't confirm it was the only change in that deployment, though.\n\n- **Deployment:** The latest payments-worker deployment (service `svc-payworker`) is `dep-4815`, version v1.9.3. sam.r started it at 2026-10-23T16:40:27Z and its status is `rolled_back`. The service currently shows no version serving traffic.\n- **The change:** That deployment shipped commit `5ad0b3e` from `acme/payments-worker`. The commit message is \"Lower ledger client timeout from 2s to 200ms\" and it came in through PR #412, committed 2026-10-23T15:55Z. It changes one file, `src/ledger/client.rs`, cutting the ledger client timeout from 2 seconds to 200 milliseconds. A 10x shorter timeout on calls to the ledger is a likely reason the deployment failed and was rolled back.\n- **What I couldn't check:**\n  - I tried to list all commits between the previous deployment (`3e1f2d0`) and this one. The tool returned an error (\"cannot compare 3e1f2d0..5ad0b3e\"), so I don't know if other commits were also in the release.\n  - I didn't find any rollback logs or error details, so the timeout link is my inference, not something a tool showed.\n- **Tool errors:** None of my calls were refused by permissions. Two failed only because I used the wrong argument names, and they worked once I fixed them."
+    }
+  ],
+  "final_text": "The rollback looks like it was caused by commit **5ad0b3e**, written by **sam.r**. I couldn't confirm it was the only change in that deployment, though.\n\n- **Deployment:** The latest payments-worker deployment (service `svc-payworker`) is `dep-4815`, version v1.9.3. sam.r started it at 2026-10-23T16:40:27Z and its status is `rolled_back`. The service currently shows no version serving traffic.\n- **The change:** That deployment shipped commit `5ad0b3e` from `acme/payments-worker`. The commit message is \"Lower ledger client timeout from 2s to 200ms\" and it came in through PR #412, committed 2026-10-23T15:55Z. It changes one file, `src/ledger/client.rs`, cutting the ledger client timeout from 2 seconds to 200 milliseconds. A 10x shorter timeout on calls to the ledger is a likely reason the deployment failed and was rolled back.\n- **What I couldn't check:**\n  - I tried to list all commits between the previous deployment (`3e1f2d0`) and this one. The tool returned an error (\"cannot compare 3e1f2d0..5ad0b3e\"), so I don't know if other commits were also in the release.\n  - I didn't find any rollback logs or error details, so the timeout link is my inference, not something a tool showed.\n- **Tool errors:** None of my calls were refused by permissions. Two failed only because I used the wrong argument names, and they worked once I fixed them.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "deploy/search"
+    },
+    {
+      "outcome": "ok",
+      "tool": "deploy/list_deployments"
+    },
+    {
+      "outcome": "invalid",
+      "tool": "vcs/compare_commits"
+    },
+    {
+      "outcome": "ok",
+      "tool": "deploy/get_status"
+    },
+    {
+      "outcome": "tool_error",
+      "tool": "vcs/compare_commits"
+    },
+    {
+      "outcome": "invalid",
+      "tool": "vcs/get_commit"
+    },
+    {
+      "outcome": "ok",
+      "tool": "vcs/get_commit"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 8,
+    "input_tokens": 18134,
+    "output_tokens": 1409,
+    "cache_read_tokens": 14954,
+    "cache_write_tokens": 3162,
+    "tool_schema_tokens_per_request": 950,
+    "tool_schema_tokens_total": 7600,
+    "invocations": 7,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 1,
+    "discovery_latency_ms_mean": 0.2325,
+    "wall_ms": 15339.8524,
+    "cost_usd": 0.047052800000000006
+  }
+}

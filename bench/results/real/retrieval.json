@@ -1,0 +1,2842 @@
+{
+  "generated_unix": 1792972004,
+  "limit": 8,
+  "reps": 5,
+  "sizes": [
+    {
+      "modes": [
+        {
+          "complete_rate": 0.6785714285714286,
+          "deps": false,
+          "latency_p50_ms": 2.1819,
+          "latency_p95_ms": 4.5760000000000005,
+          "mode": "keyword",
+          "recall_mean": 0.7502125850340136,
+          "tasks": [
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "time/convert_time",
+                "supabase/query_logs",
+                "time/get_current_time",
+                "twilio/TwilioApiV2010--ListUsageRecordAllTime",
+                "aws-cost-explorer/get_today_date",
+                "twilio/TwilioApiV2010--ListCall",
+                "aws-billing-cost-management/list-billing-view-segments",
+                "twilio/TwilioApiV2010--ListUsageRecord"
+              ],
+              "task": "time-tokyo"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "time/get_current_time",
+                "time/convert_time",
+                "aws-sagemaker-ai/update_hp_cluster",
+                "aws-dataprocessing/manage_aws_glue_crawler_management",
+                "mailgun/get_metrics_summary",
+                "aws-cost-explorer/get_today_date",
+                "contentful/cancel_scheduled_release",
+                "twilio/TwilioApiV2010--ListUsageRecordToday"
+              ],
+              "task": "time-convert-london"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "apify/fetch-apify-docs",
+                "amazon-bedrock-agentcore/browser_snapshot",
+                "wix/ReadFullDocsArticle",
+                "twilio/TwilioApiV2010--FetchParticipant",
+                "aws-documentation/search_table",
+                "wix/BrowseWixRESTDocsMenu",
+                "fetch/fetch",
+                "digitalocean/docs-get-page"
+              ],
+              "task": "fetch-example"
+            },
+            {
+              "missing": [
+                "git/git_log"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "git/git_commit",
+                "github/push_files",
+                "github/create_or_update_file",
+                "github/list_commits",
+                "git/git_branch",
+                "github/merge_pull_request",
+                "azure-devops/repo_file_write",
+                "azure-devops/repo_search_commits"
+              ],
+              "task": "git-last-commit"
+            },
+            {
+              "missing": [
+                "filesystem/read_text_file",
+                "filesystem/read_file"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "postman/updateWorkspace",
+                "postman/getWorkspace",
+                "playwright/browser_evaluate",
+                "wix/ReadFullDocsArticle",
+                "postman/createSpec",
+                "aws-git-repo-research/access_file",
+                "playwright/browser_snapshot",
+                "circleci/config_helper"
+              ],
+              "task": "file-revenue-target"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "aws-git-repo-research/create_research_repository",
+                "aws-s3-tables/get_bucket_metadata_config",
+                "aws-documentation/read_documentation",
+                "aws-dataprocessing/add_inline_policy",
+                "aws-dataprocessing/upload_to_s3",
+                "aws-healthomics/CreateAHOSequenceStore",
+                "aws-documentation/search_documentation",
+                "mongodb/search-knowledge"
+              ],
+              "task": "aws-docs-s3-max-object"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "context7/query-docs",
+                "aws-frontend/GetReactDocsByTopic",
+                "context7/resolve-library-id",
+                "exa/web_search_exa",
+                "azure-devops/repo_pull_request",
+                "aws-healthomics/CreateContainerRegistryMap",
+                "firecrawl/firecrawl_developer_search",
+                "aws-healthomics/ListPullThroughCacheRules"
+              ],
+              "task": "context7-react"
+            },
+            {
+              "missing": [
+                "memory/create_entities"
+              ],
+              "recall": 0.6666666666666667,
+              "returned": [
+                "memory/read_graph",
+                "memory/delete_observations",
+                "memory/add_observations",
+                "memory/delete_relations",
+                "memory/open_nodes",
+                "memory/create_relations",
+                "memory/delete_entities",
+                "memory/search_nodes"
+              ],
+              "task": "memory-remember"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "github/create_issue",
+                "github/update_issue",
+                "firecrawl/firecrawl_developer_search",
+                "github/create_pull_request",
+                "aws-git-repo-research/search_repos_on_github",
+                "github/search_repositories",
+                "github/create_repository",
+                "github/create_branch"
+              ],
+              "task": "github-issue"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "gitlab/create_merge_request",
+                "gitlab/create_branch",
+                "azure-devops/repo_pull_request_write",
+                "dbt/trigger_job_run",
+                "github/create_pull_request",
+                "github/merge_pull_request",
+                "supabase/list_branches",
+                "azure-devops/wit_work_item_link_write"
+              ],
+              "task": "gitlab-merge-request"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "slack/slack_post_message",
+                "digitalocean/insights-notification-channel-create",
+                "digitalocean/insights-notification-channel-update",
+                "slack/slack_get_channel_history",
+                "slack/slack_list_channels",
+                "slack/slack_add_reaction",
+                "slack/slack_reply_to_thread",
+                "slack/slack_get_thread_replies"
+              ],
+              "task": "slack-post"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "notion/API-post-search",
+                "aws-documentation/recommend",
+                "notion/API-update-page-markdown",
+                "notion/API-update-a-data-source",
+                "notion/API-create-a-data-source",
+                "digitalocean/docs-find-for-service",
+                "dbt/search_product_docs",
+                "notion/API-move-page"
+              ],
+              "task": "notion-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "heroku/get_app_logs",
+                "arize-phoenix/list-traces",
+                "heroku/list_apps",
+                "heroku/list_addons",
+                "heroku/ps_scale",
+                "heroku/pg_ps",
+                "heroku/pg_outliers",
+                "heroku/deploy_one_off_dyno"
+              ],
+              "task": "heroku-logs"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "circleci/get_build_failure_logs",
+                "circleci/get_latest_pipeline_status",
+                "circleci/find_flaky_tests",
+                "circleci/get_job_test_results",
+                "circleci/list_artifacts",
+                "circleci/run_pipeline",
+                "circleci/rerun_workflow",
+                "circleci/list_followed_projects"
+              ],
+              "task": "circleci-failure"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "aws-redshift/list_tables",
+                "aws-redshift/list_columns",
+                "aws-redshift/list_schemas",
+                "aws-redshift/list_databases",
+                "aws-redshift/review_cluster",
+                "aws-mysql/get_table_schema",
+                "aws-postgres/get_table_schema",
+                "aws-redshift/list_clusters"
+              ],
+              "task": "redshift-tables"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "clickhouse/list_databases",
+                "clickhouse/list_tables",
+                "supabase/query_logs",
+                "analytics/run_conversions_report",
+                "clickhouse/run_query",
+                "mongodb/count",
+                "analytics/run_realtime_report",
+                "analytics/run_report"
+              ],
+              "task": "clickhouse-count"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "aws-eks/get_pod_logs",
+                "aws-eks/get_eks_metrics_guidance",
+                "aws-eks/list_k8s_resources",
+                "aws-eks/get_cloudwatch_metrics",
+                "aws-eks/get_k8s_events",
+                "aws-eks/manage_k8s_resource",
+                "aws-eks/get_cloudwatch_logs",
+                "aws-eks/get_eks_vpc_config"
+              ],
+              "task": "eks-pod-logs"
+            },
+            {
+              "missing": [
+                "aws-cloudtrail/lookup_events"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "aws-ccapi/create_template",
+                "aws-cfn/create_template",
+                "aws-cloudtrail/get_query_status",
+                "aws-serverless/sam_deploy",
+                "aws-cfn/delete_resource",
+                "aws-dataprocessing/list_s3_buckets",
+                "aws-ccapi/delete_resource",
+                "aws-s3-tables/get_bucket_metadata_config"
+              ],
+              "task": "cloudtrail-bucket-delete"
+            },
+            {
+              "missing": [
+                "google-maps/maps_geocode",
+                "google-maps/maps_search_places",
+                "tomtom/tomtom-fuzzy-search",
+                "tomtom/tomtom-poi-search",
+                "aws-location/geocode",
+                "aws-location/search_places",
+                "mapbox/search_and_geocode_tool"
+              ],
+              "recall": 0.125,
+              "returned": [
+                "google-maps/maps_reverse_geocode",
+                "aws-location/reverse_geocode",
+                "aws-location/optimize_waypoints",
+                "mapbox/distance_tool",
+                "tomtom/tomtom-geocode",
+                "aws-location/search_nearby",
+                "aws-location/calculate_route",
+                "mapbox/bbox_tool"
+              ],
+              "task": "geocode-eiffel"
+            },
+            {
+              "missing": [
+                "tavily/tavily_search",
+                "brightdata/search_engine"
+              ],
+              "recall": 0.7142857142857143,
+              "returned": [
+                "kagi/kagi_search_fetch",
+                "apify/fetch-actor-details",
+                "exa/web_search_exa",
+                "firecrawl/firecrawl_search",
+                "brave-search/brave_web_search",
+                "perplexity/perplexity_search",
+                "pinecone/search-docs",
+                "aws-serverless/list_registries"
+              ],
+              "task": "web-search-news"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "paypal/create_invoice",
+                "paypal/get_invoice",
+                "paypal/create_refund",
+                "paypal/get_order",
+                "paypal/create_order",
+                "paypal/create_product",
+                "paypal/generate_invoice_qr_code",
+                "aws-iot-sitewise/create_timestamp_range"
+              ],
+              "task": "paypal-invoice"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "mongodb/insert-many",
+                "mongodb/delete-many",
+                "mongodb/find",
+                "mongodb/count",
+                "aws-documentdb/delete",
+                "aws-documentdb/update",
+                "aws-documentdb/dropCollection",
+                "aws-documentdb/createCollection"
+              ],
+              "task": "mongodb-count-failed"
+            },
+            {
+              "missing": [
+                "launchdarkly/get-feature-flag"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "launchdarkly/get-audit-log-entries",
+                "launchdarkly/create-feature-flag",
+                "launchdarkly/get-flag-status-across-environments",
+                "launchdarkly/list-feature-flags",
+                "growthbook/growthbook_read_skill",
+                "git/git_checkout",
+                "analytics/list_property_annotations",
+                "shopify-dev/learn_shopify_api"
+              ],
+              "task": "launchdarkly-flag"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "twilio/TwilioApiV2010--CreateApplication",
+                "twilio/TwilioApiV2010--UpdateApplication",
+                "twilio/TwilioApiV2010--CreateValidationRequest",
+                "twilio/TwilioApiV2010--UpdateShortCode",
+                "twilio/TwilioApiV2010--CreateMessage",
+                "twilio/TwilioApiV2010--CreateIncomingPhoneNumber",
+                "twilio/TwilioApiV2010--CreateIncomingPhoneNumberMobile",
+                "twilio/TwilioApiV2010--CreateIncomingPhoneNumberLocal"
+              ],
+              "task": "twilio-sms"
+            },
+            {
+              "missing": [
+                "digitalocean/droplet-list"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "digitalocean/docs-find-for-service",
+                "digitalocean/marketplace-1-click-list",
+                "digitalocean/docs-get-quickstart",
+                "digitalocean/docs-get-page",
+                "digitalocean/functions-list-triggers",
+                "digitalocean/doks-list-nodepools",
+                "digitalocean/functions-list-namespaces",
+                "digitalocean/doks-list-clusters"
+              ],
+              "task": "digitalocean-droplets"
+            },
+            {
+              "missing": [
+                "aws-cost-explorer/get_cost_and_usage",
+                "aws-billing-cost-management/cost-explorer"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "aws-billing-cost-management/get-billing-group-cost-report",
+                "aws-billing-cost-management/enterprise-support",
+                "aws-cost-explorer/get_cost_and_usage_comparisons",
+                "aws-billing-cost-management/cost-comparison",
+                "aws-billing-cost-management/invoicing",
+                "aws-cost-explorer/get_cost_comparison_drivers",
+                "aws-cost-explorer/get_cost_forecast",
+                "aws-cost-explorer/get_today_date"
+              ],
+              "task": "aws-spend-by-service"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "azure-devops/testplan_show_test_results_from_build_id",
+                "azure-devops/work_iteration_write",
+                "azure-devops/core_list_project_teams",
+                "azure-devops/pipelines_build_log",
+                "azure-devops/work_capacity_write",
+                "azure-devops/advsec_get_alert_details",
+                "azure-devops/work",
+                "azure-devops/repo_repository"
+              ],
+              "task": "azure-devops-build-log"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "amazon-sns-sqs/publish",
+                "amazon-sns-sqs/publish_batch",
+                "aws-serverless/update_webapp_frontend",
+                "amazon-sns-sqs/get_topic_attributes",
+                "amazon-sns-sqs/list_subscriptions_by_topic",
+                "amazon-sns-sqs/set_topic_attributes",
+                "amazon-sns-sqs/add_sns_permission",
+                "amazon-sns-sqs/subscribe"
+              ],
+              "task": "sns-publish"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.6785714285714286,
+          "deps": true,
+          "latency_p50_ms": 1.716,
+          "latency_p95_ms": 3.8365,
+          "mode": "keyword",
+          "recall_mean": 0.7546768707482993,
+          "tasks": [
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "time/convert_time",
+                "supabase/query_logs",
+                "time/get_current_time",
+                "twilio/TwilioApiV2010--ListUsageRecordAllTime",
+                "aws-cost-explorer/get_today_date",
+                "twilio/TwilioApiV2010--ListCall",
+                "aws-billing-cost-management/list-billing-view-segments",
+                "twilio/TwilioApiV2010--ListUsageRecord"
+              ],
+              "task": "time-tokyo"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "time/get_current_time",
+                "time/convert_time",
+                "aws-sagemaker-ai/update_hp_cluster",
+                "aws-dataprocessing/manage_aws_glue_crawler_management",
+                "mailgun/get_metrics_summary",
+                "aws-cost-explorer/get_today_date",
+                "contentful/cancel_scheduled_release",
+                "twilio/TwilioApiV2010--ListUsageRecordToday"
+              ],
+              "task": "time-convert-london"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "apify/fetch-apify-docs",
+                "amazon-bedrock-agentcore/browser_snapshot",
+                "amazon-bedrock-agentcore/start_browser_session",
+                "wix/ReadFullDocsArticle",
+                "twilio/TwilioApiV2010--FetchParticipant",
+                "aws-documentation/search_table",
+                "wix/BrowseWixRESTDocsMenu",
+                "fetch/fetch"
+              ],
+              "task": "fetch-example"
+            },
+            {
+              "missing": [
+                "git/git_log"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "git/git_commit",
+                "github/push_files",
+                "github/create_or_update_file",
+                "github/list_commits",
+                "git/git_branch",
+                "github/merge_pull_request",
+                "azure-devops/repo_file_write",
+                "azure-devops/repo_search_commits"
+              ],
+              "task": "git-last-commit"
+            },
+            {
+              "missing": [
+                "filesystem/read_text_file",
+                "filesystem/read_file"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "postman/updateWorkspace",
+                "firecrawl/firecrawl_scrape",
+                "postman/getWorkspace",
+                "playwright/browser_evaluate",
+                "wix/ReadFullDocsArticle",
+                "postman/createSpec",
+                "aws-git-repo-research/access_file",
+                "playwright/browser_snapshot"
+              ],
+              "task": "file-revenue-target"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "aws-git-repo-research/create_research_repository",
+                "aws-s3-tables/get_bucket_metadata_config",
+                "aws-documentation/read_documentation",
+                "aws-dataprocessing/add_inline_policy",
+                "aws-dataprocessing/upload_to_s3",
+                "aws-healthomics/CreateAHOSequenceStore",
+                "aws-documentation/search_documentation",
+                "mongodb/search-knowledge"
+              ],
+              "task": "aws-docs-s3-max-object"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "context7/query-docs",
+                "aws-frontend/GetReactDocsByTopic",
+                "digitalocean/db-cluster-create-topic",
+                "context7/resolve-library-id",
+                "exa/web_search_exa",
+                "azure-devops/repo_pull_request",
+                "aws-healthomics/CreateContainerRegistryMap",
+                "firecrawl/firecrawl_developer_search"
+              ],
+              "task": "context7-react"
+            },
+            {
+              "missing": [
+                "memory/create_entities"
+              ],
+              "recall": 0.6666666666666667,
+              "returned": [
+                "memory/read_graph",
+                "memory/add_observations",
+                "memory/create_relations",
+                "memory/delete_observations",
+                "memory/delete_relations",
+                "memory/open_nodes",
+                "memory/delete_entities",
+                "memory/search_nodes"
+              ],
+              "task": "memory-remember"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "github/create_issue",
+                "github/update_issue",
+                "firecrawl/firecrawl_developer_search",
+                "github/create_pull_request",
+                "aws-git-repo-research/search_repos_on_github",
+                "github/search_repositories",
+                "github/create_repository",
+                "github/create_branch"
+              ],
+              "task": "github-issue"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "gitlab/create_merge_request",
+                "gitlab/create_branch",
+                "azure-devops/repo_pull_request_write",
+                "dbt/trigger_job_run",
+                "github/create_pull_request",
+                "github/merge_pull_request",
+                "supabase/list_branches",
+                "azure-devops/wit_work_item_link_write"
+              ],
+              "task": "gitlab-merge-request"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "slack/slack_post_message",
+                "digitalocean/insights-notification-channel-create",
+                "digitalocean/insights-notification-channel-update",
+                "slack/slack_get_channel_history",
+                "slack/slack_list_channels",
+                "slack/slack_add_reaction",
+                "slack/slack_reply_to_thread",
+                "slack/slack_get_thread_replies"
+              ],
+              "task": "slack-post"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "notion/API-post-search",
+                "aws-documentation/recommend",
+                "notion/API-update-page-markdown",
+                "notion/API-update-a-data-source",
+                "notion/API-create-a-data-source",
+                "digitalocean/docs-find-for-service",
+                "dbt/search_product_docs",
+                "notion/API-move-page"
+              ],
+              "task": "notion-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "heroku/get_app_logs",
+                "arize-phoenix/list-traces",
+                "heroku/list_apps",
+                "heroku/list_addons",
+                "heroku/ps_scale",
+                "heroku/pg_ps",
+                "heroku/pg_outliers",
+                "heroku/deploy_one_off_dyno"
+              ],
+              "task": "heroku-logs"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "circleci/get_build_failure_logs",
+                "circleci/get_latest_pipeline_status",
+                "circleci/find_flaky_tests",
+                "circleci/get_job_test_results",
+                "circleci/list_artifacts",
+                "circleci/run_pipeline",
+                "circleci/rerun_workflow",
+                "circleci/list_followed_projects"
+              ],
+              "task": "circleci-failure"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "aws-redshift/list_tables",
+                "aws-redshift/list_columns",
+                "aws-redshift/list_schemas",
+                "aws-redshift/list_databases",
+                "aws-redshift/review_cluster",
+                "aws-mysql/get_table_schema",
+                "aws-postgres/get_table_schema",
+                "aws-redshift/list_clusters"
+              ],
+              "task": "redshift-tables"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "clickhouse/list_databases",
+                "clickhouse/list_tables",
+                "supabase/query_logs",
+                "analytics/run_conversions_report",
+                "clickhouse/run_query",
+                "mongodb/count",
+                "analytics/run_realtime_report",
+                "analytics/run_report"
+              ],
+              "task": "clickhouse-count"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "aws-eks/get_pod_logs",
+                "aws-eks/get_eks_metrics_guidance",
+                "aws-eks/list_k8s_resources",
+                "aws-eks/get_cloudwatch_metrics",
+                "aws-eks/get_k8s_events",
+                "aws-eks/manage_k8s_resource",
+                "aws-eks/get_cloudwatch_logs",
+                "aws-eks/get_eks_vpc_config"
+              ],
+              "task": "eks-pod-logs"
+            },
+            {
+              "missing": [
+                "aws-cloudtrail/lookup_events"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "aws-ccapi/create_template",
+                "aws-cfn/create_template",
+                "aws-cloudtrail/get_query_status",
+                "aws-cloudtrail/lake_query",
+                "aws-cloudtrail/get_query_results",
+                "aws-serverless/sam_deploy",
+                "aws-cfn/delete_resource",
+                "aws-dataprocessing/list_s3_buckets"
+              ],
+              "task": "cloudtrail-bucket-delete"
+            },
+            {
+              "missing": [
+                "google-maps/maps_geocode",
+                "google-maps/maps_search_places",
+                "tomtom/tomtom-fuzzy-search",
+                "tomtom/tomtom-poi-search",
+                "aws-location/geocode",
+                "aws-location/search_places"
+              ],
+              "recall": 0.25,
+              "returned": [
+                "google-maps/maps_reverse_geocode",
+                "mapbox/place_details_tool",
+                "mapbox/search_and_geocode_tool",
+                "aws-location/reverse_geocode",
+                "aws-location/optimize_waypoints",
+                "mapbox/optimization_tool",
+                "mapbox/distance_tool",
+                "tomtom/tomtom-geocode"
+              ],
+              "task": "geocode-eiffel"
+            },
+            {
+              "missing": [
+                "tavily/tavily_search",
+                "brightdata/search_engine"
+              ],
+              "recall": 0.7142857142857143,
+              "returned": [
+                "kagi/kagi_search_fetch",
+                "apify/fetch-actor-details",
+                "aws-healthomics/CreateAHOWorkflowVersion",
+                "aws-healthomics/CreateAHOWorkflow",
+                "exa/web_search_exa",
+                "firecrawl/firecrawl_search",
+                "brave-search/brave_web_search",
+                "perplexity/perplexity_search"
+              ],
+              "task": "web-search-news"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "paypal/create_invoice",
+                "paypal/get_invoice",
+                "paypal/create_refund",
+                "paypal/get_order",
+                "paypal/create_order",
+                "paypal/create_product",
+                "paypal/generate_invoice_qr_code",
+                "aws-iot-sitewise/create_timestamp_range"
+              ],
+              "task": "paypal-invoice"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "mongodb/insert-many",
+                "mongodb/delete-many",
+                "mongodb/create-collection",
+                "mongodb/list-connections",
+                "mongodb/drop-database",
+                "mongodb/find",
+                "mongodb/count",
+                "aws-documentdb/delete"
+              ],
+              "task": "mongodb-count-failed"
+            },
+            {
+              "missing": [
+                "launchdarkly/get-feature-flag"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "launchdarkly/get-audit-log-entries",
+                "launchdarkly/create-feature-flag",
+                "launchdarkly/get-flag-status-across-environments",
+                "launchdarkly/list-feature-flags",
+                "growthbook/growthbook_read_skill",
+                "git/git_checkout",
+                "analytics/list_property_annotations",
+                "shopify-dev/learn_shopify_api"
+              ],
+              "task": "launchdarkly-flag"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "twilio/TwilioApiV2010--CreateApplication",
+                "twilio/TwilioApiV2010--UpdateApplication",
+                "twilio/TwilioApiV2010--CreateValidationRequest",
+                "twilio/TwilioApiV2010--UpdateShortCode",
+                "twilio/TwilioApiV2010--CreateMessage",
+                "twilio/TwilioApiV2010--CreateIncomingPhoneNumber",
+                "twilio/TwilioApiV2010--CreateIncomingPhoneNumberMobile",
+                "twilio/TwilioApiV2010--CreateIncomingPhoneNumberLocal"
+              ],
+              "task": "twilio-sms"
+            },
+            {
+              "missing": [
+                "digitalocean/droplet-list"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "digitalocean/docs-find-for-service",
+                "digitalocean/marketplace-1-click-list",
+                "digitalocean/docs-get-quickstart",
+                "digitalocean/docs-get-page",
+                "digitalocean/functions-list-triggers",
+                "digitalocean/doks-list-nodepools",
+                "digitalocean/functions-list-namespaces",
+                "digitalocean/doks-list-clusters"
+              ],
+              "task": "digitalocean-droplets"
+            },
+            {
+              "missing": [
+                "aws-cost-explorer/get_cost_and_usage",
+                "aws-billing-cost-management/cost-explorer"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "aws-billing-cost-management/get-billing-group-cost-report",
+                "aws-billing-cost-management/enterprise-support",
+                "aws-cost-explorer/get_cost_and_usage_comparisons",
+                "aws-billing-cost-management/cost-comparison",
+                "aws-billing-cost-management/invoicing",
+                "aws-cost-explorer/get_cost_comparison_drivers",
+                "aws-cost-explorer/get_cost_forecast",
+                "aws-cost-explorer/get_today_date"
+              ],
+              "task": "aws-spend-by-service"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "azure-devops/testplan_show_test_results_from_build_id",
+                "azure-devops/work_iteration_write",
+                "azure-devops/core_list_project_teams",
+                "azure-devops/pipelines_build_log",
+                "azure-devops/work_capacity_write",
+                "azure-devops/advsec_get_alert_details",
+                "azure-devops/work",
+                "azure-devops/repo_repository"
+              ],
+              "task": "azure-devops-build-log"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "amazon-sns-sqs/publish",
+                "amazon-sns-sqs/publish_batch",
+                "aws-serverless/update_webapp_frontend",
+                "amazon-sns-sqs/get_topic_attributes",
+                "amazon-sns-sqs/list_subscriptions_by_topic",
+                "amazon-sns-sqs/set_topic_attributes",
+                "amazon-sns-sqs/add_sns_permission",
+                "amazon-sns-sqs/subscribe"
+              ],
+              "task": "sns-publish"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.2857142857142857,
+          "deps": false,
+          "latency_p50_ms": 29.5599,
+          "latency_p95_ms": 42.4212,
+          "mode": "semantic",
+          "recall_mean": 0.3125,
+          "tasks": [
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "time/get_current_time",
+                "aws-iot-sitewise/get_current_timestamp",
+                "aws-cost-explorer/get_today_date",
+                "twilio/TwilioApiV2010--UpdateCallRecording",
+                "redis-cloud/set",
+                "twilio/TwilioApiV2010--FetchBalance",
+                "twilio/TwilioApiV2010--UpdateConferenceRecording",
+                "mapbox/destination_tool"
+              ],
+              "task": "time-tokyo"
+            },
+            {
+              "missing": [
+                "time/convert_time"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "contentful/cancel_scheduled_release",
+                "twilio/TwilioApiV2010--FetchCall",
+                "twilio/TwilioApiV2010--UpdateCall",
+                "paypal/list_transactions",
+                "postman/syncSpecWithCollection",
+                "digitalocean/uptimecheck-get",
+                "digitalocean/uptimecheck-alert-get",
+                "twilio/TwilioApiV2010--CreateCallRecording"
+              ],
+              "task": "time-convert-london"
+            },
+            {
+              "missing": [
+                "fetch/fetch"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "firecrawl/firecrawl_scrape",
+                "aws-documentation/read_sections",
+                "wix/SearchWixRESTDocumentation",
+                "wix/ReadFullDocsArticle",
+                "aws-documentation/search_table",
+                "exa/web_search_exa",
+                "playwright/browser_find",
+                "aws-documentation/search_documentation"
+              ],
+              "task": "fetch-example"
+            },
+            {
+              "missing": [
+                "git/git_log"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "git/git_commit",
+                "azure-devops/repo_file_write",
+                "azure-devops/repo_search_commits",
+                "azure-devops/repo_repository",
+                "azure-devops/repo_file",
+                "aws-git-repo-research/access_file",
+                "git/git_show",
+                "github/push_files"
+              ],
+              "task": "git-last-commit"
+            },
+            {
+              "missing": [
+                "filesystem/read_text_file",
+                "filesystem/read_file"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "browserstack/listTestPlans",
+                "postman/createWorkspace",
+                "postman/getTaggedEntities",
+                "aws-billing-cost-management/bcm-pricing-calc",
+                "aws-billing-cost-management/sp-purchase-analyzer",
+                "aws-billing-cost-management/list-source-views-for-billing-view",
+                "browserstack/listSubTestPlans",
+                "aws-billing-cost-management/sp-recommendation"
+              ],
+              "task": "file-revenue-target"
+            },
+            {
+              "missing": [
+                "aws-documentation/search_documentation",
+                "aws-documentation/read_documentation"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "postman/createSpec",
+                "postman/putEnvironment",
+                "postman/createEnvironment",
+                "supabase/search_docs",
+                "postman/updateSpecFile",
+                "mongodb/collection-storage-size",
+                "postman/searchPostmanElements",
+                "browserstack/describeCapability"
+              ],
+              "task": "aws-docs-s3-max-object"
+            },
+            {
+              "missing": [
+                "context7/resolve-library-id",
+                "context7/query-docs"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "browserstack/uploadProductRequirementFile",
+                "browserstack/createLCASteps",
+                "browserstack/listFolders",
+                "browserstack/createTestCase",
+                "firecrawl/firecrawl_scrape",
+                "browserstack/createTestRun",
+                "browserstack/createProjectOrFolder",
+                "browserstack/updateTestRun"
+              ],
+              "task": "context7-react"
+            },
+            {
+              "missing": [
+                "memory/create_entities",
+                "memory/create_relations",
+                "memory/add_observations"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "browserstack/updateTestRun",
+                "browserstack/createProjectOrFolder",
+                "browserstack/uploadProductRequirementFile",
+                "browserstack/createLCASteps",
+                "browserstack/createTestRun",
+                "browserstack/createTestCase",
+                "postman/searchPostmanElements",
+                "browserstack/updateTestCase"
+              ],
+              "task": "memory-remember"
+            },
+            {
+              "missing": [
+                "github/create_issue"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "notion/API-update-page-markdown",
+                "notion/API-retrieve-page-markdown",
+                "aws-finch/finch_create_ecr_repo",
+                "browserstack/createLCASteps",
+                "github/update_issue",
+                "aws-eks/apply_yaml",
+                "circleci/download_usage_api_data",
+                "browserstack/fetchAccessibilityIssues"
+              ],
+              "task": "github-issue"
+            },
+            {
+              "missing": [
+                "gitlab/create_merge_request"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "amazon-bedrock-agentcore/identity_update_api_key_provider",
+                "amazon-bedrock-agentcore/identity_update_oauth2_provider",
+                "postman/updateCollectionRequest",
+                "postman/searchPostmanElements",
+                "amazon-qindex/CreateTokenWithIAM",
+                "amazon-bedrock-agentcore/identity_set_token_vault_cmk",
+                "aws-openapi/uploadFile",
+                "aws-dataprocessing/manage_aws_glue_statements"
+              ],
+              "task": "gitlab-merge-request"
+            },
+            {
+              "missing": [
+                "slack/slack_post_message"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "digitalocean/insights-notification-channel-update",
+                "contentful/cancel_scheduled_release",
+                "contentful/unpublish_release",
+                "digitalocean/insights-notification-channel-list",
+                "contentful/publish_release",
+                "digitalocean/insights-notification-channel-delete",
+                "digitalocean/insights-notification-channel-create",
+                "digitalocean/insights-notification-channel-get"
+              ],
+              "task": "slack-post"
+            },
+            {
+              "missing": [
+                "notion/API-post-search"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "postman/createWorkspace",
+                "postman/updateWorkspace",
+                "notion/API-retrieve-page-markdown",
+                "notion/API-update-page-markdown",
+                "postman/searchPostmanElements",
+                "postman/createCollection",
+                "postman/getCollections",
+                "postman/createEnvironment"
+              ],
+              "task": "notion-search"
+            },
+            {
+              "missing": [
+                "heroku/get_app_logs"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "launchdarkly/get-audit-log-entries",
+                "postman/getTaggedEntities",
+                "aws-healthomics/GetAHORunManifestLogs",
+                "browserstack/runAppTestsOnBrowserStack",
+                "browserstack/fetchSelfHealedSelectors",
+                "mongodb/mongodb-logs",
+                "aws-serverless/sam_logs",
+                "browserstack/listTestPlans"
+              ],
+              "task": "heroku-logs"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "circleci/get_build_failure_logs",
+                "aws-healthomics/DiagnoseAHORunFailure",
+                "aws-finch/finch_build_container_image",
+                "aws-cloudwatch-appsignals/analyze_canary_failures",
+                "aws-healthomics/GetAHORunManifestLogs",
+                "aws-healthomics/GetCodeConnection",
+                "aws-serverless/sam_logs",
+                "aws-healthomics/ListAHORuns"
+              ],
+              "task": "circleci-failure"
+            },
+            {
+              "missing": [
+                "aws-redshift/list_tables"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "aws-dynamodb/source_db_analyzer",
+                "aws-documentdb/listDatabases",
+                "aws-documentdb/getDatabaseStats",
+                "aws-dataprocessing/manage_aws_glue_tables",
+                "aws-dataprocessing/manage_aws_glue_databases",
+                "aws-postgres/get_table_schema",
+                "digitalocean/db-cluster-resize",
+                "aws-dataprocessing/manage_aws_athena_databases_and_tables"
+              ],
+              "task": "redshift-tables"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "clickhouse/list_tables",
+                "mongodb/count",
+                "amazon-bedrock-agentcore/memory_list_events",
+                "browserstack/createLCASteps",
+                "twilio/TwilioApiV2010--ListCallEvent",
+                "aws-documentdb/countDocuments",
+                "clickhouse/run_query",
+                "redis-cloud/xrange"
+              ],
+              "task": "clickhouse-count"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "aws-eks/get_pod_logs",
+                "aws-eks/get_cloudwatch_logs",
+                "aws-eks/list_k8s_resources",
+                "aws-sagemaker-ai/manage_hyperpod_cluster_nodes",
+                "aws-eks/get_k8s_events",
+                "aws-eks/list_api_versions",
+                "aws-eks/manage_eks_stacks",
+                "aws-eks/get_eks_vpc_config"
+              ],
+              "task": "eks-pod-logs"
+            },
+            {
+              "missing": [
+                "aws-cloudtrail/lookup_events"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "digitalocean/disable-backups-droplets-tag",
+                "digitalocean/disable-backups-droplet",
+                "aws-dataprocessing/list_s3_buckets",
+                "digitalocean/enable-backups-droplets-tag",
+                "digitalocean/enable-backups-droplet",
+                "aws-memcached/cache_quit",
+                "aws-dataprocessing/upload_to_s3",
+                "amazon-bedrock-agentcore/memory_batch_delete_records"
+              ],
+              "task": "cloudtrail-bucket-delete"
+            },
+            {
+              "missing": [
+                "google-maps/maps_geocode",
+                "google-maps/maps_search_places",
+                "tomtom/tomtom-fuzzy-search",
+                "tomtom/tomtom-poi-search",
+                "aws-location/search_places",
+                "mapbox/search_and_geocode_tool"
+              ],
+              "recall": 0.25,
+              "returned": [
+                "mapbox/destination_tool",
+                "mapbox/reverse_geocode_tool",
+                "tomtom/tomtom-reverse-geocode",
+                "aws-location/geocode",
+                "tomtom/tomtom-geocode",
+                "google-maps/maps_reverse_geocode",
+                "aws-location/reverse_geocode",
+                "mapbox/bearing_tool"
+              ],
+              "task": "geocode-eiffel"
+            },
+            {
+              "missing": [
+                "tavily/tavily_search",
+                "exa/web_search_exa",
+                "brave-search/brave_web_search",
+                "kagi/kagi_search_fetch",
+                "perplexity/perplexity_search",
+                "firecrawl/firecrawl_search",
+                "brightdata/search_engine"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "aws-serverless/list_registries",
+                "postman/getMock",
+                "digitalocean/docr-get",
+                "redis-cloud/info",
+                "aws-healthomics/CreateContainerRegistryMap",
+                "aws-healthomics/ListAHOReferenceStores",
+                "digitalocean/docr-subscription-get",
+                "twilio/TwilioApiV2010--CreateToken"
+              ],
+              "task": "web-search-news"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "paypal/create_invoice",
+                "paypal/list_invoices",
+                "aws-billing-cost-management/invoicing",
+                "aws-billing-cost-management/invoice-units",
+                "paypal/generate_invoice_qr_code",
+                "paypal/send_invoice_reminder",
+                "paypal/cancel_sent_invoice",
+                "supabase/create_project"
+              ],
+              "task": "paypal-invoice"
+            },
+            {
+              "missing": [
+                "mongodb/count"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "aws-documentdb/update",
+                "aws-documentdb/countDocuments",
+                "mongodb/update-many",
+                "postman/getTaggedEntities",
+                "aws-documentdb/dropCollection",
+                "aws-documentdb/listCollections",
+                "postman/createCollection",
+                "clickhouse/list_tables"
+              ],
+              "task": "mongodb-count-failed"
+            },
+            {
+              "missing": [
+                "launchdarkly/get-feature-flag"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "launchdarkly/create-feature-flag",
+                "launchdarkly/update-feature-flag",
+                "launchdarkly/get-flag-status-across-environments",
+                "shopify-dev/validate",
+                "contentful/cancel_scheduled_release",
+                "digitalocean/harness-runtime-get-checkpoint",
+                "browserstack/createTestRun",
+                "shopify-dev/feedback"
+              ],
+              "task": "launchdarkly-flag"
+            },
+            {
+              "missing": [
+                "twilio/TwilioApiV2010--CreateMessage"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "clickhouse/list_tables",
+                "amazon-qindex/AuthorizeQIndex",
+                "amazon-qindex/CreateTokenWithIAM",
+                "aws-openapi/getOrderById",
+                "postman/putEnvironment",
+                "shopify-dev/validate",
+                "aws-openapi/placeOrder",
+                "amazon-mq/rabbimq_broker_initialize_connection"
+              ],
+              "task": "twilio-sms"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "digitalocean/droplet-list",
+                "digitalocean/lb-add-droplets",
+                "digitalocean/enable-backups-droplets-tag",
+                "digitalocean/power-on-droplets-tag",
+                "digitalocean/disable-backups-droplets-tag",
+                "digitalocean/enable-ipv6-droplets-tag",
+                "digitalocean/shutdown-droplets-tag",
+                "digitalocean/lb-remove-droplets"
+              ],
+              "task": "digitalocean-droplets"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "aws-cost-explorer/get_cost_and_usage",
+                "aws-billing-cost-management/cost-explorer",
+                "postman/getTaggedEntities",
+                "redis-cloud/read_messages",
+                "aws-billing-cost-management/enterprise-support",
+                "aws-billing-cost-management/sp-recommendation",
+                "postman/updateCollectionRequest",
+                "aws-billing-cost-management/sp-purchase-analyzer"
+              ],
+              "task": "aws-spend-by-service"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "circleci/get_build_failure_logs",
+                "azure-devops/pipelines_build_log",
+                "browserstack/getFailureLogs",
+                "circleci/get_latest_pipeline_status",
+                "browserstack/listTestPlans",
+                "browserstack/createLCASteps",
+                "azure-devops/pipelines_build",
+                "browserstack/fetchSelfHealedSelectors"
+              ],
+              "task": "azure-devops-build-log"
+            },
+            {
+              "missing": [
+                "amazon-sns-sqs/publish"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "aws-healthomics/CreateAHORunCache",
+                "aws-healthomics/ListAHORunCaches",
+                "aws-healthomics/GetCodeConnection",
+                "aws-elasticache/describe-events",
+                "aws-healthomics/CreateAHOSequenceStore",
+                "aws-healthomics/ValidateHealthOmicsECRConfig",
+                "aws-cfn/update_resource",
+                "aws-cfn/delete_resource"
+              ],
+              "task": "sns-publish"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.25,
+          "deps": true,
+          "latency_p50_ms": 37.1422,
+          "latency_p95_ms": 49.1409,
+          "mode": "semantic",
+          "recall_mean": 0.2767857142857143,
+          "tasks": [
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "time/get_current_time",
+                "aws-iot-sitewise/get_current_timestamp",
+                "aws-cost-explorer/get_today_date",
+                "twilio/TwilioApiV2010--UpdateCallRecording",
+                "redis-cloud/set",
+                "twilio/TwilioApiV2010--FetchBalance",
+                "twilio/TwilioApiV2010--UpdateConferenceRecording",
+                "mapbox/destination_tool"
+              ],
+              "task": "time-tokyo"
+            },
+            {
+              "missing": [
+                "time/convert_time"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "contentful/cancel_scheduled_release",
+                "twilio/TwilioApiV2010--FetchCall",
+                "twilio/TwilioApiV2010--UpdateCall",
+                "paypal/list_transactions",
+                "postman/syncSpecWithCollection",
+                "digitalocean/uptimecheck-get",
+                "digitalocean/uptimecheck-alert-get",
+                "twilio/TwilioApiV2010--CreateCallRecording"
+              ],
+              "task": "time-convert-london"
+            },
+            {
+              "missing": [
+                "fetch/fetch"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "firecrawl/firecrawl_scrape",
+                "firecrawl/firecrawl_search",
+                "firecrawl/firecrawl_monitor_create",
+                "aws-documentation/read_sections",
+                "wix/SearchWixRESTDocumentation",
+                "wix/ReadFullDocsArticle",
+                "aws-documentation/search_table",
+                "exa/web_search_exa"
+              ],
+              "task": "fetch-example"
+            },
+            {
+              "missing": [
+                "git/git_log"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "git/git_commit",
+                "azure-devops/repo_file_write",
+                "azure-devops/repo_search_commits",
+                "azure-devops/repo_repository",
+                "azure-devops/repo_file",
+                "aws-git-repo-research/access_file",
+                "git/git_show",
+                "github/push_files"
+              ],
+              "task": "git-last-commit"
+            },
+            {
+              "missing": [
+                "filesystem/read_text_file",
+                "filesystem/read_file"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "browserstack/listTestPlans",
+                "postman/createWorkspace",
+                "postman/getTaggedEntities",
+                "aws-billing-cost-management/bcm-pricing-calc",
+                "aws-billing-cost-management/sp-purchase-analyzer",
+                "aws-billing-cost-management/list-source-views-for-billing-view",
+                "browserstack/listSubTestPlans",
+                "aws-billing-cost-management/sp-recommendation"
+              ],
+              "task": "file-revenue-target"
+            },
+            {
+              "missing": [
+                "aws-documentation/search_documentation",
+                "aws-documentation/read_documentation"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "postman/createSpec",
+                "firecrawl/firecrawl_scrape",
+                "postman/putEnvironment",
+                "postman/createEnvironment",
+                "supabase/search_docs",
+                "postman/updateSpecFile",
+                "mongodb/collection-storage-size",
+                "postman/searchPostmanElements"
+              ],
+              "task": "aws-docs-s3-max-object"
+            },
+            {
+              "missing": [
+                "context7/resolve-library-id",
+                "context7/query-docs"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "browserstack/uploadProductRequirementFile",
+                "browserstack/createLCASteps",
+                "browserstack/listFolders",
+                "browserstack/createTestCase",
+                "firecrawl/firecrawl_scrape",
+                "browserstack/createTestRun",
+                "browserstack/createProjectOrFolder",
+                "browserstack/updateTestRun"
+              ],
+              "task": "context7-react"
+            },
+            {
+              "missing": [
+                "memory/create_entities",
+                "memory/create_relations",
+                "memory/add_observations"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "browserstack/updateTestRun",
+                "browserstack/createProjectOrFolder",
+                "browserstack/uploadProductRequirementFile",
+                "browserstack/createLCASteps",
+                "browserstack/createTestRun",
+                "browserstack/createTestCase",
+                "postman/searchPostmanElements",
+                "browserstack/updateTestCase"
+              ],
+              "task": "memory-remember"
+            },
+            {
+              "missing": [
+                "github/create_issue"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "notion/API-update-page-markdown",
+                "notion/API-retrieve-page-markdown",
+                "aws-finch/finch_create_ecr_repo",
+                "browserstack/createLCASteps",
+                "github/update_issue",
+                "aws-eks/apply_yaml",
+                "circleci/download_usage_api_data",
+                "browserstack/fetchAccessibilityIssues"
+              ],
+              "task": "github-issue"
+            },
+            {
+              "missing": [
+                "gitlab/create_merge_request"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "amazon-bedrock-agentcore/identity_update_api_key_provider",
+                "amazon-bedrock-agentcore/identity_update_oauth2_provider",
+                "postman/updateCollectionRequest",
+                "firecrawl/firecrawl_scrape",
+                "postman/searchPostmanElements",
+                "amazon-qindex/CreateTokenWithIAM",
+                "amazon-bedrock-agentcore/identity_set_token_vault_cmk",
+                "aws-openapi/uploadFile"
+              ],
+              "task": "gitlab-merge-request"
+            },
+            {
+              "missing": [
+                "slack/slack_post_message"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "digitalocean/insights-notification-channel-update",
+                "contentful/cancel_scheduled_release",
+                "contentful/unpublish_release",
+                "digitalocean/insights-notification-channel-list",
+                "contentful/publish_release",
+                "digitalocean/insights-notification-channel-delete",
+                "digitalocean/insights-notification-channel-create",
+                "digitalocean/insights-notification-channel-get"
+              ],
+              "task": "slack-post"
+            },
+            {
+              "missing": [
+                "notion/API-post-search"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "postman/createWorkspace",
+                "postman/updateWorkspace",
+                "firecrawl/firecrawl_scrape",
+                "notion/API-retrieve-page-markdown",
+                "notion/API-update-page-markdown",
+                "postman/searchPostmanElements",
+                "postman/createCollection",
+                "postman/getCollections"
+              ],
+              "task": "notion-search"
+            },
+            {
+              "missing": [
+                "heroku/get_app_logs"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "launchdarkly/get-audit-log-entries",
+                "postman/getTaggedEntities",
+                "aws-healthomics/GetAHORunManifestLogs",
+                "digitalocean/genai-simulation-delete-run",
+                "browserstack/runAppTestsOnBrowserStack",
+                "browserstack/fetchSelfHealedSelectors",
+                "mongodb/mongodb-logs",
+                "aws-serverless/sam_logs"
+              ],
+              "task": "heroku-logs"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "circleci/get_build_failure_logs",
+                "aws-healthomics/DiagnoseAHORunFailure",
+                "aws-finch/finch_build_container_image",
+                "aws-cloudwatch-appsignals/analyze_canary_failures",
+                "aws-healthomics/GetAHORunManifestLogs",
+                "aws-healthomics/GetCodeConnection",
+                "aws-serverless/sam_logs",
+                "aws-healthomics/ListAHORuns"
+              ],
+              "task": "circleci-failure"
+            },
+            {
+              "missing": [
+                "aws-redshift/list_tables"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "aws-dynamodb/source_db_analyzer",
+                "aws-documentdb/listDatabases",
+                "aws-documentdb/getDatabaseStats",
+                "aws-dataprocessing/manage_aws_glue_tables",
+                "aws-dataprocessing/manage_aws_glue_databases",
+                "aws-postgres/get_table_schema",
+                "digitalocean/db-cluster-resize",
+                "aws-dataprocessing/manage_aws_athena_databases_and_tables"
+              ],
+              "task": "redshift-tables"
+            },
+            {
+              "missing": [
+                "clickhouse/run_query"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "clickhouse/list_tables",
+                "mongodb/count",
+                "mongodb/create-collection",
+                "mongodb/drop-collection",
+                "mongodb/list-connections",
+                "mongodb/drop-database",
+                "amazon-bedrock-agentcore/memory_list_events",
+                "browserstack/createLCASteps"
+              ],
+              "task": "clickhouse-count"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "aws-eks/get_pod_logs",
+                "aws-eks/get_cloudwatch_logs",
+                "aws-eks/list_k8s_resources",
+                "aws-sagemaker-ai/manage_hyperpod_cluster_nodes",
+                "aws-eks/get_k8s_events",
+                "aws-eks/list_api_versions",
+                "aws-eks/manage_eks_stacks",
+                "aws-eks/get_eks_vpc_config"
+              ],
+              "task": "eks-pod-logs"
+            },
+            {
+              "missing": [
+                "aws-cloudtrail/lookup_events"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "digitalocean/disable-backups-droplets-tag",
+                "firecrawl/firecrawl_scrape",
+                "digitalocean/disable-backups-droplet",
+                "aws-dataprocessing/list_s3_buckets",
+                "digitalocean/enable-backups-droplets-tag",
+                "digitalocean/enable-backups-droplet",
+                "aws-memcached/cache_quit",
+                "aws-dataprocessing/upload_to_s3"
+              ],
+              "task": "cloudtrail-bucket-delete"
+            },
+            {
+              "missing": [
+                "google-maps/maps_geocode",
+                "google-maps/maps_search_places",
+                "tomtom/tomtom-geocode",
+                "tomtom/tomtom-fuzzy-search",
+                "tomtom/tomtom-poi-search",
+                "aws-location/search_places"
+              ],
+              "recall": 0.25,
+              "returned": [
+                "mapbox/destination_tool",
+                "mapbox/bearing_tool",
+                "mapbox/directions_tool",
+                "mapbox/search_and_geocode_tool",
+                "mapbox/buffer_tool",
+                "mapbox/reverse_geocode_tool",
+                "tomtom/tomtom-reverse-geocode",
+                "aws-location/geocode"
+              ],
+              "task": "geocode-eiffel"
+            },
+            {
+              "missing": [
+                "tavily/tavily_search",
+                "exa/web_search_exa",
+                "brave-search/brave_web_search",
+                "kagi/kagi_search_fetch",
+                "perplexity/perplexity_search",
+                "firecrawl/firecrawl_search",
+                "brightdata/search_engine"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "aws-serverless/list_registries",
+                "postman/getMock",
+                "digitalocean/docr-get",
+                "redis-cloud/info",
+                "aws-healthomics/CreateContainerRegistryMap",
+                "aws-healthomics/ListAHOReferenceStores",
+                "digitalocean/docr-subscription-get",
+                "twilio/TwilioApiV2010--CreateToken"
+              ],
+              "task": "web-search-news"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "paypal/create_invoice",
+                "paypal/list_invoices",
+                "aws-billing-cost-management/invoicing",
+                "aws-billing-cost-management/invoice-units",
+                "paypal/generate_invoice_qr_code",
+                "paypal/send_invoice_reminder",
+                "paypal/cancel_sent_invoice",
+                "supabase/create_project"
+              ],
+              "task": "paypal-invoice"
+            },
+            {
+              "missing": [
+                "mongodb/count"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "aws-documentdb/update",
+                "mongodb/drop-collection",
+                "mongodb/delete-many",
+                "mongodb/list-connections",
+                "mongodb/drop-database",
+                "aws-documentdb/countDocuments",
+                "mongodb/update-many",
+                "postman/getTaggedEntities"
+              ],
+              "task": "mongodb-count-failed"
+            },
+            {
+              "missing": [
+                "launchdarkly/get-feature-flag"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "launchdarkly/create-feature-flag",
+                "launchdarkly/update-feature-flag",
+                "launchdarkly/get-flag-status-across-environments",
+                "shopify-dev/validate",
+                "contentful/cancel_scheduled_release",
+                "digitalocean/harness-runtime-get-checkpoint",
+                "browserstack/createTestRun",
+                "shopify-dev/feedback"
+              ],
+              "task": "launchdarkly-flag"
+            },
+            {
+              "missing": [
+                "twilio/TwilioApiV2010--CreateMessage"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "clickhouse/list_tables",
+                "amazon-qindex/AuthorizeQIndex",
+                "amazon-qindex/CreateTokenWithIAM",
+                "aws-openapi/getOrderById",
+                "postman/putEnvironment",
+                "shopify-dev/validate",
+                "aws-openapi/placeOrder",
+                "amazon-mq/rabbimq_broker_initialize_connection"
+              ],
+              "task": "twilio-sms"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "digitalocean/droplet-list",
+                "digitalocean/lb-add-droplets",
+                "digitalocean/enable-backups-droplets-tag",
+                "firecrawl/firecrawl_scrape",
+                "digitalocean/power-on-droplets-tag",
+                "digitalocean/disable-backups-droplets-tag",
+                "digitalocean/enable-ipv6-droplets-tag",
+                "digitalocean/shutdown-droplets-tag"
+              ],
+              "task": "digitalocean-droplets"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "aws-cost-explorer/get_cost_and_usage",
+                "aws-billing-cost-management/cost-explorer",
+                "postman/getTaggedEntities",
+                "redis-cloud/read_messages",
+                "aws-billing-cost-management/enterprise-support",
+                "aws-billing-cost-management/sp-recommendation",
+                "postman/updateCollectionRequest",
+                "aws-billing-cost-management/sp-purchase-analyzer"
+              ],
+              "task": "aws-spend-by-service"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "circleci/get_build_failure_logs",
+                "azure-devops/pipelines_build_log",
+                "browserstack/getFailureLogs",
+                "circleci/get_latest_pipeline_status",
+                "browserstack/listTestPlans",
+                "browserstack/createLCASteps",
+                "azure-devops/pipelines_build",
+                "browserstack/fetchSelfHealedSelectors"
+              ],
+              "task": "azure-devops-build-log"
+            },
+            {
+              "missing": [
+                "amazon-sns-sqs/publish"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "aws-healthomics/CreateAHORunCache",
+                "aws-healthomics/ListAHORunCaches",
+                "aws-healthomics/GetCodeConnection",
+                "aws-elasticache/describe-events",
+                "aws-healthomics/CreateAHOSequenceStore",
+                "aws-healthomics/ValidateHealthOmicsECRConfig",
+                "aws-cfn/update_resource",
+                "aws-cfn/delete_resource"
+              ],
+              "task": "sns-publish"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.4642857142857143,
+          "deps": false,
+          "latency_p50_ms": 39.142700000000005,
+          "latency_p95_ms": 53.5541,
+          "mode": "hybrid",
+          "recall_mean": 0.5146683673469388,
+          "tasks": [
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "time/get_current_time",
+                "aws-cost-explorer/get_today_date",
+                "aws-iot-sitewise/get_current_timestamp",
+                "time/convert_time",
+                "mapbox/destination_tool",
+                "aws-iot-sitewise/convert_unix_timestamp",
+                "twilio/TwilioApiV2010--CreateUsageTrigger",
+                "twilio/TwilioApiV2010--ListUsageRecordAllTime"
+              ],
+              "task": "time-tokyo"
+            },
+            {
+              "missing": [
+                "time/convert_time"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "contentful/cancel_scheduled_release",
+                "aws-cost-explorer/get_today_date",
+                "time/get_current_time",
+                "twilio/TwilioApiV2010--CreateCall",
+                "twilio/TwilioApiV2010--ListCall",
+                "context7/query-docs",
+                "twilio/TwilioApiV2010--UpdateCall",
+                "twilio/TwilioApiV2010--ListUsageRecordToday"
+              ],
+              "task": "time-convert-london"
+            },
+            {
+              "missing": [
+                "fetch/fetch"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "wix/ReadFullDocsArticle",
+                "aws-documentation/search_table",
+                "amazon-bedrock-agentcore/browser_snapshot",
+                "aws-documentation/read_documentation",
+                "wix/BrowseWixRESTDocsMenu",
+                "dbt/get_product_doc_pages",
+                "aws-documentation/read_sections",
+                "firecrawl/firecrawl_scrape"
+              ],
+              "task": "fetch-example"
+            },
+            {
+              "missing": [
+                "git/git_log"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "git/git_commit",
+                "azure-devops/repo_file_write",
+                "github/push_files",
+                "azure-devops/repo_search_commits",
+                "azure-devops/repo_file",
+                "git/git_show",
+                "aws-git-repo-research/search_repos_on_github",
+                "github/list_commits"
+              ],
+              "task": "git-last-commit"
+            },
+            {
+              "missing": [
+                "filesystem/read_text_file",
+                "filesystem/read_file"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "postman/createWorkspace",
+                "aws-billing-cost-management/sp-purchase-analyzer",
+                "postman/updateWorkspace",
+                "postman/getTaggedEntities",
+                "aws-billing-cost-management/sp-recommendation",
+                "aws-code-doc-gen/prepare_repository",
+                "dbt/get_entities",
+                "aws-billing-cost-management/sp-explorer"
+              ],
+              "task": "file-revenue-target"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "aws-billing-cost-management/storage-lens",
+                "postman/putEnvironment",
+                "postman/createEnvironment",
+                "aws-documentation/search_table",
+                "postman/createSpec",
+                "aws-documentation/read_documentation",
+                "aws-documentation/search_documentation",
+                "clickhouse/list_tables"
+              ],
+              "task": "aws-docs-s3-max-object"
+            },
+            {
+              "missing": [
+                "context7/resolve-library-id"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "aws-frontend/GetReactDocsByTopic",
+                "context7/query-docs",
+                "github/update_pull_request_branch",
+                "firecrawl/firecrawl_developer_search",
+                "aws-documentation/read_documentation",
+                "apify/search-apify-docs",
+                "aws-documentation/recommend",
+                "github/get_pull_request"
+              ],
+              "task": "context7-react"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "memory/open_nodes",
+                "memory/add_observations",
+                "memory/read_graph",
+                "memory/create_entities",
+                "memory/delete_observations",
+                "memory/create_relations",
+                "aws-bedrock-kb-retrieval/AgenticQueryKnowledgeBases",
+                "memory/delete_entities"
+              ],
+              "task": "memory-remember"
+            },
+            {
+              "missing": [
+                "github/create_issue"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "github/update_issue",
+                "github/get_issue",
+                "aws-finch/finch_push_image",
+                "aws-serverless/deploy_webapp",
+                "browserstack/createLCASteps",
+                "aws-finch/finch_create_ecr_repo",
+                "amazon-bedrock-agentcore/browser_click",
+                "playwright/browser_run_code_unsafe"
+              ],
+              "task": "github-issue"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "supabase/list_branches",
+                "postman/updateCollectionRequest",
+                "supabase/create_branch",
+                "amazon-qindex/CreateTokenWithIAM",
+                "gitlab/create_merge_request",
+                "github/update_pull_request_branch",
+                "github/merge_pull_request",
+                "digitalocean/dedicated-inference-create"
+              ],
+              "task": "gitlab-merge-request"
+            },
+            {
+              "missing": [
+                "slack/slack_post_message"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "digitalocean/insights-notification-channel-update",
+                "digitalocean/insights-notification-channel-create",
+                "digitalocean/insights-notification-channel-list",
+                "digitalocean/insights-notification-channel-delete",
+                "digitalocean/insights-notification-channel-get",
+                "contentful/unpublish_release",
+                "contentful/publish_release",
+                "contentful/cancel_scheduled_release"
+              ],
+              "task": "slack-post"
+            },
+            {
+              "missing": [
+                "notion/API-post-search"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "notion/API-update-page-markdown",
+                "notion/API-retrieve-page-markdown",
+                "notion/API-move-page",
+                "postman/getWorkspaces",
+                "notion/API-post-page",
+                "postman/searchPostmanElements",
+                "aws-documentation/recommend",
+                "postman/createWorkspace"
+              ],
+              "task": "notion-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "mongodb/mongodb-logs",
+                "digitalocean/apps-get-logs",
+                "circleci/get_build_failure_logs",
+                "browserstack/getFailureLogs",
+                "heroku/get_app_logs",
+                "aws-healthomics/GetAHORunManifestLogs",
+                "aws-serverless/sam_logs",
+                "launchdarkly/get-audit-log-entries"
+              ],
+              "task": "heroku-logs"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "circleci/get_build_failure_logs",
+                "circleci/get_latest_pipeline_status",
+                "circleci/find_flaky_tests",
+                "aws-healthomics/DiagnoseAHORunFailure",
+                "aws-finch/finch_build_container_image",
+                "aws-cloudwatch-appsignals/analyze_canary_failures",
+                "aws-healthomics/GetAHORunManifestLogs",
+                "browserstack/fetchSelfHealedSelectors"
+              ],
+              "task": "circleci-failure"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "aws-postgres/get_table_schema",
+                "aws-dynamodb/source_db_analyzer",
+                "aws-dataprocessing/manage_aws_glue_tables",
+                "aws-documentdb/listDatabases",
+                "aws-dataprocessing/manage_aws_athena_databases_and_tables",
+                "aws-redshift/list_tables",
+                "aws-redshift/list_schemas",
+                "aws-redshift/list_databases"
+              ],
+              "task": "redshift-tables"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "clickhouse/list_tables",
+                "mongodb/count",
+                "clickhouse/run_query",
+                "aws-documentdb/countDocuments",
+                "aws-eks/get_k8s_events",
+                "analytics/run_report",
+                "aws-aurora-dsql/transact",
+                "aws-cloudtrail/lake_query"
+              ],
+              "task": "clickhouse-count"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "aws-eks/get_pod_logs",
+                "aws-eks/list_k8s_resources",
+                "aws-eks/get_cloudwatch_logs",
+                "aws-eks/get_k8s_events",
+                "aws-eks/get_cloudwatch_metrics",
+                "aws-eks/get_eks_metrics_guidance",
+                "aws-eks/get_eks_vpc_config",
+                "aws-eks/list_api_versions"
+              ],
+              "task": "eks-pod-logs"
+            },
+            {
+              "missing": [
+                "aws-cloudtrail/lookup_events"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "aws-dataprocessing/list_s3_buckets",
+                "aws-dataprocessing/upload_to_s3",
+                "aws-s3-tables/get_bucket_metadata_config",
+                "aws-healthomics/CreateAHORunCache",
+                "digitalocean/disable-backups-droplet",
+                "digitalocean/disable-backups-droplets-tag",
+                "digitalocean/enable-backups-droplet",
+                "digitalocean/enable-backups-droplets-tag"
+              ],
+              "task": "cloudtrail-bucket-delete"
+            },
+            {
+              "missing": [
+                "google-maps/maps_geocode",
+                "google-maps/maps_search_places",
+                "tomtom/tomtom-fuzzy-search",
+                "tomtom/tomtom-poi-search",
+                "aws-location/geocode",
+                "aws-location/search_places",
+                "mapbox/search_and_geocode_tool"
+              ],
+              "recall": 0.125,
+              "returned": [
+                "google-maps/maps_reverse_geocode",
+                "aws-location/reverse_geocode",
+                "tomtom/tomtom-geocode",
+                "mapbox/reverse_geocode_tool",
+                "mapbox/distance_tool",
+                "aws-location/calculate_route",
+                "tomtom/tomtom-reverse-geocode",
+                "aws-location/search_nearby"
+              ],
+              "task": "geocode-eiffel"
+            },
+            {
+              "missing": [
+                "tavily/tavily_search",
+                "brave-search/brave_web_search",
+                "kagi/kagi_search_fetch",
+                "perplexity/perplexity_search",
+                "brightdata/search_engine"
+              ],
+              "recall": 0.2857142857142857,
+              "returned": [
+                "aws-serverless/list_registries",
+                "aws-healthomics/CreateContainerRegistryMap",
+                "exa/web_search_exa",
+                "firecrawl/firecrawl_search",
+                "digitalocean/docr-get",
+                "postman/getMock",
+                "digitalocean/docr-repository-list",
+                "brightdata/search_scrapers"
+              ],
+              "task": "web-search-news"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "paypal/create_invoice",
+                "paypal/list_invoices",
+                "paypal/generate_invoice_qr_code",
+                "aws-billing-cost-management/invoice-units",
+                "aws-billing-cost-management/invoicing",
+                "paypal/send_invoice_reminder",
+                "paypal/cancel_sent_invoice",
+                "paypal/cancel_subscription"
+              ],
+              "task": "paypal-invoice"
+            },
+            {
+              "missing": [
+                "mongodb/count"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "aws-documentdb/update",
+                "mongodb/update-many",
+                "aws-documentdb/dropCollection",
+                "aws-documentdb/countDocuments",
+                "aws-documentdb/listCollections",
+                "aws-documentdb/delete",
+                "aws-documentdb/getCollectionStats",
+                "mongodb/delete-many"
+              ],
+              "task": "mongodb-count-failed"
+            },
+            {
+              "missing": [
+                "launchdarkly/get-feature-flag"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "launchdarkly/create-feature-flag",
+                "launchdarkly/get-flag-status-across-environments",
+                "launchdarkly/list-feature-flags",
+                "shopify-dev/validate",
+                "launchdarkly/get-audit-log-entries",
+                "shopify-dev/feedback",
+                "growthbook/growthbook_read_skill",
+                "contentful/disable_content_type_field"
+              ],
+              "task": "launchdarkly-flag"
+            },
+            {
+              "missing": [
+                "twilio/TwilioApiV2010--CreateMessage"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "twilio/TwilioApiV2010--CreateIncomingPhoneNumber",
+                "amazon-qindex/CreateTokenWithIAM",
+                "browserstack/createLCASteps",
+                "twilio/TwilioApiV2010--CreateIncomingPhoneNumberMobile",
+                "twilio/TwilioApiV2010--ListAvailablePhoneNumberLocal",
+                "paypal/generate_invoice_qr_code",
+                "twilio/TwilioApiV2010--CreateValidationRequest",
+                "twilio/TwilioApiV2010--CreateIncomingPhoneNumberLocal"
+              ],
+              "task": "twilio-sms"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "digitalocean/droplet-list",
+                "digitalocean/docs-find-for-service",
+                "digitalocean/lb-add-droplets",
+                "digitalocean/power-on-droplets-tag",
+                "digitalocean/enable-backups-droplets-tag",
+                "digitalocean/disable-backups-droplets-tag",
+                "digitalocean/lb-remove-droplets",
+                "digitalocean/firewall-add-droplets"
+              ],
+              "task": "digitalocean-droplets"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "aws-billing-cost-management/enterprise-support",
+                "aws-billing-cost-management/cost-explorer",
+                "aws-cost-explorer/get_cost_and_usage",
+                "aws-cost-explorer/get_cost_and_usage_comparisons",
+                "aws-billing-cost-management/invoicing",
+                "aws-cost-explorer/get_cost_comparison_drivers",
+                "aws-cloudwatch-appsignals/get_service_detail",
+                "aws-billing-cost-management/list-cost-allocation-tag-backfill-history"
+              ],
+              "task": "aws-spend-by-service"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "azure-devops/pipelines_build_log",
+                "browserstack/getFailureLogs",
+                "circleci/get_build_failure_logs",
+                "azure-devops/pipelines_build",
+                "circleci/get_latest_pipeline_status",
+                "browserstack/fetchSelfHealedSelectors",
+                "aws-finch/finch_build_container_image",
+                "browserstack/getBuildId"
+              ],
+              "task": "azure-devops-build-log"
+            },
+            {
+              "missing": [
+                "amazon-sns-sqs/publish"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "aws-elasticache/describe-events",
+                "aws-memcached/cache_quit",
+                "aws-healthomics/CreatePullThroughCacheForHealthOmics",
+                "aws-healthomics/CreateAHORunCache",
+                "aws-memcached/cache_version",
+                "aws-healthomics/ListAHORunCaches",
+                "aws-memcached/cache_stats",
+                "aws-healthomics/GetCodeConnection"
+              ],
+              "task": "sns-publish"
+            }
+          ]
+        },
+        {
+          "complete_rate": 0.4642857142857143,
+          "deps": true,
+          "latency_p50_ms": 35.54,
+          "latency_p95_ms": 49.5216,
+          "mode": "hybrid",
+          "recall_mean": 0.5191326530612245,
+          "tasks": [
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "time/get_current_time",
+                "aws-cost-explorer/get_today_date",
+                "aws-iot-sitewise/get_current_timestamp",
+                "time/convert_time",
+                "mapbox/destination_tool",
+                "aws-iot-sitewise/convert_unix_timestamp",
+                "twilio/TwilioApiV2010--CreateUsageTrigger",
+                "twilio/TwilioApiV2010--ListUsageRecordAllTime"
+              ],
+              "task": "time-tokyo"
+            },
+            {
+              "missing": [
+                "time/convert_time"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "contentful/cancel_scheduled_release",
+                "aws-cost-explorer/get_today_date",
+                "time/get_current_time",
+                "twilio/TwilioApiV2010--CreateCall",
+                "twilio/TwilioApiV2010--ListCall",
+                "context7/query-docs",
+                "twilio/TwilioApiV2010--UpdateCall",
+                "twilio/TwilioApiV2010--ListUsageRecordToday"
+              ],
+              "task": "time-convert-london"
+            },
+            {
+              "missing": [
+                "fetch/fetch"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "wix/ReadFullDocsArticle",
+                "aws-documentation/search_table",
+                "amazon-bedrock-agentcore/browser_snapshot",
+                "amazon-bedrock-agentcore/start_browser_session",
+                "aws-documentation/read_documentation",
+                "wix/BrowseWixRESTDocsMenu",
+                "dbt/get_product_doc_pages",
+                "aws-documentation/read_sections"
+              ],
+              "task": "fetch-example"
+            },
+            {
+              "missing": [
+                "git/git_log"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "git/git_commit",
+                "azure-devops/repo_file_write",
+                "github/push_files",
+                "azure-devops/repo_search_commits",
+                "azure-devops/repo_file",
+                "git/git_show",
+                "aws-git-repo-research/search_repos_on_github",
+                "github/list_commits"
+              ],
+              "task": "git-last-commit"
+            },
+            {
+              "missing": [
+                "filesystem/read_text_file",
+                "filesystem/read_file"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "postman/createWorkspace",
+                "aws-billing-cost-management/sp-purchase-analyzer",
+                "postman/updateWorkspace",
+                "firecrawl/firecrawl_scrape",
+                "postman/getTaggedEntities",
+                "aws-billing-cost-management/sp-recommendation",
+                "aws-code-doc-gen/prepare_repository",
+                "dbt/get_entities"
+              ],
+              "task": "file-revenue-target"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "aws-billing-cost-management/storage-lens",
+                "postman/putEnvironment",
+                "postman/createEnvironment",
+                "aws-documentation/search_table",
+                "postman/createSpec",
+                "aws-documentation/read_documentation",
+                "aws-documentation/search_documentation",
+                "clickhouse/list_tables"
+              ],
+              "task": "aws-docs-s3-max-object"
+            },
+            {
+              "missing": [
+                "context7/resolve-library-id"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "aws-frontend/GetReactDocsByTopic",
+                "digitalocean/db-cluster-get-topic",
+                "context7/query-docs",
+                "github/update_pull_request_branch",
+                "firecrawl/firecrawl_developer_search",
+                "aws-documentation/read_documentation",
+                "apify/search-apify-docs",
+                "aws-documentation/recommend"
+              ],
+              "task": "context7-react"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "memory/open_nodes",
+                "memory/add_observations",
+                "memory/create_relations",
+                "memory/read_graph",
+                "memory/create_entities",
+                "memory/delete_observations",
+                "aws-bedrock-kb-retrieval/AgenticQueryKnowledgeBases",
+                "memory/delete_entities"
+              ],
+              "task": "memory-remember"
+            },
+            {
+              "missing": [
+                "github/create_issue"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "github/update_issue",
+                "github/get_issue",
+                "aws-finch/finch_push_image",
+                "digitalocean/image-get",
+                "aws-serverless/deploy_webapp",
+                "browserstack/createLCASteps",
+                "aws-finch/finch_create_ecr_repo",
+                "amazon-bedrock-agentcore/browser_click"
+              ],
+              "task": "github-issue"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "supabase/list_branches",
+                "postman/updateCollectionRequest",
+                "firecrawl/firecrawl_scrape",
+                "supabase/create_branch",
+                "amazon-qindex/CreateTokenWithIAM",
+                "gitlab/create_merge_request",
+                "github/update_pull_request_branch",
+                "github/merge_pull_request"
+              ],
+              "task": "gitlab-merge-request"
+            },
+            {
+              "missing": [
+                "slack/slack_post_message"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "digitalocean/insights-notification-channel-update",
+                "digitalocean/insights-notification-channel-create",
+                "digitalocean/insights-notification-channel-list",
+                "digitalocean/insights-notification-channel-delete",
+                "digitalocean/insights-notification-channel-get",
+                "contentful/unpublish_release",
+                "contentful/publish_release",
+                "contentful/cancel_scheduled_release"
+              ],
+              "task": "slack-post"
+            },
+            {
+              "missing": [
+                "notion/API-post-search"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "notion/API-update-page-markdown",
+                "notion/API-retrieve-page-markdown",
+                "notion/API-move-page",
+                "postman/getWorkspaces",
+                "notion/API-post-page",
+                "postman/searchPostmanElements",
+                "aws-documentation/recommend",
+                "postman/createWorkspace"
+              ],
+              "task": "notion-search"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "mongodb/mongodb-logs",
+                "mongodb/list-connections",
+                "digitalocean/apps-get-logs",
+                "circleci/get_build_failure_logs",
+                "browserstack/getFailureLogs",
+                "heroku/get_app_logs",
+                "aws-healthomics/GetAHORunManifestLogs",
+                "aws-serverless/sam_logs"
+              ],
+              "task": "heroku-logs"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "circleci/get_build_failure_logs",
+                "circleci/get_latest_pipeline_status",
+                "circleci/find_flaky_tests",
+                "aws-healthomics/DiagnoseAHORunFailure",
+                "aws-finch/finch_build_container_image",
+                "aws-cloudwatch-appsignals/analyze_canary_failures",
+                "aws-healthomics/GetAHORunManifestLogs",
+                "browserstack/fetchSelfHealedSelectors"
+              ],
+              "task": "circleci-failure"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "aws-postgres/get_table_schema",
+                "aws-dynamodb/source_db_analyzer",
+                "aws-dataprocessing/manage_aws_glue_tables",
+                "aws-documentdb/listDatabases",
+                "aws-dataprocessing/manage_aws_athena_databases_and_tables",
+                "aws-redshift/list_tables",
+                "aws-redshift/list_schemas",
+                "aws-redshift/list_databases"
+              ],
+              "task": "redshift-tables"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "clickhouse/list_tables",
+                "mongodb/count",
+                "mongodb/create-collection",
+                "mongodb/drop-collection",
+                "mongodb/list-connections",
+                "mongodb/drop-database",
+                "clickhouse/run_query",
+                "aws-documentdb/countDocuments"
+              ],
+              "task": "clickhouse-count"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "aws-eks/get_pod_logs",
+                "aws-eks/list_k8s_resources",
+                "aws-eks/get_cloudwatch_logs",
+                "aws-eks/get_k8s_events",
+                "aws-eks/get_cloudwatch_metrics",
+                "aws-eks/get_eks_metrics_guidance",
+                "aws-eks/get_eks_vpc_config",
+                "aws-eks/list_api_versions"
+              ],
+              "task": "eks-pod-logs"
+            },
+            {
+              "missing": [
+                "aws-cloudtrail/lookup_events"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "aws-dataprocessing/list_s3_buckets",
+                "aws-dataprocessing/upload_to_s3",
+                "aws-s3-tables/get_bucket_metadata_config",
+                "aws-healthomics/CreateAHORunCache",
+                "digitalocean/disable-backups-droplet",
+                "digitalocean/disable-backups-droplets-tag",
+                "digitalocean/enable-backups-droplet",
+                "digitalocean/enable-backups-droplets-tag"
+              ],
+              "task": "cloudtrail-bucket-delete"
+            },
+            {
+              "missing": [
+                "google-maps/maps_geocode",
+                "google-maps/maps_search_places",
+                "tomtom/tomtom-fuzzy-search",
+                "tomtom/tomtom-poi-search",
+                "aws-location/geocode",
+                "aws-location/search_places"
+              ],
+              "recall": 0.25,
+              "returned": [
+                "google-maps/maps_reverse_geocode",
+                "mapbox/place_details_tool",
+                "mapbox/search_and_geocode_tool",
+                "aws-location/reverse_geocode",
+                "tomtom/tomtom-geocode",
+                "mapbox/reverse_geocode_tool",
+                "mapbox/distance_tool",
+                "aws-location/calculate_route"
+              ],
+              "task": "geocode-eiffel"
+            },
+            {
+              "missing": [
+                "tavily/tavily_search",
+                "brave-search/brave_web_search",
+                "kagi/kagi_search_fetch",
+                "perplexity/perplexity_search",
+                "brightdata/search_engine"
+              ],
+              "recall": 0.2857142857142857,
+              "returned": [
+                "aws-serverless/list_registries",
+                "aws-healthomics/CreateContainerRegistryMap",
+                "exa/web_search_exa",
+                "firecrawl/firecrawl_search",
+                "digitalocean/docr-get",
+                "postman/getMock",
+                "digitalocean/docr-repository-list",
+                "brightdata/search_scrapers"
+              ],
+              "task": "web-search-news"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "paypal/create_invoice",
+                "paypal/list_invoices",
+                "paypal/generate_invoice_qr_code",
+                "aws-billing-cost-management/invoice-units",
+                "aws-billing-cost-management/invoicing",
+                "paypal/send_invoice_reminder",
+                "paypal/cancel_sent_invoice",
+                "paypal/cancel_subscription"
+              ],
+              "task": "paypal-invoice"
+            },
+            {
+              "missing": [
+                "mongodb/count"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "aws-documentdb/update",
+                "mongodb/delete-many",
+                "mongodb/drop-collection",
+                "mongodb/list-connections",
+                "mongodb/drop-database",
+                "mongodb/update-many",
+                "aws-documentdb/dropCollection",
+                "aws-documentdb/countDocuments"
+              ],
+              "task": "mongodb-count-failed"
+            },
+            {
+              "missing": [
+                "launchdarkly/get-feature-flag"
+              ],
+              "recall": 0.5,
+              "returned": [
+                "launchdarkly/create-feature-flag",
+                "launchdarkly/get-flag-status-across-environments",
+                "launchdarkly/list-feature-flags",
+                "shopify-dev/validate",
+                "launchdarkly/get-audit-log-entries",
+                "shopify-dev/feedback",
+                "growthbook/growthbook_read_skill",
+                "contentful/disable_content_type_field"
+              ],
+              "task": "launchdarkly-flag"
+            },
+            {
+              "missing": [
+                "twilio/TwilioApiV2010--CreateMessage"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "twilio/TwilioApiV2010--CreateIncomingPhoneNumber",
+                "amazon-qindex/CreateTokenWithIAM",
+                "browserstack/createLCASteps",
+                "twilio/TwilioApiV2010--CreateIncomingPhoneNumberMobile",
+                "twilio/TwilioApiV2010--ListAvailablePhoneNumberLocal",
+                "paypal/generate_invoice_qr_code",
+                "twilio/TwilioApiV2010--CreateValidationRequest",
+                "twilio/TwilioApiV2010--CreateIncomingPhoneNumberLocal"
+              ],
+              "task": "twilio-sms"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "digitalocean/droplet-list",
+                "digitalocean/docs-find-for-service",
+                "digitalocean/lb-add-droplets",
+                "digitalocean/power-on-droplets-tag",
+                "digitalocean/enable-backups-droplets-tag",
+                "digitalocean/disable-backups-droplets-tag",
+                "digitalocean/lb-remove-droplets",
+                "digitalocean/firewall-add-droplets"
+              ],
+              "task": "digitalocean-droplets"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "aws-billing-cost-management/enterprise-support",
+                "aws-billing-cost-management/cost-explorer",
+                "aws-cost-explorer/get_cost_and_usage",
+                "aws-cost-explorer/get_cost_and_usage_comparisons",
+                "aws-billing-cost-management/invoicing",
+                "aws-cost-explorer/get_cost_comparison_drivers",
+                "aws-cloudwatch-appsignals/get_service_detail",
+                "aws-billing-cost-management/list-cost-allocation-tag-backfill-history"
+              ],
+              "task": "aws-spend-by-service"
+            },
+            {
+              "missing": [],
+              "recall": 1.0,
+              "returned": [
+                "azure-devops/pipelines_build_log",
+                "browserstack/getFailureLogs",
+                "circleci/get_build_failure_logs",
+                "azure-devops/pipelines_build",
+                "circleci/get_latest_pipeline_status",
+                "browserstack/fetchSelfHealedSelectors",
+                "aws-finch/finch_build_container_image",
+                "browserstack/getBuildId"
+              ],
+              "task": "azure-devops-build-log"
+            },
+            {
+              "missing": [
+                "amazon-sns-sqs/publish"
+              ],
+              "recall": 0.0,
+              "returned": [
+                "aws-elasticache/describe-events",
+                "aws-memcached/cache_quit",
+                "aws-healthomics/CreatePullThroughCacheForHealthOmics",
+                "aws-healthomics/CreateAHORunCache",
+                "aws-memcached/cache_version",
+                "aws-healthomics/ListAHORunCaches",
+                "aws-memcached/cache_stats",
+                "aws-healthomics/GetCodeConnection"
+              ],
+              "task": "sns-publish"
+            }
+          ]
+        }
+      ],
+      "semantic_error": null,
+      "size": 0,
+      "tools": 2468
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "task": "memory-remember",
+  "arm": "lens",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Remember in the knowledge-graph memory that the project 'ToolLens' is owned by the platform team.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "create entity / add observation in knowledge graph memory",
+            "limit": 6
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"memory/add_observations\",\"role\":\"match\",\"summary\":\"Add new observations to existing entities in the knowledge graph\",\"why\":\"matches entity, add, observation, knowledg, graph, memory\"},{\"id\":\"memory/search_nodes\",\"role\":\"dependency\",\"summary\":\"Search for nodes in the knowledge graph based on a query\",\"why\":\"provides `observations` that memory/add_observations requires\"},{\"id\":\"memory/create_entities\",\"role\":\"match\",\"summary\":\"Create multiple new entities in the knowledge graph\",\"why\":\"matches creat, entity, add, observation, knowledg, graph, memory\"},{\"id\":\"contentful/create_release\",\"role\":\"dependency\",\"summary\":\"Create a release with a title and a set of Entries/Assets to include in it\",\"why\":\"can use `entities` returned by memory/create_entities\"},{\"id\":\"tomtom/tomtom-reverse-geocode\",\"role\":\"dependency\",\"summary\":\"Convert coordinates to addresses\",\"why\":\"can use `entityType` returned by memory/create_entities\"},{\"id\":\"memory/delete_observations\",\"role\":\"match\",\"summary\":\"Delete specific observations from entities in the knowledge graph\",\"why\":\"matches entity, observation, knowledg, graph, memory\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "query": "ToolLens"
+            },
+            "tool_id": "memory/search_nodes"
+          },
+          "name": "invoke_tool"
+        },
+        {
+          "input": {
+            "tool_id": "memory/create_entities"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"entities\":[],\"relations\":[]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"idempotentHint\":false,\"openWorldHint\":false,\"readOnlyHint\":false},\"description\":\"Create multiple new entities in the knowledge graph. An entity whose name already exists, or repeats an earlier entity in the same call, is skipped and its observations are not added; the result lists the skipped names in `skipped`. Use add_observations to add observations to an existing entity.\",\"id\":\"memory/create_entities\",\"input_schema\":{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"properties\":{\"entities\":{\"items\":{\"properties\":{\"entityType\":{\"description\":\"The type of the entity\",\"type\":\"string\"},\"name\":{\"description\":\"The name of the entity\",\"type\":\"string\"},\"observations\":{\"description\":\"An array of observation contents associated with the entity\",\"items\":{\"type\":\"string\"},\"type\":\"array\"}},\"required\":[\"name\",\"entityType\",\"observations\"],\"type\":\"object\"},\"type\":\"array\"}},\"required\":[\"entities\"],\"type\":\"object\"},\"name\":\"create_entities\",\"output_schema\":{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":false,\"properties\":{\"entities\":{\"items\":{\"additionalProperties\":false,\"properties\":{\"entityType\":{\"description\":\"The type of the entity\",\"type\":\"string\"},\"name\":{\"description\":\"The name of the entity\",\"type\":\"string\"},\"observations\":{\"description\":\"An array of observation contents associated with the entity\",\"items\":{\"type\":\"string\"},\"type\":\"array\"}},\"required\":[\"name\",\"entityType\",\"observations\"],\"type\":\"object\"},\"type\":\"array\"},\"skipped\":{\"items\":{\"type\":\"string\"},\"type\":\"array\"}},\"required\":[\"entities\"],\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache toollens-sandbox:1 npx -y @modelcontextprotocol/server-memory@2.0.0\",\"first_seen\":\"2026-10-25T23:19:02.119Z\",\"last_seen\":\"2026-10-25T23:50:45.698Z\",\"schema_hash\":\"82360db4d7f4ad2c\",\"server\":\"memory\"},\"schema_hash\":\"82360db4d7f4ad2c\",\"server\":\"memory\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "entities": [
+                {
+                  "entityType": "project",
+                  "name": "ToolLens",
+                  "observations": [
+                    "Owned by the platform team"
+                  ]
+                }
+              ]
+            },
+            "tool_id": "memory/create_entities"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"entities\":[{\"entityType\":\"project\",\"name\":\"ToolLens\",\"observations\":[\"Owned by the platform team\"]}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I've saved it to the knowledge-graph memory. I searched first and found no existing \"ToolLens\" entry, so I created a new one:\n\n- **Name:** ToolLens\n- **Type:** project\n- **Note:** \"Owned by the platform team\"\n\nNothing was skipped."
+    }
+  ],
+  "final_text": "I've saved it to the knowledge-graph memory. I searched first and found no existing \"ToolLens\" entry, so I created a new one:\n\n- **Name:** ToolLens\n- **Type:** project\n- **Note:** \"Owned by the platform team\"\n\nNothing was skipped.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "memory/search_nodes"
+    },
+    {
+      "outcome": "ok",
+      "tool": "memory/create_entities"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 4,
+    "input_tokens": 8132,
+    "output_tokens": 454,
+    "cache_read_tokens": 5323,
+    "cache_write_tokens": 2799,
+    "tool_schema_tokens_per_request": 951,
+    "tool_schema_tokens_total": 3804,
+    "invocations": 2,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 1,
+    "discovery_latency_ms_mean": 4.5269,
+    "first_pick_correct": false,
+    "wall_ms": 9551.107,
+    "cost_usd": 0.0241796
+  }
+}

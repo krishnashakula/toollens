@@ -1,0 +1,523 @@
+{
+  "effort": "medium",
+  "generated_unix": 1792974721,
+  "max_turns": 16,
+  "model": "claude-opus-5-5",
+  "rows": [
+    {
+      "arm": "full",
+      "completion_rate": 0.0,
+      "cost_usd": 0.0,
+      "discovery_latency_ms_p50": 0.0,
+      "episodes": 28,
+      "errors": 28,
+      "first_pick_accuracy": null,
+      "incorrect_selections": 0,
+      "mean_input_tokens": 0.0,
+      "mean_output_tokens": 0.0,
+      "mean_requests": 0.0,
+      "mean_tool_schema_tokens_total": 0.0,
+      "size": 0,
+      "tasks": [
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "aws-docs-s3-max-object"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "aws-spend-by-service"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "azure-devops-build-log"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "circleci-failure"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "clickhouse-count"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "cloudtrail-bucket-delete"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "context7-react"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "digitalocean-droplets"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "eks-pod-logs"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "fetch-example"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "file-revenue-target"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "geocode-eiffel"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "git-last-commit"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "github-issue"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "gitlab-merge-request"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "heroku-logs"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "launchdarkly-flag"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "memory-remember"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "mongodb-count-failed"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "notion-search"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "paypal-invoice"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "redshift-tables"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "slack-post"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "sns-publish"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "time-convert-london"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "time-tokyo"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "twilio-sms"
+        },
+        {
+          "completed": false,
+          "stop_reason": "api_error",
+          "task": "web-search-news"
+        }
+      ],
+      "tool_schema_tokens_per_request": 1428973,
+      "tools": 2468,
+      "tools_excluded": [
+        "contentful/search_entries",
+        "mongodb/aggregate",
+        "mongodb/explain",
+        "mongodb/export",
+        "mongodb/find",
+        "postman/searchPostmanElements",
+        "twilio/TwilioApiV2010--ListCall",
+        "twilio/TwilioApiV2010--ListCallNotification",
+        "twilio/TwilioApiV2010--ListCallRecording",
+        "twilio/TwilioApiV2010--ListConference",
+        "twilio/TwilioApiV2010--ListConferenceRecording",
+        "twilio/TwilioApiV2010--ListMedia",
+        "twilio/TwilioApiV2010--ListMessage",
+        "twilio/TwilioApiV2010--ListNotification",
+        "twilio/TwilioApiV2010--ListRecording"
+      ],
+      "unauthorized_attempts": 0
+    },
+    {
+      "arm": "lens",
+      "completion_rate": 0.9285714285714286,
+      "cost_usd": 1.1977444,
+      "discovery_latency_ms_p50": 4.36335,
+      "episodes": 28,
+      "errors": 0,
+      "first_pick_accuracy": 0.7777777777777778,
+      "incorrect_selections": 4,
+      "mean_input_tokens": 18379.14285714286,
+      "mean_output_tokens": 789.8928571428571,
+      "mean_requests": 5.464285714285714,
+      "mean_tool_schema_tokens_total": 5196.535714285715,
+      "size": 0,
+      "tasks": [
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "aws-docs-s3-max-object"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "aws-spend-by-service"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "azure-devops-build-log"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "circleci-failure"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "clickhouse-count"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "cloudtrail-bucket-delete"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "context7-react"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "digitalocean-droplets"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "eks-pod-logs"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "fetch-example"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "file-revenue-target"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "geocode-eiffel"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "git-last-commit"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "github-issue"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "gitlab-merge-request"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "heroku-logs"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "launchdarkly-flag"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "memory-remember"
+        },
+        {
+          "completed": false,
+          "stop_reason": "end_turn",
+          "task": "mongodb-count-failed"
+        },
+        {
+          "completed": false,
+          "stop_reason": "end_turn",
+          "task": "notion-search"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "paypal-invoice"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "redshift-tables"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "slack-post"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "sns-publish"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "time-convert-london"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "time-tokyo"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "twilio-sms"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "web-search-news"
+        }
+      ],
+      "tool_schema_tokens_per_request": 951,
+      "tools": 2468,
+      "tools_excluded": [],
+      "unauthorized_attempts": 1
+    },
+    {
+      "arm": "native",
+      "completion_rate": 0.8928571428571429,
+      "cost_usd": 2.5190783999999993,
+      "discovery_latency_ms_p50": 0.0,
+      "episodes": 28,
+      "errors": 0,
+      "first_pick_accuracy": 0.7857142857142857,
+      "incorrect_selections": 6,
+      "mean_input_tokens": 25478.535714285714,
+      "mean_output_tokens": 640.0357142857143,
+      "mean_requests": 2.75,
+      "mean_tool_schema_tokens_total": 1768.25,
+      "size": 0,
+      "tasks": [
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "aws-docs-s3-max-object"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "aws-spend-by-service"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "azure-devops-build-log"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "circleci-failure"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "clickhouse-count"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "cloudtrail-bucket-delete"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "context7-react"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "digitalocean-droplets"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "eks-pod-logs"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "fetch-example"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "file-revenue-target"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "geocode-eiffel"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "git-last-commit"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "github-issue"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "gitlab-merge-request"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "heroku-logs"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "launchdarkly-flag"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "memory-remember"
+        },
+        {
+          "completed": false,
+          "stop_reason": "end_turn",
+          "task": "mongodb-count-failed"
+        },
+        {
+          "completed": false,
+          "stop_reason": "end_turn",
+          "task": "notion-search"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "paypal-invoice"
+        },
+        {
+          "completed": false,
+          "stop_reason": "end_turn",
+          "task": "redshift-tables"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "slack-post"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "sns-publish"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "time-convert-london"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "time-tokyo"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "twilio-sms"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "web-search-news"
+        }
+      ],
+      "tool_schema_tokens_per_request": 643,
+      "tools": 2468,
+      "tools_excluded": [
+        "contentful/search_entries",
+        "mongodb/aggregate",
+        "mongodb/explain",
+        "mongodb/export",
+        "mongodb/find",
+        "postman/searchPostmanElements",
+        "twilio/TwilioApiV2010--ListCall",
+        "twilio/TwilioApiV2010--ListCallNotification",
+        "twilio/TwilioApiV2010--ListCallRecording",
+        "twilio/TwilioApiV2010--ListConference",
+        "twilio/TwilioApiV2010--ListConferenceRecording",
+        "twilio/TwilioApiV2010--ListMedia",
+        "twilio/TwilioApiV2010--ListMessage",
+        "twilio/TwilioApiV2010--ListNotification",
+        "twilio/TwilioApiV2010--ListRecording"
+      ],
+      "unauthorized_attempts": 1
+    }
+  ]
+}

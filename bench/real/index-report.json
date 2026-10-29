@@ -1,0 +1,217 @@
+{
+  "failed": [
+    {
+      "error": "initializing: connection closed: initialize response | stderr: /cache/npm/_npx/36a73b17655f6c90/node_modules/@github/keytar/lib/keytar.js:17 /   throw new Error(\"Failed to load keytar native addon, checked \" + JSON.stringify(paths) + \" on \" + prebuildDir); /         ^ / Error: Failed to load keytar native addon, checked [\"../build/Release\",\"../prebuilds/linux-x64\",\"./prebuilds/linux-x64\"] on prebuilds/linux-x64 /     at loadNativeAddon (/cache/npm/_npx/36a73b17655f6c90/node_modules/@github/keytar/lib/keytar.js:17:9) /     at Object.<anonymous> (/cache/npm/_npx/36a73b17655f6c90/node_modules/@github/keytar/lib/keytar.js:20:14) /     at Module._compile (node:internal/modules/cjs/loader:1781:14) /     at Object..js (node:internal/modules/cjs/loader:1913:10) /     at Module.load (node:internal/modules/cjs/loader:1505:32) /     at Function._load (node:internal/modules/cjs/loader:1309:12) /     at wrapModuleLoad (node:internal/modules/cjs/loader:254:19) /     at loadCJSModuleWithModuleLoad (node:internal/modules/esm/translators:335:3) /     at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:235:7) /     at ModuleJob.run (node:internal/modules/esm/module_job:343:25) / Node.js v22.23.4",
+      "server": "auth0"
+    },
+    {
+      "error": "initializing: connection closed: initialize response | stderr:           awslabs-aws-diagram-mcp-server==1.0.8 /           awslabs-aws-diagram-mcp-server==1.0.9 /           awslabs-aws-diagram-mcp-server==1.0.10 /           awslabs-aws-diagram-mcp-server==1.0.11 /           awslabs-aws-diagram-mcp-server==1.0.12 /           awslabs-aws-diagram-mcp-server==1.0.13 /           awslabs-aws-diagram-mcp-server==1.0.14 /           awslabs-aws-diagram-mcp-server==1.0.15 /           awslabs-aws-diagram-mcp-server==1.0.16 /           awslabs-aws-diagram-mcp-server==1.0.17 /           awslabs-aws-diagram-mcp-server==1.0.18 /           awslabs-aws-diagram-mcp-server==1.0.19 /           awslabs-aws-diagram-mcp-server==1.0.20 /           awslabs-aws-diagram-mcp-server==1.0.21 /           awslabs-aws-diagram-mcp-server==1.0.22 /           awslabs-aws-diagram-mcp-server==1.0.23 /       and awslabs-aws-diagram-mcp-server>=1.0.5 was yanked (reason: /       Superceeded by diagram agent skill in the deploy-on-aws plugin /       https://github.com/awslabs/agent-plugins/tree/main/plugins/deploy-on-aws), /       we can conclude that awslabs-aws-diagram-mcp-server>=1.0.5 cannot be /       used. /       And because awslabs-core-mcp-server==1.0.27 depends on /       awslabs-aws-diagram-mcp-server>=1.0.5 and you require /       awslabs-core-mcp-server==1.0.27, we can conclude that your requirements /       are unsatisfiable.",
+      "server": "aws-core"
+    },
+    {
+      "error": "initializing: connection closed: initialize response | stderr: ╭──────────────────────────────────────────────────────────────────────────────╮ / │                                                                              │ / │                                                                              │ / │                         ▄▀▀ ▄▀█ █▀▀ ▀█▀ █▀▄▀█ █▀▀ █▀█                        │ / │                         █▀  █▀█ ▄▄█  █  █ ▀ █ █▄▄ █▀▀                        │ / │                                                                              │ / │                                                                              │ / │                                                                              │ / │                                FastMCP 4.1.3                                 │ / │                            https://gofastmcp.com                             │ / │                                                                              │ / │                  🖥  Server:      AWS ECS MCP Server, 4.1.3                   │ / │                  🚀 Deploy free: https://horizon.prefect.io                  │ / │                                                                              │ / ╰──────────────────────────────────────────────────────────────────────────────╯ / 2026-10-25 23:27:16,255 - awslabs.ecs_mcp_server.modules.aws_knowledge_proxy - ERROR - Error applying tool transformations: 'FastMCP' object has no attribute 'add_tool_transformation' / 2026-10-25 23:27:16,258 - ecs-mcp-server - ERROR - Error starting server: 'FastMCP' object has no attribute 'add_tool_transformation'",
+      "server": "aws-ecs"
+    },
+    {
+      "error": "initializing: connection closed: initialize response | stderr: 2026-10-25 23:28:29.139 | ERROR    | awslabs.healthlake_mcp_server.main:main:67 - Server error: 'Server' object has no attribute 'list_tools' / Traceback (most recent call last): /   File \"/cache/uv/archive-v0/OieY1IieWsvRs98OTiOsZ/bin/awslabs.healthlake-mcp-server\", line 12, in <module> /     sys.exit(sync_main()) /              ~~~~~~~~~^^ /   File \"/cache/uv/archive-v0/OieY1IieWsvRs98OTiOsZ/lib/python3.13/site-packages/awslabs/healthlake_mcp_server/main.py\", line 73, in sync_main /     asyncio.run(main()) /     ~~~~~~~~~~~^^^^^^^^ /   File \"/cache/python/cpython-3.13.7-linux-x86_64-gnu/lib/python3.13/asyncio/runners.py\", line 195, in run /     return runner.run(main) /            ~~~~~~~~~~^^^^^^ /   File \"/cache/python/cpython-3.13.7-linux-x86_64-gnu/lib/python3.13/asyncio/runners.py\", line 118, in run /     return self._loop.run_until_complete(task) /            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^ /   File \"/cache/python/cpython-3.13.7-linux-x86_64-gnu/lib/python3.13/asyncio/base_events.py\", line 725, in run_until_complete /     return future.result() /            ~~~~~~~~~~~~~^^ /   File \"/cache/uv/archive-v0/OieY1IieWsvRs98OTiOsZ/lib/python3.13/site-packages/awslabs/healthlake_mcp_server/main.py\", line 55, in main /     server = create_healthlake_server(read_only=args.readonly) /   File \"/cache/uv/archive-v0/OieY1IieWsvRs98OTiOsZ/lib/python3.13/site-packages/awslabs/healthlake_mcp_server/server.py\", line 273, in create_healthlake_server /     @server.list_tools() /      ^^^^^^^^^^^^^^^^^ / AttributeError: 'Server' object has no attribute 'list_tools'",
+      "server": "aws-healthlake"
+    },
+    {
+      "error": "timed out after 120s",
+      "server": "aws-knowledge"
+    },
+    {
+      "error": "initializing: connection closed: initialize response | stderr: [10/25/26 23:27:27] INFO     Found credentials in            credentials.py:1263 /                              environment variables. / 2026-10-25 23:27:29.451 | ERROR    | awslabs.prometheus_mcp_server.server:validate:136 - ERROR: AWS credentials validation failed: An error occurred (InvalidClientTokenId) when calling the GetCallerIdentity operation: The security token included in the request is invalid. / 2026-10-25 23:27:29.454 | ERROR    | awslabs.prometheus_mcp_server.server:main:1089 - AWS credentials validation failed",
+      "server": "aws-prometheus"
+    },
+    {
+      "error": "initializing: connection closed: initialize response | stderr:    at System.Diagnostics.Activity..cctor() /    at System.Runtime.CompilerServices.InitHelpers.InitClassHelper(System.Runtime.CompilerServices.MethodTable*) /    at System.Runtime.CompilerServices.InitHelpers.InitClassHelper(System.Runtime.CompilerServices.MethodTable*) /    at System.Runtime.CompilerServices.InitHelpers.InitClassSlow(System.Runtime.CompilerServices.MethodTable*) /    at System.Runtime.CompilerServices.StaticsHelpers.GetNonGCStaticBaseSlow(System.Runtime.CompilerServices.MethodTable*) /    at System.Runtime.CompilerServices.StaticsHelpers.GetNonGCStaticBase(System.Runtime.CompilerServices.MethodTable*) /    at System.Diagnostics.Activity.set_DefaultIdFormat(System.Diagnostics.ActivityIdFormat) /    at OpenTelemetry.Sdk..cctor() /    at System.Runtime.CompilerServices.InitHelpers.InitClassHelper(System.Runtime.CompilerServices.MethodTable*) /    at System.Runtime.CompilerServices.InitHelpers.InitClassHelper(System.Runtime.CompilerServices.MethodTable*) /    at System.Runtime.CompilerServices.InitHelpers.InitClassSlow(System.Runtime.CompilerServices.MethodTable*) /    at System.Runtime.CompilerServices.StaticsHelpers.GetGCStaticBaseSlow(System.Runtime.CompilerServices.MethodTable*) /    at System.Runtime.CompilerServices.StaticsHelpers.GetGCStaticBase(System.Runtime.CompilerServices.MethodTable*) /    at OpenTelemetry.Sdk.get_SuppressInstrumentation() /    at Microsoft.Extensions.DependencyInjection.ProviderBuilderServiceCollectionExtensions.AddOpenTelemetrySharedProviderBuilderServices(Microsoft.Extensions.DependencyInjection.IServiceCollection) /    at OpenTelemetry.OpenTelemetryBuilder..ctor(Microsoft.Extensions.DependencyInjection.IServiceCollection) /    at Microsoft.Extensions.DependencyInjection.OpenTelemetryServicesExtensions.AddOpenTelemetry(Microsoft.Extensions.DependencyInjection.IServiceCollection) /    at Microsoft.Mcp.Core.Extensions.OpenTelemetryExtensions.EnableAzureMonitor(Microsoft.Extensions.DependencyInjection.IServiceCollection) /    at Microsoft.Mcp.Core.Extensions.OpenTelemetryExtensions.ConfigureOpenTelemetry(Microsoft.Extensions.DependencyInjection.IServiceCollection) /    at Azure.Mcp.Server.Program.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection, System.String) /    at Azure.Mcp.Server.Program+<Main>d__2.MoveNext() /    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[[Azure.Mcp.Server.Program+<Main>d__2, azmcp, Version=4.0.0.0, Culture=neutral, PublicKeyToken=null]](<Main>d__2 ByRef) /    at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]].Start[[Azure.Mcp.Server.Program+<Main>d__2, azmcp, Version=4.0.0.0, Culture=neutral, PublicKeyToken=null]](<Main>d__2 ByRef) /    at Azure.Mcp.Server.Program.Main(System.String[]) /    at Azure.Mcp.Server.Program.<Main>(System.String[])",
+      "server": "azure"
+    },
+    {
+      "error": "initializing: connection closed: initialize response | stderr: Traceback (most recent call last): /   File \"/cache/uv/archive-v0/tl3y-UKJXELJFV9uQ6Y4s/bin/chroma-mcp\", line 6, in <module> /     from chroma_mcp import main /   File \"/cache/uv/archive-v0/tl3y-UKJXELJFV9uQ6Y4s/lib/python3.13/site-packages/chroma_mcp/__init__.py\", line 3, in <module> /     from .server import main /   File \"/cache/uv/archive-v0/tl3y-UKJXELJFV9uQ6Y4s/lib/python3.13/site-packages/chroma_mcp/server.py\", line 4, in <module> /     from mcp.server.fastmcp import FastMCP /   File \"/cache/uv/archive-v0/tl3y-UKJXELJFV9uQ6Y4s/lib/python3.13/site-packages/mcp/__init__.py\", line 3, in <module> /     from .server.session import ServerSession /   File \"/cache/uv/archive-v0/tl3y-UKJXELJFV9uQ6Y4s/lib/python3.13/site-packages/mcp/server/__init__.py\", line 1, in <module> /     from .fastmcp import FastMCP /   File \"/cache/uv/archive-v0/tl3y-UKJXELJFV9uQ6Y4s/lib/python3.13/site-packages/mcp/server/fastmcp/__init__.py\", line 5, in <module> /     from .server import Context, FastMCP /   File \"/cache/uv/archive-v0/tl3y-UKJXELJFV9uQ6Y4s/lib/python3.13/site-packages/mcp/server/fastmcp/server.py\", line 29, in <module> /     from mcp.server.fastmcp.tools import ToolManager /   File \"/cache/uv/archive-v0/tl3y-UKJXELJFV9uQ6Y4s/lib/python3.13/site-packages/mcp/server/fastmcp/tools/__init__.py\", line 1, in <module> /     from .base import Tool /   File \"/cache/uv/archive-v0/tl3y-UKJXELJFV9uQ6Y4s/lib/python3.13/site-packages/mcp/server/fastmcp/tools/base.py\", line 10, in <module> /     from mcp.server.fastmcp.utilities.func_metadata import FuncMetadata, func_metadata /   File \"/cache/uv/archive-v0/tl3y-UKJXELJFV9uQ6Y4s/lib/python3.13/site-packages/mcp/server/fastmcp/utilities/func_metadata.py\", line 11, in <module> /     from pydantic._internal._typing_extra import eval_type_backport / ImportError: cannot import name 'eval_type_backport' from 'pydantic._internal._typing_extra' (/cache/uv/archive-v0/tl3y-UKJXELJFV9uQ6Y4s/lib/python3.13/site-packages/pydantic/_internal/_typing_extra.py)",
+      "server": "chroma"
+    },
+    {
+      "error": "initializing: connection closed: initialize response | stderr: [DEBUG 2026-10-25T23:27:39.122Z] Uncaught exception: Error: No config file found at /root/.config/.wrangler/config/default.toml",
+      "server": "cloudflare"
+    },
+    {
+      "error": "initializing: connection closed: initialize response | stderr: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ /   DEPRECATION NOTICE /   This local Dynatrace MCP Server is deprecated. Last release: v2.1.2. /   No further updates will be made. /   Please migrate to: /   - Local dev (VS Code, IntelliJ, Claude Code, Cursor, ...): /     https://github.com/Dynatrace/dynatrace-for-ai/ + dtctl /     https://github.com/dynatrace-oss/dtctl /   - Remote MCP Server (no local setup required): /     https://www.dynatrace.com/hub/detail/dynatrace-mcp-server/ / ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ / Initializing Dynatrace MCP Server v2.1.2... / Please set DT_ENVIRONMENT to a valid Dynatrace Environment URL (e.g., https://<environment-id>.apps.dynatrace.com)",
+      "server": "dynatrace"
+    },
+    {
+      "error": "initializing: connection closed: initialize response | stderr: [2026-10-25T23:27:42.019Z] ERROR: Unable to start gcloud mcp server: Error: gcloud executable not found",
+      "server": "gcloud"
+    },
+    {
+      "error": "initializing: connection closed: initialize response | stderr: Credentials not found. Please run with 'auth' argument first.",
+      "server": "gdrive"
+    },
+    {
+      "error": "initializing: connection closed: initialize response | stderr: [MCP] Failed to start server: Error: Configuration validation failed: / INFLUX_DB_PRODUCT_TYPE is required and must be one of: enterprise, core, cloud-dedicated, cloud-serverless, clustered /     at validateConfig (file:///cache/npm/_npx/3ddd2513b6bba7b1/node_modules/@influxdata/influxdb3-mcp-server/build/config.js:86:15) /     at createServer (file:///cache/npm/_npx/3ddd2513b6bba7b1/node_modules/@influxdata/influxdb3-mcp-server/build/server/index.js:48:5) /     at main (file:///cache/npm/_npx/3ddd2513b6bba7b1/node_modules/@influxdata/influxdb3-mcp-server/build/index.js:12:24) /     at file:///cache/npm/_npx/3ddd2513b6bba7b1/node_modules/@influxdata/influxdb3-mcp-server/build/index.js:30:1 /     at ModuleJob.run (node:internal/modules/esm/module_job:343:25) /     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26) /     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)",
+      "server": "influxdb3"
+    },
+    {
+      "error": "initializing: connection closed: initialize response | stderr: Traceback (most recent call last): /   File \"/cache/uv/archive-v0/SWbi2BnFBkoRkcoAt9G5g/bin/logfire-mcp\", line 6, in <module> /     from logfire_mcp.__main__ import main /   File \"/cache/uv/archive-v0/SWbi2BnFBkoRkcoAt9G5g/lib/python3.13/site-packages/logfire_mcp/__main__.py\", line 4, in <module> /     from .main import __version__ /   File \"/cache/uv/archive-v0/SWbi2BnFBkoRkcoAt9G5g/lib/python3.13/site-packages/logfire_mcp/main.py\", line 8, in <module> /     from logfire.experimental.query_client import AsyncLogfireQueryClient / ModuleNotFoundError: No module named 'logfire.experimental.query_client'",
+      "server": "logfire"
+    },
+    {
+      "error": "initializing: connection closed: initialize response",
+      "server": "neon"
+    },
+    {
+      "error": "initializing: connection closed: initialize response | stderr: npm error could not determine executable to run / npm error A complete log of this run can be found in: /cache/npm/_logs/2026-10-25T23_28_00_899Z-debug-0.log",
+      "server": "posthog"
+    },
+    {
+      "error": "initializing: connection closed: initialize response | stderr: @railway/mcp-server is deprecated. / Railway MCP is now bundled into the Railway CLI. / Install or upgrade the Railway CLI, then configure your MCP client with: /   railway mcp install / Or run the local stdio server directly with: /   railway mcp / Docs: https://docs.railway.com/cli/mcp",
+      "server": "railway"
+    },
+    {
+      "error": "initializing: connection closed: initialize response | stderr:     at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1638:16) / [Redis Reconnecting] Connection lost, attempting to reconnect... / [Redis Retry] Attempt 5/5 failed / [Redis Retry] Next attempt in 16000ms / [Redis Retry] Connection: redis://localhost:1 / [Redis Error] Error: connect ECONNREFUSED 127.0.0.1:1 / [Redis Error] Connection: redis://localhost:1 / [Redis Error] Stack: Error: connect ECONNREFUSED 127.0.0.1:1 /     at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1638:16) / [Redis Reconnecting] Connection lost, attempting to reconnect... / [Redis Error] Maximum retries (5) reached. Giving up. / [Redis Error] Connection: redis://localhost:1 / [Redis Error] Error: connect ECONNREFUSED 127.0.0.1:1 / [Redis Error] Connection: redis://localhost:1 / [Redis Error] Stack: Error: connect ECONNREFUSED 127.0.0.1:1 /     at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1638:16) / [Redis Fatal] Server initialization failed / [Redis Fatal] Error: Error: Max retries reached / [Redis Fatal] Connection: redis://localhost:1 / [Redis Fatal] Stack: Error: Max retries reached /     at RedisSocket._RedisSocket_shouldReconnect (/cache/npm/_npx/8aa2898a44f705f0/node_modules/@redis/client/dist/lib/client/socket.js:140:16) /     at RedisSocket._RedisSocket_connect (/cache/npm/_npx/8aa2898a44f705f0/node_modules/@redis/client/dist/lib/client/socket.js:162:117) /     at process.processTicksAndRejections (node:internal/process/task_queues:103:5) /     at async Commander.connect (/cache/npm/_npx/8aa2898a44f705f0/node_modules/@redis/client/dist/lib/client/index.js:185:9) /     at async runServer (file:///cache/npm/_npx/8aa2898a44f705f0/node_modules/@modelcontextprotocol/server-redis/dist/index.js:240:9)",
+      "server": "redis"
+    },
+    {
+      "error": "initializing: connection closed: initialize response | stderr: npm error could not determine executable to run / npm error A complete log of this run can be found in: /cache/npm/_logs/2026-10-25T23_28_01_079Z-debug-0.log",
+      "server": "sanity"
+    },
+    {
+      "error": "initializing: connection closed: initialize response | stderr: Traceback (most recent call last): /   File \"/cache/uv/archive-v0/2LLaqpvemw27EdQDsQ6c7/bin/semgrep-mcp\", line 6, in <module> /     from semgrep_mcp.server import main /   File \"/cache/uv/archive-v0/2LLaqpvemw27EdQDsQ6c7/lib/python3.13/site-packages/semgrep_mcp/__init__.py\", line 1, in <module> /     from . import server /   File \"/cache/uv/archive-v0/2LLaqpvemw27EdQDsQ6c7/lib/python3.13/site-packages/semgrep_mcp/server.py\", line 12, in <module> /     from mcp.server.fastmcp import FastMCP /   File \"/cache/uv/archive-v0/2LLaqpvemw27EdQDsQ6c7/lib/python3.13/site-packages/mcp/__init__.py\", line 4, in <module> /     from .server.session import ServerSession /   File \"/cache/uv/archive-v0/2LLaqpvemw27EdQDsQ6c7/lib/python3.13/site-packages/mcp/server/__init__.py\", line 1, in <module> /     from .fastmcp import FastMCP /   File \"/cache/uv/archive-v0/2LLaqpvemw27EdQDsQ6c7/lib/python3.13/site-packages/mcp/server/fastmcp/__init__.py\", line 5, in <module> /     from .server import Context, FastMCP /   File \"/cache/uv/archive-v0/2LLaqpvemw27EdQDsQ6c7/lib/python3.13/site-packages/mcp/server/fastmcp/server.py\", line 38, in <module> /     from mcp.server.fastmcp.tools import Tool, ToolManager /   File \"/cache/uv/archive-v0/2LLaqpvemw27EdQDsQ6c7/lib/python3.13/site-packages/mcp/server/fastmcp/tools/__init__.py\", line 1, in <module> /     from .base import Tool /   File \"/cache/uv/archive-v0/2LLaqpvemw27EdQDsQ6c7/lib/python3.13/site-packages/mcp/server/fastmcp/tools/base.py\", line 12, in <module> /     from mcp.server.fastmcp.utilities.func_metadata import FuncMetadata, func_metadata /   File \"/cache/uv/archive-v0/2LLaqpvemw27EdQDsQ6c7/lib/python3.13/site-packages/mcp/server/fastmcp/utilities/func_metadata.py\", line 17, in <module> /     from pydantic._internal._typing_extra import eval_type_backport / ImportError: cannot import name 'eval_type_backport' from 'pydantic._internal._typing_extra' (/cache/uv/archive-v0/2LLaqpvemw27EdQDsQ6c7/lib/python3.13/site-packages/pydantic/_internal/_typing_extra.py)",
+      "server": "semgrep"
+    },
+    {
+      "error": "initializing: connection closed: initialize response | stderr:   --all-skills              Grant all active, non-deprecated skills (including seer on self-hosted) /   --disable-skills <list>   Remove specific skills (e.g. --disable-skills=seer) / Available skills: inspect, seer, docs, triage, project-management / Environment variables: /   SENTRY_ACCESS_TOKEN     Sentry auth token (alternative to --access-token) /   SENTRY_CLIENT_ID        Override OAuth client ID for device code flow /   OPENAI_API_KEY          OpenAI API key for AI-powered search tools /   ANTHROPIC_API_KEY       Anthropic API key for AI-powered search tools /   OPENROUTER_API_KEY      OpenRouter API key for AI-powered search tools /   OPENROUTER_MODEL        OpenRouter model (default: openai/gpt-5.6-luna) /   OPENROUTER_REASONING_EFFORT  OpenRouter reasoning effort: none|minimal|low|medium|high|xhigh (max→xhigh), or \"\" to omit (default: high) /   EMBEDDED_AGENT_PROVIDER Provider override: openai, azure-openai, anthropic, or openrouter /   MCP_SKILLS              Specify which skills to grant (comma-separated) /   MCP_DISABLE_SKILLS      Disable specific skills (comma-separated) / Examples: /   @sentry/mcp-server                                        # device code auth (sentry.io only) /   @sentry/mcp-server --access-token=TOKEN /   @sentry/mcp-server --access-token=TOKEN --all-skills /   @sentry/mcp-server --access-token=TOKEN --skills=inspect,triage /   @sentry/mcp-server --access-token=TOKEN --host=sentry.example.com /   @sentry/mcp-server --access-token=TOKEN --host=sentry.internal:9000 --insecure-http /   @sentry/mcp-server --access-token=TOKEN --host=sentry.example.com --skills=inspect,seer   # self-hosted with Seer /   @sentry/mcp-server --access-token=TOKEN --agent-provider=azure-openai --openai-base-url=https://example.openai.azure.com/openai/v1/ /   @sentry/mcp-server --access-token=TOKEN --agent-provider=anthropic /   @sentry/mcp-server --access-token=TOKEN --agent-provider=openrouter",
+      "server": "sentry"
+    },
+    {
+      "error": "initializing: connection closed: initialize response | stderr:     ...<2 lines>... /     ) /   File \"/cache/uv/archive-v0/J88hOZ2UHb6GjZp6mqwnY/lib/python3.13/site-packages/fastmcp/server/server.py\", line 2504, in run_stdio_async /     async with self._lifespan_manager(): /                ~~~~~~~~~~~~~~~~~~~~~~^^ /   File \"/cache/python/cpython-3.13.7-linux-x86_64-gnu/lib/python3.13/contextlib.py\", line 214, in __aenter__ /     return await anext(self.gen) /            ^^^^^^^^^^^^^^^^^^^^^ /   File \"/cache/uv/archive-v0/J88hOZ2UHb6GjZp6mqwnY/lib/python3.13/site-packages/fastmcp/server/server.py\", line 573, in _lifespan_manager /     self._lifespan(self) as user_lifespan_result, /     ~~~~~~~~~~~~~~^^^^^^ /   File \"/cache/python/cpython-3.13.7-linux-x86_64-gnu/lib/python3.13/contextlib.py\", line 214, in __aenter__ /     return await anext(self.gen) /            ^^^^^^^^^^^^^^^^^^^^^ /   File \"/cache/uv/archive-v0/J88hOZ2UHb6GjZp6mqwnY/lib/python3.13/site-packages/mcp_server_snowflake/server.py\", line 540, in create_snowflake_service /     snowflake_service = SnowflakeService( /         service_config_file=service_config_file, /     ...<2 lines>... /         endpoint=endpoint or args.endpoint, /     ) /   File \"/cache/uv/archive-v0/J88hOZ2UHb6GjZp6mqwnY/lib/python3.13/site-packages/mcp_server_snowflake/server.py\", line 112, in __init__ /     raise ValueError( /         \"service_config_file cannot be None. Please provide a path to the service configuration file.\" /     ) / ValueError: service_config_file cannot be None. Please provide a path to the service configuration file.",
+      "server": "snowflake"
+    },
+    {
+      "error": "initializing: connection closed: initialize response | stderr: Traceback (most recent call last): /   File \"/cache/uv/archive-v0/Eqykd9P370Hyb7LL7I9Ci/bin/mcp-server-starrocks\", line 6, in <module> /     from mcp_server_starrocks import main /   File \"/cache/uv/archive-v0/Eqykd9P370Hyb7LL7I9Ci/lib/python3.13/site-packages/mcp_server_starrocks/__init__.py\", line 14, in <module> /     from . import server /   File \"/cache/uv/archive-v0/Eqykd9P370Hyb7LL7I9Ci/lib/python3.13/site-packages/mcp_server_starrocks/server.py\", line 27, in <module> /     from fastmcp.tools.tool import ToolResult / ModuleNotFoundError: No module named 'fastmcp.tools.tool'",
+      "server": "starrocks"
+    },
+    {
+      "error": "timed out after 120s",
+      "server": "stripe"
+    },
+    {
+      "error": "initializing: connection closed: initialize response | stderr: [DEBUG 2026-10-25T23:28:18.480Z] 🧪 Testing connection to Upstash API / [DEBUG 2026-10-25T23:28:18.481Z] -> sending request {\"url\":\"https://api.upstash.com/v2/redis/databases\",\"method\":\"GET\",\"headers\":{\"Content-Type\":\"application/json\",\"Authorization\":\"***REDACTED***\",\"Upstash-Telemetry-Runtime\":\"node@22.23.4\",\"Upstash-Telemetry-Platform\":\"linux\",\"Upstash-Telemetry-Sdk\":\"@upstash/mcp-server@0.4.0\"}} / [DEBUG 2026-10-25T23:28:18.877Z] ❌ Connection to Upstash API failed. Please check your api key and email. Error:  Request failed (401 Unauthorized): {\"error\":\"Unauthorized\"} / Fatal error in main(): Error: Request failed (401 Unauthorized): {\"error\":\"Unauthorized\"} /     at HttpClient.request (file:///cache/npm/_npx/b0ed303963b602cb/node_modules/@upstash/mcp-server/dist/index.js:302:13) /     at process.processTicksAndRejections (node:internal/process/task_queues:103:5) /     at async middlewares (file:///cache/npm/_npx/b0ed303963b602cb/node_modules/@upstash/mcp-server/dist/index.js:157:17) /     at async HttpClient.requestWithMiddleware (file:///cache/npm/_npx/b0ed303963b602cb/node_modules/@upstash/mcp-server/dist/index.js:228:17) /     at async testConnection (file:///cache/npm/_npx/b0ed303963b602cb/node_modules/@upstash/mcp-server/dist/index.js:2251:11) /     at async main (file:///cache/npm/_npx/b0ed303963b602cb/node_modules/@upstash/mcp-server/dist/index.js:2338:22)",
+      "server": "upstash"
+    }
+  ],
+  "servers": {
+    "amazon-bedrock-agentcore": 123,
+    "amazon-kendra-index": 2,
+    "amazon-keyspaces": 6,
+    "amazon-mq": 35,
+    "amazon-neptune": 4,
+    "amazon-qbusiness-anonymous": 1,
+    "amazon-qindex": 4,
+    "amazon-sns-sqs": 43,
+    "analytics": 9,
+    "apify": 10,
+    "arize-phoenix": 27,
+    "aws-api": 2,
+    "aws-appsync": 10,
+    "aws-aurora-dsql": 7,
+    "aws-bedrock-data-automation": 3,
+    "aws-bedrock-kb-retrieval": 3,
+    "aws-billing-cost-management": 47,
+    "aws-ccapi": 14,
+    "aws-cdk": 7,
+    "aws-cfn": 8,
+    "aws-cloudtrail": 5,
+    "aws-cloudwatch": 19,
+    "aws-cloudwatch-appsignals": 13,
+    "aws-code-doc-gen": 4,
+    "aws-cost-explorer": 7,
+    "aws-dataprocessing": 36,
+    "aws-diagram": 3,
+    "aws-documentation": 5,
+    "aws-documentdb": 14,
+    "aws-dynamodb": 8,
+    "aws-eks": 16,
+    "aws-elasticache": 39,
+    "aws-finch": 3,
+    "aws-frontend": 1,
+    "aws-git-repo-research": 5,
+    "aws-healthomics": 77,
+    "aws-iam": 29,
+    "aws-iot-sitewise": 41,
+    "aws-kb-retrieval": 1,
+    "aws-location": 8,
+    "aws-memcached": 22,
+    "aws-msk": 12,
+    "aws-mysql": 7,
+    "aws-nova-canvas": 2,
+    "aws-openapi": 19,
+    "aws-postgres": 7,
+    "aws-pricing": 9,
+    "aws-redshift": 7,
+    "aws-s3-tables": 16,
+    "aws-sagemaker-ai": 4,
+    "aws-serverless": 25,
+    "aws-syntheticdata": 4,
+    "aws-timestream-for-influxdb": 26,
+    "aws-valkey": 12,
+    "azure-devops": 44,
+    "bitwarden": 59,
+    "brave-search": 2,
+    "brightdata": 32,
+    "browserbase": 6,
+    "browserstack": 52,
+    "chargebee": 2,
+    "circleci": 13,
+    "clarity": 3,
+    "clickhouse": 3,
+    "contentful": 87,
+    "context7": 2,
+    "dbt": 39,
+    "digitalocean": 425,
+    "e2b": 1,
+    "elasticsearch": 4,
+    "everart": 1,
+    "everything": 16,
+    "exa": 2,
+    "fetch": 1,
+    "filesystem": 14,
+    "firecrawl": 26,
+    "git": 12,
+    "github": 26,
+    "gitlab": 9,
+    "google-maps": 7,
+    "growthbook": 4,
+    "heroku": 33,
+    "hostinger-api": 3,
+    "hubspot": 21,
+    "kagi": 2,
+    "launchdarkly": 20,
+    "mailgun": 74,
+    "mapbox": 29,
+    "memory": 9,
+    "mongodb": 27,
+    "netlify": 10,
+    "notion": 24,
+    "opik": 5,
+    "paypal": 28,
+    "perplexity": 4,
+    "pinecone": 9,
+    "playwright": 25,
+    "postgres": 1,
+    "postman": 42,
+    "puppeteer": 7,
+    "redis-cloud": 53,
+    "sequential-thinking": 1,
+    "shopify-dev": 5,
+    "slack": 8,
+    "supabase": 29,
+    "tavily": 5,
+    "time": 2,
+    "tomtom": 17,
+    "twilio": 197,
+    "wix": 15
+  },
+  "tools": 2468
+}

@@ -1,0 +1,105 @@
+{
+  "task": "github-issue",
+  "arm": "lens",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Open a GitHub issue in the repository acme/webapp titled 'Login button unresponsive on Safari'.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "create a GitHub issue in a repository",
+            "limit": 5
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"github/create_issue\",\"role\":\"match\",\"summary\":\"Create a new issue in a GitHub repository\",\"why\":\"matches creat, git, hub, issu, repository\"},{\"id\":\"github/get_issue\",\"role\":\"match\",\"summary\":\"Get details of a specific issue in a GitHub repository\",\"why\":\"matches git, hub, issu, repository\"},{\"id\":\"github/create_repository\",\"role\":\"match\",\"summary\":\"Create a new GitHub repository in your account\",\"why\":\"matches creat, git, hub, repository\"},{\"id\":\"github/create_branch\",\"role\":\"match\",\"summary\":\"Create a new branch in a GitHub repository\",\"why\":\"matches creat, git, hub, repository\"},{\"id\":\"aws-git-repo-research/search_repos_on_github\",\"role\":\"match\",\"summary\":\"[DEPRECATED] Search for GitHub repositories based on keywords, scoped to specific organizations.\\n\\nThis tool searches for GitHub repositories…\",\"why\":\"matches git, hub, repository\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "github/create_issue"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"description\":\"Create a new issue in a GitHub repository\",\"id\":\"github/create_issue\",\"input_schema\":{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"additionalProperties\":false,\"properties\":{\"assignees\":{\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"body\":{\"type\":\"string\"},\"labels\":{\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"milestone\":{\"type\":\"number\"},\"owner\":{\"type\":\"string\"},\"repo\":{\"type\":\"string\"},\"title\":{\"type\":\"string\"}},\"required\":[\"owner\",\"repo\",\"title\"],\"type\":\"object\"},\"name\":\"create_issue\",\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache toollens-sandbox:1 npx -y @modelcontextprotocol/server-github@2025.4.8\",\"first_seen\":\"2026-10-25T23:19:02.022Z\",\"last_seen\":\"2026-10-25T23:50:45.595Z\",\"schema_hash\":\"8e766bd930e7fb57\",\"server\":\"github\"},\"schema_hash\":\"8e766bd930e7fb57\",\"server\":\"github\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "owner": "acme",
+              "repo": "webapp",
+              "title": "Login button unresponsive on Safari"
+            },
+            "tool_id": "github/create_issue"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"error\":\"github/create_issue failed: Mcp error: -32603: Failed to create issue: Requires authentication\\nStack: GitHubAuthenticationError: Requires authentication\\n    at createGitHubError (file:///cache/npm/_npx/812ed9af46615848/node_modules/@modelcontextprotocol/server-github/dist/common/errors.js:55:20)\\n    at githubRequest (file:///cache/npm/_npx/812ed9af46615848/node_modules/@modelcontextprotocol/server-github/dist/common/utils.js:38:15)\\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\\n    at async file:///cache/npm/_npx/812ed9af46615848/node_modules/@modelcontextprotocol/server-github/dist/index.js:251:35\",\"outcome\":\"failed\"}",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I couldn't create the issue. The gateway allowed the call to `github/create_issue`, but GitHub turned it down with an authentication error (\"Requires authentication\").\n\nI sent:\n- **Owner:** `acme`\n- **Repo:** `webapp`\n- **Title:** \"Login button unresponsive on Safari\"\n\nGitHub didn't create anything, so there's no issue number. The GitHub tool doesn't seem to have valid credentials, probably because no access token is set up. Once someone with admin access adds a token that's allowed to create issues in `acme/webapp`, I can try again. You could also open the issue yourself in the GitHub web interface."
+    }
+  ],
+  "final_text": "I couldn't create the issue. The gateway allowed the call to `github/create_issue`, but GitHub turned it down with an authentication error (\"Requires authentication\").\n\nI sent:\n- **Owner:** `acme`\n- **Repo:** `webapp`\n- **Title:** \"Login button unresponsive on Safari\"\n\nGitHub didn't create anything, so there's no issue number. The GitHub tool doesn't seem to have valid credentials, probably because no access token is set up. Once someone with admin access adds a token that's allowed to create issues in `acme/webapp`, I can try again. You could also open the issue yourself in the GitHub web interface.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "failed",
+      "tool": "github/create_issue"
+    },
+    {
+      "outcome": "failed",
+      "tool": "github/create_issue"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 4,
+    "input_tokens": 7101,
+    "output_tokens": 481,
+    "cache_read_tokens": 6166,
+    "cache_write_tokens": 925,
+    "tool_schema_tokens_per_request": 951,
+    "tool_schema_tokens_total": 3804,
+    "invocations": 2,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 2,
+    "discovery_latency_ms_mean": 3.7127,
+    "first_pick_correct": true,
+    "wall_ms": 11364.1171,
+    "cost_usd": 0.015518200000000001
+  }
+}

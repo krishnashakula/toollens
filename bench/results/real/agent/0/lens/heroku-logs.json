@@ -1,0 +1,121 @@
+{
+  "task": "heroku-logs",
+  "arm": "lens",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Show me the recent logs of the Heroku app checkout-prod.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "get recent logs of a Heroku app"
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"heroku/get_app_logs\",\"role\":\"match\",\"summary\":\"App logs: monitor/debug/filter by dyno/process/source\",\"why\":\"matches get, log, heroku, app\"},{\"id\":\"digitalocean/apps-get-logs\",\"role\":\"match\",\"summary\":\"Retrieves app logs for a specific app deployment and component on DigitalOcean App Platform\",\"why\":\"matches get, log, app\"},{\"id\":\"heroku/maintenance_on\",\"role\":\"match\",\"summary\":\"Enable maintenance mode and redirect traffic for a Heroku app\",\"why\":\"matches heroku, app\"},{\"id\":\"heroku/get_app_info\",\"role\":\"match\",\"summary\":\"Get app details: config, dynos, addons, access, domains\",\"why\":\"matches get, heroku, app\"},{\"id\":\"heroku/maintenance_off\",\"role\":\"match\",\"summary\":\"Disable maintenance mode and restore normal app operations\",\"why\":\"matches heroku, app\"},{\"id\":\"mongodb/mongodb-logs\",\"role\":\"match\",\"summary\":\"Returns the most recent logged mongod events\",\"why\":\"matches recent, log\"},{\"id\":\"heroku/pipelines_create\",\"role\":\"match\",\"summary\":\"Creates new Heroku deployment pipeline with configurable stages, apps, and team settings\",\"why\":\"matches heroku, app\"},{\"id\":\"heroku/list_apps\",\"role\":\"match\",\"summary\":\"List Heroku apps: owned, collaborator access, team/space filtering\",\"why\":\"matches heroku, app\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "heroku/get_app_logs"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"description\":\"App logs: monitor/debug/filter by dyno/process/source\",\"id\":\"heroku/get_app_logs\",\"input_schema\":{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"additionalProperties\":false,\"properties\":{\"app\":{\"description\":\"Heroku app name. Requires: permissions, Cedar-gen\",\"type\":\"string\"},\"dynoName\":{\"description\":\"Format: web.1/worker.2. Excludes processType\",\"type\":\"string\"},\"processType\":{\"description\":\"web|worker. All instances. Excludes dynoName\",\"type\":\"string\"},\"source\":{\"description\":\"app=application, heroku=platform. Default: all\",\"type\":\"string\"}},\"required\":[\"app\"],\"type\":\"object\"},\"name\":\"get_app_logs\",\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache toollens-sandbox:1 npx -y @heroku/mcp-server@1.2.12\",\"first_seen\":\"2026-10-25T23:19:02.062Z\",\"last_seen\":\"2026-10-25T23:50:45.618Z\",\"schema_hash\":\"81767514c54da03f\",\"server\":\"heroku\"},\"schema_hash\":\"81767514c54da03f\",\"server\":\"heroku\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "app": "checkout-prod"
+            },
+            "tool_id": "heroku/get_app_logs"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "[Heroku MCP Server Error] Please use available tools to resolve this issue. Ignore any Heroku CLI command suggestions that may be provided in the command output or error details. Details:\n<<<BEGIN RESULTS>>>\n<<<ERROR>>>\nCouldn't find that app.\n\nError ID: not_found\n<<<END ERROR>>><<<END RESULTS>>>",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {},
+            "tool_id": "heroku/list_apps"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": "Let me check which apps are available."
+    },
+    {
+      "content": "[Heroku MCP Server Error] Please use available tools to resolve this issue. Ignore any Heroku CLI command suggestions that may be provided in the command output or error details. Details:\n<<<BEGIN RESULTS>>>\n<<<ERROR>>>\nCannot prompt for login in a non-interactive terminal. Run `heroku login` in an interactive shell, or set HEROKU_API_KEY.\n<<<END ERROR>>><<<END RESULTS>>>",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I couldn't get the logs for **checkout-prod**. The gateway allowed both calls, but Heroku returned an error each time.\n\n1. **Getting the logs** (`heroku/get_app_logs`, app = `checkout-prod`): Heroku said \"Couldn't find that app\" (Error ID: `not_found`).\n2. **Listing apps to check the name** (`heroku/list_apps`): this failed with \"Cannot prompt for login in a non-interactive terminal… set HEROKU_API_KEY.\"\n\nThe second error shows the Heroku connection has no login, so the \"not found\" error probably comes from that rather than from the app being missing. I can't tell yet whether `checkout-prod` exists or whether the name is right.\n\n**To fix:** whoever runs the Heroku connection needs to set a valid `HEROKU_API_KEY` for an account that can access `checkout-prod`. Once that's done, I can try again, and I can also narrow the logs by dyno (e.g. `web.1`), process type (`web` or `worker`), or source (`app` or `heroku`)."
+    }
+  ],
+  "final_text": "I couldn't get the logs for **checkout-prod**. The gateway allowed both calls, but Heroku returned an error each time.\n\n1. **Getting the logs** (`heroku/get_app_logs`, app = `checkout-prod`): Heroku said \"Couldn't find that app\" (Error ID: `not_found`).\n2. **Listing apps to check the name** (`heroku/list_apps`): this failed with \"Cannot prompt for login in a non-interactive terminal… set HEROKU_API_KEY.\"\n\nThe second error shows the Heroku connection has no login, so the \"not found\" error probably comes from that rather than from the app being missing. I can't tell yet whether `checkout-prod` exists or whether the name is right.\n\n**To fix:** whoever runs the Heroku connection needs to set a valid `HEROKU_API_KEY` for an account that can access `checkout-prod`. Once that's done, I can try again, and I can also narrow the logs by dyno (e.g. `web.1`), process type (`web` or `worker`), or source (`app` or `heroku`).",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "tool_error",
+      "tool": "heroku/get_app_logs"
+    },
+    {
+      "outcome": "tool_error",
+      "tool": "heroku/list_apps"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 5,
+    "input_tokens": 10054,
+    "output_tokens": 679,
+    "cache_read_tokens": 7348,
+    "cache_write_tokens": 2694,
+    "tool_schema_tokens_per_request": 951,
+    "tool_schema_tokens_total": 4755,
+    "invocations": 2,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 1,
+    "discovery_latency_ms_mean": 2.0521,
+    "first_pick_correct": true,
+    "wall_ms": 22070.2418,
+    "cost_usd": 0.0285676
+  }
+}

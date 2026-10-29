@@ -1,0 +1,220 @@
+{
+  "task": "investigate-checkout",
+  "arm": "lens",
+  "size": 100,
+  "model": "claude-opus-5-5",
+  "prompt": "The latest production deployment of checkout-api failed. Find out why it failed and which commit caused it.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "find latest production deployment of a service and why it failed, with commit"
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":100,\"tools\":[{\"id\":\"deploy/list_deployments\",\"role\":\"match\",\"summary\":\"List recent production deployments of a service, newest first, with version, commit and status\",\"why\":\"matches production, deploy, servic, commit\"},{\"id\":\"deploy/search\",\"role\":\"dependency\",\"summary\":\"Search the service registry by service name, team or repository\",\"why\":\"provides `service_id` that deploy/list_deployments requires\"},{\"id\":\"vcs/get_commit\",\"role\":\"dependency\",\"summary\":\"Get a commit's message, author, pull request, changed files and diff\",\"why\":\"can use `commit_sha` returned by deploy/list_deployments\"},{\"id\":\"observability/get_logs\",\"role\":\"dependency\",\"summary\":\"Fetch log lines for a service, optionally for a single deployment and minimum level\",\"why\":\"can use `deployment_id` returned by deploy/list_deployments\"},{\"id\":\"deploy/rollback\",\"role\":\"match\",\"summary\":\"Roll a service back to an earlier successful deployment\",\"why\":\"matches production, deploy, servic\"},{\"id\":\"deploy/get_deployment\",\"role\":\"match\",\"summary\":\"Get one deployment's details, including the failure reason when it failed or was rolled back\",\"why\":\"matches deploy, fail\"},{\"id\":\"deploy/get_status\",\"role\":\"dependency\",\"summary\":\"Get the rollout status of a service: the version currently serving traffic and the outcome of the latest deployment attempt\",\"why\":\"can use `service_id` returned by deploy/get_deployment\"},{\"id\":\"observability/get_status\",\"role\":\"dependency\",\"summary\":\"Get a service's health: SLO compliance and whether it is degraded\",\"why\":\"can use `service_id` returned by deploy/get_deployment\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "query": "checkout-api"
+            },
+            "tool_id": "deploy/search"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"services\":[{\"name\":\"checkout-api\",\"repo\":\"acme/checkout-api\",\"service_id\":\"svc-checkout\",\"team\":\"payments\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "service_id": "svc-checkout"
+            },
+            "tool_id": "deploy/list_deployments"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"deployments\":[{\"commit_sha\":\"9f3c2ab\",\"deployment_id\":\"dep-4821\",\"environment\":\"production\",\"previous_commit_sha\":\"41d7e0c\",\"service_id\":\"svc-checkout\",\"started_at\":\"2026-10-24T14:02:11Z\",\"status\":\"failed\",\"triggered_by\":\"dana.k\",\"version\":\"v2.14.0\"},{\"commit_sha\":\"41d7e0c\",\"deployment_id\":\"dep-4790\",\"environment\":\"production\",\"previous_commit_sha\":\"7be19d0\",\"service_id\":\"svc-checkout\",\"started_at\":\"2026-10-22T09:15:40Z\",\"status\":\"succeeded\",\"triggered_by\":\"lee.m\",\"version\":\"v2.13.2\"},{\"commit_sha\":\"7be19d0\",\"deployment_id\":\"dep-4733\",\"environment\":\"production\",\"previous_commit_sha\":\"02aa9c4\",\"service_id\":\"svc-checkout\",\"started_at\":\"2026-10-19T10:01:02Z\",\"status\":\"succeeded\",\"triggered_by\":\"dana.k\",\"version\":\"v2.13.1\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "deployment_id": "dep-4821"
+            },
+            "tool_id": "deploy/get_deployment"
+          },
+          "name": "invoke_tool"
+        },
+        {
+          "input": {
+            "arguments": {
+              "commit_sha": "9f3c2ab"
+            },
+            "tool_id": "vcs/get_commit"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"commit_sha\":\"9f3c2ab\",\"deployment_id\":\"dep-4821\",\"environment\":\"production\",\"failure_reason\":\"health check failed: 3/3 pods in CrashLoopBackOff; traffic kept on v2.13.2\",\"previous_commit_sha\":\"41d7e0c\",\"service_id\":\"svc-checkout\",\"started_at\":\"2026-10-24T14:02:11Z\",\"status\":\"failed\",\"triggered_by\":\"dana.k\",\"version\":\"v2.14.0\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "content": "{\"author\":\"dana.k\",\"commit_sha\":\"9f3c2ab\",\"date\":\"2026-10-24T12:40:00Z\",\"diff\":\"deploy/checkout-api.env.tmpl: - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}\\nsrc/config/loader.rs: + secrets now read from ConfigLoader namespace \\\"payments\\\" (namespace not provisioned in production)\",\"files\":[\"src/config/loader.rs\",\"deploy/checkout-api.env.tmpl\"],\"message\":\"Load webhook secrets through new ConfigLoader\",\"pull_request\":1287,\"repo\":\"acme/checkout-api\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "deployment_id": "dep-4821",
+              "min_level": "error",
+              "service_id": "svc-checkout"
+            },
+            "tool_id": "observability/get_logs"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": "Checking logs to confirm the crash cause."
+    },
+    {
+      "content": "{\"error\":\"invalid arguments for observability/get_logs: Additional properties are not allowed ('min_level' was unexpected)\",\"outcome\":\"invalid\"}",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "observability/get_logs"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"readOnlyHint\":true},\"description\":\"Fetch log lines for a service, optionally for a single deployment and minimum level.\",\"id\":\"observability/get_logs\",\"input_schema\":{\"additionalProperties\":false,\"properties\":{\"deployment_id\":{\"description\":\"Only lines from this deployment.\",\"type\":\"string\"},\"level\":{\"enum\":[\"debug\",\"info\",\"warn\",\"error\",\"fatal\"],\"type\":\"string\"},\"limit\":{\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"service_id\":{\"description\":\"Service id such as svc-checkout.\",\"type\":\"string\"}},\"required\":[\"service_id\"],\"type\":\"object\"},\"name\":\"get_logs\",\"output_schema\":{\"properties\":{\"lines\":{\"items\":{\"properties\":{\"deployment_id\":{\"type\":\"string\"},\"level\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"},\"service_id\":{\"type\":\"string\"},\"ts\":{\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"toollens.exe\",\"first_seen\":\"2026-10-25T21:31:00.064Z\",\"last_seen\":\"2026-10-25T21:31:00.064Z\",\"schema_hash\":\"d57c1e0484ef8de6\",\"server\":\"observability\"},\"schema_hash\":\"d57c1e0484ef8de6\",\"server\":\"observability\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "deployment_id": "dep-4821",
+              "level": "error",
+              "service_id": "svc-checkout"
+            },
+            "tool_id": "observability/get_logs"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"lines\":[{\"deployment_id\":\"dep-4821\",\"level\":\"error\",\"message\":\"config: required env var STRIPE_WEBHOOK_SECRET is not set\",\"service_id\":\"svc-checkout\",\"ts\":\"2026-10-24T14:02:31Z\"},{\"deployment_id\":\"dep-4821\",\"level\":\"fatal\",\"message\":\"panic: failed to initialize payment webhooks: missing webhook secret\",\"service_id\":\"svc-checkout\",\"ts\":\"2026-10-24T14:02:31Z\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "Commit **9f3c2ab** caused the failure: it removed the Stripe webhook secret from the deploy config, so the new version crashes on startup.\n\n**The deployment:** **dep-4821** (checkout-api, service `svc-checkout`, version **v2.14.0**) was started by dana.k on 2026-10-24 at 14:02 UTC.\n\n**Why it failed:** The health check failed because all 3 of 3 pods were stuck in CrashLoopBackOff (repeatedly crashing on startup). Production traffic stayed on the previous version, **v2.13.2** (commit 41d7e0c, deployment dep-4790).\n\nThe deployment's error logs show the cause:\n- `config: required env var STRIPE_WEBHOOK_SECRET is not set`\n- `panic: failed to initialize payment webhooks: missing webhook secret`\n\n**The commit:** **9f3c2ab**, \"Load webhook secrets through new ConfigLoader,\" by dana.k in acme/checkout-api, PR **#1287**.\n- In `deploy/checkout-api.env.tmpl`, it removed the line `STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}`.\n- In `src/config/loader.rs`, it changed secrets to load from the ConfigLoader namespace \"payments\". According to the commit's diff, that namespace isn't set up in production.\n\nTo fix it, either set up the \"payments\" namespace in production or put the environment variable back.\n\nMy first log request was rejected because I used a wrong argument name (`min_level` instead of `level`). It worked after I fixed it. I didn't roll anything back or change anything."
+    }
+  ],
+  "final_text": "Commit **9f3c2ab** caused the failure: it removed the Stripe webhook secret from the deploy config, so the new version crashes on startup.\n\n**The deployment:** **dep-4821** (checkout-api, service `svc-checkout`, version **v2.14.0**) was started by dana.k on 2026-10-24 at 14:02 UTC.\n\n**Why it failed:** The health check failed because all 3 of 3 pods were stuck in CrashLoopBackOff (repeatedly crashing on startup). Production traffic stayed on the previous version, **v2.13.2** (commit 41d7e0c, deployment dep-4790).\n\nThe deployment's error logs show the cause:\n- `config: required env var STRIPE_WEBHOOK_SECRET is not set`\n- `panic: failed to initialize payment webhooks: missing webhook secret`\n\n**The commit:** **9f3c2ab**, \"Load webhook secrets through new ConfigLoader,\" by dana.k in acme/checkout-api, PR **#1287**.\n- In `deploy/checkout-api.env.tmpl`, it removed the line `STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}`.\n- In `src/config/loader.rs`, it changed secrets to load from the ConfigLoader namespace \"payments\". According to the commit's diff, that namespace isn't set up in production.\n\nTo fix it, either set up the \"payments\" namespace in production or put the environment variable back.\n\nMy first log request was rejected because I used a wrong argument name (`min_level` instead of `level`). It worked after I fixed it. I didn't roll anything back or change anything.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "deploy/search"
+    },
+    {
+      "outcome": "ok",
+      "tool": "deploy/list_deployments"
+    },
+    {
+      "outcome": "ok",
+      "tool": "deploy/get_deployment"
+    },
+    {
+      "outcome": "ok",
+      "tool": "vcs/get_commit"
+    },
+    {
+      "outcome": "invalid",
+      "tool": "observability/get_logs"
+    },
+    {
+      "outcome": "ok",
+      "tool": "observability/get_logs"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 8,
+    "input_tokens": 21012,
+    "output_tokens": 1345,
+    "cache_read_tokens": 16923,
+    "cache_write_tokens": 4071,
+    "tool_schema_tokens_per_request": 950,
+    "tool_schema_tokens_total": 7600,
+    "invocations": 6,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 1,
+    "discovery_latency_ms_mean": 1.0935000000000001,
+    "wall_ms": 20214.1473,
+    "cost_usd": 0.050711599999999996
+  }
+}

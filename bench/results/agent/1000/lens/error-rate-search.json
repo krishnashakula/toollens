@@ -1,0 +1,189 @@
+{
+  "task": "error-rate-search",
+  "arm": "lens",
+  "size": 1000,
+  "model": "claude-opus-5-5",
+  "prompt": "What is the error rate of search-api over the last 60 minutes?",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "get error rate of a service over a time window",
+            "limit": 5
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":1000,\"tools\":[{\"id\":\"observability/query_metric\",\"role\":\"match\",\"summary\":\"Read a service metric over a time window: error_rate (%), latency_p99 (ms), request_rate (req/s) or cpu (%)\",\"why\":\"matches error, rate, servic, over, time, window\"},{\"id\":\"cluster/list_deploy_windows\",\"role\":\"dependency\",\"summary\":\"List deploy windows in Release, filtered by status or service\",\"why\":\"provides `service_id` that observability/query_metric requires\"},{\"id\":\"cluster/get_deploy_window\",\"role\":\"match\",\"summary\":\"Get one deploy window from Release by id\",\"why\":\"matches get, window\"},{\"id\":\"cluster/archive_deploy_window\",\"role\":\"dependency\",\"summary\":\"Archive a deploy window in Release\",\"why\":\"can use `deploy_window_id` returned by cluster/get_deploy_window\"},{\"id\":\"edge/archive_deploy_window\",\"role\":\"dependency\",\"summary\":\"Archive a deploy window in Release (legacy v1 API)\",\"why\":\"can use `deploy_window_id` returned by cluster/get_deploy_window\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "observability/query_metric"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"readOnlyHint\":true},\"description\":\"Read a service metric over a time window: error_rate (%), latency_p99 (ms), request_rate (req/s) or cpu (%).\",\"id\":\"observability/query_metric\",\"input_schema\":{\"additionalProperties\":false,\"properties\":{\"metric\":{\"enum\":[\"error_rate\",\"latency_p99\",\"request_rate\",\"cpu\"],\"type\":\"string\"},\"service_id\":{\"description\":\"Service id.\",\"type\":\"string\"},\"window_minutes\":{\"maximum\":1440,\"minimum\":1,\"type\":\"integer\"}},\"required\":[\"service_id\",\"metric\"],\"type\":\"object\"},\"name\":\"query_metric\",\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"toollens.exe\",\"first_seen\":\"2026-10-25T21:33:47.686Z\",\"last_seen\":\"2026-10-25T21:33:47.686Z\",\"schema_hash\":\"e8626a3bca6753f9\",\"server\":\"observability\"},\"schema_hash\":\"e8626a3bca6753f9\",\"server\":\"observability\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "look up service id by service name",
+            "limit": 5
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": "Need service id; try looking up services."
+    },
+    {
+      "content": "{\"catalog_size\":1000,\"tools\":[{\"id\":\"observability/search\",\"role\":\"match\",\"summary\":\"Full-text search over log messages across all services\",\"why\":\"matches look, servic, id, servic\"},{\"id\":\"observability/get_logs\",\"role\":\"dependency\",\"summary\":\"Fetch log lines for a service, optionally for a single deployment and minimum level\",\"why\":\"can use `deployment_id` returned by observability/search\"},{\"id\":\"deploy/get_deployment\",\"role\":\"dependency\",\"summary\":\"Get one deployment's details, including the failure reason when it failed or was rolled back\",\"why\":\"can use `deployment_id` returned by observability/search\"},{\"id\":\"bizops/create_service_charge\",\"role\":\"match\",\"summary\":\"Create a service charge in Billing\",\"why\":\"matches servic, name\"},{\"id\":\"bizops/archive_service_charge\",\"role\":\"dependency\",\"summary\":\"Archive a service charge in Billing\",\"why\":\"can use `service_charge_id` returned by bizops/create_service_charge\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "metric": "error_rate",
+              "service_id": "search-api",
+              "window_minutes": 60
+            },
+            "tool_id": "observability/query_metric"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": "Try the name directly."
+    },
+    {
+      "content": "unknown service_id \"search-api\". service ids look like \"svc-...\"; resolve a service name with deploy/search",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "deploy/search"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"readOnlyHint\":true},\"description\":\"Search the service registry by service name, team or repository. Returns service ids, owning team and repo.\",\"id\":\"deploy/search\",\"input_schema\":{\"additionalProperties\":false,\"properties\":{\"query\":{\"description\":\"Service name, team or repo fragment, e.g. \\\"checkout\\\".\",\"type\":\"string\"}},\"required\":[\"query\"],\"type\":\"object\"},\"name\":\"search\",\"output_schema\":{\"properties\":{\"services\":{\"items\":{\"properties\":{\"name\":{\"type\":\"string\"},\"repo\":{\"type\":\"string\"},\"service_id\":{\"type\":\"string\"},\"team\":{\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"toollens.exe\",\"first_seen\":\"2026-10-25T21:33:47.673Z\",\"last_seen\":\"2026-10-25T21:33:47.673Z\",\"schema_hash\":\"c97299154e321552\",\"server\":\"deploy\"},\"schema_hash\":\"c97299154e321552\",\"server\":\"deploy\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "query": "search-api"
+            },
+            "tool_id": "deploy/search"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"services\":[{\"name\":\"search-api\",\"repo\":\"acme/search-api\",\"service_id\":\"svc-search\",\"team\":\"discovery\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "metric": "error_rate",
+              "service_id": "svc-search",
+              "window_minutes": 60
+            },
+            "tool_id": "observability/query_metric"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"metric\":\"error_rate\",\"service_id\":\"svc-search\",\"unit\":\"%\",\"value\":0.42,\"window_minutes\":60}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "Over the last 60 minutes, search-api's error rate was **0.42%**.\n\n- **Service:** search-api, service id `svc-search`, owned by the discovery team, repo `acme/search-api`.\n- **Metric:** `error_rate`, 60-minute window, from `observability/query_metric`.\n\nMy first metrics query failed because I used the name \"search-api\" where the tool needs a service id. I looked up the id with `deploy/search`, then ran the query again."
+    }
+  ],
+  "final_text": "Over the last 60 minutes, search-api's error rate was **0.42%**.\n\n- **Service:** search-api, service id `svc-search`, owned by the discovery team, repo `acme/search-api`.\n- **Metric:** `error_rate`, 60-minute window, from `observability/query_metric`.\n\nMy first metrics query failed because I used the name \"search-api\" where the tool needs a service id. I looked up the id with `deploy/search`, then ran the query again.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "tool_error",
+      "tool": "observability/query_metric"
+    },
+    {
+      "outcome": "ok",
+      "tool": "deploy/search"
+    },
+    {
+      "outcome": "ok",
+      "tool": "observability/query_metric"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 8,
+    "input_tokens": 19548,
+    "output_tokens": 794,
+    "cache_read_tokens": 16108,
+    "cache_write_tokens": 3422,
+    "tool_schema_tokens_per_request": 951,
+    "tool_schema_tokens_total": 7608,
+    "invocations": 3,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 2,
+    "discovery_latency_ms_mean": 1.1239000000000001,
+    "wall_ms": 15168.0156,
+    "cost_usd": 0.0362836
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "task": "gitlab-merge-request",
+  "arm": "lens",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Open a merge request in the GitLab project acme/api from branch fix-auth into main, titled 'Fix token refresh'.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "create GitLab merge request",
+            "limit": 5
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"gitlab/create_merge_request\",\"role\":\"match\",\"summary\":\"Create a new merge request in a GitLab project\",\"why\":\"matches creat, git, lab, merg, request\"},{\"id\":\"aws-healthomics/CreateCodeConnection\",\"role\":\"match\",\"summary\":\"Create a new CodeConnection.\\n\\nThis function creates a new AWS CodeConnection for connecting to a\\nthird-party Git provider\",\"why\":\"matches creat, git, lab\"},{\"id\":\"gitlab/create_repository\",\"role\":\"match\",\"summary\":\"Create a new GitLab project\",\"why\":\"matches creat, git, lab\"},{\"id\":\"gitlab/create_branch\",\"role\":\"match\",\"summary\":\"Create a new branch in a GitLab project\",\"why\":\"matches creat, git, lab\"},{\"id\":\"gitlab/create_issue\",\"role\":\"match\",\"summary\":\"Create a new issue in a GitLab project\",\"why\":\"matches creat, git, lab\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "gitlab/create_merge_request"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"description\":\"Create a new merge request in a GitLab project\",\"id\":\"gitlab/create_merge_request\",\"input_schema\":{\"$schema\":\"http://json-schema.org/draft-07/schema#\"},\"name\":\"create_merge_request\",\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache -e GITLAB_PERSONAL_ACCESS_TOKEN=dummy-not-a-real-credential toollens-sandbox:1 npx -y @modelcontextprotocol/server-gitlab@2025.4.25\",\"first_seen\":\"2026-10-25T23:30:27.441Z\",\"last_seen\":\"2026-10-25T23:50:45.604Z\",\"schema_hash\":\"c052cf3fa776eaf1\",\"server\":\"gitlab\"},\"schema_hash\":\"c052cf3fa776eaf1\",\"server\":\"gitlab\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "project_id": "acme/api",
+              "source_branch": "fix-auth",
+              "target_branch": "main",
+              "title": "Fix token refresh"
+            },
+            "tool_id": "gitlab/create_merge_request"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": "Schema is empty; using standard server-gitlab argument names."
+    },
+    {
+      "content": "{\"error\":\"gitlab/create_merge_request failed: Mcp error: -32603: GitLab API error: Unauthorized\",\"outcome\":\"failed\"}",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I couldn't open the merge request. GitLab rejected the request with **\"Unauthorized\"**, so nothing was created.\n\n**What I sent:** I used the `gitlab/create_merge_request` tool with project `acme/api`, source branch `fix-auth`, target branch `main` and title \"Fix token refresh\". The gateway's policy allows this tool, so the request did go through to GitLab. GitLab is the one that refused it.\n\n**Likely cause:** The gateway's settings show the GitLab server's access token is set to `dummy-not-a-real-credential`, which is a placeholder. GitLab rejects every request made with it.\n\n**To fix it:** Someone needs to replace that placeholder with a real GitLab token that can create merge requests in `acme/api`. After that, I can try again, or you can open the merge request yourself in the GitLab web interface."
+    }
+  ],
+  "final_text": "I couldn't open the merge request. GitLab rejected the request with **\"Unauthorized\"**, so nothing was created.\n\n**What I sent:** I used the `gitlab/create_merge_request` tool with project `acme/api`, source branch `fix-auth`, target branch `main` and title \"Fix token refresh\". The gateway's policy allows this tool, so the request did go through to GitLab. GitLab is the one that refused it.\n\n**Likely cause:** The gateway's settings show the GitLab server's access token is set to `dummy-not-a-real-credential`, which is a placeholder. GitLab rejects every request made with it.\n\n**To fix it:** Someone needs to replace that placeholder with a real GitLab token that can create merge requests in `acme/api`. After that, I can try again, or you can open the merge request yourself in the GitLab web interface.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "failed",
+      "tool": "gitlab/create_merge_request"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 4,
+    "input_tokens": 6706,
+    "output_tokens": 591,
+    "cache_read_tokens": 4544,
+    "cache_write_tokens": 2152,
+    "tool_schema_tokens_per_request": 951,
+    "tool_schema_tokens_total": 3804,
+    "invocations": 1,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 1,
+    "discovery_latency_ms_mean": 3.2845999999999997,
+    "first_pick_correct": true,
+    "wall_ms": 11879.719099999998,
+    "cost_usd": 0.0235288
+  }
+}

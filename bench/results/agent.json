@@ -1,0 +1,480 @@
+{
+  "effort": "medium",
+  "generated_unix": 1792964379,
+  "max_turns": 16,
+  "model": "claude-opus-5-5",
+  "rows": [
+    {
+      "arm": "full",
+      "completion_rate": 1.0,
+      "cost_usd": 0.2727752,
+      "discovery_latency_ms_p50": 0.0,
+      "episodes": 8,
+      "errors": 0,
+      "incorrect_selections": 0,
+      "mean_input_tokens": 16650.75,
+      "mean_output_tokens": 563.375,
+      "mean_requests": 3.875,
+      "mean_tool_schema_tokens_total": 14562.25,
+      "size": 30,
+      "tasks": [
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "alerts-auth"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "ci-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "error-rate-search"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "investigate-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "oncall-payments-worker"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "payworker-rollback-cause"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "pr-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "rollback-search"
+        }
+      ],
+      "tool_schema_tokens_per_request": 3758,
+      "tools": 30,
+      "unauthorized_attempts": 1
+    },
+    {
+      "arm": "lens",
+      "completion_rate": 1.0,
+      "cost_usd": 0.3252128,
+      "discovery_latency_ms_p50": 0.0961,
+      "episodes": 8,
+      "errors": 0,
+      "incorrect_selections": 0,
+      "mean_input_tokens": 18535.0,
+      "mean_output_tokens": 904.125,
+      "mean_requests": 6.25,
+      "mean_tool_schema_tokens_total": 5937.5,
+      "size": 30,
+      "tasks": [
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "alerts-auth"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "ci-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "error-rate-search"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "investigate-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "oncall-payments-worker"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "payworker-rollback-cause"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "pr-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "rollback-search"
+        }
+      ],
+      "tool_schema_tokens_per_request": 950,
+      "tools": 30,
+      "unauthorized_attempts": 0
+    },
+    {
+      "arm": "full",
+      "completion_rate": 1.0,
+      "cost_usd": 0.5587178,
+      "discovery_latency_ms_p50": 0.0,
+      "episodes": 8,
+      "errors": 0,
+      "incorrect_selections": 0,
+      "mean_input_tokens": 38360.125,
+      "mean_output_tokens": 550.25,
+      "mean_requests": 3.75,
+      "mean_tool_schema_tokens_total": 36442.5,
+      "size": 100,
+      "tasks": [
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "alerts-auth"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "ci-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "error-rate-search"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "investigate-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "oncall-payments-worker"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "payworker-rollback-cause"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "pr-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "rollback-search"
+        }
+      ],
+      "tool_schema_tokens_per_request": 9718,
+      "tools": 100,
+      "unauthorized_attempts": 1
+    },
+    {
+      "arm": "lens",
+      "completion_rate": 1.0,
+      "cost_usd": 0.3125392,
+      "discovery_latency_ms_p50": 0.1487,
+      "episodes": 8,
+      "errors": 0,
+      "incorrect_selections": 0,
+      "mean_input_tokens": 16792.75,
+      "mean_output_tokens": 916.0,
+      "mean_requests": 6.375,
+      "mean_tool_schema_tokens_total": 6056.25,
+      "size": 100,
+      "tasks": [
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "alerts-auth"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "ci-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "error-rate-search"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "investigate-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "oncall-payments-worker"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "payworker-rollback-cause"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "pr-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "rollback-search"
+        }
+      ],
+      "tool_schema_tokens_per_request": 950,
+      "tools": 100,
+      "unauthorized_attempts": 0
+    },
+    {
+      "arm": "full",
+      "completion_rate": 1.0,
+      "cost_usd": 1.3564247999999999,
+      "discovery_latency_ms_p50": 0.0,
+      "episodes": 8,
+      "errors": 0,
+      "incorrect_selections": 0,
+      "mean_input_tokens": 105790.5,
+      "mean_output_tokens": 546.625,
+      "mean_requests": 3.75,
+      "mean_tool_schema_tokens_total": 103878.75,
+      "size": 300,
+      "tasks": [
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "alerts-auth"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "ci-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "error-rate-search"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "investigate-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "oncall-payments-worker"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "payworker-rollback-cause"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "pr-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "rollback-search"
+        }
+      ],
+      "tool_schema_tokens_per_request": 27701,
+      "tools": 300,
+      "unauthorized_attempts": 1
+    },
+    {
+      "arm": "lens",
+      "completion_rate": 1.0,
+      "cost_usd": 0.29933479999999996,
+      "discovery_latency_ms_p50": 0.21589999999999998,
+      "episodes": 8,
+      "errors": 0,
+      "incorrect_selections": 0,
+      "mean_input_tokens": 15294.5,
+      "mean_output_tokens": 885.75,
+      "mean_requests": 6.125,
+      "mean_tool_schema_tokens_total": 5818.75,
+      "size": 300,
+      "tasks": [
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "alerts-auth"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "ci-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "error-rate-search"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "investigate-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "oncall-payments-worker"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "payworker-rollback-cause"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "pr-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "rollback-search"
+        }
+      ],
+      "tool_schema_tokens_per_request": 950,
+      "tools": 300,
+      "unauthorized_attempts": 0
+    },
+    {
+      "arm": "full",
+      "completion_rate": 1.0,
+      "cost_usd": 4.1601288,
+      "discovery_latency_ms_p50": 0.0,
+      "episodes": 8,
+      "errors": 0,
+      "incorrect_selections": 0,
+      "mean_input_tokens": 342676.5,
+      "mean_output_tokens": 545.875,
+      "mean_requests": 3.75,
+      "mean_tool_schema_tokens_total": 340665.0,
+      "size": 1000,
+      "tasks": [
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "alerts-auth"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "ci-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "error-rate-search"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "investigate-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "oncall-payments-worker"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "payworker-rollback-cause"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "pr-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "rollback-search"
+        }
+      ],
+      "tool_schema_tokens_per_request": 90844,
+      "tools": 1000,
+      "unauthorized_attempts": 1
+    },
+    {
+      "arm": "lens",
+      "completion_rate": 1.0,
+      "cost_usd": 0.31448719999999997,
+      "discovery_latency_ms_p50": 0.9194999999999999,
+      "episodes": 8,
+      "errors": 0,
+      "incorrect_selections": 0,
+      "mean_input_tokens": 16712.0,
+      "mean_output_tokens": 900.375,
+      "mean_requests": 6.5,
+      "mean_tool_schema_tokens_total": 6181.5,
+      "size": 1000,
+      "tasks": [
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "alerts-auth"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "ci-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "error-rate-search"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "investigate-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "oncall-payments-worker"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "payworker-rollback-cause"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "pr-checkout"
+        },
+        {
+          "completed": true,
+          "stop_reason": "end_turn",
+          "task": "rollback-search"
+        }
+      ],
+      "tool_schema_tokens_per_request": 951,
+      "tools": 1000,
+      "unauthorized_attempts": 0
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "task": "time-tokyo",
+  "arm": "native",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "What is the current time in Tokyo? Include the UTC offset.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "timezone": "Asia/Tokyo"
+          },
+          "name": "time__get_current_time"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"datetime\":\"2026-10-26T08:54:49+09:00\",\"day_of_week\":\"Monday\",\"is_dst\":false,\"timezone\":\"Asia/Tokyo\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "time__get_current_time"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "It's currently **08:54:49 on Monday, 26 October 2026** in Tokyo (Asia/Tokyo). The UTC offset is **UTC+09:00**, and daylight saving time is not in effect."
+    }
+  ],
+  "final_text": "It's currently **08:54:49 on Monday, 26 October 2026** in Tokyo (Asia/Tokyo). The UTC offset is **UTC+09:00**, and daylight saving time is not in effect.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "time/get_current_time"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 2,
+    "input_tokens": 9688,
+    "output_tokens": 193,
+    "cache_read_tokens": 1542,
+    "cache_write_tokens": 4517,
+    "tool_schema_tokens_per_request": 643,
+    "tool_schema_tokens_total": 1286,
+    "invocations": 1,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 0,
+    "discovery_latency_ms_mean": 0.0,
+    "first_pick_correct": true,
+    "wall_ms": 30812.5066,
+    "cost_usd": 0.041269400000000005
+  }
+}

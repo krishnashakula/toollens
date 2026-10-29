@@ -1,0 +1,139 @@
+{
+  "task": "fetch-example",
+  "arm": "native",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Fetch https://example.com and tell me the main heading on the page.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "url": "https://example.com"
+          },
+          "name": "kagi__kagi_extract"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "Error calling tool 'kagi_extract': No Kagi API key found. Send `Authorization: Bearer <key>` or set KAGI_API_KEY.",
+      "is_error": true,
+      "kind": "tool",
+      "name": "kagi__kagi_extract"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "formats": [
+              "markdown"
+            ],
+            "url": "https://example.com"
+          },
+          "name": "firecrawl__firecrawl_scrape"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"markdown\":\"This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.\\n\\nهذا النطاق مُخصص للاستخدام في أمثلة التوثيق دون الحاجة إلى إذن. هذه ليست خدمة، يُرجى تجنب الاعتماد عليها لأغراض الاختبار والمراقبة.\\n\\n该域名仅用于文档示例，无需获得许可。这并非一项服务，请勿将其用于测试和监控目的。\\n\\nL’usage de ce domaine est réservé à des exemples de documentation, sans autorisation préalable. Il ne s’agit pas d’un service ; son utilisation à des fins de test ou de surveillance est à éviter.\\n\\nДанный домен предназначен для использования в примерах документации без необходимости получения предварительного разрешения. Это не сервис; не рекомендуется его использование для тестирования и мониторинга.\\n\\nEste dominio está destinado al uso en ejemplos de documentación sin necesidad de permiso. Esto no es un servicio; evitar utilizarlo para realizar pruebas o monitoreos.\\n\\n [Learn more](https://iana.org/help/example-domains)\",\"metadata\":{\"cacheState\":\"hit\",\"cachedAt\":\"2026-10-25T23:56:21.917Z\",\"concurrencyLimited\":false,\"contentType\":\"text/html; charset=utf-8\",\"creditsUsed\":1,\"favicon\":\"data:,\",\"language\":\"en\",\"proxyUsed\":\"basic\",\"scrapeId\":\"01a1757e-c763-717e-9d15-c5a6dda8ea9b\",\"sourceURL\":\"https://example.com\",\"statusCode\":200,\"title\":\"Example Domain\",\"url\":\"https://example.com/\",\"viewport\":\"width=device-width,initial-scale=1\"}}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "firecrawl__firecrawl_scrape"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "formats": [
+              "html"
+            ],
+            "includeTags": [
+              "h1"
+            ],
+            "onlyMainContent": false,
+            "url": "https://example.com"
+          },
+          "name": "firecrawl__firecrawl_scrape"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"html\":\"<html><body><div></div></body></html>\",\"metadata\":{\"cacheState\":\"hit\",\"cachedAt\":\"2026-10-25T23:56:21.917Z\",\"concurrencyLimited\":false,\"contentType\":\"text/html; charset=utf-8\",\"creditsUsed\":1,\"favicon\":\"data:,\",\"language\":\"en\",\"proxyUsed\":\"basic\",\"scrapeId\":\"01a1757f-757e-74e8-b5b2-bada364a575e\",\"sourceURL\":\"https://example.com\",\"statusCode\":200,\"title\":\"Example Domain\",\"url\":\"https://example.com/\",\"viewport\":\"width=device-width,initial-scale=1\"}}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "firecrawl__firecrawl_scrape"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "formats": [
+              "rawHtml"
+            ],
+            "maxAge": 0,
+            "url": "https://example.com"
+          },
+          "name": "firecrawl__firecrawl_scrape"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"metadata\":{\"concurrencyLimited\":false,\"contentType\":\"text/html; charset=utf-8\",\"creditsUsed\":1,\"favicon\":\"data:,\",\"indexId\":\"ab2df399-cdeb-49c5-904e-9aa3df42d80d\",\"language\":\"en\",\"proxyUsed\":\"basic\",\"scrapeId\":\"01a1757f-e62a-76b4-8ab8-028d9a4b71a6\",\"sourceURL\":\"https://example.com\",\"statusCode\":200,\"timezone\":\"America/New_York\",\"title\":\"Example Domain\",\"url\":\"https://example.com/\",\"viewport\":\"width=device-width,initial-scale=1\"},\"rawHtml\":\"<!DOCTYPE html><html lang=\\\"en\\\"><head><meta http-equiv=\\\"Content-Type\\\" content=\\\"text/html; charset=UTF-8\\\"><style rel=\\\"stylesheet\\\" type=\\\"text/css\\\">@charset \\\"utf-8\\\";\\r\\n\\r\\nhtml { color-scheme: light dark; background: light-dark(rgb(238, 238, 238), rgb(34, 34, 34)); }\\r\\n\\r\\nbody { font: 16px / 1.6 system-ui, sans-serif; max-width: 26em; margin: auto; padding: 25vh 2em 2em; text-align: center; }</style><style rel=\\\"stylesheet\\\" type=\\\"text/css\\\">@charset \\\"utf-8\\\";\\r\\n\\r\\nsvg { display: block; margin: -2.75em auto 0px; opacity: 0.55; }\\r\\n\\r\\np + p { font-size: 0.875em; opacity: 0.6; }</style><link rel=\\\"icon\\\" href=\\\"data:,\\\"><meta name=\\\"viewport\\\" content=\\\"width=device-width,initial-scale=1\\\"><title>Example Domain</title></head><body><svg viewBox=\\\"0,0,20,20\\\" width=\\\"44\\\" height=\\\"44\\\" fill=\\\"currentColor\\\" aria-hidden=\\\"true\\\"><path fill=\\\"none\\\" stroke=\\\"currentColor\\\" stroke-width=\\\"1.3\\\" stroke-linejoin=\\\"round\\\" d=\\\"M6 4H3v12q4 0 7 1.5-1-3.5-4-4.5V2q3.5 1 4 3v12.5q3-1.5 7-1.5V4q-4.5 0-7 1\\\"></path><g transform=\\\"rotate(-6,13.6,8.3)\\\"><path id=\\\"q\\\" d=\\\"M11.5 6.6h1.8v1.8l-1 1.6-.6-.3.8-1.3h-1z\\\"></path><use href=\\\"#q\\\" x=\\\"2.4\\\"></use></g></svg><p lang=\\\"en\\\">This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.</p><p lang=\\\"ar\\\" dir=\\\"rtl\\\">هذا النطاق مُخصص للاستخدام في أمثلة التوثيق دون الحاجة إلى إذن. هذه ليست خدمة، يُرجى تجنب الاعتماد عليها لأغراض الاختبار والمراقبة.</p><p lang=\\\"zh\\\">该域名仅用于文档示例，无需获得许可。这并非一项服务，请勿将其用于测试和监控目的。</p><p lang=\\\"fr\\\">L’usage de ce domaine est réservé à des exemples de documentation, sans autorisation préalable.  Il ne s’agit pas d’un service ; son utilisation à des fins de test ou de surveillance est à éviter.</p><p lang=\\\"ru\\\">Данный домен предназначен для использования в примерах документации без необходимости получения предварительного разрешения. Это не сервис; не рекомендуется его использование для тестирования и мониторинга.</p><p lang=\\\"es\\\">Este dominio está destinado al uso en ejemplos de documentación sin necesidad de permiso. Esto no es un servicio; evitar utilizarlo para realizar pruebas o monitoreos.</p><a href=\\\"https://iana.org/help/example-domains\\\">Learn more</a><script src=\\\"https://example.com/s.js\\\"></script>\\n</body></html>\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "firecrawl__firecrawl_scrape"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "The page at https://example.com has no main heading. I fetched it live, and there's no `<h1>` or any other heading tag in the HTML.\n\n- **Page title:** \"Example Domain\". This is the `<title>` tag, which browsers show on the tab, not a heading on the page.\n- **Page content:** An icon, then one short paragraph in six languages (English, Arabic, Chinese, French, Russian and Spanish). The English version says: \"This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.\"\n- **Link:** A \"Learn more\" link to https://iana.org/help/example-domains.\n\nTwo notes on how I got this:\n- The Kagi extract tool failed because no Kagi API key is set up, so I used Firecrawl.\n- My first Firecrawl results were a cached copy, so I fetched the page again live (scrape ID `01a1757f-e62a-76b4-8ab8-028d9a4b71a6`, HTTP 200). It also had no heading."
+    }
+  ],
+  "final_text": "The page at https://example.com has no main heading. I fetched it live, and there's no `<h1>` or any other heading tag in the HTML.\n\n- **Page title:** \"Example Domain\". This is the `<title>` tag, which browsers show on the tab, not a heading on the page.\n- **Page content:** An icon, then one short paragraph in six languages (English, Arabic, Chinese, French, Russian and Spanish). The English version says: \"This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.\"\n- **Link:** A \"Learn more\" link to https://iana.org/help/example-domains.\n\nTwo notes on how I got this:\n- The Kagi extract tool failed because no Kagi API key is set up, so I used Firecrawl.\n- My first Firecrawl results were a cached copy, so I fetched the page again live (scrape ID `01a1757f-e62a-76b4-8ab8-028d9a4b71a6`, HTTP 200). It also had no heading.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "tool_error",
+      "tool": "kagi/kagi_extract"
+    },
+    {
+      "outcome": "ok",
+      "tool": "firecrawl/firecrawl_scrape"
+    },
+    {
+      "outcome": "ok",
+      "tool": "firecrawl/firecrawl_scrape"
+    },
+    {
+      "outcome": "ok",
+      "tool": "firecrawl/firecrawl_scrape"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 5,
+    "input_tokens": 61882,
+    "output_tokens": 976,
+    "cache_read_tokens": 38356,
+    "cache_write_tokens": 13550,
+    "tool_schema_tokens_per_request": 643,
+    "tool_schema_tokens_total": 3215,
+    "invocations": 4,
+    "incorrect_selections": 4,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 0,
+    "discovery_latency_ms_mean": 0.0,
+    "first_pick_correct": false,
+    "wall_ms": 200129.503,
+    "cost_usd": 0.1348452
+  }
+}

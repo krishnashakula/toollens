@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "deploy": { "command": "@self", "args": ["fixture", "deploy"] },
+    "observability": { "command": "@self", "args": ["fixture", "observability"] },
+    "vcs": { "command": "@self", "args": ["fixture", "vcs"] }
+  },
+  "policy": {
+    "default": "allow",
+    "deny": ["deploy/rollback"],
+    "denyDestructive": true
+  }
+}

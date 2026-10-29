@@ -1,0 +1,245 @@
+{
+  "task": "aws-docs-s3-max-object",
+  "arm": "lens",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "According to the official AWS documentation, what is the maximum size of a single object stored in Amazon S3?",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "search official AWS documentation",
+            "limit": 5
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"pinecone/search-docs\",\"role\":\"match\",\"summary\":\"Search the official Pinecone documentation for relevant\\ninformation\",\"why\":\"matches search, official, documentation\"},{\"id\":\"aws-documentation/search_documentation\",\"role\":\"match\",\"summary\":\"Search AWS documentation using the official AWS Documentation Search API.\\n\\n## Usage\\n\\nThis tool searches across all AWS documentation for pag…\",\"why\":\"matches search, official, aws, documentation\"},{\"id\":\"mongodb/search-knowledge\",\"role\":\"match\",\"summary\":\"Search for information in the MongoDB Assistant knowledge base\",\"why\":\"matches search, official, documentation\"},{\"id\":\"aws-aurora-dsql/dsql_search_documentation\",\"role\":\"match\",\"summary\":\"Search Aurora DSQL documentation\",\"why\":\"matches search, aws, documentation\"},{\"id\":\"aws-documentation/search_table\",\"role\":\"match\",\"summary\":\"Search for specific rows in a large documentation table.\\n\\nUse this tool when you need specific rows from a large documentation table\\n(e.g., …\",\"why\":\"matches search, aws, documentation\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "aws-documentation/search_documentation"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"description\":\"Search AWS documentation using the official AWS Documentation Search API.\\n\\n## Usage\\n\\nThis tool searches across all AWS documentation for pages matching your search phrase.\\nUse it to find relevant documentation when you don't have a specific URL.\\n\\n## Search Tips\\n\\n- Use specific technical terms rather than general phrases\\n- Include service names to narrow results (e.g., \\\"S3 bucket versioning\\\" instead of just \\\"versioning\\\")\\n- Use quotes for exact phrase matching (e.g., \\\"AWS Lambda function URLs\\\")\\n- Include abbreviations and alternative terms to improve results\\n- Use guide_type and product_type filters found from a SearchResponse's \\\"facets\\\" property:\\n    - Filter only for broad search queries with patterns:\\n        - \\\"What is [service]?\\\" -> product_types: [\\\"Amazon Simple Storage Service\\\"]\\n        - \\\"How to use <service 1> with <service 2>?\\\" -> product_types: [<service 1>, <service 2>]\\n        - \\\"[service] getting started\\\" -> product_types: [<service>] + guide_types: [\\\"User Guide, \\\"Developer Guide\\\"]\\n        - \\\"API reference for [service]\\\" -> product_types: [<service>] + guide_types: [\\\"API Reference\\\"]\\n\\n## Result Interpretation\\n\\nEach SearchResponse includes:\\n- search_results: List of documentation pages, each with:\\n    - rank_order: The relevance ranking (lower is more relevant)\\n    - url: The documentation page URL\\n    - title: The page title\\n    - context: A brief excerpt or summary (if available)\\n    - recommended_sections: A subset of section titles ranked as most relevant to the query, in rank order (when available) - Pass these directly to read_sections for targeted content extraction\\n    - sections: All available section titles for this page (when available) - individual titles can be used with the read_sections tool for targeted content extraction\\n    - metadata: Optional per-result context (when available). May include:\\n        - additional_urls: Other doc URLs related to the same result `{url, section_title, section_anchor}` - pass `section_title` to read_sections to fetch content; use `url#section_anchor` when citing\\n- facets: Available filters (product_types, guide_types) for refining searches\\n- query_id: Unique identifier for this search session\\n- metadata: Optional response-level context (when available). May include:\\n    - discovered_services: AWS services inferred from the query that may be relevant beyond the top results\\n    - related_tasks: Related operations or workflows the user may want to follow up on, each with its own doc URLs\\n    - relationships: Named connections between information in the search results, useful for understanding how the returned topics relate to each other\\n\\n\\nArgs:\\n    ctx: MCP context for logging and error handling\\n    search_phrase: Search phrase to use\\n    search_intent: The intent behind the search requested by the user\\n    limit: Maximum number of results to return\\n    product_types: Filter by AWS product/service\\n    guide_types: Filter by guide type\\n\\nReturns:\\n    List of search results with URLs, titles, query ID, context snippets, and facets for filtering\\n\",\"id\":\"aws-documentation/search_documentation\",\"input_schema\":{\"properties\":{\"guide_types\":{\"anyOf\":[{\"items\":{\"type\":\"string\"},\"type\":\"array\"},{\"type\":\"null\"}],\"default\":null,\"description\":\"Filter results by guide type (e.g., [\\\"User Guide\\\", \\\"API Reference\\\", \\\"Developer Guide\\\"])\",\"title\":\"Guide Types\"},\"limit\":{\"default\":10,\"description\":\"Maximum number of results to return\",\"maximum\":50,\"minimum\":1,\"title\":\"Limit\",\"type\":\"integer\"},\"product_types\":{\"anyOf\":[{\"items\":{\"type\":\"string\"},\"type\":\"array\"},{\"type\":\"null\"}],\"default\":null,\"description\":\"Filter results by AWS product/service (e.g., [\\\"Amazon Simple Storage Service\\\"])\",\"title\":\"Product Types\"},\"search_intent\":{\"default\":\"\",\"description\":\"For the search_phrase parameter, describe the search intent of the user. CRITICAL: Do not include any PII or customer data, describe only the AWS-related intent for search.\",\"title\":\"Search Intent\",\"type\":\"string\"},\"search_phrase\":{\"description\":\"Search phrase to use\",\"title\":\"Search Phrase\",\"type\":\"string\"}},\"required\":[\"search_phrase\"],\"title\":\"search_documentationArguments\",\"type\":\"object\"},\"name\":\"search_documentation\",\"output_schema\":{\"$defs\":{\"AdditionalUrl\":{\"description\":\"Doc URL related to a search result, with section anchors for citation.\",\"properties\":{\"section_anchor\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Section Anchor\"},\"section_title\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Section Title\"},\"url\":{\"title\":\"Url\",\"type\":\"string\"}},\"required\":[\"url\"],\"title\":\"AdditionalUrl\",\"type\":\"object\"},\"DiscoveredService\":{\"description\":\"AWS service inferred from the query that may be relevant beyond the top results.\",\"properties\":{\"description\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Description\"},\"name\":{\"title\":\"Name\",\"type\":\"string\"}},\"required\":[\"name\"],\"title\":\"DiscoveredService\",\"type\":\"object\"},\"RelatedTask\":{\"description\":\"Related operation or workflow with its own doc URLs.\",\"properties\":{\"description\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Description\"},\"name\":{\"title\":\"Name\",\"type\":\"string\"},\"urls\":{\"anyOf\":[{\"items\":{\"$ref\":\"#/$defs/RelatedTaskUrl\"},\"type\":\"array\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Urls\"}},\"required\":[\"name\"],\"title\":\"RelatedTask\",\"type\":\"object\"},\"RelatedTaskUrl\":{\"description\":\"Doc URL associated with a related task.\",\"properties\":{\"url_description\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Url Description\"},\"url_name\":{\"title\":\"Url Name\",\"type\":\"string\"}},\"required\":[\"url_name\"],\"title\":\"RelatedTaskUrl\",\"type\":\"object\"},\"Relationship\":{\"description\":\"Named connection between concepts surfaced alongside search results.\",\"properties\":{\"from\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"From\"},\"relation\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Relation\"},\"to\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"To\"},\"to_description\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"To Description\"}},\"title\":\"Relationship\",\"type\":\"object\"},\"ResponseMetadata\":{\"description\":\"Optional response-level metadata surfaced alongside search results.\",\"properties\":{\"discovered_services\":{\"anyOf\":[{\"items\":{\"$ref\":\"#/$defs/DiscoveredService\"},\"type\":\"array\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Discovered Services\"},\"related_tasks\":{\"anyOf\":[{\"items\":{\"$ref\":\"#/$defs/RelatedTask\"},\"type\":\"array\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Related Tasks\"},\"relationships\":{\"anyOf\":[{\"items\":{\"$ref\":\"#/$defs/Relationship\"},\"type\":\"array\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Relationships\"}},\"title\":\"ResponseMetadata\",\"type\":\"object\"},\"SearchResult\":{\"description\":\"Search result from AWS documentation search.\",\"properties\":{\"context\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Context\"},\"metadata\":{\"anyOf\":[{\"$ref\":\"#/$defs/SearchResultMetadata\"},{\"type\":\"null\"}],\"default\":null},\"rank_order\":{\"title\":\"Rank Order\",\"type\":\"integer\"},\"recommended_sections\":{\"anyOf\":[{\"items\":{\"type\":\"string\"},\"type\":\"array\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Recommended Sections\"},\"sections\":{\"anyOf\":[{\"items\":{\"type\":\"string\"},\"type\":\"array\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Sections\"},\"title\":{\"title\":\"Title\",\"type\":\"string\"},\"url\":{\"title\":\"Url\",\"type\":\"string\"}},\"required\":[\"rank_order\",\"url\",\"title\"],\"title\":\"SearchResult\",\"type\":\"object\"},\"SearchResultMetadata\":{\"description\":\"Optional per-result metadata surfaced alongside an individual search result.\",\"properties\":{\"additional_urls\":{\"anyOf\":[{\"items\":{\"$ref\":\"#/$defs/AdditionalUrl\"},\"type\":\"array\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Additional Urls\"}},\"title\":\"SearchResultMetadata\",\"type\":\"object\"}},\"description\":\"Complete search response including results and facets.\",\"properties\":{\"facets\":{\"anyOf\":[{\"additionalProperties\":{\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Facets\"},\"metadata\":{\"anyOf\":[{\"$ref\":\"#/$defs/ResponseMetadata\"},{\"type\":\"null\"}],\"default\":null},\"query_id\":{\"title\":\"Query Id\",\"type\":\"string\"},\"search_results\":{\"items\":{\"$ref\":\"#/$defs/SearchResult\"},\"title\":\"Search Results\",\"type\":\"array\"}},\"required\":[\"search_results\",\"query_id\"],\"title\":\"SearchResponse\",\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache -e AWS_DEFAULT_REGION=us-east-1 -e AWS_REGION=us-east-1 -e FASTMCP_LOG_LEVEL=ERROR toollens-sandbox:1 uvx awslabs.aws-documentation-mcp-server@1.2.3\",\"first_seen\":\"2026-10-25T23:19:01.165Z\",\"last_seen\":\"2026-10-25T23:50:45.019Z\",\"schema_hash\":\"5012ae81ed109c4e\",\"server\":\"aws-documentation\"},\"schema_hash\":\"5012ae81ed109c4e\",\"server\":\"aws-documentation\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "limit": 5,
+              "search_intent": "Find the maximum size of a single S3 object",
+              "search_phrase": "Amazon S3 maximum object size"
+            },
+            "tool_id": "aws-documentation/search_documentation"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"facets\":null,\"metadata\":{\"discovered_services\":null,\"related_tasks\":null,\"relationships\":[{\"from\":\"upload very large objects\",\"relation\":\"dependsOn\",\"to\":\"mount an S3 drive\",\"to_description\":\"Create an S3 PowerShell drive using Mount-S3PSDrive or New-PSDrive with the AWS.S3 provider.\"},{\"from\":\"upload very large objects\",\"relation\":\"hasChild\",\"to\":\"Get-Content ./huge.bin -AsByteStream -ReadCount 8MB | Set-Content S3:/amzn-s3-demo-bucket/archive/huge.bin -AsByteStream -PartSize 64MB\",\"to_description\":\"Upload a very large local binary file to S3 using 64 MiB multipart parts to stay within the 10,000-part limit on PowerShell 7+.\"},{\"from\":\"upload very large objects\",\"relation\":\"references\",\"to\":\"S3 multipart upload part size\",\"to_description\":\"The configurable size of each part in a multipart S3 upload, set via -PartSize, between the S3 minimum of 5 MiB and maximum of 5 GiB.\"},{\"from\":\"upload very large objects\",\"relation\":\"references\",\"to\":\"S3 PowerShell drive\",\"to_description\":\"A PowerShell drive provider that mounts Amazon S3 storage so buckets and prefixes appear as folders and objects appear as files.\"},{\"from\":\"CloudFront maximum cacheable file size\",\"relation\":\"relatesTo\",\"to\":\"CloudFront range requests for large objects\",\"to_description\":\"A technique to cache objects larger than 50 GB by requesting them in parts of 50 GB or smaller using range requests.\"}]},\"query_id\":\"c93baf03-4c7e-4dc8-b2b9-e29c94249428\",\"search_results\":[{\"context\":\"The largest single object that can be uploaded to Amazon S3 using multipart upload.\",\"metadata\":null,\"rank_order\":1,\"recommended_sections\":[\"Amazon S3 multipart upload limits\"],\"sections\":null,\"title\":\"multipart upload maximum object size\",\"url\":\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html\"},{\"context\":\"Core specifications constraining multipart upload object size, part count, part size, and list response sizes in Amazon S3\",\"metadata\":null,\"rank_order\":2,\"recommended_sections\":[\"Amazon Simple Storage Service multipart upload limits\"],\"sections\":null,\"title\":\"multipart upload limits\",\"url\":\"https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-uploading-files-to-a-bucket-using-multipart-upload.html\"},{\"context\":\"File size limit for uploads via the Amazon S3 console, with guidance to use CLI, SDKs, or REST API for larger files\",\"metadata\":null,\"rank_order\":3,\"recommended_sections\":[\"Uploading objects\"],\"sections\":null,\"title\":\"The maximum size of a file that you can upload by using the Amazon S3 console is 160 GB.\",\"url\":\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/upload-objects.html\"},{\"context\":\"The technical limits of Amazon S3 multipart upload that determine the actual maximum object size of 53.7 TB\",\"metadata\":null,\"rank_order\":4,\"recommended_sections\":[\"Amazon S3 objects overview\"],\"sections\":null,\"title\":\"S3 multipart upload constraints\",\"url\":\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingObjects.html\"},{\"context\":\"Upload objects larger than 48 GiB to S3 by raising the -PartSize parameter to stay within the 10,000-part multipart upload limit.\",\"metadata\":null,\"rank_order\":5,\"recommended_sections\":[\"Upload very large objects\"],\"sections\":null,\"title\":\"upload very large objects\",\"url\":\"https://docs.aws.amazon.com/powershell/v5/userguide/pstools-s3-drive.html\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "read sections of an AWS documentation page",
+            "limit": 4
+          },
+          "name": "discover_tools"
+        },
+        {
+          "input": {
+            "tool_id": "aws-documentation/read_sections"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"aws-documentation/read_sections\",\"role\":\"match\",\"summary\":\"Extract specific sections from AWS documentation pages by title.\\n\\nRetrieves a page, converts to markdown, and returns only matching sections…\",\"why\":\"matches read, section, aws, documentation, page\"},{\"id\":\"aws-documentation/search_table\",\"role\":\"match\",\"summary\":\"Search for specific rows in a large documentation table.\\n\\nUse this tool when you need specific rows from a large documentation table\\n(e.g., …\",\"why\":\"matches read, section, aws, documentation, page\"},{\"id\":\"aws-documentation/search_documentation\",\"role\":\"match\",\"summary\":\"Search AWS documentation using the official AWS Documentation Search API.\\n\\n## Usage\\n\\nThis tool searches across all AWS documentation for pag…\",\"why\":\"matches read, section, aws, documentation, page\"},{\"id\":\"aws-code-doc-gen/generate_documentation\",\"role\":\"match\",\"summary\":\"Final step: Generate documentation content.\\n\\nDEPRECATION WARNING: This MCP server is deprecated and will be archived.\\nSee https://github.com…\",\"why\":\"matches section, aws, documentation\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "content": "{\"description\":\"Extract specific sections from AWS documentation pages by title.\\n\\nRetrieves a page, converts to markdown, and returns only matching sections.\\nSection matching is case-insensitive and handles whitespace differences.\\n\\n## URL Requirements\\n- Must end with .html\\n\\n## Large Tables\\n\\nTables with more than 20 rows are automatically truncated to show only the header and 5 sample rows,\\nalong with a hint to use the `search_table` tool. Use `search_table` to filter and retrieve specific\\nrows from large tables (e.g., service quotas, IAM actions).\\n\\n## Read Sections Tips\\n\\n- Use exact section titles from search results 'sections' field when available\\n- Section matching is case-insensitive and handles whitespace differences\\n- Include multiple related sections in one call for comprehensive coverage\\n\\n## Example Usage\\n\\n```\\n# If query is about S3 bucket naming rules:\\n# Available sections: ['General purpose buckets naming rules', 'Example general purpose bucket names', 'Best practices', 'Creating a bucket that uses a GUID in the bucket name']\\n# Read these specific sections:\\nread_sections(\\n    url='https://docs.aws.amazon.com/s3/latest/userguide/bucketnamingrules.html',\\n    section_titles=['General purpose buckets naming rules', 'Best practices'],\\n)\\n\\n# If query is about Python Lambda function examples:\\n# Available sections: ['Example Python Lambda function code', 'Handler naming conventions', 'Using the Lambda event object', 'Accessing and using the Lambda context object'. 'Valid handler signatures for Python handlers', 'Returning a value', 'Using the AWS SDK for Python (Boto3) in your handler', 'Accessing environment variables, 'Code best practices for Python Lambda functions']\\n# Read these specific sections:\\nread_sections(\\n    url='https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html',\\n    section_titles=[\\n        'Example Python Lambda function code',\\n        'Code best practices for Python Lambda functions',\\n    ],\\n)\\n```\\n\\nArgs:\\n    ctx: MCP context for logging and error handling\\n    url: URL of the AWS documentation page to read\\n    section_titles: List of section titles to extract\\n\\nReturns:\\n    Filtered markdown content containing only the requested sections\\n\",\"id\":\"aws-documentation/read_sections\",\"input_schema\":{\"properties\":{\"section_titles\":{\"description\":\"List of section titles to extract from the documentation\",\"items\":{\"type\":\"string\"},\"title\":\"Section Titles\",\"type\":\"array\"},\"url\":{\"description\":\"URL of the AWS documentation page to read\",\"title\":\"Url\",\"type\":\"string\"}},\"required\":[\"url\",\"section_titles\"],\"title\":\"read_sectionsArguments\",\"type\":\"object\"},\"name\":\"read_sections\",\"output_schema\":{\"properties\":{\"result\":{\"title\":\"Result\",\"type\":\"string\"}},\"required\":[\"result\"],\"title\":\"read_sectionsOutput\",\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache -e AWS_DEFAULT_REGION=us-east-1 -e AWS_REGION=us-east-1 -e FASTMCP_LOG_LEVEL=ERROR toollens-sandbox:1 uvx awslabs.aws-documentation-mcp-server@1.2.3\",\"first_seen\":\"2026-10-25T23:19:01.162Z\",\"last_seen\":\"2026-10-25T23:50:45.018Z\",\"schema_hash\":\"7d50af61921f7e6c\",\"server\":\"aws-documentation\"},\"schema_hash\":\"7d50af61921f7e6c\",\"server\":\"aws-documentation\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "section_titles": [
+                "Amazon S3 multipart upload limits"
+              ],
+              "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html"
+            },
+            "tool_id": "aws-documentation/read_sections"
+          },
+          "name": "invoke_tool"
+        },
+        {
+          "input": {
+            "arguments": {
+              "section_titles": [
+                "Amazon S3 objects overview"
+              ],
+              "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingObjects.html"
+            },
+            "tool_id": "aws-documentation/read_sections"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "Error executing tool read_sections: This document does not contain subsections. Please use the read_documentation tool instead to get the full document content.",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "content": "Error executing tool read_sections: No matching sections were found: \"Amazon S3 objects overview\". Available sections: \"Object subresources\". Please retry with one or more of these sections or use the read_documentation tool instead to get the full document content.",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "aws-documentation/read_documentation"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"description\":\"Fetch and convert an AWS documentation page to markdown format.\\n\\n## Usage\\n\\nThis tool retrieves the content of an AWS documentation page and converts it to markdown format.\\nFor long documents, you can make multiple calls with different start_index values to retrieve\\nthe entire content in chunks.\\n\\n## URL Requirements\\n\\n- Must be from the docs.aws.amazon.com domain\\n- Must end with .html\\n\\n## Example URLs\\n\\n- https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html\\n- https://docs.aws.amazon.com/lambda/latest/dg/lambda-invocation.html\\n\\n## Output Format\\n\\nThe output is formatted as markdown text with:\\n- Preserved headings and structure\\n- Code blocks for examples\\n- Lists and tables converted to markdown format\\n\\n## Large Tables\\n\\nTables with more than 20 rows are automatically truncated to show only the header and 5 sample rows,\\nalong with a hint to use the `search_table` tool. Use `search_table` to filter and retrieve specific\\nrows from large tables (e.g., service quotas, IAM actions).\\n\\n## Handling Long Documents\\n\\nIf the response indicates the document was truncated, you have several options:\\n\\n1. **Continue Reading**: Make another call with start_index set to the end of the previous response\\n2. **Stop Early**: For very long documents (>30,000 characters), if you've already found the specific information needed, you can stop reading\\n\\nArgs:\\n    ctx: MCP context for logging and error handling\\n    url: URL of the AWS documentation page to read\\n    max_length: Maximum number of characters to return\\n    start_index: On return output starting at this character index\\n\\nReturns:\\n    Markdown content of the AWS documentation\\n\",\"id\":\"aws-documentation/read_documentation\",\"input_schema\":{\"properties\":{\"max_length\":{\"default\":5000,\"description\":\"Maximum number of characters to return.\",\"exclusiveMaximum\":1000000,\"exclusiveMinimum\":0,\"title\":\"Max Length\",\"type\":\"integer\"},\"start_index\":{\"default\":0,\"description\":\"On return output starting at this character index, useful if a previous fetch was truncated and more content is required.\",\"minimum\":0,\"title\":\"Start Index\",\"type\":\"integer\"},\"url\":{\"description\":\"URL of the AWS documentation page to read\",\"title\":\"Url\",\"type\":\"string\"}},\"required\":[\"url\"],\"title\":\"read_documentationArguments\",\"type\":\"object\"},\"name\":\"read_documentation\",\"output_schema\":{\"properties\":{\"result\":{\"title\":\"Result\",\"type\":\"string\"}},\"required\":[\"result\"],\"title\":\"read_documentationOutput\",\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache -e AWS_DEFAULT_REGION=us-east-1 -e AWS_REGION=us-east-1 -e FASTMCP_LOG_LEVEL=ERROR toollens-sandbox:1 uvx awslabs.aws-documentation-mcp-server@1.2.3\",\"first_seen\":\"2026-10-25T23:19:01.162Z\",\"last_seen\":\"2026-10-25T23:50:45.017Z\",\"schema_hash\":\"b9e00990ca214bac\",\"server\":\"aws-documentation\"},\"schema_hash\":\"b9e00990ca214bac\",\"server\":\"aws-documentation\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html"
+            },
+            "tool_id": "aws-documentation/read_documentation"
+          },
+          "name": "invoke_tool"
+        },
+        {
+          "input": {
+            "arguments": {
+              "max_length": 4000,
+              "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingObjects.html"
+            },
+            "tool_id": "aws-documentation/read_documentation"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"result\":\"AWS Documentation from https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html:\\n\\n# Amazon S3 multipart upload limits\\n\\nMultipart upload allows you to upload a single object as a set of parts. Each part is a\\ncontiguous portion of the object's data. After all parts of your object are uploaded, Amazon S3\\nassembles these parts and creates the object. In general, when your object size reaches 100\\nMB, you should consider using multipart uploads instead of uploading the object in a single\\noperation. For more information about multipart uploads, see [Uploading and copying objects using multipart upload in Amazon S3](./mpuoverview.html).\\n\\nThe following table provides multipart upload core specifications. These include maximum\\nobject size, maximum number of parts, maximum part size, and more. There is no minimum size\\nlimit on the last part of your multipart upload.\\n\\n| Item | Specification |\\n| --- | --- |\\n| Maximum object size | 48.8 TiB |\\n| Maximum number of parts per upload | 10,000 |\\n| Part numbers | 1 to 10,000 (inclusive) |\\n| Part size | 5 MiB to 5 GiB. There is no minimum size limit on the last part of your multipart upload. |\\n| Maximum number of parts returned for a list parts request | 1000 |\\n| Maximum number of multipart uploads returned in a list multipart uploads request | 1000 |\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "content": "{\"result\":\"AWS Documentation from https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingObjects.html:\\n\\n# Amazon S3 objects overview\\n\\nAmazon S3 is an object store that uses unique key-values to store as many objects as you want.\\nYou store these objects in one or more buckets, and each object can be up to 50 TB in size. An\\nobject consists of the following:\\n\\nKey\\n:   The name that you assign to an object. You use the object key to retrieve the object.\\n    For more information, see [Working with object\\n    metadata](./UsingMetadata.html).\\n\\nVersion ID\\n:   Within a bucket, a key and version ID uniquely identify an object. The version ID is\\n    a string that Amazon S3 generates when you add an object to a bucket. For more information, see\\n    [Retaining multiple versions of objects with S3 Versioning](./Versioning.html).\\n\\nValue\\n:   The content that you are storing.\\n\\n    An object value can be any sequence of bytes. Objects can range in size from zero to\\n    50 TB. For more information, see [Uploading objects](./upload-objects.html).\\n\\n    ###### Note\\n\\n    While Amazon S3 documentation commonly references 50 TB object size limit, the actual\\n    maximum object size is 53.7 TB (48.8 TiB). This limit is determined by multipart upload\\n    constraints: 10,000 maximum parts x 5 GiB per part = 50,000 GiB (53.7 TB)\\n\\nMetadata\\n:   A set of name-value pairs with which you can store information regarding the object.\\n    You can assign metadata, referred to as user-defined metadata, to your objects in Amazon S3.\\n    Amazon S3 also assigns system-metadata to these objects, which it uses for managing objects.\\n    For more information, see [Working with object\\n    metadata](./UsingMetadata.html).\\n\\nSubresources\\n:   Amazon S3 uses the subresource mechanism to store object-specific additional information.\\n    Because subresources are subordinates to objects, they are always associated with some\\n    other entity such as an object or a bucket. For more information, see [Object subresources](#ObjectAndSubResource).\\n\\nAccess control information\\n:   You can control access to the objects you store in Amazon S3. Amazon S3 supports both the\\n    resource-based access control, such as an access control list (ACL) and bucket policies,\\n    and user-based access control. For more information about access control, see the\\n    following:\\n\\n    * [Access control in Amazon S3](./access-management.html)\\n    * [Identity and Access Management for Amazon S3](./security-iam.html)\\n    * [Configuring ACLs](./managing-acls.html)\\n\\n    Your Amazon S3 resources (for example, buckets and objects) are private by default. You\\n    must explicitly grant permission for others to access these resources. For more\\n    information about sharing objects, see [Sharing objects with presigned URLs](./ShareObjectPreSignedURL.html).\\n\\nTags\\n:   You can use tags to categorize your stored objects, for access control, or cost allocation.\\n    For more information, see [Tagging your objects](./object-tagging.html).\\n\\n## Object subresources\\n\\nAmazon S3 defines a set of subresources associated with buckets and objects. Subresources are\\nsubordinates to objects. This means that subresources don't exist on their own. They are\\nalways associated with some other entity, such as an object or a bucket.\\n\\nThe following table lists the subresources associated with Amazon S3 objects.\\n\\n| Subresource | Description |\\n| --- | --- |\\n| acl | Contains a list of grants identifying the grantees and the permissions granted. When you create an object, the `acl` identifies the object owner as having full control over the object. You can retrieve an object ACL or replace it with an updated list of grants. Any update to an ACL requires you to replace the existing ACL. For more information about ACLs, see [Access control list (ACL) overview](./acl-overview.html). |\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "The official AWS documentation says the maximum size of a single Amazon S3 object is **50 TB**. The exact ceiling is **48.8 TiB (about 53.7 TB)**.\n\n- **Amazon S3 User Guide, \"Amazon S3 objects overview\"** (UsingObjects.html): objects \"can range in size from zero to 50 TB.\" A note on the same page says the true maximum is 53.7 TB (48.8 TiB), because that's the most multipart upload allows: 10,000 parts × 5 GiB each = 50,000 GiB.\n- **\"Amazon S3 multipart upload limits\"** (qfacts.html): lists the maximum object size as 48.8 TiB, with up to 10,000 parts per upload and parts of 5 MiB to 5 GiB (the last part has no minimum size).\n\nObjects that big have to be uploaded with multipart upload. AWS recommends switching to multipart at around 100 MB, and the S3 console only accepts files up to 160 GB, so use the CLI, an SDK or the REST API for anything larger.\n\nThe older 5 TB limit you may remember is out of date; the current docs say 50 TB. No tool calls were rejected."
+    }
+  ],
+  "final_text": "The official AWS documentation says the maximum size of a single Amazon S3 object is **50 TB**. The exact ceiling is **48.8 TiB (about 53.7 TB)**.\n\n- **Amazon S3 User Guide, \"Amazon S3 objects overview\"** (UsingObjects.html): objects \"can range in size from zero to 50 TB.\" A note on the same page says the true maximum is 53.7 TB (48.8 TiB), because that's the most multipart upload allows: 10,000 parts × 5 GiB each = 50,000 GiB.\n- **\"Amazon S3 multipart upload limits\"** (qfacts.html): lists the maximum object size as 48.8 TiB, with up to 10,000 parts per upload and parts of 5 MiB to 5 GiB (the last part has no minimum size).\n\nObjects that big have to be uploaded with multipart upload. AWS recommends switching to multipart at around 100 MB, and the S3 console only accepts files up to 160 GB, so use the CLI, an SDK or the REST API for anything larger.\n\nThe older 5 TB limit you may remember is out of date; the current docs say 50 TB. No tool calls were rejected.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "aws-documentation/search_documentation"
+    },
+    {
+      "outcome": "tool_error",
+      "tool": "aws-documentation/read_sections"
+    },
+    {
+      "outcome": "tool_error",
+      "tool": "aws-documentation/read_sections"
+    },
+    {
+      "outcome": "ok",
+      "tool": "aws-documentation/read_documentation"
+    },
+    {
+      "outcome": "ok",
+      "tool": "aws-documentation/read_documentation"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 8,
+    "input_tokens": 55917,
+    "output_tokens": 1560,
+    "cache_read_tokens": 43196,
+    "cache_write_tokens": 12703,
+    "tool_schema_tokens_per_request": 951,
+    "tool_schema_tokens_total": 7608,
+    "invocations": 5,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 2,
+    "discovery_latency_ms_mean": 3.97565,
+    "first_pick_correct": true,
+    "wall_ms": 26064.8148,
+    "cost_usd": 0.1034262
+  }
+}

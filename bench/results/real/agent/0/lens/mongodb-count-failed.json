@@ -1,0 +1,198 @@
+{
+  "task": "mongodb-count-failed",
+  "arm": "lens",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "How many documents in the MongoDB collection orders (database shop) have status 'failed'?",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "count documents in MongoDB collection matching filter",
+            "limit": 5
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"mongodb/count\",\"role\":\"match\",\"summary\":\"Gets the number of documents in a MongoDB collection using db.collection.count() and query as an optional filter parameter\",\"why\":\"matches count, docu, mongo, db, collection, match, filter\"},{\"id\":\"mongodb/delete-many\",\"role\":\"dependency\",\"summary\":\"Removes all documents that match the filter from a MongoDB collection\",\"why\":\"provides `collection` that mongodb/count requires\"},{\"id\":\"mongodb/drop-collection\",\"role\":\"dependency\",\"summary\":\"Removes a collection or view from the database\",\"why\":\"provides `collection` that mongodb/delete-many requires\"},{\"id\":\"aws-documentdb/countDocuments\",\"role\":\"match\",\"summary\":\"Count documents in a DocumentDB collection.\\n\\nThis tool counts the number of documents in a collection that match the provided filter.\\nIf no …\",\"why\":\"matches count, docu, db, collection, match, filter\"},{\"id\":\"mongodb/find\",\"role\":\"match\",\"summary\":\"Run a find query against a MongoDB collection\",\"why\":\"matches docu, mongo, db, collection, match, filter\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "mongodb/count"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"openWorldHint\":true,\"readOnlyHint\":true,\"title\":\"count\"},\"description\":\"Gets the number of documents in a MongoDB collection using db.collection.count() and query as an optional filter parameter\",\"id\":\"mongodb/count\",\"input_schema\":{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":false,\"properties\":{\"collection\":{\"description\":\"Collection name\",\"type\":\"string\"},\"connectionId\":{\"description\":\"The connection to run the operation against. Use the id returned by one of the connect tools.\",\"type\":\"string\"},\"database\":{\"description\":\"Database name\",\"type\":\"string\"},\"query\":{\"additionalProperties\":{},\"description\":\"A filter/query parameter. Allows users to filter the documents to count. Matches the syntax of the filter argument of db.collection.count().\",\"properties\":{},\"type\":\"object\"}},\"required\":[\"connectionId\",\"database\",\"collection\"],\"type\":\"object\"},\"name\":\"count\",\"output_schema\":{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":false,\"properties\":{\"count\":{\"description\":\"The number of documents in the collection\",\"type\":\"number\"}},\"required\":[\"count\"],\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache toollens-sandbox:1 npx -y mongodb-mcp-server@3.1.0\",\"first_seen\":\"2026-10-25T23:30:27.540Z\",\"last_seen\":\"2026-10-25T23:50:45.704Z\",\"schema_hash\":\"84a42e7f6cb83cb3\",\"server\":\"mongodb\"},\"schema_hash\":\"84a42e7f6cb83cb3\",\"server\":\"mongodb\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "connect to MongoDB and get connectionId",
+            "limit": 5
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": "Need a connectionId."
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"mongodb/connect\",\"role\":\"match\",\"summary\":\"Connect to a MongoDB instance and get back a connectionId to pass to the other MongoDB tools\",\"why\":\"matches connect, mongo, db, get, connection, id\"},{\"id\":\"mongodb/list-databases\",\"role\":\"dependency\",\"summary\":\"List all databases for a MongoDB connection\",\"why\":\"can use `connectionId` returned by mongodb/connect\"},{\"id\":\"mongodb/count\",\"role\":\"dependency\",\"summary\":\"Gets the number of documents in a MongoDB collection using db.collection.count() and query as an optional filter parameter\",\"why\":\"can use `connectionId` returned by mongodb/connect\"},{\"id\":\"mongodb/delete-many\",\"role\":\"match\",\"summary\":\"Removes all documents that match the filter from a MongoDB collection\",\"why\":\"matches connect, mongo, db, connection, id\"},{\"id\":\"mongodb/rename-collection\",\"role\":\"match\",\"summary\":\"Renames a collection in a MongoDB database\",\"why\":\"matches connect, mongo, db, connection, id\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "mongodb/connect"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"openWorldHint\":true,\"readOnlyHint\":true,\"title\":\"connect\"},\"description\":\"Connect to a MongoDB instance and get back a connectionId to pass to the other MongoDB tools. Each call establishes a new, independent connection — multiple connections can be active at the same time.\",\"id\":\"mongodb/connect\",\"input_schema\":{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":false,\"properties\":{\"connectionName\":{\"description\":\"Optional short label for the connection (stored slugified with a short suffix, e.g. \\\"staging\\\" becomes staging-<suffix>). Shown in connection listings; helpful for telling multiple connections apart.\",\"type\":\"string\"},\"connectionString\":{\"description\":\"MongoDB connection string (in the mongodb:// or mongodb+srv:// format)\",\"type\":\"string\"}},\"required\":[\"connectionString\"],\"type\":\"object\"},\"name\":\"connect\",\"output_schema\":{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":false,\"properties\":{\"connectionId\":{\"type\":\"string\"}},\"required\":[\"connectionId\"],\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache toollens-sandbox:1 npx -y mongodb-mcp-server@3.1.0\",\"first_seen\":\"2026-10-25T23:30:27.540Z\",\"last_seen\":\"2026-10-25T23:50:45.704Z\",\"schema_hash\":\"6bf03196f098fb54\",\"server\":\"mongodb\"},\"schema_hash\":\"6bf03196f098fb54\",\"server\":\"mongodb\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "list existing MongoDB connections or connection string configuration",
+            "limit": 5
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"mongodb/connect\",\"role\":\"match\",\"summary\":\"Connect to a MongoDB instance and get back a connectionId to pass to the other MongoDB tools\",\"why\":\"matches mongo, db, connection, str\"},{\"id\":\"mongodb/list-databases\",\"role\":\"dependency\",\"summary\":\"List all databases for a MongoDB connection\",\"why\":\"can use `connectionId` returned by mongodb/connect\"},{\"id\":\"mongodb/disconnect\",\"role\":\"dependency\",\"summary\":\"Close a MongoDB connection and revoke its connectionId\",\"why\":\"can use `connectionId` returned by mongodb/connect\"},{\"id\":\"mongodb/list-connections\",\"role\":\"match\",\"summary\":\"List the active MongoDB connections and their connectionIds\",\"why\":\"matches list, mongo, db, connection\"},{\"id\":\"mongodb/rename-collection\",\"role\":\"match\",\"summary\":\"Renames a collection in a MongoDB database\",\"why\":\"matches exist, mongo, db, connection\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {},
+            "tool_id": "mongodb/list-connections"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"connections\":[]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "look up the shop MongoDB connection string / URI from config or secrets",
+            "limit": 6
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"mongodb/connect\",\"role\":\"match\",\"summary\":\"Connect to a MongoDB instance and get back a connectionId to pass to the other MongoDB tools\",\"why\":\"matches mongo, db, connection, str\"},{\"id\":\"mongodb/disconnect\",\"role\":\"dependency\",\"summary\":\"Close a MongoDB connection and revoke its connectionId\",\"why\":\"can use `connectionId` returned by mongodb/connect\"},{\"id\":\"mongodb/list-databases\",\"role\":\"dependency\",\"summary\":\"List all databases for a MongoDB connection\",\"why\":\"can use `connectionId` returned by mongodb/connect\"},{\"id\":\"digitalocean/db-cluster-update-mongodb-config\",\"role\":\"match\",\"summary\":\"Update the MongoDB config for a cluster by its id\",\"why\":\"matches mongo, db, config\"},{\"id\":\"digitalocean/db-cluster-get-mongodb-config\",\"role\":\"dependency\",\"summary\":\"Get the MongoDB config for a cluster by its id\",\"why\":\"provides `config` that digitalocean/db-cluster-update-mongodb-config requires\"},{\"id\":\"mongodb/list-connections\",\"role\":\"match\",\"summary\":\"List the active MongoDB connections and their connectionIds\",\"why\":\"matches mongo, db, connection\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "connectionName": "shop",
+              "connectionString": "mongodb://localhost:27017"
+            },
+            "tool_id": "mongodb/connect"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "You need to connect to a MongoDB instance before you can access its data.\nPlease use one of the following tools: \"connect\" to connect to a MongoDB instance or update the MCP server configuration to include a connection string. Note to LLM: do not invent connection strings and explicitly ask the user to provide one. If they have previously connected to MongoDB using MCP, you can ask them if they want to reconnect using the same connection string.",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I couldn't get the count. I can't reach Acme's MongoDB because I don't have a connection string for it.\n\nWhat I tried:\n- **Existing connections:** `mongodb/list-connections` shows no active MongoDB connections, so there's no `connectionId` to pass to `mongodb/count`.\n- **Where to find the address:** I looked for the database's connection details in config or secrets tools and didn't find any. The MongoDB server's configuration doesn't include one either.\n- **A guessed address:** I tried connecting to `mongodb://localhost:27017`, the default local address. The connection failed. The server said there's no MongoDB instance available and that it needs a real connection string.\n\nIf you send me the connection string for the cluster that holds the `shop` database (`mongodb://` or `mongodb+srv://`), I'll connect and count the documents in `shop.orders` with `{status: \"failed\"}`."
+    }
+  ],
+  "final_text": "I couldn't get the count. I can't reach Acme's MongoDB because I don't have a connection string for it.\n\nWhat I tried:\n- **Existing connections:** `mongodb/list-connections` shows no active MongoDB connections, so there's no `connectionId` to pass to `mongodb/count`.\n- **Where to find the address:** I looked for the database's connection details in config or secrets tools and didn't find any. The MongoDB server's configuration doesn't include one either.\n- **A guessed address:** I tried connecting to `mongodb://localhost:27017`, the default local address. The connection failed. The server said there's no MongoDB instance available and that it needs a real connection string.\n\nIf you send me the connection string for the cluster that holds the `shop` database (`mongodb://` or `mongodb+srv://`), I'll connect and count the documents in `shop.orders` with `{status: \"failed\"}`.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "mongodb/list-connections"
+    },
+    {
+      "outcome": "tool_error",
+      "tool": "mongodb/connect"
+    }
+  ],
+  "metrics": {
+    "completed": false,
+    "requests": 9,
+    "input_tokens": 28585,
+    "output_tokens": 1143,
+    "cache_read_tokens": 23643,
+    "cache_write_tokens": 4922,
+    "tool_schema_tokens_per_request": 951,
+    "tool_schema_tokens_total": 8559,
+    "invocations": 2,
+    "incorrect_selections": 1,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 4,
+    "discovery_latency_ms_mean": 6.0636,
+    "first_pick_correct": false,
+    "wall_ms": 26151.5121,
+    "cost_usd": 0.0522786
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "task": "redshift-tables",
+  "arm": "lens",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "List the tables in the analytics schema of the dev database on our Amazon Redshift cluster prod-dw.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "list tables in a schema of an Amazon Redshift cluster database"
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"aws-redshift/list_tables\",\"role\":\"match\",\"summary\":\"List the tables in a schema.\\n\\nReturns database_name, schema_name, table_name, table_acl, table_type and remarks,\\nwhere table_type is TABLE, …\",\"why\":\"matches list, tabl, schema, redshift, cluster, databas\"},{\"id\":\"aws-redshift/list_columns\",\"role\":\"match\",\"summary\":\"List the columns in a table.\\n\\nReturns database_name, schema_name, table_name, column_name, ordinal_position,\\ncolumn_default, is_nullable, da…\",\"why\":\"matches list, tabl, schema, redshift, cluster, databas\"},{\"id\":\"aws-redshift/list_schemas\",\"role\":\"match\",\"summary\":\"List the schemas in a database.\\n\\nReturns database_name, schema_name, schema_owner, schema_type (local, external or\\nshared), schema_acl, sour…\",\"why\":\"matches list, schema, redshift, cluster, databas\"},{\"id\":\"aws-redshift/review_cluster\",\"role\":\"match\",\"summary\":\"Run a diagnostic review of a Redshift cluster or serverless workgroup.\\n\\nEvaluates diagnostic signals against system views and returns the fi…\",\"why\":\"matches list, tabl, redshift, cluster, databas\"},{\"id\":\"aws-redshift/list_databases\",\"role\":\"match\",\"summary\":\"List the databases in a cluster.\\n\\nReturns database_name, database_owner, database_type, database_acl, parameters and\\ndatabase_isolation_leve…\",\"why\":\"matches list, redshift, cluster, databas\"},{\"id\":\"aws-mysql/get_table_schema\",\"role\":\"match\",\"summary\":\"Fetch table columns and comments from MySQL\",\"why\":\"matches tabl, schema, cluster, databas\"},{\"id\":\"aws-postgres/get_table_schema\",\"role\":\"match\",\"summary\":\"Fetch table columns and comments from Postgres\",\"why\":\"matches tabl, schema, cluster, databas\"},{\"id\":\"aws-redshift/list_clusters\",\"role\":\"match\",\"summary\":\"List Redshift clusters and serverless workgroups.\\n\\nReturns one entry per cluster: identifier, type (provisioned or serverless), status,\\ndata…\",\"why\":\"matches list, redshift, cluster, databas\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "aws-redshift/list_tables"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"idempotentHint\":true,\"openWorldHint\":true,\"readOnlyHint\":true,\"title\":\"List Redshift tables\"},\"description\":\"List the tables in a schema.\\n\\nReturns database_name, schema_name, table_name, table_acl, table_type and remarks,\\nwhere table_type is TABLE, VIEW, EXTERNAL TABLE or SHARED TABLE.\\n\\nAn unknown schema returns an empty list rather than an error.\\n\\nRequires redshift-data:BatchExecuteStatement, redshift-data:DescribeStatement and\\nredshift-data:GetStatementResult, plus the discovery actions list_clusters names: the\\ncluster identifier is resolved through the same discovery, so a policy with only the\\nredshift-data actions fails this call before it reaches the cluster.\\n\",\"id\":\"aws-redshift/list_tables\",\"input_schema\":{\"properties\":{\"cluster_identifier\":{\"description\":\"The cluster identifier to query for tables. Must be a valid cluster identifier from the list_clusters tool.\",\"title\":\"Cluster Identifier\",\"type\":\"string\"},\"cluster_type\":{\"description\":\"The type list_clusters reports for the cluster.\",\"enum\":[\"provisioned\",\"serverless\"],\"title\":\"Cluster Type\",\"type\":\"string\"},\"table_database_name\":{\"description\":\"The database name to list tables for. Also the database connected to. Must be a valid database name from the list_databases tool.\",\"title\":\"Table Database Name\",\"type\":\"string\"},\"table_schema_name\":{\"description\":\"The schema name to list tables for. Must be a valid schema name from the list_schemas tool.\",\"title\":\"Table Schema Name\",\"type\":\"string\"}},\"required\":[\"cluster_identifier\",\"cluster_type\",\"table_database_name\",\"table_schema_name\"],\"title\":\"list_tables_toolArguments\",\"type\":\"object\"},\"name\":\"list_tables\",\"output_schema\":{\"$defs\":{\"RedshiftTable\":{\"description\":\"Information about a table in a Redshift database.\",\"properties\":{\"database_name\":{\"description\":\"The name of the database where the table exists\",\"title\":\"Database Name\",\"type\":\"string\"},\"remarks\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"description\":\"Remarks about the table\",\"title\":\"Remarks\"},\"schema_name\":{\"description\":\"The schema name for the table\",\"title\":\"Schema Name\",\"type\":\"string\"},\"table_acl\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"description\":\"The permissions for the specified user or user group for the table\",\"title\":\"Table Acl\"},\"table_name\":{\"description\":\"The name of the table\",\"title\":\"Table Name\",\"type\":\"string\"},\"table_type\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"description\":\"The type of the table (views, base tables, external tables, shared tables)\",\"title\":\"Table Type\"}},\"required\":[\"database_name\",\"schema_name\",\"table_name\"],\"title\":\"RedshiftTable\",\"type\":\"object\"}},\"properties\":{\"result\":{\"items\":{\"$ref\":\"#/$defs/RedshiftTable\"},\"title\":\"Result\",\"type\":\"array\"}},\"required\":[\"result\"],\"title\":\"list_tables_toolOutput\",\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache -e AWS_DEFAULT_REGION=us-east-1 -e AWS_REGION=us-east-1 -e FASTMCP_LOG_LEVEL=ERROR toollens-sandbox:1 uvx awslabs.redshift-mcp-server@0.1.2\",\"first_seen\":\"2026-10-25T23:19:01.623Z\",\"last_seen\":\"2026-10-25T23:50:45.184Z\",\"schema_hash\":\"3f96c2a0b16d576a\",\"server\":\"aws-redshift\"},\"schema_hash\":\"3f96c2a0b16d576a\",\"server\":\"aws-redshift\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {},
+            "tool_id": "aws-redshift/list_clusters"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": "Need cluster type; check list_clusters."
+    },
+    {
+      "content": "Error executing tool list_clusters: An error occurred (InvalidClientTokenId) when calling the DescribeClusters operation: The security token included in the request is invalid.",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "cluster_identifier": "prod-dw",
+              "cluster_type": "provisioned",
+              "table_database_name": "dev",
+              "table_schema_name": "analytics"
+            },
+            "tool_id": "aws-redshift/list_tables"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "Error executing tool list_tables: An error occurred (InvalidClientTokenId) when calling the DescribeClusters operation: The security token included in the request is invalid.",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I couldn't get the table list for the `analytics` schema in the `dev` database on `prod-dw`. AWS rejected the gateway's credentials, so no table names came back.\n\n- **First try:** I called `aws-redshift/list_clusters` to confirm the cluster's type. It failed on the `DescribeClusters` call with `InvalidClientTokenId`: \"The security token included in the request is invalid.\"\n- **Second try:** I called `aws-redshift/list_tables` directly, guessing the type as `provisioned` because I couldn't confirm it. It failed with the same error at the same step, since this tool also looks up the cluster before querying it.\n\nThe gateway allowed both calls. The problem is the AWS credentials of the Redshift tool server (region us-east-1), which seem to be invalid, expired or missing. Someone needs to update the AWS access key or session token for that server. Once that's fixed I can run the request again."
+    }
+  ],
+  "final_text": "I couldn't get the table list for the `analytics` schema in the `dev` database on `prod-dw`. AWS rejected the gateway's credentials, so no table names came back.\n\n- **First try:** I called `aws-redshift/list_clusters` to confirm the cluster's type. It failed on the `DescribeClusters` call with `InvalidClientTokenId`: \"The security token included in the request is invalid.\"\n- **Second try:** I called `aws-redshift/list_tables` directly, guessing the type as `provisioned` because I couldn't confirm it. It failed with the same error at the same step, since this tool also looks up the cluster before querying it.\n\nThe gateway allowed both calls. The problem is the AWS credentials of the Redshift tool server (region us-east-1), which seem to be invalid, expired or missing. Someone needs to update the AWS access key or session token for that server. Once that's fixed I can run the request again.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "tool_error",
+      "tool": "aws-redshift/list_clusters"
+    },
+    {
+      "outcome": "tool_error",
+      "tool": "aws-redshift/list_tables"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 5,
+    "input_tokens": 13871,
+    "output_tokens": 766,
+    "cache_read_tokens": 9997,
+    "cache_write_tokens": 3862,
+    "tool_schema_tokens_per_request": 951,
+    "tool_schema_tokens_total": 4755,
+    "invocations": 2,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 1,
+    "discovery_latency_ms_mean": 4.5064,
+    "first_pick_correct": false,
+    "wall_ms": 15370.2033,
+    "cost_usd": 0.0366774
+  }
+}

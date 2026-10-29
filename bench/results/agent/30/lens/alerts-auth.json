@@ -1,0 +1,122 @@
+{
+  "task": "alerts-auth",
+  "arm": "lens",
+  "size": 30,
+  "model": "claude-opus-5-5",
+  "prompt": "Are there any active alerts for auth-service right now? Name them.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "list active alerts for a service"
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":30,\"tools\":[{\"id\":\"observability/list_alerts\",\"role\":\"match\",\"summary\":\"List monitoring alerts, optionally for one service\",\"why\":\"matches list, activ, alert, servic\"},{\"id\":\"deploy/list_deployments\",\"role\":\"match\",\"summary\":\"List recent production deployments of a service, newest first, with version, commit and status\",\"why\":\"matches list, servic\"},{\"id\":\"deploy/search\",\"role\":\"dependency\",\"summary\":\"Search the service registry by service name, team or repository\",\"why\":\"provides `service_id` that deploy/list_deployments requires\"},{\"id\":\"vcs/get_commit\",\"role\":\"dependency\",\"summary\":\"Get a commit's message, author, pull request, changed files and diff\",\"why\":\"can use `commit_sha` returned by deploy/list_deployments\"},{\"id\":\"observability/get_logs\",\"role\":\"dependency\",\"summary\":\"Fetch log lines for a service, optionally for a single deployment and minimum level\",\"why\":\"can use `deployment_id` returned by deploy/list_deployments\"},{\"id\":\"deploy/list_environments\",\"role\":\"match\",\"summary\":\"List deployment environments and their clusters\",\"why\":\"matches list\"},{\"id\":\"bizops/list_leads\",\"role\":\"match\",\"summary\":\"List leads in Crm, filtered by status\",\"why\":\"matches list\"},{\"id\":\"vcs/list_pull_requests\",\"role\":\"match\",\"summary\":\"List pull requests of a repository with their state (open, merged, closed)\",\"why\":\"matches list\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "observability/list_alerts"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"readOnlyHint\":true},\"description\":\"List monitoring alerts, optionally for one service. Includes active and recently resolved alerts.\",\"id\":\"observability/list_alerts\",\"input_schema\":{\"additionalProperties\":false,\"properties\":{\"service_id\":{\"description\":\"Optional service id filter.\",\"type\":\"string\"}},\"required\":[],\"type\":\"object\"},\"name\":\"list_alerts\",\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"toollens.exe\",\"first_seen\":\"2026-10-25T21:29:32.558Z\",\"last_seen\":\"2026-10-25T21:29:32.558Z\",\"schema_hash\":\"1efbd5299093abc9\",\"server\":\"observability\"},\"schema_hash\":\"1efbd5299093abc9\",\"server\":\"observability\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "query": "auth-service"
+            },
+            "tool_id": "deploy/search"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": "Need service id."
+    },
+    {
+      "content": "{\"services\":[{\"name\":\"auth-service\",\"repo\":\"acme/auth-service\",\"service_id\":\"svc-auth\",\"team\":\"identity\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "service_id": "svc-auth"
+            },
+            "tool_id": "observability/list_alerts"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"alerts\":[{\"alert\":\"AuthTokenLatencyHigh\",\"service_id\":\"svc-auth\",\"severity\":\"critical\",\"since\":\"2026-10-24T13:12:00Z\",\"state\":\"active\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "Yes, auth-service (service id `svc-auth`, owned by the identity team) has one active alert:\n\n- **AuthTokenLatencyHigh**: critical, active since 2026-10-24 13:12 UTC.\n\nThat's the only alert listed for the service right now. No tool calls were rejected."
+    }
+  ],
+  "final_text": "Yes, auth-service (service id `svc-auth`, owned by the identity team) has one active alert:\n\n- **AuthTokenLatencyHigh**: critical, active since 2026-10-24 13:12 UTC.\n\nThat's the only alert listed for the service right now. No tool calls were rejected.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "deploy/search"
+    },
+    {
+      "outcome": "ok",
+      "tool": "observability/list_alerts"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 5,
+    "input_tokens": 9281,
+    "output_tokens": 418,
+    "cache_read_tokens": 6916,
+    "cache_write_tokens": 2353,
+    "tool_schema_tokens_per_request": 950,
+    "tool_schema_tokens_total": 4750,
+    "invocations": 2,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 1,
+    "discovery_latency_ms_mean": 0.0497,
+    "wall_ms": 6457.8821,
+    "cost_usd": 0.0215562
+  }
+}

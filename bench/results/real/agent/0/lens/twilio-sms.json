@@ -1,0 +1,102 @@
+{
+  "task": "twilio-sms",
+  "arm": "lens",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Send the SMS 'Your verification code is 482913' to +15555550100 from +15555550199 using Twilio.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "send SMS via Twilio",
+            "limit": 5
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"twilio/TwilioApiV2010--CreateApplication\",\"role\":\"match\",\"summary\":\"Twilio - Api: This is the public Twilio REST API\",\"why\":\"matches send, sms, twilio\"},{\"id\":\"twilio/TwilioApiV2010--UpdateApplication\",\"role\":\"match\",\"summary\":\"Twilio - Api: This is the public Twilio REST API\",\"why\":\"matches send, sms, twilio\"},{\"id\":\"twilio/TwilioApiV2010--CreateMessage\",\"role\":\"match\",\"summary\":\"Twilio - Api: This is the public Twilio REST API\",\"why\":\"matches send, sms, twilio\"},{\"id\":\"twilio/TwilioApiV2010--UpdateShortCode\",\"role\":\"match\",\"summary\":\"Twilio - Api: This is the public Twilio REST API\",\"why\":\"matches sms, twilio\"},{\"id\":\"twilio/TwilioApiV2010--UpdateIncomingPhoneNumber\",\"role\":\"match\",\"summary\":\"Twilio - Api: This is the public Twilio REST API\",\"why\":\"matches send, sms, twilio\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "twilio/TwilioApiV2010--CreateMessage"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"description\":\"Twilio - Api: This is the public Twilio REST API. Send a message (Uses default AccountSid: ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa if not provided)\",\"id\":\"twilio/TwilioApiV2010--CreateMessage\",\"input_schema\":{\"properties\":{\"AccountSid\":{\"description\":\"The SID of the [Account](https://www.twilio.com/docs/iam/api/account) creating the Message resource.\",\"type\":\"string\"},\"AddressRetention\":{\"description\":\"AddressRetention parameter\",\"type\":\"string\"},\"ApplicationSid\":{\"description\":\"The SID of the associated [TwiML Application](https://www.twilio.com/docs/usage/api/applications). [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url) are sent to the TwiML App's `message_status_callback` URL. Note that the `status_callback` parameter of a request takes priority over the `application_sid` parameter; if both are included `application_sid` is ignored.\",\"type\":\"string\"},\"Attempt\":{\"description\":\"Total number of attempts made (including this request) to send the message regardless of the provider used\",\"type\":\"integer\"},\"Body\":{\"description\":\"The text content of the outgoing message. Can be up to 1,600 characters in length. SMS only: If the `body` contains more than 160 [GSM-7](https://www.twilio.com/docs/glossary/what-is-gsm-7-character-encoding) characters (or 70 [UCS-2](https://www.twilio.com/docs/glossary/what-is-ucs-2-character-encoding) characters), the message is segmented and charged accordingly. For long `body` text, consider using the [send_as_mms parameter](https://www.twilio.com/blog/mms-for-long-text-messages).\",\"type\":\"string\"},\"ContentRetention\":{\"description\":\"ContentRetention parameter\",\"type\":\"string\"},\"ContentSid\":{\"description\":\"For [Content Editor/API](https://www.twilio.com/docs/content) only: The SID of the Content Template to be used with the Message, e.g., `HXXXXXXXXXXXXXXXXXXXXXXXXXXXXX`. If this parameter is not provided, a Content Template is not used. Find the SID in the Console on the Content Editor page. For Content API users, the SID is found in Twilio's response when [creating the Template](https://www.twilio.com/docs/content/content-api-resources#create-templates) or by [fetching your Templates](https://www.twilio.com/docs/content/content-api-resources#fetch-all-content-resources).\",\"type\":\"string\"},\"ContentVariables\":{\"description\":\"For [Content Editor/API](https://www.twilio.com/docs/content) only: Key-value pairs of [Template variables](https://www.twilio.com/docs/content/using-variables-with-content-api) and their substitution values. `content_sid` parameter must also be provided. If values are not defined in the `content_variables` parameter, the [Template's default placeholder values](https://www.twilio.com/docs/content/content-api-resources#create-templates) are used.\",\"type\":\"string\"},\"ForceDelivery\":{\"description\":\"Reserved\",\"type\":\"boolean\"},\"From\":{\"description\":\"The sender's Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/quickstart), [Wireless SIM](https://www.twilio.com/docs/iot/wireless/programmable-wireless-send-machine-machine-sms-commands), [short code](https://www.twilio.com/en-us/messaging/channels/sms/short-codes), or [channel address](https://www.twilio.com/docs/messaging/channels) (e.g., `whatsapp:+15554449999`). The value of the `from` parameter must be a sender that is hosted within Twilio and belongs to the Account creating the Message. If you are using `messaging_service_sid`, this parameter can be empty (Twilio assigns a `from` value from the Messaging Service's Sender Pool) or you can provide a specific sender from your Sender Pool.\",\"type\":\"string\"},\"MaxPrice\":{\"description\":\"[OBSOLETE] This parameter will no longer have any effect as of 2024-06-03.\",\"type\":\"number\"},\"MediaUrl\":{\"description\":\"The URL of media to include in the Message content. `jpeg`, `jpg`, `gif`, and `png` file types are fully supported by Twilio and content is formatted for delivery on destination devices. The media size limit is 5 MB for supported file types (`jpeg`, `jpg`, `png`, `gif`) and 500 KB for [other types](https://www.twilio.com/docs/messaging/guides/accepted-mime-types) of accepted media. To send more than one image in the message, provide multiple `media_url` parameters in the POST request. You can include up to ten `media_url` parameters per message. [International](https://support.twilio.com/hc/en-us/articles/223179808-Sending-and-receiving-MMS-messages) and [carrier](https://support.twilio.com/hc/en-us/articles/223133707-Is-MMS-supported-for-all-carriers-in-US-and-Canada-) limits apply.\",\"items\":{\"description\":\"\",\"type\":\"string\"},\"type\":\"array\"},\"MessagingServiceSid\":{\"description\":\"The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) you want to associate with the Message. When this parameter is provided and the `from` parameter is omitted, Twilio selects the optimal sender from the Messaging Service's Sender Pool. You may also provide a `from` parameter if you want to use a specific Sender from the Sender Pool.\",\"type\":\"string\"},\"PersistentAction\":{\"description\":\"Rich actions for non-SMS/MMS channels. Used for [sending location in WhatsApp messages](https://www.twilio.com/docs/whatsapp/message-features#location-messages-with-whatsapp).\",\"items\":{\"description\":\"\",\"type\":\"string\"},\"type\":\"array\"},\"ProvideFeedback\":{\"description\":\"Boolean indicating whether or not you intend to provide delivery confirmation feedback to Twilio (used in conjunction with the [Message Feedback subresource](https://www.twilio.com/docs/sms/api/message-feedback-resource)). Default value is `false`.\",\"type\":\"boolean\"},\"RiskCheck\":{\"description\":\"RiskCheck parameter\",\"type\":\"string\"},\"ScheduleType\":{\"description\":\"ScheduleType parameter\",\"type\":\"string\"},\"SendAsMms\":{\"description\":\"If set to `true`, Twilio delivers the message as a single MMS message, regardless of the presence of media.\",\"type\":\"boolean\"},\"SendAt\":{\"description\":\"The time that Twilio will send the message. Must be in ISO 8601 format.\",\"type\":\"string\"},\"ShortenUrls\":{\"description\":\"For Messaging Services with [Link Shortening configured](https://www.twilio.com/docs/messaging/features/link-shortening) only: A Boolean indicating whether or not Twilio should shorten links in the `body` of the Message. Default value is `false`. If `true`, the `messaging_service_sid` parameter must also be provided.\",\"type\":\"boolean\"},\"SmartEncoded\":{\"description\":\"Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: `true` or `false`.\",\"type\":\"boolean\"},\"StatusCallback\":{\"description\":\"The URL of the endpoint to which Twilio sends [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url). URL must contain a valid hostname and underscores are not allowed. If you include this parameter with the `messaging_service_sid`, Twilio uses this URL instead of the Status Callback URL of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource). \",\"type\":\"string\"},\"To\":{\"description\":\"The recipient's phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (for SMS/MMS) or [channel address](https://www.twilio.com/docs/messaging/channels), e.g. `whatsapp:+15552229999`.\",\"type\":\"string\"},\"TrafficType\":{\"description\":\"TrafficType parameter\",\"type\":\"string\"},\"ValidityPeriod\":{\"description\":\"The maximum length in seconds that the Message can remain in Twilio's outgoing message queue. If a queued Message exceeds the `validity_period`, the Message is not sent. Accepted values are integers from `1` to `36000`. Default value is `36000`. A `validity_period` greater than `5` is recommended. [Learn more about the validity period](https://www.twilio.com/blog/take-more-control-of-outbound-messages-using-validity-period-html)\",\"type\":\"integer\"}},\"required\":[\"AccountSid\",\"To\"],\"type\":\"object\"},\"name\":\"TwilioApiV2010--CreateMessage\",\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache toollens-sandbox:1 npx -y @twilio-alpha/mcp@0.7.0 ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:dummysecret\",\"first_seen\":\"2026-10-25T23:30:27.719Z\",\"last_seen\":\"2026-10-25T23:50:45.862Z\",\"schema_hash\":\"5e8d65a75dbd8a2e\",\"server\":\"twilio\"},\"schema_hash\":\"5e8d65a75dbd8a2e\",\"server\":\"twilio\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "AccountSid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "Body": "Your verification code is 482913",
+              "From": "+15555550199",
+              "To": "+15555550100"
+            },
+            "tool_id": "twilio/TwilioApiV2010--CreateMessage"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"error\":\"twilio/TwilioApiV2010--CreateMessage failed: Mcp error: -32603: {\\\"code\\\":70051,\\\"message\\\":\\\"The authorization with Key failed\\\",\\\"more_info\\\":\\\"https://www.twilio.com/docs/errors/70051\\\",\\\"status\\\":401}\",\"outcome\":\"failed\"}",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "The SMS was not sent. Twilio rejected the request with an authentication error.\n\n- **Tool used:** `twilio/TwilioApiV2010--CreateMessage`. The gateway allowed the call, so this was not a permission block.\n- **What I sent:** To +15555550100, From +15555550199, Body \"Your verification code is 482913\", using the default AccountSid `ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`.\n- **Twilio's response:** HTTP 401, error code **70051**: \"The authorization with Key failed\" (https://www.twilio.com/docs/errors/70051).\n\nThe Twilio connection looks like it's using placeholder credentials: the account and key IDs are all a's, and the secret is literally `dummysecret`. Someone needs to set up a valid Twilio account ID, API key and secret for this connection before any message can go out. I didn't retry, because the same login would fail again."
+    }
+  ],
+  "final_text": "The SMS was not sent. Twilio rejected the request with an authentication error.\n\n- **Tool used:** `twilio/TwilioApiV2010--CreateMessage`. The gateway allowed the call, so this was not a permission block.\n- **What I sent:** To +15555550100, From +15555550199, Body \"Your verification code is 482913\", using the default AccountSid `ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`.\n- **Twilio's response:** HTTP 401, error code **70051**: \"The authorization with Key failed\" (https://www.twilio.com/docs/errors/70051).\n\nThe Twilio connection looks like it's using placeholder credentials: the account and key IDs are all a's, and the secret is literally `dummysecret`. Someone needs to set up a valid Twilio account ID, API key and secret for this connection before any message can go out. I didn't retry, because the same login would fail again.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "failed",
+      "tool": "twilio/TwilioApiV2010--CreateMessage"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 4,
+    "input_tokens": 12973,
+    "output_tokens": 649,
+    "cache_read_tokens": 7662,
+    "cache_write_tokens": 5301,
+    "tool_schema_tokens_per_request": 951,
+    "tool_schema_tokens_total": 3804,
+    "invocations": 1,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 1,
+    "discovery_latency_ms_mean": 4.1828,
+    "first_pick_correct": true,
+    "wall_ms": 13082.204300000001,
+    "cost_usd": 0.0410574
+  }
+}

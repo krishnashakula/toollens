@@ -1,0 +1,61 @@
+{
+  "task": "sns-publish",
+  "arm": "native",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Publish the message 'cache-invalidate' to the SNS topic arn:aws:sns:us-east-1:123456789012:cdn-events.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "Message": "cache-invalidate",
+            "TopicArn": "arn:aws:sns:us-east-1:123456789012:cdn-events",
+            "region": "us-east-1"
+          },
+          "name": "amazon-sns-sqs__publish"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\n  \"error\": \"An error occurred (InvalidClientTokenId) when calling the ListTagsForResource operation: The security token included in the request is invalid.\"\n}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "amazon-sns-sqs__publish"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I couldn't publish the message. AWS rejected the call because the credentials are bad, so 'cache-invalidate' was **not** sent to `arn:aws:sns:us-east-1:123456789012:cdn-events`.\n\n- **Error:** `InvalidClientTokenId`: \"The security token included in the request is invalid.\"\n- **Where it failed:** The error came from `ListTagsForResource`, which the tool runs before publishing. AWS refused the credentials at that step, so the publish itself never ran.\n- **Next step:** The AWS credentials used by the SNS tool need to be renewed or fixed (for example, a session token that has expired or a wrong access key). Once that's done I can retry the publish. I didn't retry, because this isn't a temporary error and a retry would fail the same way."
+    }
+  ],
+  "final_text": "I couldn't publish the message. AWS rejected the call because the credentials are bad, so 'cache-invalidate' was **not** sent to `arn:aws:sns:us-east-1:123456789012:cdn-events`.\n\n- **Error:** `InvalidClientTokenId`: \"The security token included in the request is invalid.\"\n- **Where it failed:** The error came from `ListTagsForResource`, which the tool runs before publishing. AWS refused the credentials at that step, so the publish itself never ran.\n- **Next step:** The AWS credentials used by the SNS tool need to be renewed or fixed (for example, a session token that has expired or a wrong access key). Once that's done I can retry the publish. I didn't retry, because this isn't a temporary error and a retry would fail the same way.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "amazon-sns-sqs/publish"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 2,
+    "input_tokens": 6770,
+    "output_tokens": 479,
+    "cache_read_tokens": 1596,
+    "cache_write_tokens": 3080,
+    "tool_schema_tokens_per_request": 643,
+    "tool_schema_tokens_total": 1286,
+    "invocations": 1,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 0,
+    "discovery_latency_ms_mean": 0.0,
+    "first_pick_correct": true,
+    "wall_ms": 403358.77599999995,
+    "cost_usd": 0.033675199999999995
+  }
+}

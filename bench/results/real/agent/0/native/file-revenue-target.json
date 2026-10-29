@@ -1,0 +1,59 @@
+{
+  "task": "file-revenue-target",
+  "arm": "native",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Read the file /workspace/notes/q3-plan.md and tell me the revenue target.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "path": "/workspace/notes/q3-plan.md"
+          },
+          "name": "filesystem__read_text_file"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"content\":\"Quarterly targets: revenue 4.2M, churn under 3%.\\n\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "filesystem__read_text_file"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I read `/workspace/notes/q3-plan.md`. The revenue target is **4.2M**. The file also sets a churn target of under 3%."
+    }
+  ],
+  "final_text": "I read `/workspace/notes/q3-plan.md`. The revenue target is **4.2M**. The file also sets a churn target of under 3%.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "filesystem/read_text_file"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 2,
+    "input_tokens": 4447,
+    "output_tokens": 174,
+    "cache_read_tokens": 1558,
+    "cache_write_tokens": 1883,
+    "tool_schema_tokens_per_request": 643,
+    "tool_schema_tokens_total": 1286,
+    "invocations": 1,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 0,
+    "discovery_latency_ms_mean": 0.0,
+    "first_pick_correct": true,
+    "wall_ms": 110351.2215,
+    "cost_usd": 0.0172306
+  }
+}

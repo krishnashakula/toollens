@@ -1,0 +1,65 @@
+{
+  "task": "github-issue",
+  "arm": "native",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Open a GitHub issue in the repository acme/webapp titled 'Login button unresponsive on Safari'.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "owner": "acme",
+            "repo": "webapp",
+            "title": "Login button unresponsive on Safari"
+          },
+          "name": "github__create_issue"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"error\":\"github/create_issue failed: Mcp error: -32603: Failed to create issue: Requires authentication\\nStack: GitHubAuthenticationError: Requires authentication\\n    at createGitHubError (file:///cache/npm/_npx/812ed9af46615848/node_modules/@modelcontextprotocol/server-github/dist/common/errors.js:55:20)\\n    at githubRequest (file:///cache/npm/_npx/812ed9af46615848/node_modules/@modelcontextprotocol/server-github/dist/common/utils.js:38:15)\\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\\n    at async file:///cache/npm/_npx/812ed9af46615848/node_modules/@modelcontextprotocol/server-github/dist/index.js:251:35\",\"outcome\":\"failed\"}",
+      "is_error": true,
+      "kind": "tool",
+      "name": "github__create_issue"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I couldn't create the issue. GitHub rejected the request with **\"Requires authentication\"** (a `GitHubAuthenticationError`), so nothing was created in `acme/webapp`.\n\nThis means the GitHub connection doesn't have valid login details. The token may be missing, expired or not allowed to write issues. Trying again won't help until that's fixed. Once someone with access sets up a valid GitHub token, I can open the issue titled \"Login button unresponsive on Safari\" in `acme/webapp`."
+    }
+  ],
+  "final_text": "I couldn't create the issue. GitHub rejected the request with **\"Requires authentication\"** (a `GitHubAuthenticationError`), so nothing was created in `acme/webapp`.\n\nThis means the GitHub connection doesn't have valid login details. The token may be missing, expired or not allowed to write issues. Trying again won't help until that's fixed. Once someone with access sets up a valid GitHub token, I can open the issue titled \"Login button unresponsive on Safari\" in `acme/webapp`.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "failed",
+      "tool": "github/create_issue"
+    },
+    {
+      "outcome": "failed",
+      "tool": "github/create_issue"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 2,
+    "input_tokens": 5117,
+    "output_tokens": 354,
+    "cache_read_tokens": 1574,
+    "cache_write_tokens": 2367,
+    "tool_schema_tokens_per_request": 643,
+    "tool_schema_tokens_total": 1286,
+    "invocations": 2,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 0,
+    "discovery_latency_ms_mean": 0.0,
+    "first_pick_correct": true,
+    "wall_ms": 67180.80089999999,
+    "cost_usd": 0.023933799999999998
+  }
+}

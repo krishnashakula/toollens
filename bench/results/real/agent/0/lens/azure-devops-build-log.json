@@ -1,0 +1,155 @@
+{
+  "task": "azure-devops-build-log",
+  "arm": "lens",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Get the log of build 4521 in the Azure DevOps project Platform.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "get Azure DevOps build log"
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"azure-devops/testplan_show_test_results_from_build_id\",\"role\":\"match\",\"summary\":\"Gets a list of test results for a given project and build ID\",\"why\":\"matches get, azur, dev, ops, build\"},{\"id\":\"azure-devops/work_iteration_write\",\"role\":\"match\",\"summary\":\"Create or assign iterations in an Azure DevOps project\",\"why\":\"matches azur, dev, ops\"},{\"id\":\"azure-devops/core_get_identity_ids\",\"role\":\"match\",\"summary\":\"Retrieve Azure DevOps identity IDs for a provided search filter\",\"why\":\"matches get, azur, dev, ops\"},{\"id\":\"azure-devops/pipelines_build_log\",\"role\":\"match\",\"summary\":\"Retrieve build log data for a project\",\"why\":\"matches get, azur, build, log\"},{\"id\":\"azure-devops/core_list_project_teams\",\"role\":\"match\",\"summary\":\"Retrieve a list of teams for an Azure DevOps project\",\"why\":\"matches azur, dev, ops\"},{\"id\":\"azure-devops/advsec_get_alert_details\",\"role\":\"match\",\"summary\":\"Get detailed information about a specific Advanced Security alert\",\"why\":\"matches get, azur, dev, ops\"},{\"id\":\"azure-devops/work_capacity_write\",\"role\":\"match\",\"summary\":\"Update the team capacity of a team member for a specific iteration in a project\",\"why\":\"matches azur, dev, ops\"},{\"id\":\"azure-devops/work\",\"role\":\"match\",\"summary\":\"Retrieve work-related data for a project or team\",\"why\":\"matches get, azur, dev, ops\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "azure-devops/pipelines_build_log"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"idempotentHint\":true,\"openWorldHint\":true,\"readOnlyHint\":true},\"description\":\"Retrieve build log data for a project. Use the action parameter to specify the operation.\",\"id\":\"azure-devops/pipelines_build_log\",\"input_schema\":{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"additionalProperties\":false,\"properties\":{\"action\":{\"description\":\"The action to perform. Options: list (list available logs for a build), get_content (get the text content of a specific log by ID).\",\"enum\":[\"list\",\"get_content\"],\"type\":\"string\"},\"buildId\":{\"description\":\"ID of the build. Required for all actions.\",\"minimum\":1,\"type\":\"number\"},\"endLine\":{\"description\":\"Ending line number for the log content, defaults to end of log. Used for: get_content.\",\"type\":\"number\"},\"logId\":{\"description\":\"ID of the log to retrieve. Required for: get_content.\",\"minimum\":1,\"type\":\"number\"},\"project\":{\"description\":\"Project ID or name.\",\"type\":\"string\"},\"startLine\":{\"description\":\"Starting line number for the log content, defaults to 0. Used for: get_content.\",\"type\":\"number\"}},\"required\":[\"action\",\"project\",\"buildId\"],\"type\":\"object\"},\"name\":\"pipelines_build_log\",\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache toollens-sandbox:1 npx -y @azure-devops/mcp@2.11.0 dummy-org\",\"first_seen\":\"2026-10-25T23:30:27.031Z\",\"last_seen\":\"2026-10-25T23:50:45.228Z\",\"schema_hash\":\"02152dbc301db072\",\"server\":\"azure-devops\"},\"schema_hash\":\"02152dbc301db072\",\"server\":\"azure-devops\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "action": "list",
+              "buildId": 4521,
+              "project": "Platform"
+            },
+            "tool_id": "azure-devops/pipelines_build_log"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"error\":\"azure-devops/pipelines_build_log timed out after 30s (cancelled)\",\"outcome\":\"failed\"}",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "action": "list",
+              "buildId": 4521,
+              "project": "Platform"
+            },
+            "tool_id": "azure-devops/pipelines_build_log"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": "Retry once."
+    },
+    {
+      "content": "{\"error\":\"azure-devops/pipelines_build_log timed out after 30s (cancelled)\",\"outcome\":\"failed\"}",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "action": "get_content",
+              "buildId": 4521,
+              "logId": 1,
+              "project": "Platform"
+            },
+            "tool_id": "azure-devops/pipelines_build_log"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"error\":\"azure-devops/pipelines_build_log timed out after 30s (cancelled)\",\"outcome\":\"failed\"}",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I couldn't get the log for build 4521 in the Platform project because every request to Azure DevOps timed out.\n\nThe gateway allowed the calls, so this wasn't a permissions problem. The tool for build logs (`azure-devops/pipelines_build_log`) timed out after 30 seconds and was cancelled each time:\n1. Listing the build's logs timed out.\n2. Retrying the same request timed out again.\n3. Asking directly for the content of log 1 also timed out.\n\nThe Azure DevOps service, or the gateway's connection to it, seems to be unresponsive right now. Try again shortly, or open the log in the Azure DevOps web interface: Platform → Pipelines → Runs → build 4521."
+    }
+  ],
+  "final_text": "I couldn't get the log for build 4521 in the Platform project because every request to Azure DevOps timed out.\n\nThe gateway allowed the calls, so this wasn't a permissions problem. The tool for build logs (`azure-devops/pipelines_build_log`) timed out after 30 seconds and was cancelled each time:\n1. Listing the build's logs timed out.\n2. Retrying the same request timed out again.\n3. Asking directly for the content of log 1 also timed out.\n\nThe Azure DevOps service, or the gateway's connection to it, seems to be unresponsive right now. Try again shortly, or open the log in the Azure DevOps web interface: Platform → Pipelines → Runs → build 4521.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "failed",
+      "tool": "azure-devops/pipelines_build_log"
+    },
+    {
+      "outcome": "failed",
+      "tool": "azure-devops/pipelines_build_log"
+    },
+    {
+      "outcome": "failed",
+      "tool": "azure-devops/pipelines_build_log"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 6,
+    "input_tokens": 13457,
+    "output_tokens": 743,
+    "cache_read_tokens": 10492,
+    "cache_write_tokens": 2951,
+    "tool_schema_tokens_per_request": 951,
+    "tool_schema_tokens_total": 5706,
+    "invocations": 3,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 1,
+    "discovery_latency_ms_mean": 5.9338999999999995,
+    "first_pick_correct": true,
+    "wall_ms": 107052.4171,
+    "cost_usd": 0.0317694
+  }
+}

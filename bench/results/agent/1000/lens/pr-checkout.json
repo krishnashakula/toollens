@@ -1,0 +1,253 @@
+{
+  "task": "pr-checkout",
+  "arm": "lens",
+  "size": 1000,
+  "model": "claude-opus-5-5",
+  "prompt": "Which pull request introduced the change that broke the latest checkout-api deployment, and has a fix been opened?",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "find latest deployment of a service and the pull request it included"
+          },
+          "name": "discover_tools"
+        },
+        {
+          "input": {
+            "goal": "search pull requests by repository, title, or fix reference"
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":1000,\"tools\":[{\"id\":\"vcs/list_pull_requests\",\"role\":\"match\",\"summary\":\"List pull requests of a repository with their state (open, merged, closed)\",\"why\":\"matches pull, request\"},{\"id\":\"deploy/search\",\"role\":\"dependency\",\"summary\":\"Search the service registry by service name, team or repository\",\"why\":\"provides `repo` that vcs/list_pull_requests requires\"},{\"id\":\"deploy/get_status\",\"role\":\"match\",\"summary\":\"Get the rollout status of a service: the version currently serving traffic and the outcome of the latest deployment attempt\",\"why\":\"matches latest, deploy, servic\"},{\"id\":\"deploy/get_deployment\",\"role\":\"match\",\"summary\":\"Get one deployment's details, including the failure reason when it failed or was rolled back\",\"why\":\"matches deploy, includ\"},{\"id\":\"deploy/list_deployments\",\"role\":\"dependency\",\"summary\":\"List recent production deployments of a service, newest first, with version, commit and status\",\"why\":\"provides `deployment_id` that deploy/get_deployment requires\"},{\"id\":\"vcs/get_commit\",\"role\":\"dependency\",\"summary\":\"Get a commit's message, author, pull request, changed files and diff\",\"why\":\"can use `commit_sha` returned by deploy/get_deployment\"},{\"id\":\"observability/get_logs\",\"role\":\"dependency\",\"summary\":\"Fetch log lines for a service, optionally for a single deployment and minimum level\",\"why\":\"can use `deployment_id` returned by deploy/get_deployment\"},{\"id\":\"deploy/rollback\",\"role\":\"match\",\"summary\":\"Roll a service back to an earlier successful deployment\",\"why\":\"matches deploy, servic\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "content": "{\"catalog_size\":1000,\"tools\":[{\"id\":\"vcs/list_pull_requests\",\"role\":\"match\",\"summary\":\"List pull requests of a repository with their state (open, merged, closed)\",\"why\":\"matches pull, request, repository\"},{\"id\":\"deploy/search\",\"role\":\"dependency\",\"summary\":\"Search the service registry by service name, team or repository\",\"why\":\"provides `repo` that vcs/list_pull_requests requires\"},{\"id\":\"bizops/search_leave_requests\",\"role\":\"match\",\"summary\":\"Search leave requests in Hr by text\",\"why\":\"matches search, request\"},{\"id\":\"bizops/update_leave_request\",\"role\":\"dependency\",\"summary\":\"Update a leave request in Hr\",\"why\":\"can use `leave_request_id` returned by bizops/search_leave_requests\"},{\"id\":\"growth/update_leave_request\",\"role\":\"dependency\",\"summary\":\"Update a leave request in Hr (sandbox)\",\"why\":\"can use `leave_request_id` returned by bizops/search_leave_requests\"},{\"id\":\"cluster/search_change_requests\",\"role\":\"match\",\"summary\":\"Search change requests in Release by text\",\"why\":\"matches search, request\"},{\"id\":\"cluster/update_change_request\",\"role\":\"dependency\",\"summary\":\"Update a change request in Release\",\"why\":\"can use `change_request_id` returned by cluster/search_change_requests\"},{\"id\":\"cluster/get_change_request\",\"role\":\"dependency\",\"summary\":\"Get one change request from Release by id\",\"why\":\"can use `change_request_id` returned by cluster/search_change_requests\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "deploy/list_deployments"
+          },
+          "name": "inspect_tool"
+        },
+        {
+          "input": {
+            "tool_id": "deploy/search"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"readOnlyHint\":true},\"description\":\"List recent production deployments of a service, newest first, with version, commit and status.\",\"id\":\"deploy/list_deployments\",\"input_schema\":{\"additionalProperties\":false,\"properties\":{\"limit\":{\"maximum\":20,\"minimum\":1,\"type\":\"integer\"},\"service_id\":{\"description\":\"Service id such as svc-checkout.\",\"type\":\"string\"}},\"required\":[\"service_id\"],\"type\":\"object\"},\"name\":\"list_deployments\",\"output_schema\":{\"properties\":{\"deployments\":{\"items\":{\"properties\":{\"commit_sha\":{\"type\":\"string\"},\"deployment_id\":{\"type\":\"string\"},\"environment\":{\"type\":\"string\"},\"failure_reason\":{\"type\":\"string\"},\"previous_commit_sha\":{\"type\":\"string\"},\"service_id\":{\"type\":\"string\"},\"started_at\":{\"type\":\"string\"},\"status\":{\"type\":\"string\"},\"version\":{\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"toollens.exe\",\"first_seen\":\"2026-10-25T21:33:47.674Z\",\"last_seen\":\"2026-10-25T21:33:47.674Z\",\"schema_hash\":\"0e80bca7d0982b23\",\"server\":\"deploy\"},\"schema_hash\":\"0e80bca7d0982b23\",\"server\":\"deploy\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"readOnlyHint\":true},\"description\":\"Search the service registry by service name, team or repository. Returns service ids, owning team and repo.\",\"id\":\"deploy/search\",\"input_schema\":{\"additionalProperties\":false,\"properties\":{\"query\":{\"description\":\"Service name, team or repo fragment, e.g. \\\"checkout\\\".\",\"type\":\"string\"}},\"required\":[\"query\"],\"type\":\"object\"},\"name\":\"search\",\"output_schema\":{\"properties\":{\"services\":{\"items\":{\"properties\":{\"name\":{\"type\":\"string\"},\"repo\":{\"type\":\"string\"},\"service_id\":{\"type\":\"string\"},\"team\":{\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"toollens.exe\",\"first_seen\":\"2026-10-25T21:33:47.673Z\",\"last_seen\":\"2026-10-25T21:33:47.673Z\",\"schema_hash\":\"c97299154e321552\",\"server\":\"deploy\"},\"schema_hash\":\"c97299154e321552\",\"server\":\"deploy\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "query": "checkout-api"
+            },
+            "tool_id": "deploy/search"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"services\":[{\"name\":\"checkout-api\",\"repo\":\"acme/checkout-api\",\"service_id\":\"svc-checkout\",\"team\":\"payments\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "limit": 5,
+              "service_id": "svc-checkout"
+            },
+            "tool_id": "deploy/list_deployments"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"deployments\":[{\"commit_sha\":\"9f3c2ab\",\"deployment_id\":\"dep-4821\",\"environment\":\"production\",\"previous_commit_sha\":\"41d7e0c\",\"service_id\":\"svc-checkout\",\"started_at\":\"2026-10-24T14:02:11Z\",\"status\":\"failed\",\"triggered_by\":\"dana.k\",\"version\":\"v2.14.0\"},{\"commit_sha\":\"41d7e0c\",\"deployment_id\":\"dep-4790\",\"environment\":\"production\",\"previous_commit_sha\":\"7be19d0\",\"service_id\":\"svc-checkout\",\"started_at\":\"2026-10-22T09:15:40Z\",\"status\":\"succeeded\",\"triggered_by\":\"lee.m\",\"version\":\"v2.13.2\"},{\"commit_sha\":\"7be19d0\",\"deployment_id\":\"dep-4733\",\"environment\":\"production\",\"previous_commit_sha\":\"02aa9c4\",\"service_id\":\"svc-checkout\",\"started_at\":\"2026-10-19T10:01:02Z\",\"status\":\"succeeded\",\"triggered_by\":\"dana.k\",\"version\":\"v2.13.1\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "vcs/get_commit"
+          },
+          "name": "inspect_tool"
+        },
+        {
+          "input": {
+            "tool_id": "vcs/list_pull_requests"
+          },
+          "name": "inspect_tool"
+        },
+        {
+          "input": {
+            "tool_id": "deploy/get_deployment"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"readOnlyHint\":true},\"description\":\"Get a commit's message, author, pull request, changed files and diff.\",\"id\":\"vcs/get_commit\",\"input_schema\":{\"additionalProperties\":false,\"properties\":{\"commit_sha\":{\"description\":\"Commit sha (7+ hex chars).\",\"type\":\"string\"}},\"required\":[\"commit_sha\"],\"type\":\"object\"},\"name\":\"get_commit\",\"output_schema\":{\"properties\":{\"author\":{\"type\":\"string\"},\"commit_sha\":{\"type\":\"string\"},\"diff\":{\"type\":\"string\"},\"files\":{\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"message\":{\"type\":\"string\"},\"pull_request\":{\"type\":\"integer\"},\"repo\":{\"type\":\"string\"}},\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"toollens.exe\",\"first_seen\":\"2026-10-25T21:33:47.699Z\",\"last_seen\":\"2026-10-25T21:33:47.699Z\",\"schema_hash\":\"006a3aaa9c95808b\",\"server\":\"vcs\"},\"schema_hash\":\"006a3aaa9c95808b\",\"server\":\"vcs\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"readOnlyHint\":true},\"description\":\"List pull requests of a repository with their state (open, merged, closed).\",\"id\":\"vcs/list_pull_requests\",\"input_schema\":{\"additionalProperties\":false,\"properties\":{\"repo\":{\"description\":\"Repository.\",\"type\":\"string\"},\"state\":{\"enum\":[\"open\",\"merged\",\"closed\",\"all\"],\"type\":\"string\"}},\"required\":[\"repo\"],\"type\":\"object\"},\"name\":\"list_pull_requests\",\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"toollens.exe\",\"first_seen\":\"2026-10-25T21:33:47.699Z\",\"last_seen\":\"2026-10-25T21:33:47.699Z\",\"schema_hash\":\"3fc244424e45c589\",\"server\":\"vcs\"},\"schema_hash\":\"3fc244424e45c589\",\"server\":\"vcs\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"readOnlyHint\":true},\"description\":\"Get one deployment's details, including the failure reason when it failed or was rolled back.\",\"id\":\"deploy/get_deployment\",\"input_schema\":{\"additionalProperties\":false,\"properties\":{\"deployment_id\":{\"description\":\"Deployment id such as dep-4821.\",\"type\":\"string\"}},\"required\":[\"deployment_id\"],\"type\":\"object\"},\"name\":\"get_deployment\",\"output_schema\":{\"properties\":{\"commit_sha\":{\"type\":\"string\"},\"deployment_id\":{\"type\":\"string\"},\"environment\":{\"type\":\"string\"},\"failure_reason\":{\"type\":\"string\"},\"previous_commit_sha\":{\"type\":\"string\"},\"service_id\":{\"type\":\"string\"},\"started_at\":{\"type\":\"string\"},\"status\":{\"type\":\"string\"},\"version\":{\"type\":\"string\"}},\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"toollens.exe\",\"first_seen\":\"2026-10-25T21:33:47.674Z\",\"last_seen\":\"2026-10-25T21:33:47.674Z\",\"schema_hash\":\"ca63bdafbd475266\",\"server\":\"deploy\"},\"schema_hash\":\"ca63bdafbd475266\",\"server\":\"deploy\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "deployment_id": "dep-4821"
+            },
+            "tool_id": "deploy/get_deployment"
+          },
+          "name": "invoke_tool"
+        },
+        {
+          "input": {
+            "arguments": {
+              "commit_sha": "9f3c2ab"
+            },
+            "tool_id": "vcs/get_commit"
+          },
+          "name": "invoke_tool"
+        },
+        {
+          "input": {
+            "arguments": {
+              "repo": "acme/checkout-api",
+              "state": "all"
+            },
+            "tool_id": "vcs/list_pull_requests"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"commit_sha\":\"9f3c2ab\",\"deployment_id\":\"dep-4821\",\"environment\":\"production\",\"failure_reason\":\"health check failed: 3/3 pods in CrashLoopBackOff; traffic kept on v2.13.2\",\"previous_commit_sha\":\"41d7e0c\",\"service_id\":\"svc-checkout\",\"started_at\":\"2026-10-24T14:02:11Z\",\"status\":\"failed\",\"triggered_by\":\"dana.k\",\"version\":\"v2.14.0\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "content": "{\"author\":\"dana.k\",\"commit_sha\":\"9f3c2ab\",\"date\":\"2026-10-24T12:40:00Z\",\"diff\":\"deploy/checkout-api.env.tmpl: - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}\\nsrc/config/loader.rs: + secrets now read from ConfigLoader namespace \\\"payments\\\" (namespace not provisioned in production)\",\"files\":[\"src/config/loader.rs\",\"deploy/checkout-api.env.tmpl\"],\"message\":\"Load webhook secrets through new ConfigLoader\",\"pull_request\":1287,\"repo\":\"acme/checkout-api\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "content": "{\"pull_requests\":[{\"author\":\"dana.k\",\"merged_at\":\"2026-10-24T12:41:00Z\",\"number\":1287,\"repo\":\"acme/checkout-api\",\"state\":\"merged\",\"title\":\"Move webhook secrets to ConfigLoader\"},{\"author\":\"lee.m\",\"merged_at\":\"2026-10-21T16:03:00Z\",\"number\":1279,\"repo\":\"acme/checkout-api\",\"state\":\"merged\",\"title\":\"Bump stripe-sdk to 12.3\"},{\"author\":\"priya.n\",\"merged_at\":null,\"number\":1291,\"repo\":\"acme/checkout-api\",\"state\":\"open\",\"title\":\"Restore STRIPE_WEBHOOK_SECRET env mapping\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "PR #1287 in acme/checkout-api caused the break, and a fix is open but not merged yet.\n\n**The failed deployment:** The latest checkout-api deployment is dep-4821 (v2.14.0, commit 9f3c2ab, started by dana.k on 2026-10-24 at 14:02 UTC). It failed because all 3 pods kept crashing on startup (CrashLoopBackOff), so they never passed the health check. Traffic is still on v2.13.2.\n\n**The PR that caused it:** #1287, \"Move webhook secrets to ConfigLoader\" by dana.k, merged 2026-10-24 at 12:41 UTC. Its commit 9f3c2ab did two things:\n- It removed `STRIPE_WEBHOOK_SECRET` from `deploy/checkout-api.env.tmpl`.\n- It changed `src/config/loader.rs` so secrets are read from the ConfigLoader namespace \"payments\", which doesn't exist in production.\n\n**The fix:** #1291, \"Restore STRIPE_WEBHOOK_SECRET env mapping\" by priya.n, is open and unmerged. Going by its title, it puts the removed setting back. I didn't open the PR itself to confirm that.\n\nAll tool calls went through; none were rejected."
+    }
+  ],
+  "final_text": "PR #1287 in acme/checkout-api caused the break, and a fix is open but not merged yet.\n\n**The failed deployment:** The latest checkout-api deployment is dep-4821 (v2.14.0, commit 9f3c2ab, started by dana.k on 2026-10-24 at 14:02 UTC). It failed because all 3 pods kept crashing on startup (CrashLoopBackOff), so they never passed the health check. Traffic is still on v2.13.2.\n\n**The PR that caused it:** #1287, \"Move webhook secrets to ConfigLoader\" by dana.k, merged 2026-10-24 at 12:41 UTC. Its commit 9f3c2ab did two things:\n- It removed `STRIPE_WEBHOOK_SECRET` from `deploy/checkout-api.env.tmpl`.\n- It changed `src/config/loader.rs` so secrets are read from the ConfigLoader namespace \"payments\", which doesn't exist in production.\n\n**The fix:** #1291, \"Restore STRIPE_WEBHOOK_SECRET env mapping\" by priya.n, is open and unmerged. Going by its title, it puts the removed setting back. I didn't open the PR itself to confirm that.\n\nAll tool calls went through; none were rejected.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "deploy/search"
+    },
+    {
+      "outcome": "ok",
+      "tool": "deploy/list_deployments"
+    },
+    {
+      "outcome": "ok",
+      "tool": "deploy/get_deployment"
+    },
+    {
+      "outcome": "ok",
+      "tool": "vcs/get_commit"
+    },
+    {
+      "outcome": "ok",
+      "tool": "vcs/list_pull_requests"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 7,
+    "input_tokens": 27142,
+    "output_tokens": 1342,
+    "cache_read_tokens": 20400,
+    "cache_write_tokens": 6726,
+    "tool_schema_tokens_per_request": 951,
+    "tool_schema_tokens_total": 6657,
+    "invocations": 5,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 2,
+    "discovery_latency_ms_mean": 0.30635,
+    "wall_ms": 19211.5905,
+    "cost_usd": 0.064614
+  }
+}

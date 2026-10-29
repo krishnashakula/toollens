@@ -1,0 +1,82 @@
+{
+  "task": "slack-post",
+  "arm": "native",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Post 'Deploy of checkout v2.14.1 finished' to the #releases Slack channel.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "limit": 200
+          },
+          "name": "slack__slack_list_channels"
+        }
+      ],
+      "kind": "assistant",
+      "text": "Need channel ID."
+    },
+    {
+      "content": "{\"ok\":false,\"error\":\"invalid_auth\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "slack__slack_list_channels"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "channel_id": "#releases",
+            "text": "Deploy of checkout v2.14.1 finished"
+          },
+          "name": "slack__slack_post_message"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"ok\":false,\"error\":\"invalid_auth\",\"warning\":\"missing_charset\",\"response_metadata\":{\"warnings\":[\"missing_charset\"]}}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "slack__slack_post_message"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I couldn't post the message. Slack rejected both of my calls with `invalid_auth`, which means the token the Slack integration uses is invalid, expired or revoked.\n\n1. I tried to list channels to get the ID for #releases, and Slack returned `invalid_auth`.\n2. I then tried posting \"Deploy of checkout v2.14.1 finished\" using `#releases` as the channel, and got `invalid_auth` again.\n\nNothing was posted to #releases. Someone needs to re-authorize or replace the Slack token. After that, I can retry, or you can post the message by hand."
+    }
+  ],
+  "final_text": "I couldn't post the message. Slack rejected both of my calls with `invalid_auth`, which means the token the Slack integration uses is invalid, expired or revoked.\n\n1. I tried to list channels to get the ID for #releases, and Slack returned `invalid_auth`.\n2. I then tried posting \"Deploy of checkout v2.14.1 finished\" using `#releases` as the channel, and got `invalid_auth` again.\n\nNothing was posted to #releases. Someone needs to re-authorize or replace the Slack token. After that, I can retry, or you can post the message by hand.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "slack/slack_list_channels"
+    },
+    {
+      "outcome": "ok",
+      "tool": "slack/slack_post_message"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 3,
+    "input_tokens": 41895,
+    "output_tokens": 714,
+    "cache_read_tokens": 12531,
+    "cache_write_tokens": 11274,
+    "tool_schema_tokens_per_request": 643,
+    "tool_schema_tokens_total": 1929,
+    "invocations": 2,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 0,
+    "discovery_latency_ms_mean": 0.0,
+    "first_pick_correct": false,
+    "wall_ms": 172765.5603,
+    "cost_usd": 0.1455162
+  }
+}

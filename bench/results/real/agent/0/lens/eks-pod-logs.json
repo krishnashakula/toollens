@@ -1,0 +1,100 @@
+{
+  "task": "eks-pod-logs",
+  "arm": "lens",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Get the logs of pod api-7d9f in namespace prod on our EKS cluster prod-eks.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "get logs of a Kubernetes pod in an EKS cluster"
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"aws-eks/get_pod_logs\",\"role\":\"match\",\"summary\":\"Get logs from a pod in a Kubernetes cluster.\\n\\nThis tool retrieves logs from a specified pod in an EKS cluster, with options\\nto filter by con…\",\"why\":\"matches get, log, kubernet, pod, eks, cluster\"},{\"id\":\"aws-eks/list_k8s_resources\",\"role\":\"match\",\"summary\":\"List Kubernetes resources of a specific kind.\\n\\nThis tool lists Kubernetes resources of a specified kind in an EKS cluster,\\nwith options to f…\",\"why\":\"matches get, kubernet, pod, eks, cluster\"},{\"id\":\"aws-eks/get_cloudwatch_logs\",\"role\":\"match\",\"summary\":\"Get logs from CloudWatch for a specific resource.\\n\\nThis tool retrieves logs from CloudWatch for Kubernetes resources in an EKS cluster,\\nallo…\",\"why\":\"matches get, log, kubernet, pod, eks, cluster\"},{\"id\":\"aws-eks/get_k8s_events\",\"role\":\"match\",\"summary\":\"Get events related to a specific Kubernetes resource.\\n\\nThis tool retrieves Kubernetes events related to a specific resource, providing\\ndetai…\",\"why\":\"matches get, kubernet, pod, eks, cluster\"},{\"id\":\"aws-eks/manage_k8s_resource\",\"role\":\"match\",\"summary\":\"Manage a single Kubernetes resource with various operations.\\n\\nThis tool provides complete CRUD (Create, Read, Update, Delete) operations\\nfor…\",\"why\":\"matches get, kubernet, pod, eks, cluster\"},{\"id\":\"aws-eks/get_eks_metrics_guidance\",\"role\":\"match\",\"summary\":\"Get CloudWatch metrics guidance for specific resource types in EKS clusters.\\n\\nThis tool provides information about available CloudWatch metr…\",\"why\":\"matches get, pod, eks, cluster\"},{\"id\":\"aws-eks/get_cloudwatch_metrics\",\"role\":\"match\",\"summary\":\"Get metrics from CloudWatch for a specific resource.\\n\\nThis tool retrieves metrics from CloudWatch for Kubernetes resources in an EKS cluster…\",\"why\":\"matches get, log, kubernet, pod, eks, cluster\"},{\"id\":\"aws-eks/get_eks_vpc_config\",\"role\":\"match\",\"summary\":\"Get VPC configuration for an EKS cluster.\\n\\nThis tool retrieves comprehensive VPC configuration details for any EKS cluster,\\nincluding CIDR b…\",\"why\":\"matches get, pod, eks, cluster\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "aws-eks/get_pod_logs"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"description\":\"Get logs from a pod in a Kubernetes cluster.\\n\\nThis tool retrieves logs from a specified pod in an EKS cluster, with options\\nto filter by container, time range, and size. It's useful for debugging application\\nissues, monitoring behavior, investigating crashes, and verifying startup configuration.\\n\\nIMPORTANT: Use this tool instead of 'kubectl logs' commands.\\n\\n## Requirements\\n- The server must be run with the `--allow-sensitive-data-access` flag\\n- The pod must exist and be accessible in the specified namespace\\n- The EKS cluster must exist and be accessible\\n\\n## Response Information\\nThe response includes pod name, namespace, container name (if specified),\\nand log lines as an array of strings.\\n\\nArgs:\\n    ctx: MCP context\\n    cluster_name: Name of the EKS cluster\\n    namespace: Namespace of the pod\\n    pod_name: Name of the pod\\n    container_name: Container name (optional, if pod contains more than one container)\\n    since_seconds: Only return logs newer than this many seconds (optional)\\n    tail_lines: Number of lines to return from the end of the logs (defaults to 100)\\n    limit_bytes: Maximum number of bytes to return (defaults to 10KB)\\n    previous: Return previous terminated container logs (defaults to false)\\n\\nReturns:\\n    PodLogsResponse with pod logs\\n\",\"id\":\"aws-eks/get_pod_logs\",\"input_schema\":{\"properties\":{\"cluster_name\":{\"description\":\"Name of the EKS cluster where the pod is running.\",\"title\":\"Cluster Name\",\"type\":\"string\"},\"container_name\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"description\":\"Name of the specific container to get logs from. Required only if the pod contains multiple containers.\",\"title\":\"Container Name\"},\"limit_bytes\":{\"default\":10240,\"description\":\"Maximum number of bytes to return. Default: 10KB (10240 bytes). Prevents retrieving extremely large log files.\",\"title\":\"Limit Bytes\",\"type\":\"integer\"},\"namespace\":{\"description\":\"Kubernetes namespace where the pod is located.\",\"title\":\"Namespace\",\"type\":\"string\"},\"pod_name\":{\"description\":\"Name of the pod to retrieve logs from.\",\"title\":\"Pod Name\",\"type\":\"string\"},\"previous\":{\"default\":false,\"description\":\"Return previous terminated container logs. Default: false. Useful to get logs for pods that are restarting.\",\"title\":\"Previous\",\"type\":\"boolean\"},\"since_seconds\":{\"anyOf\":[{\"type\":\"integer\"},{\"type\":\"null\"}],\"default\":null,\"description\":\"Only return logs newer than this many seconds. Useful for getting recent logs without retrieving the entire history.\",\"title\":\"Since Seconds\"},\"tail_lines\":{\"default\":100,\"description\":\"Number of lines to return from the end of the logs. Default: 100. Use higher values for more context.\",\"title\":\"Tail Lines\",\"type\":\"integer\"}},\"required\":[\"cluster_name\",\"namespace\",\"pod_name\"],\"title\":\"get_pod_logsArguments\",\"type\":\"object\"},\"name\":\"get_pod_logs\",\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache -e AWS_DEFAULT_REGION=us-east-1 -e AWS_REGION=us-east-1 -e FASTMCP_LOG_LEVEL=ERROR toollens-sandbox:1 uvx awslabs.eks-mcp-server@0.2.1\",\"first_seen\":\"2026-10-25T23:19:01.205Z\",\"last_seen\":\"2026-10-25T23:50:45.032Z\",\"schema_hash\":\"ca95902c5fb01d73\",\"server\":\"aws-eks\"},\"schema_hash\":\"ca95902c5fb01d73\",\"server\":\"aws-eks\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "cluster_name": "prod-eks",
+              "namespace": "prod",
+              "pod_name": "api-7d9f"
+            },
+            "tool_id": "aws-eks/get_pod_logs"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "Access to pod logs requires --allow-sensitive-data-access flag",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I couldn't get the logs for pod `api-7d9f` in namespace `prod` on cluster `prod-eks`.\n\nI used the `aws-eks/get_pod_logs` tool. The gateway allowed the call, but the EKS server rejected it with this error: **\"Access to pod logs requires --allow-sensitive-data-access flag\"**. That server is running without the flag that lets it read pod logs. So this is a server setting, not a problem with your request or the pod.\n\n**To fix it:** whoever runs the `aws-eks` server (`awslabs.eks-mcp-server@0.2.1`) needs to restart it with `--allow-sensitive-data-access`. Once that's done, I can run the request again.\n\n**In the meantime:** `aws-eks/get_cloudwatch_logs` might work if the cluster sends container logs to CloudWatch. I haven't tried it, and the same restriction may block it too. Let me know if you want me to try."
+    }
+  ],
+  "final_text": "I couldn't get the logs for pod `api-7d9f` in namespace `prod` on cluster `prod-eks`.\n\nI used the `aws-eks/get_pod_logs` tool. The gateway allowed the call, but the EKS server rejected it with this error: **\"Access to pod logs requires --allow-sensitive-data-access flag\"**. That server is running without the flag that lets it read pod logs. So this is a server setting, not a problem with your request or the pod.\n\n**To fix it:** whoever runs the `aws-eks` server (`awslabs.eks-mcp-server@0.2.1`) needs to restart it with `--allow-sensitive-data-access`. Once that's done, I can run the request again.\n\n**In the meantime:** `aws-eks/get_cloudwatch_logs` might work if the cluster sends container logs to CloudWatch. I haven't tried it, and the same restriction may block it too. Let me know if you want me to try.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "tool_error",
+      "tool": "aws-eks/get_pod_logs"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 4,
+    "input_tokens": 10364,
+    "output_tokens": 591,
+    "cache_read_tokens": 6680,
+    "cache_write_tokens": 3674,
+    "tool_schema_tokens_per_request": 951,
+    "tool_schema_tokens_total": 3804,
+    "invocations": 1,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 1,
+    "discovery_latency_ms_mean": 5.9398,
+    "first_pick_correct": true,
+    "wall_ms": 12998.6893,
+    "cost_usd": 0.031566
+  }
+}

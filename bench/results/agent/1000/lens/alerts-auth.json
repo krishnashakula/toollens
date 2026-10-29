@@ -1,0 +1,202 @@
+{
+  "task": "alerts-auth",
+  "arm": "lens",
+  "size": 1000,
+  "model": "claude-opus-5-5",
+  "prompt": "Are there any active alerts for auth-service right now? Name them.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "list active alerts for a service",
+            "limit": 5
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":1000,\"tools\":[{\"id\":\"observability/list_alerts\",\"role\":\"match\",\"summary\":\"List monitoring alerts, optionally for one service\",\"why\":\"matches list, activ, alert, servic\"},{\"id\":\"platform-ci/list_service_charges\",\"role\":\"match\",\"summary\":\"List service charges in Billing (legacy v1 API), filtered by status or service\",\"why\":\"matches list, servic\"},{\"id\":\"bizops/archive_service_charge\",\"role\":\"dependency\",\"summary\":\"Archive a service charge in Billing\",\"why\":\"can use `service_charge_id` returned by platform-ci/list_service_charges\"},{\"id\":\"bizops/update_service_charge\",\"role\":\"dependency\",\"summary\":\"Update a service charge in Billing\",\"why\":\"can use `service_charge_id` returned by platform-ci/list_service_charges\"},{\"id\":\"bizops/list_invoices\",\"role\":\"match\",\"summary\":\"List invoices in Billing, filtered by status or service\",\"why\":\"matches list, servic\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "observability/list_alerts"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"readOnlyHint\":true},\"description\":\"List monitoring alerts, optionally for one service. Includes active and recently resolved alerts.\",\"id\":\"observability/list_alerts\",\"input_schema\":{\"additionalProperties\":false,\"properties\":{\"service_id\":{\"description\":\"Optional service id filter.\",\"type\":\"string\"}},\"required\":[],\"type\":\"object\"},\"name\":\"list_alerts\",\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"toollens.exe\",\"first_seen\":\"2026-10-25T21:33:47.686Z\",\"last_seen\":\"2026-10-25T21:33:47.686Z\",\"schema_hash\":\"1efbd5299093abc9\",\"server\":\"observability\"},\"schema_hash\":\"1efbd5299093abc9\",\"server\":\"observability\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "service_id": "auth-service"
+            },
+            "tool_id": "observability/list_alerts"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": "Service id may differ from name; try directly."
+    },
+    {
+      "content": "{\"alerts\":[]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {},
+            "tool_id": "observability/list_alerts"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"alerts\":[{\"alert\":\"CheckoutDeployFailed\",\"service_id\":\"svc-checkout\",\"severity\":\"warning\",\"since\":\"2026-10-24T14:04:00Z\",\"state\":\"active\"},{\"alert\":\"AuthTokenLatencyHigh\",\"service_id\":\"svc-auth\",\"severity\":\"critical\",\"since\":\"2026-10-24T13:12:00Z\",\"state\":\"active\"},{\"alert\":\"PaymentsWorkerErrorRate\",\"service_id\":\"svc-payworker\",\"severity\":\"critical\",\"since\":\"2026-10-23T16:45:00Z\",\"state\":\"resolved\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "look up service id by service name",
+            "limit": 4
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":1000,\"tools\":[{\"id\":\"observability/search\",\"role\":\"match\",\"summary\":\"Full-text search over log messages across all services\",\"why\":\"matches look, servic, id, servic\"},{\"id\":\"observability/get_logs\",\"role\":\"dependency\",\"summary\":\"Fetch log lines for a service, optionally for a single deployment and minimum level\",\"why\":\"can use `deployment_id` returned by observability/search\"},{\"id\":\"deploy/get_deployment\",\"role\":\"dependency\",\"summary\":\"Get one deployment's details, including the failure reason when it failed or was rolled back\",\"why\":\"can use `deployment_id` returned by observability/search\"},{\"id\":\"bizops/create_service_charge\",\"role\":\"match\",\"summary\":\"Create a service charge in Billing\",\"why\":\"matches servic, name\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "list services in the service catalog with names and ids",
+            "limit": 4
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":1000,\"tools\":[{\"id\":\"deploy/search\",\"role\":\"match\",\"summary\":\"Search the service registry by service name, team or repository\",\"why\":\"matches servic, name, ids\"},{\"id\":\"observability/get_oncall\",\"role\":\"dependency\",\"summary\":\"Get the primary and secondary on-call engineers for a team\",\"why\":\"can use `team` returned by deploy/search\"},{\"id\":\"vcs/list_pull_requests\",\"role\":\"dependency\",\"summary\":\"List pull requests of a repository with their state (open, merged, closed)\",\"why\":\"can use `repo` returned by deploy/search\"},{\"id\":\"platform-ci/list_service_charges\",\"role\":\"match\",\"summary\":\"List service charges in Billing (legacy v1 API), filtered by status or service\",\"why\":\"matches list, servic\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "deploy/search"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"readOnlyHint\":true},\"description\":\"Search the service registry by service name, team or repository. Returns service ids, owning team and repo.\",\"id\":\"deploy/search\",\"input_schema\":{\"additionalProperties\":false,\"properties\":{\"query\":{\"description\":\"Service name, team or repo fragment, e.g. \\\"checkout\\\".\",\"type\":\"string\"}},\"required\":[\"query\"],\"type\":\"object\"},\"name\":\"search\",\"output_schema\":{\"properties\":{\"services\":{\"items\":{\"properties\":{\"name\":{\"type\":\"string\"},\"repo\":{\"type\":\"string\"},\"service_id\":{\"type\":\"string\"},\"team\":{\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"toollens.exe\",\"first_seen\":\"2026-10-25T21:33:47.673Z\",\"last_seen\":\"2026-10-25T21:33:47.673Z\",\"schema_hash\":\"c97299154e321552\",\"server\":\"deploy\"},\"schema_hash\":\"c97299154e321552\",\"server\":\"deploy\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "query": "auth"
+            },
+            "tool_id": "deploy/search"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"services\":[{\"name\":\"auth-service\",\"repo\":\"acme/auth-service\",\"service_id\":\"svc-auth\",\"team\":\"identity\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "Yes, auth-service has one active alert:\n\n- **AuthTokenLatencyHigh**: severity **critical**, active since 2026-10-24T13:12:00Z.\n\nThe service registry lists auth-service under the id `svc-auth` (owned by the identity team, repo `acme/auth-service`). My first lookup used the name \"auth-service\" and came back empty, so I found the alert by listing all alerts and matching that id.\n\nThe two other alerts in the system are for different services: CheckoutDeployFailed on svc-checkout (active) and PaymentsWorkerErrorRate on svc-payworker (resolved)."
+    }
+  ],
+  "final_text": "Yes, auth-service has one active alert:\n\n- **AuthTokenLatencyHigh**: severity **critical**, active since 2026-10-24T13:12:00Z.\n\nThe service registry lists auth-service under the id `svc-auth` (owned by the identity team, repo `acme/auth-service`). My first lookup used the name \"auth-service\" and came back empty, so I found the alert by listing all alerts and matching that id.\n\nThe two other alerts in the system are for different services: CheckoutDeployFailed on svc-checkout (active) and PaymentsWorkerErrorRate on svc-payworker (resolved).",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "observability/list_alerts"
+    },
+    {
+      "outcome": "ok",
+      "tool": "observability/list_alerts"
+    },
+    {
+      "outcome": "ok",
+      "tool": "deploy/search"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 9,
+    "input_tokens": 21853,
+    "output_tokens": 896,
+    "cache_read_tokens": 18136,
+    "cache_write_tokens": 3697,
+    "tool_schema_tokens_per_request": 951,
+    "tool_schema_tokens_total": 8559,
+    "invocations": 3,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 3,
+    "discovery_latency_ms_mean": 0.9194999999999999,
+    "wall_ms": 14261.5275,
+    "cost_usd": 0.040112199999999994
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "task": "oncall-payments-worker",
+  "arm": "full",
+  "size": 30,
+  "model": "claude-opus-5-5",
+  "prompt": "Who is the primary on-call engineer for the team that owns payments-worker?",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "query": "payments-worker"
+          },
+          "name": "deploy__search"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"services\":[{\"name\":\"payments-worker\",\"repo\":\"acme/payments-worker\",\"service_id\":\"svc-payworker\",\"team\":\"payments\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "deploy__search"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "team": "payments"
+          },
+          "name": "observability__get_oncall"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"oncall\":{\"primary\":\"priya.n\",\"secondary\":\"omar.f\"},\"team\":\"payments\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "observability__get_oncall"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "The primary on-call engineer is **priya.n**. The payments team owns payments-worker (service id `svc-payworker`, repo `acme/payments-worker`). The secondary on-call is omar.f."
+    }
+  ],
+  "final_text": "The primary on-call engineer is **priya.n**. The payments team owns payments-worker (service id `svc-payworker`, repo `acme/payments-worker`). The secondary on-call is omar.f.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "deploy/search"
+    },
+    {
+      "outcome": "ok",
+      "tool": "observability/get_oncall"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 3,
+    "input_tokens": 11989,
+    "output_tokens": 174,
+    "cache_read_tokens": 7888,
+    "cache_write_tokens": 4093,
+    "tool_schema_tokens_per_request": 3758,
+    "tool_schema_tokens_total": 11274,
+    "invocations": 2,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 0,
+    "discovery_latency_ms_mean": 0.0,
+    "wall_ms": 6079.550700000001,
+    "cost_usd": 0.0255546
+  }
+}

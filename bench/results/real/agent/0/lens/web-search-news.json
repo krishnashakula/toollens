@@ -1,0 +1,222 @@
+{
+  "task": "web-search-news",
+  "arm": "lens",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Search the web for news about the official MCP server registry.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "search the web for news"
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"brave-search/brave_web_search\",\"role\":\"match\",\"summary\":\"Performs a web search using the Brave Search API, ideal for general queries, news, articles, and online content\",\"why\":\"matches search, web, new\"},{\"id\":\"exa/web_search_exa\",\"role\":\"match\",\"summary\":\"Search the web for any topic and get clean, ready-to-use content.\\n\\n      Best for: Finding current information, news, facts, people, compani…\",\"why\":\"matches search, web, new\"},{\"id\":\"perplexity/perplexity_search\",\"role\":\"match\",\"summary\":\"Search the web and return a ranked list of results with titles, URLs, snippets, and dates\",\"why\":\"matches search, web, new\"},{\"id\":\"firecrawl/firecrawl_search\",\"role\":\"match\",\"summary\":\"\\nSearch web, news, or image sources and return ranked results with query-relevant highlights\",\"why\":\"matches search, web, new\"},{\"id\":\"kagi/kagi_search_fetch\",\"role\":\"match\",\"summary\":\"Fetch web results for a query using the Kagi Search API\",\"why\":\"matches search, web, new\"},{\"id\":\"perplexity/perplexity_ask\",\"role\":\"match\",\"summary\":\"Answer a question using web-grounded AI (Perplexity Agent API, fast preset)\",\"why\":\"matches search, web, new\"},{\"id\":\"perplexity/perplexity_reason\",\"role\":\"match\",\"summary\":\"Analyze a question using step-by-step reasoning with web grounding (Perplexity Agent API, medium preset)\",\"why\":\"matches search, web, new\"},{\"id\":\"exa/web_fetch_exa\",\"role\":\"match\",\"summary\":\"Read a webpage's full content as clean markdown\",\"why\":\"matches search, web\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "brave-search/brave_web_search"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"description\":\"Performs a web search using the Brave Search API, ideal for general queries, news, articles, and online content. Use this for broad information gathering, recent events, or when you need diverse web sources. Supports pagination, content filtering, and freshness controls. Maximum 20 results per request, with offset for pagination. \",\"id\":\"brave-search/brave_web_search\",\"input_schema\":{\"properties\":{\"count\":{\"default\":10,\"description\":\"Number of results (1-20, default 10)\",\"type\":\"number\"},\"offset\":{\"default\":0,\"description\":\"Pagination offset (max 9, default 0)\",\"type\":\"number\"},\"query\":{\"description\":\"Search query (max 400 chars, 50 words)\",\"type\":\"string\"}},\"required\":[\"query\"],\"type\":\"object\"},\"name\":\"brave_web_search\",\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache -e BRAVE_API_KEY=dummy-not-a-real-credential toollens-sandbox:1 npx -y @modelcontextprotocol/server-brave-search@0.6.2\",\"first_seen\":\"2026-10-25T23:30:27.074Z\",\"last_seen\":\"2026-10-25T23:50:45.271Z\",\"schema_hash\":\"8f49a18352e53457\",\"server\":\"brave-search\"},\"schema_hash\":\"8f49a18352e53457\",\"server\":\"brave-search\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "query": "official MCP server registry news Model Context Protocol"
+            },
+            "tool_id": "brave-search/brave_web_search"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "Error: Brave API error: 422 \n{\"error\":{\"code\":\"SUBSCRIPTION_TOKEN_INVALID\",\"detail\":\"The provided subscription token is invalid.\",\"meta\":{\"component\":\"authentication\"},\"status\":422},\"type\":\"ErrorResponse\"}",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "exa/web_search_exa"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": "Brave's token is invalid; try Exa."
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"idempotentHint\":true,\"openWorldHint\":true,\"readOnlyHint\":true},\"description\":\"Search the web for any topic and get clean, ready-to-use content.\\n\\n      Best for: Finding current information, news, facts, people, companies, or answering questions about any topic.\\n      Returns: Clean text content from top search results.\\n\\n      Query tips:\\n      describe the ideal page, not keywords. \\\"blog post comparing React and Vue performance\\\" not \\\"React vs Vue\\\".\\n      Use category:people / category:company to search through Linkedin profiles / companies respectively.\\n      If highlights are insufficient, follow up with web_fetch_exa on the best URLs.\",\"id\":\"exa/web_search_exa\",\"input_schema\":{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"additionalProperties\":false,\"properties\":{\"numResults\":{\"description\":\"Number of search results to return (default: 10).\",\"type\":\"number\"},\"query\":{\"description\":\"Natural language search query. Should be a semantically rich description of the ideal page, not just keywords. Optionally include category:<type> (company, people) to focus results — e.g. 'category:people John Doe software engineer'.\",\"minLength\":1,\"type\":\"string\"}},\"required\":[\"query\"],\"type\":\"object\"},\"name\":\"web_search_exa\",\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache toollens-sandbox:1 npx -y exa-mcp-server@3.4.2\",\"first_seen\":\"2026-10-25T23:19:01.942Z\",\"last_seen\":\"2026-10-25T23:50:45.570Z\",\"schema_hash\":\"5869f97c5f54d32c\",\"server\":\"exa\"},\"schema_hash\":\"5869f97c5f54d32c\",\"server\":\"exa\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "numResults": 8,
+              "query": "news article announcing the official Model Context Protocol (MCP) server registry"
+            },
+            "tool_id": "exa/web_search_exa"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "web_search_exa error (401): API key must be provided as an argument or as an environment variable (EXA_API_KEY)\nTimestamp: 2026-10-25T23:52:00.251Z",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "perplexity/perplexity_search"
+          },
+          "name": "inspect_tool"
+        },
+        {
+          "input": {
+            "tool_id": "firecrawl/firecrawl_search"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"idempotentHint\":false,\"openWorldHint\":true,\"readOnlyHint\":true},\"description\":\"Search the web and return a ranked list of results with titles, URLs, snippets, and dates. Best for: finding specific URLs, checking recent news, verifying facts, discovering sources. Returns formatted results (title, URL, snippet, date) with no AI synthesis. Supports recency filters, domain restrictions, and a lower-latency fast search mode. For AI-generated answers with citations, use perplexity_ask instead.\",\"id\":\"perplexity/perplexity_search\",\"input_schema\":{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":false,\"properties\":{\"country\":{\"description\":\"ISO 3166-1 alpha-2 country code for regional results (e.g., 'US', 'GB')\",\"type\":\"string\"},\"max_results\":{\"description\":\"Maximum number of results to return (1-20, default: 10)\",\"maximum\":20,\"minimum\":1,\"type\":\"number\"},\"max_tokens_per_page\":{\"description\":\"Maximum tokens to extract per webpage (default: 1024)\",\"maximum\":2048,\"minimum\":256,\"type\":\"number\"},\"query\":{\"description\":\"Search query string\",\"type\":\"string\"},\"search_domain_filter\":{\"description\":\"Restrict search results to specific domains (e.g., ['wikipedia.org', 'arxiv.org']). Use '-' prefix for exclusion (e.g., ['-reddit.com']).\",\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"search_recency_filter\":{\"description\":\"Filter search results by recency. Use 'hour' for very recent news, 'day' for today's updates, 'week' for this week, etc.\",\"enum\":[\"hour\",\"day\",\"week\",\"month\",\"year\"],\"type\":\"string\"},\"search_type\":{\"description\":\"Search backend. 'web' (default) is the standard web search. 'fast' is lower latency and lower cost; prefer it for routine lookups inside agent loops, and keep 'web' for rare or ambiguous questions.\",\"enum\":[\"web\",\"fast\"],\"type\":\"string\"}},\"required\":[\"query\"],\"type\":\"object\"},\"name\":\"perplexity_search\",\"output_schema\":{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":false,\"properties\":{\"results\":{\"description\":\"Formatted search results, each with title, URL, snippet, and date\",\"type\":\"string\"}},\"required\":[\"results\"],\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache -e PERPLEXITY_API_KEY=dummy-not-a-real-credential toollens-sandbox:1 npx -y @perplexity-ai/mcp-server@1.3.0\",\"first_seen\":\"2026-10-25T23:30:27.580Z\",\"last_seen\":\"2026-10-25T23:50:45.757Z\",\"schema_hash\":\"54af939abc37f300\",\"server\":\"perplexity\"},\"schema_hash\":\"54af939abc37f300\",\"server\":\"perplexity\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"openWorldHint\":true,\"readOnlyHint\":true,\"title\":\"Firecrawl web search\"},\"description\":\"\\nSearch web, news, or image sources and return ranked results with query-relevant highlights. Use it for current information, or to list businesses, people, products, jobs or events with websites, prices or contacts. Each web result is a title, URL, and description; use `firecrawl_scrape` on a result URL when the excerpt is not enough.\\n\\nAuthenticated search also returns matching Alexandria data providers in data.tools (companies, people, jobs, finance and filings, public records and government spending, real estate, places and restaurants, retail and prices, package registries and developer data, news, research, and more). Prefer a provider over scraping pages when the task needs the same fields across several entities, exact figures or timestamps, provenance, or many records; use web results when they already answer the question. Authenticated searches always add alexandria to the sources, so sources: [\\\"web\\\"] also returns providers; domainTools: false turns off website-matched tools only.\\n\\nOn an authenticated session, tool matches describe available capabilities; `firecrawl_find_tools` returns their contracts and `firecrawl_scrape` with an `alexandria` body executes a selected capability. Keyless sessions get no Alexandria matches in data.tools.\\n\\nFor a programming question, add `categories: [\\\"developer\\\"]`; its hits return in `data.web` with `category: \\\"developer\\\"`. For a legal or regulatory question, `categories: [\\\"gov\\\"]` returns hits in `data.web` with `category: \\\"gov\\\"` and cannot be combined with other categories; authenticated sessions also have `firecrawl_gov_search` as the dedicated tool. Verify gov results' issuer, jurisdiction, status, and version before citing current law. `categories: [\\\"research\\\"]` restricts web results to research-affiliated websites; the `firecrawl_research_*` tools are a separate surface over paper abstracts and full text (PubMed, bioRxiv, medRxiv, arXiv). Returns source-type result groups and usage metadata. Authenticated responses can include an `id` for optional search feedback.\\n\",\"id\":\"firecrawl/firecrawl_search\",\"input_schema\":{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"additionalProperties\":false,\"properties\":{\"categories\":{\"description\":\"Limit results to specific source types. `research` restricts ordinary web results to research-affiliated websites and returns page snippets, which is separate from the `firecrawl_research_*` tools that search paper abstracts and full text across biomedical (PubMed, bioRxiv, medRxiv) and arXiv literature; `pdf` searches PDF results; `developer` searches an index built for coding agents over public repositories, GitHub issues, merged pull requests, repository READMEs, and code documentation; `gov` searches the Government Index of US federal, state, and local legal and regulatory sources, the index behind firecrawl_gov_search, and cannot be combined with other categories; gov hits can include historical versions, bill text, agency guidance, and third-party reproductions, so verify the issuer, jurisdiction, enacted/effective status, and version before citing current governing law, clarify a missing jurisdiction or ambiguous as-of date, and use general search for non-US questions or missing coverage (no hits does not establish that no applicable law exists). `developer` and `gov` return hits in `data.web` with `category` set to their name; the other categories also filter `data.web`.\",\"items\":{\"enum\":[\"research\",\"pdf\",\"developer\",\"gov\"],\"type\":\"string\"},\"type\":\"array\"},\"domainTools\":{\"description\":\"Include domain-matched tools for result URLs. Defaults to true when Alexandria is combined with web, news or images; semantic-only search leaves domain matching off.\",\"type\":\"boolean\"},\"enterprise\":{\"items\":{\"enum\":[\"default\",\"anon\",\"zdr\"],\"type\":\"string\"},\"type\":\"array\"},\"excludeDomains\":{\"description\":\"Hostnames to leave out of results. Mutually exclusive with includeDomains.\",\"items\":{\"maxLength\":253,\"minLength\":1,\"pattern\":\"^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\\\\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$\",\"type\":\"string\"},\"type\":\"array\"},\"filter\":{\"type\":\"string\"},\"highlights\":{\"description\":\"Return query-relevant page excerpts for web and news results when available (default). Highlights appear in web `description` and news `snippet`; otherwise, original snippets are returned. Set to false to keep the original search snippets.\",\"type\":\"boolean\"},\"includeDomains\":{\"description\":\"Hostnames to restrict results to. Mutually exclusive with excludeDomains.\",\"items\":{\"maxLength\":253,\"minLength\":1,\"pattern\":\"^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\\\\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$\",\"type\":\"string\"},\"type\":\"array\"},\"limit\":{\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"location\":{\"type\":\"string\"},\"query\":{\"description\":\"Query for web and semantic tool discovery. Operators include quoted phrases, `-term`, `site:host`, `inurl:term`, `intitle:term`, and `related:host`; the set is non-exhaustive. Catalogue browsing is available through firecrawl_find_tools.\",\"minLength\":1,\"type\":\"string\"},\"scrapeOptions\":{\"additionalProperties\":false,\"description\":\"Fetches the full page of every web result in the same call, and each fetched result is billed as a scrape. Leave it unset unless the task needs the full text of a few results: highlights usually answer, and firecrawl_scrape can fetch only the URLs you need. These fetches ignore maxAge, so use firecrawl_scrape for a live fetch. scrapeOptions fetches web pages, never Alexandria provider tools.\",\"properties\":{\"actions\":{\"items\":{\"properties\":{\"direction\":{\"enum\":[\"up\",\"down\"],\"type\":\"string\"},\"fullPage\":{\"type\":\"boolean\"},\"key\":{\"type\":\"string\"},\"milliseconds\":{\"type\":\"number\"},\"script\":{\"type\":\"string\"},\"selector\":{\"type\":\"string\"},\"text\":{\"type\":\"string\"},\"type\":{\"enum\":[\"wait\",\"screenshot\",\"scroll\",\"scrape\",\"click\",\"write\",\"press\",\"executeJavascript\",\"generatePDF\"],\"type\":\"string\"}},\"required\":[\"type\"],\"type\":\"object\"},\"type\":\"array\"},\"excludeTags\":{\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"formats\":{\"items\":{\"enum\":[\"markdown\",\"html\",\"rawHtml\",\"screenshot\",\"links\",\"images\",\"summary\",\"changeTracking\",\"branding\",\"json\",\"query\",\"audio\"],\"type\":\"string\"},\"type\":\"array\"},\"includeTags\":{\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"jsonOptions\":{\"additionalProperties\":false,\"properties\":{\"prompt\":{\"type\":\"string\"},\"schema\":{\"additionalProperties\":false,\"propertyNames\":{\"type\":\"string\"},\"type\":\"object\"}},\"type\":\"object\"},\"location\":{\"additionalProperties\":false,\"properties\":{\"country\":{\"type\":\"string\"},\"languages\":{\"items\":{\"type\":\"string\"},\"type\":\"array\"}},\"type\":\"object\"},\"lockdown\":{\"type\":\"boolean\"},\"maxAge\":{\"type\":\"number\"},\"mobile\":{\"type\":\"boolean\"},\"onlyMainContent\":{\"type\":\"boolean\"},\"parsers\":{\"items\":{\"enum\":[\"pdf\"],\"type\":\"string\"},\"type\":\"array\"},\"pdfOptions\":{\"additionalProperties\":false,\"properties\":{\"maxPages\":{\"maximum\":10000,\"minimum\":1,\"type\":\"integer\"}},\"type\":\"object\"},\"profile\":{\"additionalProperties\":false,\"properties\":{\"name\":{\"type\":\"string\"},\"saveChanges\":{\"type\":\"boolean\"}},\"required\":[\"name\"],\"type\":\"object\"},\"proxy\":{\"enum\":[\"basic\",\"stealth\",\"enhanced\",\"auto\"],\"type\":\"string\"},\"queryOptions\":{\"additionalProperties\":false,\"properties\":{\"mode\":{\"default\":\"freeform\",\"enum\":[\"directQuote\",\"freeform\"],\"type\":\"string\"},\"prompt\":{\"maxLength\":10000,\"type\":\"string\"}},\"required\":[\"prompt\"],\"type\":\"object\"},\"redactPII\":{\"type\":\"boolean\"},\"removeBase64Images\":{\"type\":\"boolean\"},\"screenshotOptions\":{\"additionalProperties\":false,\"properties\":{\"fullPage\":{\"type\":\"boolean\"},\"quality\":{\"type\":\"number\"},\"viewport\":{\"additionalProperties\":false,\"properties\":{\"height\":{\"type\":\"number\"},\"width\":{\"type\":\"number\"}},\"required\":[\"width\",\"height\"],\"type\":\"object\"}},\"type\":\"object\"},\"skipTlsVerification\":{\"type\":\"boolean\"},\"storeInCache\":{\"type\":\"boolean\"},\"waitFor\":{\"type\":\"number\"},\"zeroDataRetention\":{\"type\":\"boolean\"}},\"type\":\"object\"},\"sources\":{\"description\":\"Search sources; authenticated sessions default to web + alexandria, keyless sessions to web only. Authenticated searches always add alexandria to the sources, so sources: [\\\"web\\\"] also returns providers; domainTools: false turns off website-matched tools only. enterprise zdr or anon searches do not add it. Use [\\\"alexandria\\\"] alone for provider discovery without web results.\",\"items\":{\"anyOf\":[{\"enum\":[\"web\",\"images\",\"news\",\"alexandria\",\"exchange\"],\"type\":\"string\"},{\"additionalProperties\":false,\"properties\":{\"type\":{\"enum\":[\"web\",\"images\",\"news\",\"alexandria\",\"exchange\"],\"type\":\"string\"}},\"required\":[\"type\"],\"type\":\"object\"}]},\"type\":\"array\"},\"tbs\":{\"type\":\"string\"},\"toolDetail\":{\"description\":\"Compact by default. Compact returns only provider, capability and description; full includes contracts. Inspect selected compact tools with firecrawl_find_tools providers and capabilities.\",\"enum\":[\"compact\",\"summary\",\"full\"],\"type\":\"string\"}},\"required\":[\"query\"],\"type\":\"object\"},\"name\":\"firecrawl_search\",\"output_schema\":{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"additionalProperties\":false,\"description\":\"Ranked search results grouped by source.\",\"properties\":{\"creditsUsed\":{\"description\":\"Credits this search consumed.\",\"type\":[\"number\",\"null\"]},\"data\":{\"description\":\"Ranked results grouped by source, such as `web`, `news`, `images`, and `alexandria`.\"},\"error\":{\"description\":\"Error message or error object when the call did not succeed.\"},\"feedbackTool\":{\"description\":\"Pointer to the feedback tool for this search.\"},\"id\":{\"description\":\"Search identifier, for optional `firecrawl_search_feedback`.\",\"type\":[\"string\",\"null\"]},\"nextTool\":{\"description\":\"A follow-up tool call that continues this search.\"},\"success\":{\"description\":\"Whether the API call succeeded.\",\"type\":[\"boolean\",\"null\"]},\"tools\":{\"description\":\"Domain-matched Alexandria tools for the results.\"},\"warning\":{\"description\":\"Non-fatal warning about the result.\",\"type\":[\"string\",\"null\"]}},\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache toollens-sandbox:1 npx -y firecrawl-mcp@3.34.1\",\"first_seen\":\"2026-10-25T23:19:01.972Z\",\"last_seen\":\"2026-10-25T23:50:45.580Z\",\"schema_hash\":\"1616e93f6a2b4268\",\"server\":\"firecrawl\"},\"schema_hash\":\"1616e93f6a2b4268\",\"server\":\"firecrawl\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "max_results": 10,
+              "query": "official MCP server registry Model Context Protocol news"
+            },
+            "tool_id": "perplexity/perplexity_search"
+          },
+          "name": "invoke_tool"
+        },
+        {
+          "input": {
+            "arguments": {
+              "limit": 10,
+              "query": "official MCP server registry Model Context Protocol",
+              "sources": [
+                "news",
+                "web"
+              ]
+            },
+            "tool_id": "firecrawl/firecrawl_search"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "Perplexity API error: 401 Unauthorized\n{\"error\":{\"message\":\"Invalid API key provided. You can find your API key at https://console.perplexity.ai.\",\"type\":\"invalid_api_key\",\"code\":401}}\n",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "content": "{\"creditsUsed\":4,\"data\":{\"news\":[{\"date\":\"Mar 30, 2026\",\"imageUrl\":\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_cM6Vzkmu6iSkMNHzeTeqUcRtnctbxor1YuQNmemR4hbIRwF-XKF4vsuQjTcHDIMx6Gc4sz_yMKMqeHoA-FUCoyvJYRRrS2erKMOBgDraKls&s\",\"position\":1,\"snippet\":\"MCP registries are emerging as the new integration catalog for AI agents. Building one for the enterprise requires semantic discovery,...\",\"title\":\"How to build an enterprise-grade MCP registry\",\"url\":\"https://www.infoworld.com/article/4145014/how-to-build-an-enterprise-grade-mcp-registry.html\"},{\"date\":\"4 weeks ago\",\"imageUrl\":\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9-k-1cAmZOqqwqbIfrvR0bG5IHPd1ogTUlK3zJwL5z7ANWPuINTd8pNk3YxOywUUxGC_anFpV4bXbgkaXas3lXLr94qk&s\",\"position\":2,\"snippet\":\"Model Context Protocol (MCP) servers are creating a silent enterprise governance gap which threatens to undermine cybersecurity efforts as...\",\"title\":\"MCP Is Creating Major Governance Gaps, Researchers Warn\",\"url\":\"https://www.infosecurity-magazine.com/news/mcp-creating-major-governance-gaps/\"},{\"date\":\"Jul 23, 2026\",\"imageUrl\":\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAoj4-PaBtxkBwOGkEgTd-jcWNkTHuy8OUHtxB9iVQP7fk6Gugu24O94dhnkUOSSzUWdGYdikOr2wpWInE3UkDHNZNH5vZJNKHD7mnQ8a717Qt&s\",\"position\":3,\"snippet\":\"Biggest overhaul since launch ditches sessions, guts little-used features, and leaves homebrew implementations facing a slog.\",\"title\":\"Model Context Protocol prepares to break with its stateful past\",\"url\":\"https://www.theregister.com/devops/2026/07/23/model-context-protocol-prepares-to-break-with-its-stateful-past/5276722\"},{\"date\":\"Apr 29, 2026\",\"imageUrl\":\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7aOrGwIdQlQN-NVTV6o5VQ1D2ZMGyeq2beU9nAy7Ct0lu1o69swtqd4HT87og48rIiTDJDiiMfLwiauNYmo_Q4bCpTmC2z9u9TR7vqagM6fs&s\",\"position\":4,\"snippet\":\"At Google Cloud Next '26, we announced that more than 50 Google-managed Model Context Protocol (MCP) servers are generally available or in...\",\"title\":\"Google-managed MCP servers are available for everyone\",\"url\":\"https://cloud.google.com/blog/products/ai-machine-learning/google-managed-mcp-servers-are-available-for-everyone\"},{\"date\":\"Aug 9, 2026\",\"imageUrl\":\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbDYwybrttixmOxZ9CXYN9hPGQ8G5DJejiJ3LIxd_gczSs2ohZOUOQi20W3AZa9JZdE62DTemgDcR0aze5FkdaY1gHYlA7Mo0yI3PJDOSLB66B&s\",\"position\":5,\"snippet\":\"# Shai-Hulud Outbreak Debrief: The Worm Evolves into MCP\\n## Shai-Hulud Weaponizes the MCP Registry\\nWhile earlier iterations of Shai-Hulud tampered with local AI coding client configs, **this marks the first time we observed a Shai-Hulud payload being delivered directly through the official Model Context Protocol (MCP) Registry** (registry.modelcontextprotocol.io).\\n\\n## Shai-Hulud Lives On (In GitHub)\\n- [[https://github.com/jUXTAPOSITION1/V.A.P.E](https://github.com/jUXTAPOSITION1/V.A.P.E)](https://github.com/jUXTAPOSITION1/V.A.P.E) _(Official MCP Server)_\",\"title\":\"Shai-Hulud Outbreak Debrief: The Worm Evolves into MCP\",\"url\":\"https://www.ox.security/blog/shai-hulud-outbreak-debrief-the-worm-evolves-into-mcp/\"},{\"date\":\"Jul 21, 2026\",\"imageUrl\":\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdfHIugtjzOy5Yml7m4HXC35WoIiocEF1x0fqbvYe87jSwG-zHo9cpsyPxJPC1WOse5egyWk5KtlAsye-Dp5t5BQNG17JdZYsDZCfiUvNvu0JK&s\",\"position\":6,\"snippet\":\"Model Context Protocol has gone from a niche Anthropic release to the default plumbing for AI coding tools in about eighteen months.\",\"title\":\"What Model Context Protocol Actually Does\",\"url\":\"https://tech-insider.org/au/what-model-context-protocol-actually-does/\"},{\"date\":\"1 month ago\",\"imageUrl\":\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBp3SwT_0BCvKTxqR69vDHp_WDSyRt8neEjQGGJtLg-4smhilZ8SqvTa16UTJhY2IQf4xeHtPYKG774QEMPd0AOnLBup4isO1IislQQJADdHI&s\",\"position\":7,\"snippet\":\"ToolHive is an open-source platform that runs Model Context Protocol servers inside containers. An MCP server is the connector that lets an...\",\"title\":\"ToolHive: The open-source way to run any MCP server securely\",\"url\":\"https://www.helpnetsecurity.com/2026/09/07/toolhive-open-source-mcp-server-security/\"},{\"date\":\"Jun 19, 2026\",\"imageUrl\":\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ5TEMyjd8ROz5Lyrf7OEcQQ6qaq00UNPdb9jOjJa-L3EbN87PcFt313wTzIiPqOmfsrskPehvy2z5DgTZRbwGhDNpfgk-3jcLg0mS_1G4uwI&s\",\"position\":8,\"snippet\":\"The investigation into threat activity targeting enterprise AI infrastructure over recent months has surfaced a decisive structural...\",\"title\":\"EXPLOITATION OF MODEL CONTEXT PROTOCOL IN AGENTIC AI DEPLOYMENTS\",\"url\":\"https://www.cyfirma.com/research/exploitation-of-model-context-protocol-in-agentic-ai-deployments/\"},{\"date\":\"Jan 27, 2026\",\"imageUrl\":\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCKSaqvFrDM1vptkQTujX9SOLt1u4-_Nvx634oPBvbByLvFzb9BYyUeY73Hv1K3dma4vOcbORvgF3TewMVND-XFwVmymebZUf22d6FRYTP4Nk&s\",\"position\":9,\"snippet\":\"Modern GenAI systems can't live on model outputs alone. They need to read from business systems, integrated development environments (IDEs),...\",\"title\":\"Getting started with MCP servers: A technical deep dive\",\"url\":\"https://neo4j.com/blog/developer/model-context-protocol/\"},{\"date\":\"Apr 14, 2026\",\"imageUrl\":\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0EpVafy3hUPYskmjyOPt0hUOcNiDqg9mqgGJSrkHSWMa-Uh4h26NBE7dl2uc4mn0w5OdY8L9xkWanCOHMM2I8F0tcQy6y8bWZpNl8MVrtWHk&s\",\"position\":10,\"snippet\":\"# Deploying Model Context Protocol (MCP) servers on Amazon ECS\\n## Prerequisites\\n### Step 1: Clone repository and set variables\\n```javascript\\ncd sample-mcp-server-on-ecs\\n\\n# Set your variables (modify these for your environment)\\nexport STACK_NAME=ecs-mcp-blog\\nexport AWS_REGION=us-west-2\\nexport AWS_PROFILE=default\\n```\",\"title\":\"Deploying Model Context Protocol (MCP) servers on Amazon ECS\",\"url\":\"https://aws.amazon.com/blogs/containers/deploying-model-context-protocol-mcp-servers-on-amazon-ecs/\"}],\"web\":[{\"category\":\"github\",\"description\":\"# MCP Registry\\n[Permalink: MCP Registry](https://github.com/modelcontextprotocol/registry#mcp-registry)\\n\\n## About\\nA community driven registry service for Model Context Protocol (MCP) servers.\",\"position\":1,\"title\":\"modelcontextprotocol/registry: A community driven ...\",\"url\":\"https://github.com/modelcontextprotocol/registry\"},{\"description\":\"## Documentation Index\\nThe MCP Registry is currently in preview.\\n\\nThe MCP Registry is the official centralized metadata repository for publicly accessible MCP servers, backed by major trusted contributors to the MCP ecosystem such as Anthropic, GitHub, PulseMCP, and Microsoft.The MCP Registry provides:\",\"position\":2,\"title\":\"The MCP Registry\",\"url\":\"https://modelcontextprotocol.io/registry/about\"},{\"description\":\"MCP is an open standard for connecting AI assistants to the systems where data lives, from content repositories to business tools.\",\"position\":3,\"title\":\"Introducing the Model Context Protocol\",\"url\":\"https://www.anthropic.com/news/model-context-protocol\"},{\"description\":\"The **Model Context Protocol (MCP)** provides a standardized interface that allows large language **Agents** to interact with external services, referred to as **MCP Servers** or **Tools** [1](https://glama.ai/blog/2025-10-26-the-model-context-protocol-registry-standardizing-server-discovery-in-a-decentralized-ecosystem#fn-1).\",\"position\":4,\"title\":\"The Model Context Protocol Registry: Standardizing Server ...\",\"url\":\"https://glama.ai/blog/2025-10-26-the-model-context-protocol-registry-standardizing-server-discovery-in-a-decentralized-ecosystem\"},{\"description\":\"# The USB-C for AI Applications   Model Context Protocol (MCP)\\n## Related Resources\\n[**MCP Documentation** \\\\\\n\\\\\\nCurrent developer documentation for MCP 2026-07-28.](https://modelcontextprotocol.info/docs/2026-07-28/getting-started/intro/) [**MCP Specifications** \\\\\\n\\\\\\nThe versioned protocol specification for current implementations.](https://modelcontextprotocol.info/specification/2026-07-28/) [**Extensions** \\\\\\n\\\\\\nOfficial MCP extensions, including Apps, authorization, Tasks, and Skills.](https://modelcontextprotocol.info/extensions/overview/) [**MCP Registry** \\\\\\n\\\\\\nPublish, discover, and consume MCP server metadata.](https://modelcontextprotocol.info/registry/about/) [**Community** \\\\\\n\\\\\\nContribute, discuss protocol changes, and join working groups.](https://modelcontextprotocol.info/community/contributing/) [**ChatGPT Chinese** \\\\\\n\\\\\\nChatGPT Chinese technology community.](https://chatgpt.cn/)\",\"position\":5,\"title\":\"Model Context Protocol （MCP）\",\"url\":\"https://modelcontextprotocol.info/\"},{\"description\":\"## [Next steps](https://github.blog/changelog/2025-09-16-github-mcp-registry-the-fastest-way-to-discover-ai-tools/#next-steps)\\nWe’ve initially launched with a curated selection of MCP servers, but we’re also working with the Model Context Protocol steering committee on the [OSS MCP Registry](https://github.com/modelcontextprotocol/registry) to eventually allow for self-publication of MCP servers.\",\"position\":6,\"title\":\"GitHub MCP Registry: The fastest way to discover AI tools\",\"url\":\"https://github.blog/changelog/2025-09-16-github-mcp-registry-the-fastest-way-to-discover-ai-tools/\"},{\"description\":\"Model Context Protocol (MCP) Explained for Beginners: AI Flight Booking Demo! KodeKloud · 1.3M views ; MCP Will Finally Makes Sense After This ...\",\"position\":7,\"title\":\"What is the Model Context Protocol (MCP)? An Expert ...\",\"url\":\"https://www.youtube.com/watch?v=AAxT42MYDFc\"},{\"description\":\"The newly launched Model Context Protocol (MCP) Registry in preview is as an open catalog for publicly available MCP servers.\",\"position\":8,\"title\":\"How to use the newly launched MCP Registry\",\"url\":\"https://techcommunity.microsoft.com/discussions/appsonazure/how-to-use-the-newly-launched-mcp-registry/4452855\"},{\"description\":\"## Types of MCP registries\\nThe [[official MCP Registry]([https://modelcontextprotocol.io/registry/about)official](https://modelcontextprotocol.io/registry/about)official) MCP Registry](https://modelcontextprotocol.io/registry/about) at `registry.modelcontextprotocol.io` is community-maintained, fully open, and implements the MCP Registry Specification.\\n\\n## Frequently asked questions\\n**Is there a registry of MCP servers?**\\n\\nThe official MCP Registry at `registry.modelcontextprotocol.io` is the community-maintained public registry implementing the open specification.\",\"position\":9,\"title\":\"What is an MCP Registry? The Centralized Directory for AI ...\",\"url\":\"https://konghq.com/blog/learning-center/what-is-an-mcp-registry\"},{\"description\":\"The Model Context Protocol (MCP) is an open standard that enables AI applications to connect seamlessly with external data sources, tools, and systems.\",\"position\":10,\"title\":\"What is the Model Context Protocol (MCP)?\",\"url\":\"https://www.databricks.com/blog/what-is-model-context-protocol\"}]},\"success\":true}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I searched with Firecrawl and found results. Three other search tools failed before that because of credential problems, not policy blocks. Brave returned a 422 error for an invalid subscription token, Exa returned a 401 because no API key was set, and Perplexity returned a 401 for an invalid API key.\n\n**What the official registry is**\n- The MCP Registry is at `registry.modelcontextprotocol.io` and is described at modelcontextprotocol.io/registry/about. It's the official central list of public MCP servers. Anthropic, GitHub, PulseMCP and Microsoft back it, and it's still in preview.\n- The source code is open at github.com/modelcontextprotocol/registry, where it's described as community-driven.\n- GitHub launched its own MCP Registry on 2025-09-16 with a hand-picked set of servers. It's working with the MCP steering committee so that developers can eventually publish their own servers to the open registry.\n- Microsoft Tech Community has a post on how to use the newly launched registry. Glama (Oct 26, 2025) and Kong have posts explaining it.\n\n**Recent news**\n- **Aug 9, 2026, OX Security:** The Shai-Hulud worm sent a malicious payload directly through the official registry. OX says this is the first time it has seen that happen, and it's the most important item for security.\n- **Jul 23, 2026, The Register:** MCP is preparing its biggest change since launch. It drops sessions and removes rarely used features.\n- **Mar 30, 2026, InfoWorld:** How to build an enterprise-grade MCP registry.\n- **About 4 weeks ago, Infosecurity Magazine:** Researchers warn that MCP servers are creating governance gaps in companies.\n- **Apr 29, 2026, Google Cloud:** More than 50 MCP servers run by Google are now available or in preview.\n- **Sep 7, 2026, Help Net Security:** ToolHive, an open-source tool for running MCP servers securely in containers.\n\nIf we use servers from the official registry, I'd read the OX Security write-up first."
+    }
+  ],
+  "final_text": "I searched with Firecrawl and found results. Three other search tools failed before that because of credential problems, not policy blocks. Brave returned a 422 error for an invalid subscription token, Exa returned a 401 because no API key was set, and Perplexity returned a 401 for an invalid API key.\n\n**What the official registry is**\n- The MCP Registry is at `registry.modelcontextprotocol.io` and is described at modelcontextprotocol.io/registry/about. It's the official central list of public MCP servers. Anthropic, GitHub, PulseMCP and Microsoft back it, and it's still in preview.\n- The source code is open at github.com/modelcontextprotocol/registry, where it's described as community-driven.\n- GitHub launched its own MCP Registry on 2025-09-16 with a hand-picked set of servers. It's working with the MCP steering committee so that developers can eventually publish their own servers to the open registry.\n- Microsoft Tech Community has a post on how to use the newly launched registry. Glama (Oct 26, 2025) and Kong have posts explaining it.\n\n**Recent news**\n- **Aug 9, 2026, OX Security:** The Shai-Hulud worm sent a malicious payload directly through the official registry. OX says this is the first time it has seen that happen, and it's the most important item for security.\n- **Jul 23, 2026, The Register:** MCP is preparing its biggest change since launch. It drops sessions and removes rarely used features.\n- **Mar 30, 2026, InfoWorld:** How to build an enterprise-grade MCP registry.\n- **About 4 weeks ago, Infosecurity Magazine:** Researchers warn that MCP servers are creating governance gaps in companies.\n- **Apr 29, 2026, Google Cloud:** More than 50 MCP servers run by Google are now available or in preview.\n- **Sep 7, 2026, Help Net Security:** ToolHive, an open-source tool for running MCP servers securely in containers.\n\nIf we use servers from the official registry, I'd read the OX Security write-up first.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "tool_error",
+      "tool": "brave-search/brave_web_search"
+    },
+    {
+      "outcome": "tool_error",
+      "tool": "exa/web_search_exa"
+    },
+    {
+      "outcome": "tool_error",
+      "tool": "perplexity/perplexity_search"
+    },
+    {
+      "outcome": "ok",
+      "tool": "firecrawl/firecrawl_search"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 8,
+    "input_tokens": 37328,
+    "output_tokens": 1557,
+    "cache_read_tokens": 23006,
+    "cache_write_tokens": 14304,
+    "tool_schema_tokens_per_request": 951,
+    "tool_schema_tokens_total": 7608,
+    "invocations": 4,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 1,
+    "discovery_latency_ms_mean": 2.685,
+    "first_pick_correct": true,
+    "wall_ms": 34514.708,
+    "cost_usd": 0.1073332
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "task": "ci-checkout",
+  "arm": "full",
+  "size": 300,
+  "model": "claude-opus-5-5",
+  "prompt": "Is CI currently passing on the main branch of checkout-api's repository?",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "query": "checkout-api"
+          },
+          "name": "deploy__search"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"services\":[{\"name\":\"checkout-api\",\"repo\":\"acme/checkout-api\",\"service_id\":\"svc-checkout\",\"team\":\"payments\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "deploy__search"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "repo": "acme/checkout-api"
+          },
+          "name": "vcs__get_status"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"ci\":{\"branch\":\"main\",\"last_run\":\"2026-10-24T12:52:00Z\",\"note\":\"unit and integration tests do not load production env templates\",\"state\":\"passing\"},\"repo\":\"acme/checkout-api\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "vcs__get_status"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "Yes. CI is passing on `main` of `acme/checkout-api`, the repository for the checkout-api service (`svc-checkout`, owned by the payments team). The last run was at 2026-10-24T12:52:00Z.\n\nCI includes a note that the unit and integration tests don't load the production env templates. So a passing build won't catch problems in production environment config."
+    }
+  ],
+  "final_text": "Yes. CI is passing on `main` of `acme/checkout-api`, the repository for the checkout-api service (`svc-checkout`, owned by the payments team). The last run was at 2026-10-24T12:52:00Z.\n\nCI includes a note that the unit and integration tests don't load the production env templates. So a passing build won't catch problems in production environment config.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "deploy/search"
+    },
+    {
+      "outcome": "ok",
+      "tool": "vcs/get_status"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 3,
+    "input_tokens": 83858,
+    "output_tokens": 231,
+    "cache_read_tokens": 55772,
+    "cache_write_tokens": 28078,
+    "tool_schema_tokens_per_request": 27701,
+    "tool_schema_tokens_total": 83103,
+    "invocations": 2,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 0,
+    "discovery_latency_ms_mean": 0.0,
+    "wall_ms": 6296.0958,
+    "cost_usd": 0.15619639999999999
+  }
+}

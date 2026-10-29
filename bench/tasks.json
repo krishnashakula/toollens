@@ -1,0 +1,61 @@
+[
+  {
+    "id": "investigate-checkout",
+    "prompt": "The latest production deployment of checkout-api failed. Find out why it failed and which commit caused it.",
+    "gold": ["deploy/search", "deploy/list_deployments", "observability/get_logs", "vcs/get_commit"],
+    "acceptable": ["deploy/get_deployment", "deploy/get_status", "observability/search", "observability/get_status", "observability/list_alerts", "vcs/compare_commits", "vcs/search", "vcs/list_pull_requests"],
+    "expect_all": ["9f3c2ab", "STRIPE_WEBHOOK_SECRET"]
+  },
+  {
+    "id": "oncall-payments-worker",
+    "prompt": "Who is the primary on-call engineer for the team that owns payments-worker?",
+    "gold": ["deploy/search", "observability/get_oncall"],
+    "acceptable": ["deploy/get_status"],
+    "expect_all": ["priya.n"]
+  },
+  {
+    "id": "error-rate-search",
+    "prompt": "What is the error rate of search-api over the last 60 minutes?",
+    "gold": ["deploy/search", "observability/query_metric"],
+    "acceptable": ["observability/get_status"],
+    "expect_all": ["0.42"]
+  },
+  {
+    "id": "payworker-rollback-cause",
+    "prompt": "The latest payments-worker deployment was rolled back automatically. Which code change caused it, and who wrote it?",
+    "gold": ["deploy/search", "deploy/list_deployments", "vcs/get_commit"],
+    "acceptable": ["deploy/get_deployment", "deploy/get_status", "observability/get_logs", "observability/search", "observability/list_alerts", "vcs/search", "vcs/compare_commits", "vcs/list_pull_requests"],
+    "expect_all": ["sam.r"],
+    "expect_any": ["5ad0b3e", "200ms", "200 ms", "timeout"]
+  },
+  {
+    "id": "ci-checkout",
+    "prompt": "Is CI currently passing on the main branch of checkout-api's repository?",
+    "gold": ["vcs/get_status"],
+    "acceptable": ["deploy/search", "vcs/search"],
+    "expect_all": ["passing"],
+    "expect_none": ["not passing", "is failing"]
+  },
+  {
+    "id": "rollback-search",
+    "prompt": "Roll back search-api to its previous production deployment.",
+    "gold": ["deploy/search", "deploy/list_deployments", "deploy/rollback"],
+    "acceptable": ["deploy/get_status", "deploy/get_deployment"],
+    "expect_any": ["not authorized", "not permitted", "permission", "denied", "policy", "not allowed", "blocked"],
+    "expect_none": ["rollback started", "successfully rolled back", "has been rolled back"]
+  },
+  {
+    "id": "alerts-auth",
+    "prompt": "Are there any active alerts for auth-service right now? Name them.",
+    "gold": ["deploy/search", "observability/list_alerts"],
+    "acceptable": ["observability/get_status"],
+    "expect_all": ["AuthTokenLatencyHigh"]
+  },
+  {
+    "id": "pr-checkout",
+    "prompt": "Which pull request introduced the change that broke the latest checkout-api deployment, and has a fix been opened?",
+    "gold": ["deploy/search", "deploy/list_deployments", "vcs/get_commit", "vcs/list_pull_requests"],
+    "acceptable": ["deploy/get_deployment", "deploy/get_status", "observability/get_logs", "observability/search", "vcs/search", "vcs/compare_commits"],
+    "expect_all": ["1287", "1291"]
+  }
+]

@@ -1,0 +1,201 @@
+{
+  "task": "payworker-rollback-cause",
+  "arm": "lens",
+  "size": 300,
+  "model": "claude-opus-5-5",
+  "prompt": "The latest payments-worker deployment was rolled back automatically. Which code change caused it, and who wrote it?",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "find latest deployment of a service and its rollback status, and the commit/PR it deployed with author"
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":300,\"tools\":[{\"id\":\"deploy/rollback\",\"role\":\"match\",\"summary\":\"Roll a service back to an earlier successful deployment\",\"why\":\"matches deploy, servic, rollback, deploy\"},{\"id\":\"deploy/list_deployments\",\"role\":\"dependency\",\"summary\":\"List recent production deployments of a service, newest first, with version, commit and status\",\"why\":\"provides `deployment_id` that deploy/rollback requires\"},{\"id\":\"deploy/search\",\"role\":\"dependency\",\"summary\":\"Search the service registry by service name, team or repository\",\"why\":\"provides `service_id` that deploy/list_deployments requires\"},{\"id\":\"deploy/get_status\",\"role\":\"match\",\"summary\":\"Get the rollout status of a service: the version currently serving traffic and the outcome of the latest deployment attempt\",\"why\":\"matches latest, deploy, servic, status, deploy\"},{\"id\":\"vcs/get_commit\",\"role\":\"dependency\",\"summary\":\"Get a commit's message, author, pull request, changed files and diff\",\"why\":\"can use `commit_sha` returned by deploy/list_deployments\"},{\"id\":\"observability/get_logs\",\"role\":\"dependency\",\"summary\":\"Fetch log lines for a service, optionally for a single deployment and minimum level\",\"why\":\"can use `deployment_id` returned by deploy/list_deployments\"},{\"id\":\"vcs/search\",\"role\":\"match\",\"summary\":\"Search commit messages, optionally within one repository\",\"why\":\"matches find, commit\"},{\"id\":\"observability/get_status\",\"role\":\"match\",\"summary\":\"Get a service's health: SLO compliance and whether it is degraded\",\"why\":\"matches servic, status\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "query": "payments-worker"
+            },
+            "tool_id": "deploy/search"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"services\":[{\"name\":\"payments-worker\",\"repo\":\"acme/payments-worker\",\"service_id\":\"svc-payworker\",\"team\":\"payments\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "deploy/list_deployments"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"readOnlyHint\":true},\"description\":\"List recent production deployments of a service, newest first, with version, commit and status.\",\"id\":\"deploy/list_deployments\",\"input_schema\":{\"additionalProperties\":false,\"properties\":{\"limit\":{\"maximum\":20,\"minimum\":1,\"type\":\"integer\"},\"service_id\":{\"description\":\"Service id such as svc-checkout.\",\"type\":\"string\"}},\"required\":[\"service_id\"],\"type\":\"object\"},\"name\":\"list_deployments\",\"output_schema\":{\"properties\":{\"deployments\":{\"items\":{\"properties\":{\"commit_sha\":{\"type\":\"string\"},\"deployment_id\":{\"type\":\"string\"},\"environment\":{\"type\":\"string\"},\"failure_reason\":{\"type\":\"string\"},\"previous_commit_sha\":{\"type\":\"string\"},\"service_id\":{\"type\":\"string\"},\"started_at\":{\"type\":\"string\"},\"status\":{\"type\":\"string\"},\"version\":{\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"toollens.exe\",\"first_seen\":\"2026-10-25T21:32:29.584Z\",\"last_seen\":\"2026-10-25T21:32:29.584Z\",\"schema_hash\":\"0e80bca7d0982b23\",\"server\":\"deploy\"},\"schema_hash\":\"0e80bca7d0982b23\",\"server\":\"deploy\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "limit": 5,
+              "service_id": "svc-payworker"
+            },
+            "tool_id": "deploy/list_deployments"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"deployments\":[{\"commit_sha\":\"5ad0b3e\",\"deployment_id\":\"dep-4815\",\"environment\":\"production\",\"previous_commit_sha\":\"3e1f2d0\",\"service_id\":\"svc-payworker\",\"started_at\":\"2026-10-23T16:40:27Z\",\"status\":\"rolled_back\",\"triggered_by\":\"sam.r\",\"version\":\"v1.9.3\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "commit_sha": "5ad0b3e",
+              "repo": "acme/payments-worker"
+            },
+            "tool_id": "vcs/get_commit"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"error\":\"invalid arguments for vcs/get_commit: Additional properties are not allowed ('repo' was unexpected)\",\"outcome\":\"invalid\"}",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "commit_sha": "5ad0b3e"
+            },
+            "tool_id": "vcs/get_commit"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"author\":\"sam.r\",\"commit_sha\":\"5ad0b3e\",\"date\":\"2026-10-23T15:55:00Z\",\"diff\":\"src/ledger/client.rs: - timeout: Duration::from_secs(2) + timeout: Duration::from_millis(200)\",\"files\":[\"src/ledger/client.rs\"],\"message\":\"Lower ledger client timeout from 2s to 200ms\",\"pull_request\":412,\"repo\":\"acme/payments-worker\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "deployment_id": "dep-4815",
+              "level": "error",
+              "service_id": "svc-payworker"
+            },
+            "tool_id": "observability/get_logs"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"lines\":[{\"deployment_id\":\"dep-4815\",\"level\":\"error\",\"message\":\"ledger-service call timed out after 200ms (retry budget exhausted)\",\"service_id\":\"svc-payworker\",\"ts\":\"2026-10-23T16:44:02Z\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "The change behind it was commit **5ad0b3e**, written by **sam.r**.\n\n- **Deployment:** dep-4815 (v1.9.3) of payments-worker (svc-payworker) went to production on 2026-10-23 at 16:40 UTC. Its status is `rolled_back`, and the previous commit was 3e1f2d0. sam.r also triggered the deployment.\n- **The change:** commit 5ad0b3e in acme/payments-worker, PR #412, says \"Lower ledger client timeout from 2s to 200ms\". The only file it changes is `src/ledger/client.rs`, where the timeout goes from `Duration::from_secs(2)` to `Duration::from_millis(200)`.\n- **Evidence it caused the rollback:** the deployment's error log at 16:44:02 UTC says \"ledger-service call timed out after 200ms (retry budget exhausted)\". That matches the new 200ms timeout.\n\nOne of my calls was rejected: my first commit lookup included an extra `repo` field, which isn't allowed. I retried without it and the lookup worked."
+    }
+  ],
+  "final_text": "The change behind it was commit **5ad0b3e**, written by **sam.r**.\n\n- **Deployment:** dep-4815 (v1.9.3) of payments-worker (svc-payworker) went to production on 2026-10-23 at 16:40 UTC. Its status is `rolled_back`, and the previous commit was 3e1f2d0. sam.r also triggered the deployment.\n- **The change:** commit 5ad0b3e in acme/payments-worker, PR #412, says \"Lower ledger client timeout from 2s to 200ms\". The only file it changes is `src/ledger/client.rs`, where the timeout goes from `Duration::from_secs(2)` to `Duration::from_millis(200)`.\n- **Evidence it caused the rollback:** the deployment's error log at 16:44:02 UTC says \"ledger-service call timed out after 200ms (retry budget exhausted)\". That matches the new 200ms timeout.\n\nOne of my calls was rejected: my first commit lookup included an extra `repo` field, which isn't allowed. I retried without it and the lookup worked.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "deploy/search"
+    },
+    {
+      "outcome": "ok",
+      "tool": "deploy/list_deployments"
+    },
+    {
+      "outcome": "invalid",
+      "tool": "vcs/get_commit"
+    },
+    {
+      "outcome": "ok",
+      "tool": "vcs/get_commit"
+    },
+    {
+      "outcome": "ok",
+      "tool": "observability/get_logs"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 8,
+    "input_tokens": 19326,
+    "output_tokens": 1069,
+    "cache_read_tokens": 15906,
+    "cache_write_tokens": 3402,
+    "tool_schema_tokens_per_request": 950,
+    "tool_schema_tokens_total": 7600,
+    "invocations": 5,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 1,
+    "discovery_latency_ms_mean": 0.2733,
+    "wall_ms": 13309.215699999999,
+    "cost_usd": 0.0416432
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "task": "error-rate-search",
+  "arm": "lens",
+  "size": 300,
+  "model": "claude-opus-5-5",
+  "prompt": "What is the error rate of search-api over the last 60 minutes?",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "get error rate of a service over last 60 minutes",
+            "limit": 5
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":300,\"tools\":[{\"id\":\"observability/query_metric\",\"role\":\"match\",\"summary\":\"Read a service metric over a time window: error_rate (%), latency_p99 (ms), request_rate (req/s) or cpu (%)\",\"why\":\"matches error, rate, servic, over, minut\"},{\"id\":\"bizops/create_service_charge\",\"role\":\"dependency\",\"summary\":\"Create a service charge in Billing\",\"why\":\"provides `service_id` that observability/query_metric requires\"},{\"id\":\"observability/search\",\"role\":\"match\",\"summary\":\"Full-text search over log messages across all services\",\"why\":\"matches servic, over\"},{\"id\":\"observability/get_logs\",\"role\":\"dependency\",\"summary\":\"Fetch log lines for a service, optionally for a single deployment and minimum level\",\"why\":\"can use `deployment_id` returned by observability/search\"},{\"id\":\"deploy/get_deployment\",\"role\":\"dependency\",\"summary\":\"Get one deployment's details, including the failure reason when it failed or was rolled back\",\"why\":\"can use `deployment_id` returned by observability/search\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "observability/query_metric"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"readOnlyHint\":true},\"description\":\"Read a service metric over a time window: error_rate (%), latency_p99 (ms), request_rate (req/s) or cpu (%).\",\"id\":\"observability/query_metric\",\"input_schema\":{\"additionalProperties\":false,\"properties\":{\"metric\":{\"enum\":[\"error_rate\",\"latency_p99\",\"request_rate\",\"cpu\"],\"type\":\"string\"},\"service_id\":{\"description\":\"Service id.\",\"type\":\"string\"},\"window_minutes\":{\"maximum\":1440,\"minimum\":1,\"type\":\"integer\"}},\"required\":[\"service_id\",\"metric\"],\"type\":\"object\"},\"name\":\"query_metric\",\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"toollens.exe\",\"first_seen\":\"2026-10-25T21:32:29.584Z\",\"last_seen\":\"2026-10-25T21:32:29.584Z\",\"schema_hash\":\"e8626a3bca6753f9\",\"server\":\"observability\"},\"schema_hash\":\"e8626a3bca6753f9\",\"server\":\"observability\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "metric": "error_rate",
+              "service_id": "search-api",
+              "window_minutes": 60
+            },
+            "tool_id": "observability/query_metric"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "unknown service_id \"search-api\". service ids look like \"svc-...\"; resolve a service name with deploy/search",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "deploy/search"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"readOnlyHint\":true},\"description\":\"Search the service registry by service name, team or repository. Returns service ids, owning team and repo.\",\"id\":\"deploy/search\",\"input_schema\":{\"additionalProperties\":false,\"properties\":{\"query\":{\"description\":\"Service name, team or repo fragment, e.g. \\\"checkout\\\".\",\"type\":\"string\"}},\"required\":[\"query\"],\"type\":\"object\"},\"name\":\"search\",\"output_schema\":{\"properties\":{\"services\":{\"items\":{\"properties\":{\"name\":{\"type\":\"string\"},\"repo\":{\"type\":\"string\"},\"service_id\":{\"type\":\"string\"},\"team\":{\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"toollens.exe\",\"first_seen\":\"2026-10-25T21:32:29.584Z\",\"last_seen\":\"2026-10-25T21:32:29.584Z\",\"schema_hash\":\"c97299154e321552\",\"server\":\"deploy\"},\"schema_hash\":\"c97299154e321552\",\"server\":\"deploy\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "query": "search-api"
+            },
+            "tool_id": "deploy/search"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"services\":[{\"name\":\"search-api\",\"repo\":\"acme/search-api\",\"service_id\":\"svc-search\",\"team\":\"discovery\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "metric": "error_rate",
+              "service_id": "svc-search",
+              "window_minutes": 60
+            },
+            "tool_id": "observability/query_metric"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"metric\":\"error_rate\",\"service_id\":\"svc-search\",\"unit\":\"%\",\"value\":0.42,\"window_minutes\":60}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "Over the last 60 minutes, search-api had an error rate of **0.42%**.\n\n- **Service:** search-api, service id `svc-search`, owned by the discovery team (repo `acme/search-api`).\n- My first query used the name \"search-api\" and was rejected because the metrics tool only accepts service ids (like `svc-...`). I found the id with `deploy/search` and ran the query again with it."
+    }
+  ],
+  "final_text": "Over the last 60 minutes, search-api had an error rate of **0.42%**.\n\n- **Service:** search-api, service id `svc-search`, owned by the discovery team (repo `acme/search-api`).\n- My first query used the name \"search-api\" and was rejected because the metrics tool only accepts service ids (like `svc-...`). I found the id with `deploy/search` and ran the query again with it.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "tool_error",
+      "tool": "observability/query_metric"
+    },
+    {
+      "outcome": "ok",
+      "tool": "deploy/search"
+    },
+    {
+      "outcome": "ok",
+      "tool": "observability/query_metric"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 7,
+    "input_tokens": 15404,
+    "output_tokens": 680,
+    "cache_read_tokens": 12378,
+    "cache_write_tokens": 3010,
+    "tool_schema_tokens_per_request": 950,
+    "tool_schema_tokens_total": 6650,
+    "invocations": 3,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 1,
+    "discovery_latency_ms_mean": 0.2063,
+    "wall_ms": 9507.0625,
+    "cost_usd": 0.031189599999999998
+  }
+}

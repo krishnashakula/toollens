@@ -1,0 +1,83 @@
+{
+  "task": "context7-react",
+  "arm": "native",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Use Context7 to pull up the current React documentation for the useEffect hook.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "libraryName": "React",
+            "query": "useEffect hook documentation"
+          },
+          "name": "context7__resolve-library-id"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "Available Libraries:\n\n- Title: React\n- Context7-compatible library ID: /reactjs/react.dev\n- Description: React.dev is the official documentation website for React, a JavaScript library for building user interfaces, providing guides, API references, and tutorials.\n- Code Snippets: 4410\n- Source Reputation: High\n- Benchmark Score: 81.94\n- Versions: __branch__v18\n----------\n- Title: React\n- Context7-compatible library ID: /websites/react_dev\n- Description: React is a JavaScript library for building user interfaces. It allows developers to create interactive web and native applications using reusable components, enabling efficient and scalable UI development.\n- Code Snippets: 5159\n- Source Reputation: High\n- Benchmark Score: 82.43\n----------\n- Title: React\n- Context7-compatible library ID: /websites/react_dev_reference\n- Description: React is a JavaScript library for building user interfaces with reusable components, hooks, and APIs for managing state and side effects.\n- Code Snippets: 2673\n- Source Reputation: High\n- Benchmark Score: 83.26\n----------\n- Title: React\n- Context7-compatible library ID: /websites/react_dev_reference_react\n- Description: React is a JavaScript library for building user interfaces using reusable components with reactive data binding and server-side rendering capabilities.\n- Code Snippets: 1039\n- Source Reputation: High\n- Benchmark Score: 86.71\n----------\n- Title: React\n- Context7-compatible library ID: /llmstxt/react_dev_llms_txt\n- Description: React is a JavaScript library for building web and native user interfaces by composing declarative, component-based architectures.\n- Code Snippets: 4265\n- Source Reputation: High\n- Benchmark Score: 72.14",
+      "is_error": false,
+      "kind": "tool",
+      "name": "context7__resolve-library-id"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "libraryId": "/reactjs/react.dev",
+            "query": "useEffect hook reference: signature, dependencies array, cleanup function, usage examples"
+          },
+          "name": "context7__query-docs"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "### Define useEffect signature\n\nSource: https://github.com/reactjs/react.dev/blob/main/src/content/reference/react/useEffect.md\n\nSynchronizes a component with an external system by providing a setup function and an optional list of reactive dependencies.\n\n```javascript\nuseEffect(setup, dependencies?)\n```\n\n--------------------------------\n\n### Add cleanup function to disconnect on Effect cleanup\n\nSource: https://github.com/reactjs/react.dev/blob/main/src/content/reference/react/StrictMode.md\n\nReturns a cleanup function from useEffect to disconnect outdated connections and resolve the leak.\n\n```javascript\n  useEffect(() => {\n    const connection = createConnection(serverUrl, roomId);\n    connection.connect();\n    return () => connection.disconnect();\n  }, [roomId]);\n```\n\n--------------------------------\n\n### Compare useEffect execution behavior across dependency configurations\n\nSource: https://github.com/reactjs/react.dev/blob/main/src/content/learn/synchronizing-with-effects.md\n\nIllustrates how omitting the dependency array, passing an empty array `[]`, and passing dependency values `[a, b]` alter when the effect runs.\n\n```js\nuseEffect(() => {\n  // This runs after every render\n});\n\nuseEffect(() => {\n  // This runs only on mount (when the component appears)\n}, []);\n\nuseEffect(() => {\n  // This runs on mount *and also* if either a or b have changed since the last render\n}, [a, b]);\n```\n\n--------------------------------\n\n### Connecting to an external system using useEffect\n\nSource: https://github.com/reactjs/react.dev/blob/main/src/content/reference/react/useEffect.md\n\nCall useEffect at the top level of your component to synchronize with an external system. Pass a setup function that initiates the connection and returns a cleanup function to disconnect, along with all reactive dependencies.\n\n```javascript\nimport { useState, useEffect } from 'react';\nimport { createConnection } from './chat.js';\n\nfunction ChatRoom({ roomId }) {\n  const [serverUrl, setServerUrl] = useState('https://localhost:1234');\n\n  useEffect(() => {\n  \tconst connection = createConnection(serverUrl, roomId);\n    connection.connect();\n  \treturn () => {\n      connection.disconnect();\n  \t};\n  }, [serverUrl, roomId]);\n  // ...\n}\n```\n\n--------------------------------\n\n### Connect to external chat service with useEffect and cleanup\n\nSource: https://github.com/reactjs/react.dev/blob/main/src/content/reference/react/useEffect.md\n\nCalls useEffect at the top level of a component to initiate a connection and returns a cleanup function to disconnect when dependencies change or the component unmounts.\n\n```javascript\nimport { useState, useEffect } from 'react';\nimport { createConnection } from './chat.js';\n\nfunction ChatRoom({ roomId }) {\n  const [serverUrl, setServerUrl] = useState('https://localhost:1234');\n\n  useEffect(() => {\n    const connection = createConnection(serverUrl, roomId);\n    connection.connect();\n    return () => {\n      connection.disconnect();\n    };\n  }, [serverUrl, roomId]);\n  // ...\n}\n```",
+      "is_error": false,
+      "kind": "tool",
+      "name": "context7__query-docs"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I looked up useEffect in Context7 using the official React docs (library ID `/reactjs/react.dev`). The main page is `src/content/reference/react/useEffect.md` in the reactjs/react.dev repo.\n\n**What it does and how to call it**\n```js\nuseEffect(setup, dependencies?)\n```\nuseEffect keeps a component in sync with something outside React, like a server connection. You pass it a setup function and, optionally, a list of the values the effect depends on. Call it at the top level of your component.\n\n**When the effect runs** (from `learn/synchronizing-with-effects.md`)\n```js\nuseEffect(() => { /* runs after every render */ });\nuseEffect(() => { /* runs only on mount */ }, []);\nuseEffect(() => { /* runs on mount and whenever a or b changes */ }, [a, b]);\n```\n\n**Cleanup**\nThe setup function can return a cleanup function. React runs it when the dependencies change or the component unmounts. The docs' example:\n```js\nimport { useState, useEffect } from 'react';\nimport { createConnection } from './chat.js';\n\nfunction ChatRoom({ roomId }) {\n  const [serverUrl, setServerUrl] = useState('https://localhost:1234');\n\n  useEffect(() => {\n    const connection = createConnection(serverUrl, roomId);\n    connection.connect();\n    return () => {\n      connection.disconnect();\n    };\n  }, [serverUrl, roomId]);\n  // ...\n}\n```\nThe StrictMode page (`reference/react/StrictMode.md`) shows the same pattern. It explains that returning `() => connection.disconnect()` closes old connections so they don't leak.\n\nContext7 also offered docs for React v18 (`/reactjs/react.dev/__branch__v18`) if you need that version."
+    }
+  ],
+  "final_text": "I looked up useEffect in Context7 using the official React docs (library ID `/reactjs/react.dev`). The main page is `src/content/reference/react/useEffect.md` in the reactjs/react.dev repo.\n\n**What it does and how to call it**\n```js\nuseEffect(setup, dependencies?)\n```\nuseEffect keeps a component in sync with something outside React, like a server connection. You pass it a setup function and, optionally, a list of the values the effect depends on. Call it at the top level of your component.\n\n**When the effect runs** (from `learn/synchronizing-with-effects.md`)\n```js\nuseEffect(() => { /* runs after every render */ });\nuseEffect(() => { /* runs only on mount */ }, []);\nuseEffect(() => { /* runs on mount and whenever a or b changes */ }, [a, b]);\n```\n\n**Cleanup**\nThe setup function can return a cleanup function. React runs it when the dependencies change or the component unmounts. The docs' example:\n```js\nimport { useState, useEffect } from 'react';\nimport { createConnection } from './chat.js';\n\nfunction ChatRoom({ roomId }) {\n  const [serverUrl, setServerUrl] = useState('https://localhost:1234');\n\n  useEffect(() => {\n    const connection = createConnection(serverUrl, roomId);\n    connection.connect();\n    return () => {\n      connection.disconnect();\n    };\n  }, [serverUrl, roomId]);\n  // ...\n}\n```\nThe StrictMode page (`reference/react/StrictMode.md`) shows the same pattern. It explains that returning `() => connection.disconnect()` closes old connections so they don't leak.\n\nContext7 also offered docs for React v18 (`/reactjs/react.dev/__branch__v18`) if you need that version.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "context7/resolve-library-id"
+    },
+    {
+      "outcome": "ok",
+      "tool": "context7/query-docs"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 3,
+    "input_tokens": 15228,
+    "output_tokens": 862,
+    "cache_read_tokens": 6197,
+    "cache_write_tokens": 5837,
+    "tool_schema_tokens_per_request": 643,
+    "tool_schema_tokens_total": 1929,
+    "invocations": 2,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 0,
+    "discovery_latency_ms_mean": 0.0,
+    "first_pick_correct": true,
+    "wall_ms": 118233.8634,
+    "cost_usd": 0.0604404
+  }
+}

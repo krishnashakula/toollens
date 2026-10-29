@@ -1,0 +1,130 @@
+{
+  "task": "launchdarkly-flag",
+  "arm": "lens",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Is the LaunchDarkly feature flag new-checkout turned on in production?",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "get LaunchDarkly feature flag status in an environment"
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"launchdarkly/get-audit-log-entries\",\"role\":\"match\",\"summary\":\"Fetches audit log entries for a LaunchDarkly account\",\"why\":\"matches get, launch, darkly, flag, environ\"},{\"id\":\"launchdarkly/get-flag-status-across-environments\",\"role\":\"match\",\"summary\":\"Returns lifecycle status (new, active, inactive, launched) based on actual usage patterns, evaluation counts, and configuration stability\",\"why\":\"matches get, launch, flag, status, environ\"},{\"id\":\"launchdarkly/get-feature-flag\",\"role\":\"match\",\"summary\":\"Fetches the full configuration for a specific feature flag, including environments, variations, and targeting rules\",\"why\":\"matches get, feat, flag, environ\"},{\"id\":\"launchdarkly/list-feature-flags\",\"role\":\"match\",\"summary\":\"Retrieves all feature flags within a project, including metadata and targeting rules\",\"why\":\"matches feat, flag, environ\"},{\"id\":\"growthbook/growthbook_read_skill\",\"role\":\"match\",\"summary\":\"Return the full markdown content of a GrowthBook skill by path\",\"why\":\"matches get, feat, flag\"},{\"id\":\"analytics/list_property_annotations\",\"role\":\"match\",\"summary\":\"Returns annotations for a property.\\n\\nAnnotations are a feature that allows you to leave notes on Google Analytics for specific dates or peri…\",\"why\":\"matches launch, feat\"},{\"id\":\"growthbook/growthbook_list_skills\",\"role\":\"match\",\"summary\":\"List available top-level GrowthBook skill entry points (name + description)\",\"why\":\"matches feat, flag\"},{\"id\":\"growthbook/growthbook_api_read\",\"role\":\"match\",\"summary\":\"Make an authenticated GET request to the GrowthBook REST API\",\"why\":\"matches get, feat, flag\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "launchdarkly/get-feature-flag"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"description\":\"Fetches the full configuration for a specific feature flag, including environments, variations, and targeting rules. Useful for agents auditing or managing specific feature toggles in a detailed, contextual manner.\\n\",\"id\":\"launchdarkly/get-feature-flag\",\"input_schema\":{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"additionalProperties\":false,\"properties\":{\"request\":{\"additionalProperties\":false,\"properties\":{\"env\":{\"type\":\"string\"},\"expand\":{\"type\":\"string\"},\"featureFlagKey\":{\"type\":\"string\"},\"projectKey\":{\"type\":\"string\"}},\"required\":[\"projectKey\",\"featureFlagKey\"],\"type\":\"object\"}},\"required\":[\"request\"],\"type\":\"object\"},\"name\":\"get-feature-flag\",\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache toollens-sandbox:1 npx -y @launchdarkly/mcp-server@0.7.1 start --api-key api-dummy\",\"first_seen\":\"2026-10-25T23:30:27.484Z\",\"last_seen\":\"2026-10-25T23:50:45.645Z\",\"schema_hash\":\"8fffe1423f297415\",\"server\":\"launchdarkly\"},\"schema_hash\":\"8fffe1423f297415\",\"server\":\"launchdarkly\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "request": {
+                "env": "production",
+                "featureFlagKey": "new-checkout",
+                "projectKey": "default"
+              }
+            },
+            "tool_id": "launchdarkly/get-feature-flag"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": "Project key needed; I'll try \"default\"."
+    },
+    {
+      "content": "Invalid account ID header",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "request": {
+                "env": "production",
+                "projectKey": "default"
+              }
+            },
+            "tool_id": "launchdarkly/list-feature-flags"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "Invalid account ID header",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I couldn't find out whether `new-checkout` is on in production. LaunchDarkly returned an error before showing any flag data.\n\n**What I tried:**\n1. `launchdarkly/get-feature-flag` with flag key `new-checkout`, environment `production` and project `default`. I picked `default` because I didn't know the real project key.\n2. `launchdarkly/list-feature-flags` for project `default` in `production`.\n\nThe gateway allowed both calls. LaunchDarkly rejected both with `Invalid account ID header`.\n\n**Likely cause:** The two calls are different but failed with the same error, so the problem is probably the LaunchDarkly connection, not the flag. The server's configuration shows it starts with a placeholder API key (`--api-key api-dummy`), so it probably isn't authenticating properly.\n\n**To fix:** Someone needs to set up the LaunchDarkly server with a valid API key and account. If you know the correct project key, tell me and I'll check that too. Until then, the LaunchDarkly UI is the quickest way to see the flag."
+    }
+  ],
+  "final_text": "I couldn't find out whether `new-checkout` is on in production. LaunchDarkly returned an error before showing any flag data.\n\n**What I tried:**\n1. `launchdarkly/get-feature-flag` with flag key `new-checkout`, environment `production` and project `default`. I picked `default` because I didn't know the real project key.\n2. `launchdarkly/list-feature-flags` for project `default` in `production`.\n\nThe gateway allowed both calls. LaunchDarkly rejected both with `Invalid account ID header`.\n\n**Likely cause:** The two calls are different but failed with the same error, so the problem is probably the LaunchDarkly connection, not the flag. The server's configuration shows it starts with a placeholder API key (`--api-key api-dummy`), so it probably isn't authenticating properly.\n\n**To fix:** Someone needs to set up the LaunchDarkly server with a valid API key and account. If you know the correct project key, tell me and I'll check that too. Until then, the LaunchDarkly UI is the quickest way to see the flag.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "tool_error",
+      "tool": "launchdarkly/get-feature-flag"
+    },
+    {
+      "outcome": "tool_error",
+      "tool": "launchdarkly/list-feature-flags"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 5,
+    "input_tokens": 10392,
+    "output_tokens": 764,
+    "cache_read_tokens": 7710,
+    "cache_write_tokens": 2670,
+    "tool_schema_tokens_per_request": 951,
+    "tool_schema_tokens_total": 4755,
+    "invocations": 2,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 1,
+    "discovery_latency_ms_mean": 2.2944,
+    "first_pick_correct": true,
+    "wall_ms": 11688.0201,
+    "cost_usd": 0.03022
+  }
+}

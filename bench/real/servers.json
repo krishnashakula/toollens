@@ -1,0 +1,1098 @@
+[
+ {
+  "registry": "npm",
+  "package": "@modelcontextprotocol/server-filesystem",
+  "version": "2.0.1",
+  "repo": "git+https://github.com/modelcontextprotocol/servers.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "MCP server for filesystem access"
+ },
+ {
+  "registry": "npm",
+  "package": "@modelcontextprotocol/server-memory",
+  "version": "2.0.0",
+  "repo": "git+https://github.com/modelcontextprotocol/servers.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "MCP server for enabling memory for Claude through a knowledge graph"
+ },
+ {
+  "registry": "npm",
+  "package": "@modelcontextprotocol/server-everything",
+  "version": "2.0.1",
+  "repo": "git+https://github.com/modelcontextprotocol/servers.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "MCP server that exercises all the features of the MCP protocol"
+ },
+ {
+  "registry": "npm",
+  "package": "@modelcontextprotocol/server-sequential-thinking",
+  "version": "2.0.0",
+  "repo": "git+https://github.com/modelcontextprotocol/servers.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "MCP server for sequential thinking and problem solving"
+ },
+ {
+  "registry": "npm",
+  "package": "@modelcontextprotocol/server-github",
+  "version": "2025.4.8",
+  "repo": null,
+  "verified_by": "published under vendor npm scope",
+  "description": "MCP server for using the GitHub API"
+ },
+ {
+  "registry": "npm",
+  "package": "@modelcontextprotocol/server-gitlab",
+  "version": "2025.4.25",
+  "repo": null,
+  "verified_by": "published under vendor npm scope",
+  "description": "MCP server for using the GitLab API"
+ },
+ {
+  "registry": "npm",
+  "package": "@modelcontextprotocol/server-slack",
+  "version": "2025.4.25",
+  "repo": null,
+  "verified_by": "published under vendor npm scope",
+  "description": "MCP server for interacting with Slack"
+ },
+ {
+  "registry": "npm",
+  "package": "@modelcontextprotocol/server-google-maps",
+  "version": "0.6.2",
+  "repo": null,
+  "verified_by": "published under vendor npm scope",
+  "description": "MCP server for using the Google Maps API"
+ },
+ {
+  "registry": "npm",
+  "package": "@modelcontextprotocol/server-brave-search",
+  "version": "0.6.2",
+  "repo": null,
+  "verified_by": "published under vendor npm scope",
+  "description": "MCP server for Brave Search API integration"
+ },
+ {
+  "registry": "npm",
+  "package": "@modelcontextprotocol/server-puppeteer",
+  "version": "2025.5.12",
+  "repo": null,
+  "verified_by": "published under vendor npm scope",
+  "description": "MCP server for browser automation using Puppeteer"
+ },
+ {
+  "registry": "npm",
+  "package": "@modelcontextprotocol/server-postgres",
+  "version": "0.6.2",
+  "repo": null,
+  "verified_by": "published under vendor npm scope",
+  "description": "MCP server for interacting with PostgreSQL databases"
+ },
+ {
+  "registry": "npm",
+  "package": "@modelcontextprotocol/server-redis",
+  "version": "2025.4.25",
+  "repo": null,
+  "verified_by": "published under vendor npm scope",
+  "description": "MCP server for using Redis"
+ },
+ {
+  "registry": "npm",
+  "package": "@modelcontextprotocol/server-gdrive",
+  "version": "2025.1.14",
+  "repo": null,
+  "verified_by": "published under vendor npm scope",
+  "description": "MCP server for interacting with Google Drive"
+ },
+ {
+  "registry": "npm",
+  "package": "@modelcontextprotocol/server-aws-kb-retrieval",
+  "version": "0.6.2",
+  "repo": null,
+  "verified_by": "published under vendor npm scope",
+  "description": "MCP server for AWS Knowledge Base retrieval using Bedrock Agent Runtime"
+ },
+ {
+  "registry": "npm",
+  "package": "@modelcontextprotocol/server-everart",
+  "version": "0.6.2",
+  "repo": null,
+  "verified_by": "published under vendor npm scope",
+  "description": "MCP server for EverArt API integration"
+ },
+ {
+  "registry": "npm",
+  "package": "@playwright/mcp",
+  "version": "0.0.83",
+  "repo": "git+https://github.com/microsoft/playwright-mcp.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Playwright Tools for MCP"
+ },
+ {
+  "registry": "npm",
+  "package": "@azure/mcp",
+  "version": "4.0.0-beta.3",
+  "repo": "git+https://github.com/microsoft/mcp.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Azure MCP Server - Model Context Protocol implementation for Azure"
+ },
+ {
+  "registry": "npm",
+  "package": "@azure-devops/mcp",
+  "version": "2.11.0",
+  "repo": "git+https://github.com/microsoft/azure-devops-mcp.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "MCP server for interacting with Azure DevOps"
+ },
+ {
+  "registry": "npm",
+  "package": "@microsoft/clarity-mcp-server",
+  "version": "2.0.1",
+  "repo": "git+https://github.com/microsoft/clarity-mcp-server.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "MCP Server for Microsoft Clarity based on data export API"
+ },
+ {
+  "registry": "npm",
+  "package": "@upstash/context7-mcp",
+  "version": "4.4.4",
+  "repo": "git+https://github.com/upstash/context7.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "MCP server for Context7"
+ },
+ {
+  "registry": "npm",
+  "package": "@upstash/mcp-server",
+  "version": "0.4.0",
+  "repo": "git+https://github.com/upstash/mcp-server.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "MCP server for Upstash"
+ },
+ {
+  "registry": "npm",
+  "package": "@notionhq/notion-mcp-server",
+  "version": "2.5.2",
+  "repo": "git+ssh://git@github.com/makenotion/notion-mcp-server.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Official MCP server for Notion API"
+ },
+ {
+  "registry": "npm",
+  "package": "@stripe/mcp",
+  "version": "0.3.3",
+  "repo": "git+https://github.com/stripe/ai.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "A command line tool for setting up Stripe MCP server"
+ },
+ {
+  "registry": "npm",
+  "package": "@supabase/mcp-server-supabase",
+  "version": "0.14.0",
+  "repo": "git+https://github.com/supabase/mcp.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "MCP server for interacting with Supabase"
+ },
+ {
+  "registry": "npm",
+  "package": "@sentry/mcp-server",
+  "version": "0.42.0",
+  "repo": "git+ssh://git@github.com/getsentry/sentry-mcp.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": ""
+ },
+ {
+  "registry": "npm",
+  "package": "@neondatabase/mcp-server-neon",
+  "version": "0.6.5",
+  "repo": null,
+  "verified_by": "published under vendor npm scope",
+  "description": "MCP server for interacting with Neon Management API and databases"
+ },
+ {
+  "registry": "npm",
+  "package": "@heroku/mcp-server",
+  "version": "1.2.12",
+  "repo": "git+https://github.com/heroku/heroku-mcp-server.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Heroku Platform MCP Server"
+ },
+ {
+  "registry": "npm",
+  "package": "@cloudflare/mcp-server-cloudflare",
+  "version": "0.2.0",
+  "repo": null,
+  "verified_by": "published under vendor npm scope",
+  "description": "MCP server for interacting with Cloudflare API"
+ },
+ {
+  "registry": "npm",
+  "package": "firecrawl-mcp",
+  "version": "3.34.1",
+  "repo": "git+https://github.com/firecrawl/firecrawl-mcp-server.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Firecrawl MCP server, the context API for AI agents: search, scrape, parse, crawl, map, and interact with the web, run Agent and Monitor jobs, and search scientific papers (PubMed, bioRxiv, medRxiv, arXiv). Works with Firecrawl cloud or a self-hosted inst"
+ },
+ {
+  "registry": "npm",
+  "package": "exa-mcp-server",
+  "version": "3.4.2",
+  "repo": "git+https://github.com/exa-labs/exa-mcp-server.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Connect AI agents to Exa for web search, content fetching, and multi-step research."
+ },
+ {
+  "registry": "npm",
+  "package": "tavily-mcp",
+  "version": "0.2.22",
+  "repo": "git+https://github.com/tavily-ai/tavily-mcp.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "MCP server for advanced web search using Tavily"
+ },
+ {
+  "registry": "npm",
+  "package": "@browserbasehq/mcp",
+  "version": "3.0.0",
+  "repo": "git+https://github.com/browserbase/mcp-server-browserbase.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "MCP server for AI web browser automation using Browserbase and Stagehand"
+ },
+ {
+  "registry": "npm",
+  "package": "@elastic/mcp-server-elasticsearch",
+  "version": "0.3.1",
+  "repo": "git+https://github.com/elastic/mcp-server-elasticsearch.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Elasticsearch MCP Server"
+ },
+ {
+  "registry": "npm",
+  "package": "mongodb-mcp-server",
+  "version": "3.1.0",
+  "repo": "https://github.com/mongodb-js/mongodb-mcp-server.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "MongoDB Model Context Protocol Server"
+ },
+ {
+  "registry": "npm",
+  "package": "@hubspot/mcp-server",
+  "version": "0.4.0",
+  "repo": null,
+  "verified_by": "published under vendor npm scope",
+  "description": "MCP Server for developers building HubSpot Apps"
+ },
+ {
+  "registry": "npm",
+  "package": "@paypal/mcp",
+  "version": "1.8.1",
+  "repo": null,
+  "verified_by": "published under vendor npm scope",
+  "description": "A command line tool for setting up PayPal MCP server"
+ },
+ {
+  "registry": "npm",
+  "package": "@twilio-alpha/mcp",
+  "version": "0.7.0",
+  "repo": null,
+  "verified_by": "published under vendor npm scope",
+  "description": "This is a Model Context Protocol server that exposes all of Twilio APIs."
+ },
+ {
+  "registry": "npm",
+  "package": "@shopify/dev-mcp",
+  "version": "1.17.0",
+  "repo": null,
+  "verified_by": "published under vendor npm scope",
+  "description": "A command line tool for setting up Shopify Dev MCP server"
+ },
+ {
+  "registry": "npm",
+  "package": "@circleci/mcp-server-circleci",
+  "version": "0.20.0",
+  "repo": "git+https://github.com/CircleCI-Public/mcp-server-circleci.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "A Model Context Protocol (MCP) server implementation for CircleCI, enabling natural language interactions with CircleCI functionality through MCP-enabled clients"
+ },
+ {
+  "registry": "npm",
+  "package": "@launchdarkly/mcp-server",
+  "version": "0.7.1",
+  "repo": "git+https://github.com/launchdarkly/mcp-server.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "The local [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server for [LaunchDarkly](https://launchdarkly.com/) federal and European Union (EU) environments."
+ },
+ {
+  "registry": "npm",
+  "package": "@apify/actors-mcp-server",
+  "version": "0.19.3",
+  "repo": "https://github.com/apify/apify-mcp-server.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Apify MCP Server"
+ },
+ {
+  "registry": "npm",
+  "package": "@auth0/auth0-mcp-server",
+  "version": "0.1.0-beta.19",
+  "repo": "git+https://github.com/auth0/auth0-mcp-server.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Auth0 Model Context Protocol (MCP) Server (Beta) \u2014 A secure and extendable implementation of an MCP server that provides AI assistants with controlled access to the Auth0 Management API through natural language. This project is in beta and not intended fo"
+ },
+ {
+  "registry": "npm",
+  "package": "@postman/postman-mcp-server",
+  "version": "2.14.0",
+  "repo": "git+https://github.com/postmanlabs/postman-mcp-server.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Postman MCP Server \u2014 connect AI agents (Claude Code, Cursor, VS Code Copilot, Gemini CLI) to your Postman collections, specifications, and environments via Model Context Protocol (MCP)"
+ },
+ {
+  "registry": "npm",
+  "package": "@pinecone-database/mcp",
+  "version": "0.3.0",
+  "repo": "git+https://github.com/pinecone-io/pinecone-mcp.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Model Context Protocol server for Pinecone - enables AI assistants to interact with Pinecone indexes and documentation"
+ },
+ {
+  "registry": "npm",
+  "package": "@netlify/mcp",
+  "version": "1.20.0",
+  "repo": "git+https://github.com/netlify/netlify-mcp.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "[Netlify MCP Server](https://docs.netlify.com/welcome/build-with-ai/netlify-mcp-server/) follows the [Model Context Protocol (MCP)](https://modelcontextprotocol.org) to enable code agents to use the Netlify API and CLI\u2014so they can create new projects, bui"
+ },
+ {
+  "registry": "npm",
+  "package": "@mapbox/mcp-server",
+  "version": "0.16.0",
+  "repo": "git+https://github.com/mapbox/mcp-server.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Mapbox MCP server."
+ },
+ {
+  "registry": "npm",
+  "package": "@google-cloud/gcloud-mcp",
+  "version": "0.5.3",
+  "repo": "git+https://github.com/googleapis/gcloud-mcp.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Model Context Protocol (MCP) Server for interacting with GCP APIs"
+ },
+ {
+  "registry": "npm",
+  "package": "@dynatrace-oss/dynatrace-mcp-server",
+  "version": "2.1.2",
+  "repo": "git+https://github.com/dynatrace-oss/dynatrace-mcp.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "[DEPRECATED] Model Context Protocol (MCP) server for Dynatrace. Migrate to dynatrace-for-ai + dtctl or the Dynatrace Remote MCP Server."
+ },
+ {
+  "registry": "npm",
+  "package": "@browserstack/mcp-server",
+  "version": "2.2.7",
+  "repo": "git+https://github.com/browserstack/mcp-server.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "BrowserStack's Official MCP Server"
+ },
+ {
+  "registry": "npm",
+  "package": "@contentful/mcp-server",
+  "version": "1.23.25",
+  "repo": "git+https://github.com/contentful/contentful-mcp-server.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Contentful MCP Server - Model Context Protocol server for Contentful"
+ },
+ {
+  "registry": "npm",
+  "package": "@sanity/mcp-server",
+  "version": "0.12.2",
+  "repo": "git+https://github.com/sanity-io/sanity-mcp-server.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "DEPRECATED: Use the remote MCP server at https://mcp.sanity.io instead."
+ },
+ {
+  "registry": "npm",
+  "package": "@digitalocean/mcp",
+  "version": "1.6.1",
+  "repo": "git+ssh://git@github.com/digitalocean-labs/mcp-digitalocean.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "DigitalOcean MCP Implementation,"
+ },
+ {
+  "registry": "npm",
+  "package": "@brightdata/mcp",
+  "version": "4.1.0",
+  "repo": "git+https://github.com/brightdata/brightdata-mcp.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An MCP interface into the Bright Data toolset"
+ },
+ {
+  "registry": "npm",
+  "package": "@e2b/mcp-server",
+  "version": "0.2.3",
+  "repo": "git+https://github.com/e2b-dev/mcp-server.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "A Model Context Protocol server"
+ },
+ {
+  "registry": "npm",
+  "package": "@perplexity-ai/mcp-server",
+  "version": "1.3.0",
+  "repo": "git+https://github.com/perplexityai/modelcontextprotocol.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Real-time web search, reasoning, and research through Perplexity's API"
+ },
+ {
+  "registry": "npm",
+  "package": "@tomtom-org/tomtom-mcp",
+  "version": "1.6.13",
+  "repo": "https://github.com/tomtom-international/tomtom-maps-mcp.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "MCP server integrating TomTom APIs"
+ },
+ {
+  "registry": "npm",
+  "package": "@growthbook/mcp",
+  "version": "2.2.0",
+  "repo": "git+https://github.com/growthbook/growthbook-mcp.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Thin MCP server for GrowthBook \u2014 skill loader + authenticated API passthrough"
+ },
+ {
+  "registry": "npm",
+  "package": "@arizeai/phoenix-mcp",
+  "version": "4.3.17",
+  "repo": "git+https://github.com/Arize-ai/phoenix.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "A MCP server for Arize Phoenix"
+ },
+ {
+  "registry": "npm",
+  "package": "@bitwarden/mcp-server",
+  "version": "2026.7.0",
+  "repo": "git+https://github.com/bitwarden/mcp-server.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Bitwarden MCP Server"
+ },
+ {
+  "registry": "npm",
+  "package": "@chargebee/mcp",
+  "version": "0.0.8",
+  "repo": null,
+  "verified_by": "published under vendor npm scope",
+  "description": "MCP server for interacting with Chargebee"
+ },
+ {
+  "registry": "npm",
+  "package": "@mailgun/mcp-server",
+  "version": "2.1.3",
+  "repo": "git+https://github.com/mailgun/mailgun-mcp-server.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An MCP server that gives AI agents a practical interface to Mailgun workflows for sending, diagnosing deliverability, and taking account actions safely."
+ },
+ {
+  "registry": "npm",
+  "package": "hostinger-api-mcp",
+  "version": "3.8.1",
+  "repo": "git+https://github.com/hostinger/api-mcp-server.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "MCP server for Hostinger API"
+ },
+ {
+  "registry": "npm",
+  "package": "@railway/mcp-server",
+  "version": "0.1.12",
+  "repo": "git+https://github.com/railwayapp/railway-mcp-server.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Deprecated compatibility shim for Railway MCP"
+ },
+ {
+  "registry": "npm",
+  "package": "@wix/mcp",
+  "version": "1.0.95",
+  "repo": null,
+  "verified_by": "published under vendor npm scope",
+  "description": "A Model Context Protocol server for Wix AI tools"
+ },
+ {
+  "registry": "npm",
+  "package": "@influxdata/influxdb3-mcp-server",
+  "version": "1.4.2",
+  "repo": null,
+  "verified_by": "published under vendor npm scope",
+  "description": "Official InfluxDB 3 MCP server for Model Context Protocol integration"
+ },
+ {
+  "registry": "npm",
+  "package": "@posthog/mcp",
+  "version": "0.23.0",
+  "repo": "git+https://github.com/PostHog/posthog-js.git",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "PostHog SDK for Model Context Protocol (MCP) servers \u2014 tracks tool usage, intent, and identity"
+ },
+ {
+  "registry": "pypi",
+  "package": "mcp-server-fetch",
+  "version": "2026.10.24",
+  "repo": "https://github.com/modelcontextprotocol/servers/issues",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "A Model Context Protocol server providing tools to fetch and convert web content for usage by LLMs"
+ },
+ {
+  "registry": "pypi",
+  "package": "mcp-server-git",
+  "version": "2026.10.19",
+  "repo": "https://github.com/modelcontextprotocol/servers/issues",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "A Model Context Protocol server providing tools to read, search, and manipulate Git repositories programmatically via LLMs"
+ },
+ {
+  "registry": "pypi",
+  "package": "mcp-server-time",
+  "version": "2026.10.19",
+  "repo": "https://github.com/modelcontextprotocol/servers/issues",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "A Model Context Protocol server providing tools for time queries and timezone conversions for LLMs"
+ },
+ {
+  "registry": "pypi",
+  "package": "chroma-mcp",
+  "version": "0.2.6",
+  "repo": "https://github.com/chroma-core/chroma-mcp#readme",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Chroma MCP Server - Vector Database Integration for LLM Applications"
+ },
+ {
+  "registry": "pypi",
+  "package": "mcp-clickhouse",
+  "version": "0.7.0",
+  "repo": "https://github.com/ClickHouse/mcp-clickhouse",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An MCP server for ClickHouse."
+ },
+ {
+  "registry": "pypi",
+  "package": "snowflake-labs-mcp",
+  "version": "1.4.2",
+  "repo": "https://github.com/Snowflake-Labs/mcp/issues",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "MCP server for Snowflake"
+ },
+ {
+  "registry": "pypi",
+  "package": "dbt-mcp",
+  "version": "2.7.0",
+  "repo": "https://github.com/dbt-labs/dbt-mcp/blob/main/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "A MCP (Model Context Protocol) server for interacting with dbt resources."
+ },
+ {
+  "registry": "pypi",
+  "package": "redis-mcp-server",
+  "version": "0.5.1",
+  "repo": "https://github.com/redis/mcp-redis",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Redis MCP Server - Model Context Protocol server for Redis"
+ },
+ {
+  "registry": "pypi",
+  "package": "kagimcp",
+  "version": "1.0.2",
+  "repo": "https://github.com/kagisearch/kagi-mcp",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Kagi MCP server"
+ },
+ {
+  "registry": "pypi",
+  "package": "semgrep-mcp",
+  "version": "0.9.0",
+  "repo": "https://github.com/semgrep/mcp/blob/main/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "MCP Server for using Semgrep to scan code"
+ },
+ {
+  "registry": "pypi",
+  "package": "logfire-mcp",
+  "version": "0.9.0",
+  "repo": "https://github.com/pydantic/logfire-mcp",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "The Pydantic Logfire MCP server! \ud83d\udd0d"
+ },
+ {
+  "registry": "pypi",
+  "package": "analytics-mcp",
+  "version": "0.8.0",
+  "repo": "https://github.com/googleanalytics/google-analytics-mcp",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "MCP server for Google Analytics"
+ },
+ {
+  "registry": "pypi",
+  "package": "opik-mcp",
+  "version": "3.0.7",
+  "repo": "https://github.com/comet-ml/opik-mcp/releases",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Model Context Protocol server for Opik (Comet's LLM observability platform)."
+ },
+ {
+  "registry": "pypi",
+  "package": "mcp-server-starrocks",
+  "version": "0.4.0",
+  "repo": "https://github.com/starrocks/mcp-server-starrocks",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "official MCP server for StarRocks"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.aws-documentation-mcp-server",
+  "version": "1.2.3",
+  "repo": "https://github.com/awslabs/mcp/issues",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for AWS Documentation"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.aws-api-mcp-server",
+  "version": "1.5.6",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/aws-api-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Model Context Protocol (MCP) server for interacting with AWS"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.cdk-mcp-server",
+  "version": "1.0.15",
+  "repo": "https://github.com/awslabs/mcp/issues",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS CDK MCP server that provides guidance on AWS Cloud Development Kit best practices, infrastructure as code patterns, and security compliance with CDK Nag. This server offers tools to validate infrastructure designs, explain CDK Nag rules, analyze suppressions, generate Bedrock Agent schemas, and discover Solutions Constructs patterns."
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.cfn-mcp-server",
+  "version": "1.0.19",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/cfn-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for doing common cloudformation tasks and for managing your resources in your AWS account"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.eks-mcp-server",
+  "version": "0.2.1",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/eks-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for EKS"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.ecs-mcp-server",
+  "version": "0.1.37",
+  "repo": "https://github.com/awslabs/mcp",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "AWS ECS MCP Server for automating containerization and deployment of web applications to AWS ECS"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.lambda-tool-mcp-server",
+  "version": "2.1.1",
+  "repo": "https://github.com/awslabs/mcp/issues",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for AWS Lambda Tools"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.dynamodb-mcp-server",
+  "version": "2.1.8",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/dynamodb-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "The official MCP Server for interacting with AWS DynamoDB"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.aws-pricing-mcp-server",
+  "version": "1.1.1",
+  "repo": "https://github.com/awslabs/mcp/issues",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for official pricing of AWS services"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.cloudwatch-mcp-server",
+  "version": "0.3.1",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/cloudwatch-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for cloudwatch"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.cloudtrail-mcp-server",
+  "version": "0.1.1",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/cloudtrail-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for cloudtrail"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.iam-mcp-server",
+  "version": "1.1.2",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/iam-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for managing AWS IAM resources including users, roles, policies, and permissions"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.s3-tables-mcp-server",
+  "version": "0.1.1",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/s3-tables-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for awslabs.s3-tables-mcp-server"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.aws-diagram-mcp-server",
+  "version": "1.0.23",
+  "repo": "https://github.com/awslabs/mcp/issues",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An MCP server that seamlessly creates diagrams using the Python diagrams package DSL"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.core-mcp-server",
+  "version": "1.0.27",
+  "repo": "https://github.com/awslabs/mcp/issues",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for aswlabs Core MCP Server"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.bedrock-kb-retrieval-mcp-server",
+  "version": "1.1.2",
+  "repo": "https://github.com/awslabs/mcp/issues",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for Bedrock Knowledge Base Retrieval"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.nova-canvas-mcp-server",
+  "version": "1.0.15",
+  "repo": "https://github.com/awslabs/mcp/issues",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for Amazon Nova Canvas"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.frontend-mcp-server",
+  "version": "1.0.13",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/frontend-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for frontend"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.git-repo-research-mcp-server",
+  "version": "1.0.15",
+  "repo": "https://github.com/awslabs/mcp/issues",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for researching git repositories"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.code-doc-gen-mcp-server",
+  "version": "1.0.10",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/code-doc-gen-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for code-doc-gen"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.aws-serverless-mcp-server",
+  "version": "0.2.0",
+  "repo": "https://github.com/awslabs/mcp/issues",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for AWS Serverless"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.stepfunctions-tool-mcp-server",
+  "version": "0.2.1",
+  "repo": "https://github.com/awslabs/mcp/issues",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for AWS Step Functions"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.amazon-sns-sqs-mcp-server",
+  "version": "2.1.1",
+  "repo": "https://github.com/awslabs/mcp/issues",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "A Model Context Protocol server for Amazon SNS and SQS to provision and manage your messaging services"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.mysql-mcp-server",
+  "version": "1.1.3",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/mysql-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for mysql"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.postgres-mcp-server",
+  "version": "1.2.2",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/postgres-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for postgres"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.aurora-dsql-mcp-server",
+  "version": "1.1.4",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/aurora-dsql-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for Aurora DSQL"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.documentdb-mcp-server",
+  "version": "2.0.1",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/documentdb-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for documentdb"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.elasticache-mcp-server",
+  "version": "0.2.1",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/elasticache-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for Amazon ElastiCache"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.memcached-mcp-server",
+  "version": "1.1.1",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/memcached-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for Amazon ElastiCache Memcached"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.valkey-mcp-server",
+  "version": "1.1.1",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/valkey-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for valkey"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.amazon-neptune-mcp-server",
+  "version": "1.1.1",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/amazon-neptune-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An Amazon Neptune MCP server that allows for fetching status, schema, and querying using openCypher, Gremlin, and SPARQL for Neptune Database and openCypher for Neptune Analytics."
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.timestream-for-influxdb-mcp-server",
+  "version": "0.1.2",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/timestream-for-influxdb-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for Timestream for InfluxDB"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.redshift-mcp-server",
+  "version": "0.1.2",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/redshift-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for Redshift"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.prometheus-mcp-server",
+  "version": "0.3.1",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/prometheus-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "MCP server for interacting with AWS Managed Prometheus"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.cost-explorer-mcp-server",
+  "version": "0.0.21",
+  "repo": "https://github.com/awslabs/mcp/issues",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "MCP server for analyzing AWS costs and usage data through the AWS Cost Explorer API"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.billing-cost-management-mcp-server",
+  "version": "0.0.42",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/billing-cost-management-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "A Model Context Protocol (MCP) server that provides tools for AWS Billing and Cost Management by wrapping boto3 SDK functions."
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.syntheticdata-mcp-server",
+  "version": "1.0.15",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/syntheticdata-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for syntheticdata"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.openapi-mcp-server",
+  "version": "1.1.6",
+  "repo": "https://github.com/awslabs/mcp/issues",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for OpenAPI"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.aws-healthomics-mcp-server",
+  "version": "0.1.5",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/aws-healthomics-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for AWS HealthOmics"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.healthlake-mcp-server",
+  "version": "0.0.20",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/healthlake-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for healthlake"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.sagemaker-ai-mcp-server",
+  "version": "1.1.0",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/sagemaker-ai-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "MCP server for AWS SageMaker AI"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.amazon-mq-mcp-server",
+  "version": "2.1.1",
+  "repo": "https://github.com/awslabs/mcp/issues",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "A Model Context Protocol server for AmazonMQ to provision and manage your AMQ brokers"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.amazon-keyspaces-mcp-server",
+  "version": "0.0.19",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/amazon-keyspaces-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An Amazon Keyspaces (for Apache Cassandra) MCP server for interacting with Amazon Keyspaces and Apache Cassandra."
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.aws-appsync-mcp-server",
+  "version": "0.2.1",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/aws-appsync-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for AWS AppSync Service capabilities"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.aws-location-mcp-server",
+  "version": "2.1.1",
+  "repo": "https://github.com/awslabs/mcp/issues",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for AWS Location Service"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.aws-msk-mcp-server",
+  "version": "0.0.17",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/aws-msk-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for aws-msk"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.ccapi-mcp-server",
+  "version": "1.0.18",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/ccapi-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for managing AWS resources via Cloud Control API"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.cloudwatch-appsignals-mcp-server",
+  "version": "0.1.20",
+  "repo": "https://github.com/awslabs/mcp/issues",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for AWS Application Signals"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.aws-dataprocessing-mcp-server",
+  "version": "0.2.2",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/aws-dataprocessing-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for dataprocessing"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.aws-iot-sitewise-mcp-server",
+  "version": "11.0.23",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/aws-iot-sitewise-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for aws-iot-sitewise"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.amazon-bedrock-agentcore-mcp-server",
+  "version": "0.2.1",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/amazon-bedrock-agentcore-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "Model Context Protocol (MCP) server for Amazon Bedrock AgentCore services"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.aws-knowledge-mcp-server",
+  "version": "0.1.0",
+  "repo": "https://github.com/awslabs/aws-knowledge-mcp-server",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "AWS Knowledge MCP server for AWS documentation and knowledge base access"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.finch-mcp-server",
+  "version": "0.2.0",
+  "repo": "https://github.com/awslabs/mcp/issues",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "A Model Context Protocol server for Finch to build and push container images"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.aws-bedrock-data-automation-mcp-server",
+  "version": "0.0.19",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/aws-bedrock-data-automation-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for Bedrock Data Automation"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.amazon-kendra-index-mcp-server",
+  "version": "1.1.1",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/amazon-kendra-index-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for amazon-kendra-index-mcp-server"
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.amazon-qindex-mcp-server",
+  "version": "0.1.0",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/amazon-qindex-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "This is an AWS Labs Model Context Protocol (MCP) server implementation that enables Independent Software Vendors (ISVs) to interact with Amazon Q Business's search capabilities. The server facilitates searching across enterprise customers' Q index using the SearchRelevantContent API."
+ },
+ {
+  "registry": "pypi",
+  "package": "awslabs.amazon-qbusiness-anonymous-mcp-server",
+  "version": "0.1.1",
+  "repo": "https://github.com/awslabs/mcp/blob/main/src/amazon-qbusiness-anonymous-mcp-server/CHANGELOG.md",
+  "verified_by": "repository in vendor GitHub org",
+  "description": "An AWS Labs Model Context Protocol (MCP) server for Amazon Q Business anonymous mode application."
+ }
+]

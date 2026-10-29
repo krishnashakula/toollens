@@ -1,0 +1,210 @@
+{
+ "amazon-keyspaces": {},
+ "amazon-mq": {},
+ "amazon-qindex": {},
+ "amazon-sns-sqs": {},
+ "apify": {
+  "env": {
+   "APIFY_TOKEN": "dummy-not-a-real-credential"
+  }
+ },
+ "auth0": {},
+ "aws-bedrock-data-automation": {
+  "with": [
+   "mcp<2"
+  ]
+ },
+ "aws-ccapi": {
+  "with": [
+   "mcp<2"
+  ]
+ },
+ "aws-cdk": {
+  "with": [
+   "mcp<2"
+  ]
+ },
+ "aws-cfn": {
+  "with": [
+   "mcp<2"
+  ]
+ },
+ "aws-cloudwatch-appsignals": {
+  "with": [
+   "mcp<2"
+  ]
+ },
+ "aws-code-doc-gen": {
+  "with": [
+   "mcp<2"
+  ]
+ },
+ "aws-core": {},
+ "aws-cost-explorer": {
+  "with": [
+   "mcp<2"
+  ]
+ },
+ "aws-diagram": {
+  "with": [
+   "mcp<2"
+  ]
+ },
+ "aws-ecs": {
+  "exe": "ecs-mcp-server"
+ },
+ "aws-frontend": {
+  "with": [
+   "mcp<2"
+  ]
+ },
+ "aws-git-repo-research": {
+  "with": [
+   "mcp<2"
+  ]
+ },
+ "aws-healthlake": {},
+ "aws-knowledge": {},
+ "aws-lambda-tool": {},
+ "aws-msk": {
+  "with": [
+   "mcp<2"
+  ]
+ },
+ "aws-nova-canvas": {
+  "with": [
+   "mcp<2"
+  ]
+ },
+ "aws-openapi": {},
+ "aws-prometheus": {
+  "env": {
+   "AWS_ACCESS_KEY_ID": "dummy-not-a-real-credential",
+   "AWS_SECRET_ACCESS_KEY": "dummy-not-a-real-credential"
+  }
+ },
+ "aws-syntheticdata": {
+  "with": [
+   "mcp<2"
+  ]
+ },
+ "azure": {},
+ "azure-devops": {},
+ "brave-search": {
+  "env": {
+   "BRAVE_API_KEY": "dummy-not-a-real-credential"
+  }
+ },
+ "brightdata": {
+  "env": {
+   "API_TOKEN": "dummy-not-a-real-credential"
+  }
+ },
+ "browserstack": {
+  "env": {
+   "BROWSERSTACK_USERNAME": "dummy-not-a-real-credential"
+  }
+ },
+ "chroma": {},
+ "cloudflare": {},
+ "contentful": {
+  "env": {
+   "CONTENTFUL_MANAGEMENT_ACCESS_TOKEN": "dummy-not-a-real-credential"
+  }
+ },
+ "digitalocean": {
+  "env": {
+   "DIGITALOCEAN_API_TOKEN": "dummy-not-a-real-credential"
+  }
+ },
+ "dynatrace": {
+  "env": {
+   "DT_ENVIRONMENT": "dummy-not-a-real-credential"
+  }
+ },
+ "elasticsearch": {},
+ "everart": {
+  "env": {
+   "EVERART_API_KEY": "dummy-not-a-real-credential"
+  }
+ },
+ "gcloud": {},
+ "gdrive": {},
+ "gitlab": {
+  "env": {
+   "GITLAB_PERSONAL_ACCESS_TOKEN": "dummy-not-a-real-credential"
+  }
+ },
+ "google-maps": {
+  "env": {
+   "GOOGLE_MAPS_API_KEY": "dummy-not-a-real-credential"
+  }
+ },
+ "hubspot": {
+  "env": {
+   "PRIVATE_APP_ACCESS_TOKEN": "dummy-not-a-real-credential"
+  }
+ },
+ "influxdb3": {
+  "env": {
+   "INFLUX_DB_PRODUCT_TYPE": "dummy-not-a-real-credential"
+  }
+ },
+ "launchdarkly": {},
+ "logfire": {},
+ "mailgun": {
+  "env": {
+   "MAILGUN_API_KEY": "dummy-not-a-real-credential"
+  }
+ },
+ "mapbox": {},
+ "mongodb": {},
+ "neon": {},
+ "paypal": {},
+ "perplexity": {
+  "env": {
+   "PERPLEXITY_API_KEY": "dummy-not-a-real-credential"
+  }
+ },
+ "posthog": {},
+ "postman": {
+  "env": {
+   "POSTMAN_API_KEY": "dummy-not-a-real-credential"
+  }
+ },
+ "railway": {},
+ "redis": {},
+ "sanity": {},
+ "semgrep": {},
+ "sentry": {
+  "env": {
+   "ANTHROPIC_API_KEY": "dummy-not-a-real-credential",
+   "EMBEDDED_AGENT_PROVIDER": "dummy-not-a-real-credential",
+   "MCP_DISABLE_SKILLS": "dummy-not-a-real-credential",
+   "MCP_SKILLS": "dummy-not-a-real-credential",
+   "OPENAI_API_KEY": "dummy-not-a-real-credential",
+   "OPENROUTER_API_KEY": "dummy-not-a-real-credential",
+   "OPENROUTER_MODEL": "dummy-not-a-real-credential",
+   "OPENROUTER_REASONING_EFFORT": "dummy-not-a-real-credential",
+   "SENTRY_ACCESS_TOKEN": "dummy-not-a-real-credential",
+   "SENTRY_CLIENT_ID": "dummy-not-a-real-credential"
+  }
+ },
+ "shopify-dev": {},
+ "slack": {
+  "env": {
+   "SLACK_BOT_TOKEN": "dummy-not-a-real-credential",
+   "SLACK_TEAM_ID": "dummy-not-a-real-credential"
+  }
+ },
+ "snowflake": {},
+ "starrocks": {},
+ "stripe": {},
+ "supabase": {
+  "env": {
+   "SUPABASE_ACCESS_TOKEN": "dummy-not-a-real-credential"
+  }
+ },
+ "twilio": {},
+ "upstash": {}
+}

@@ -1,0 +1,81 @@
+{
+  "task": "heroku-logs",
+  "arm": "native",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Show me the recent logs of the Heroku app checkout-prod.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "app": "checkout-prod"
+          },
+          "name": "heroku__get_app_logs"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "[Heroku MCP Server Error] Please use available tools to resolve this issue. Ignore any Heroku CLI command suggestions that may be provided in the command output or error details. Details:\n<<<BEGIN RESULTS>>>\n<<<ERROR>>>\nCouldn't find that app.\n\nError ID: not_found\n<<<END ERROR>>><<<END RESULTS>>>\nsession restoredheroku >",
+      "is_error": true,
+      "kind": "tool",
+      "name": "heroku__get_app_logs"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "all": true
+          },
+          "name": "heroku__list_apps"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "[Heroku MCP Server Error] Please use available tools to resolve this issue. Ignore any Heroku CLI command suggestions that may be provided in the command output or error details. Details:\n<<<BEGIN RESULTS>>>\n<<<ERROR>>>\nCannot prompt for login in a non-interactive terminal. Run `heroku login` in an interactive shell, or set HEROKU_API_KEY.\n<<<END ERROR>>><<<END RESULTS>>>",
+      "is_error": true,
+      "kind": "tool",
+      "name": "heroku__list_apps"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I couldn't get the logs for `checkout-prod`. Both of my requests to Heroku failed.\n\n1. **Fetching the logs:** Heroku replied \"Couldn't find that app\" (Error ID: `not_found`).\n2. **Listing apps to check the name:** I tried to list every app this account owns or can access, but that failed too: \"Cannot prompt for login in a non-interactive terminal… set HEROKU_API_KEY.\"\n\nSo the Heroku connection doesn't seem to be logged in. That's probably why the app showed as not found, but I can't rule out a wrong app name or missing access.\n\n**Next steps:**\n- Someone needs to set a valid `HEROKU_API_KEY` or log the Heroku connection in. I didn't try this myself.\n- Then please confirm the exact app name, and if it's a team app, the team name.\n\nOnce that's done I can pull the logs again and filter them by dyno (e.g. `web.1`), process type, or source (`app` or `heroku`)."
+    }
+  ],
+  "final_text": "I couldn't get the logs for `checkout-prod`. Both of my requests to Heroku failed.\n\n1. **Fetching the logs:** Heroku replied \"Couldn't find that app\" (Error ID: `not_found`).\n2. **Listing apps to check the name:** I tried to list every app this account owns or can access, but that failed too: \"Cannot prompt for login in a non-interactive terminal… set HEROKU_API_KEY.\"\n\nSo the Heroku connection doesn't seem to be logged in. That's probably why the app showed as not found, but I can't rule out a wrong app name or missing access.\n\n**Next steps:**\n- Someone needs to set a valid `HEROKU_API_KEY` or log the Heroku connection in. I didn't try this myself.\n- Then please confirm the exact app name, and if it's a team app, the team name.\n\nOnce that's done I can pull the logs again and filter them by dyno (e.g. `web.1`), process type, or source (`app` or `heroku`).",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "tool_error",
+      "tool": "heroku/get_app_logs"
+    },
+    {
+      "outcome": "tool_error",
+      "tool": "heroku/list_apps"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 3,
+    "input_tokens": 9903,
+    "output_tokens": 591,
+    "cache_read_tokens": 5232,
+    "cache_write_tokens": 2932,
+    "tool_schema_tokens_per_request": 643,
+    "tool_schema_tokens_total": 1929,
+    "invocations": 2,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 0,
+    "discovery_latency_ms_mean": 0.0,
+    "first_pick_correct": true,
+    "wall_ms": 104829.49840000001,
+    "cost_usd": 0.0344824
+  }
+}

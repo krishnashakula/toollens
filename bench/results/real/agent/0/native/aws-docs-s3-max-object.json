@@ -1,0 +1,143 @@
+{
+  "task": "aws-docs-s3-max-object",
+  "arm": "native",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "According to the official AWS documentation, what is the maximum size of a single object stored in Amazon S3?",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "limit": 5,
+            "search_intent": "Find the maximum size of a single object in Amazon S3",
+            "search_phrase": "S3 maximum object size"
+          },
+          "name": "aws-documentation__search_documentation"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"facets\":null,\"metadata\":{\"discovered_services\":null,\"related_tasks\":null,\"relationships\":[{\"from\":\"S3 file key\",\"relation\":\"relatesTo\",\"to\":\"S3 bucket name\",\"to_description\":\"Unique identifier for an S3 bucket constrained to lowercase letters, numbers, periods, and hyphens with a length between 3 and 63 characters\"},{\"from\":\"S3 multipart upload part size\",\"relation\":\"relatesTo\",\"to\":\"S3 drive default storage class\",\"to_description\":\"A drive-wide default S3 storage class set at mount time with -StorageClass that applies to every upload unless overridden per Set-Content call.\"},{\"from\":\"S3 multipart upload part size\",\"relation\":\"relatesTo\",\"to\":\"S3 PowerShell drive\",\"to_description\":\"A PowerShell drive provider that mounts Amazon S3 storage so buckets and prefixes appear as folders and objects appear as files.\"},{\"from\":\"S3Location Key\",\"relation\":\"relatesTo\",\"to\":\"S3Location Bucket\",\"to_description\":\"The name of the Amazon S3 bucket where a resource is stored, with length constraints between 3 and 63 characters.\"},{\"from\":\"MatchObjectSize\",\"relation\":\"relatesTo\",\"to\":\"MatchObjectAge\",\"to_description\":\"A filter property in S3 StorageLensGroup And that matches objects based on a defined age range using minimum and maximum number of days\"}]},\"query_id\":\"70f1b429-d272-4c0b-8fa2-698895842966\",\"search_results\":[{\"context\":\"The largest single object that can be uploaded to Amazon S3 using multipart upload.\",\"metadata\":null,\"rank_order\":1,\"recommended_sections\":[\"Amazon S3 multipart upload limits\"],\"sections\":null,\"title\":\"multipart upload maximum object size\",\"url\":\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html\"},{\"context\":\"The technical limits of Amazon S3 multipart upload that determine the actual maximum object size of 53.7 TB\",\"metadata\":null,\"rank_order\":2,\"recommended_sections\":[\"Amazon S3 objects overview\"],\"sections\":null,\"title\":\"S3 multipart upload constraints\",\"url\":\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingObjects.html\"},{\"context\":\"The Amazon S3 bucket field in ResolvedS3Object that identifies where the deployment package is stored\",\"metadata\":null,\"rank_order\":3,\"recommended_sections\":[\"Contents\"],\"sections\":null,\"title\":\"ResolvedS3Object S3Bucket\",\"url\":\"https://docs.aws.amazon.com/lambda/latest/api/API_ResolvedS3Object.html\"},{\"context\":\"A 50 GB maximum object size constraint that applies when using Amazon S3 operations through FSx for OpenZFS access points.\",\"metadata\":null,\"rank_order\":4,\"recommended_sections\":[\"Access point compatibility\"],\"sections\":null,\"title\":\"FSx for OpenZFS access point object size limit\",\"url\":\"https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/access-points-object-api-support.html\"},{\"context\":\"The configurable size of each part in a multipart S3 upload, set via -PartSize, between the S3 minimum of 5 MiB and maximum of 5 GiB.\",\"metadata\":null,\"rank_order\":5,\"recommended_sections\":[\"Upload very large objects\"],\"sections\":null,\"title\":\"S3 multipart upload part size\",\"url\":\"https://docs.aws.amazon.com/powershell/v5/userguide/pstools-s3-drive.html\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "aws-documentation__search_documentation"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "section_titles": [
+              "Amazon S3 multipart upload limits"
+            ],
+            "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html"
+          },
+          "name": "aws-documentation__read_sections"
+        },
+        {
+          "input": {
+            "section_titles": [
+              "Amazon S3 objects overview"
+            ],
+            "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingObjects.html"
+          },
+          "name": "aws-documentation__read_sections"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "Error executing tool read_sections: This document does not contain subsections. Please use the read_documentation tool instead to get the full document content.",
+      "is_error": true,
+      "kind": "tool",
+      "name": "aws-documentation__read_sections"
+    },
+    {
+      "content": "Error executing tool read_sections: No matching sections were found: \"Amazon S3 objects overview\". Available sections: \"Object subresources\". Please retry with one or more of these sections or use the read_documentation tool instead to get the full document content.",
+      "is_error": true,
+      "kind": "tool",
+      "name": "aws-documentation__read_sections"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html"
+          },
+          "name": "aws-documentation__read_documentation"
+        },
+        {
+          "input": {
+            "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingObjects.html"
+          },
+          "name": "aws-documentation__read_documentation"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"result\":\"AWS Documentation from https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html:\\n\\n# Amazon S3 multipart upload limits\\n\\nMultipart upload allows you to upload a single object as a set of parts. Each part is a\\ncontiguous portion of the object's data. After all parts of your object are uploaded, Amazon S3\\nassembles these parts and creates the object. In general, when your object size reaches 100\\nMB, you should consider using multipart uploads instead of uploading the object in a single\\noperation. For more information about multipart uploads, see [Uploading and copying objects using multipart upload in Amazon S3](./mpuoverview.html).\\n\\nThe following table provides multipart upload core specifications. These include maximum\\nobject size, maximum number of parts, maximum part size, and more. There is no minimum size\\nlimit on the last part of your multipart upload.\\n\\n| Item | Specification |\\n| --- | --- |\\n| Maximum object size | 48.8 TiB |\\n| Maximum number of parts per upload | 10,000 |\\n| Part numbers | 1 to 10,000 (inclusive) |\\n| Part size | 5 MiB to 5 GiB. There is no minimum size limit on the last part of your multipart upload. |\\n| Maximum number of parts returned for a list parts request | 1000 |\\n| Maximum number of multipart uploads returned in a list multipart uploads request | 1000 |\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "aws-documentation__read_documentation"
+    },
+    {
+      "content": "{\"result\":\"AWS Documentation from https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingObjects.html:\\n\\n# Amazon S3 objects overview\\n\\nAmazon S3 is an object store that uses unique key-values to store as many objects as you want.\\nYou store these objects in one or more buckets, and each object can be up to 50 TB in size. An\\nobject consists of the following:\\n\\nKey\\n:   The name that you assign to an object. You use the object key to retrieve the object.\\n    For more information, see [Working with object\\n    metadata](./UsingMetadata.html).\\n\\nVersion ID\\n:   Within a bucket, a key and version ID uniquely identify an object. The version ID is\\n    a string that Amazon S3 generates when you add an object to a bucket. For more information, see\\n    [Retaining multiple versions of objects with S3 Versioning](./Versioning.html).\\n\\nValue\\n:   The content that you are storing.\\n\\n    An object value can be any sequence of bytes. Objects can range in size from zero to\\n    50 TB. For more information, see [Uploading objects](./upload-objects.html).\\n\\n    ###### Note\\n\\n    While Amazon S3 documentation commonly references 50 TB object size limit, the actual\\n    maximum object size is 53.7 TB (48.8 TiB). This limit is determined by multipart upload\\n    constraints: 10,000 maximum parts x 5 GiB per part = 50,000 GiB (53.7 TB)\\n\\nMetadata\\n:   A set of name-value pairs with which you can store information regarding the object.\\n    You can assign metadata, referred to as user-defined metadata, to your objects in Amazon S3.\\n    Amazon S3 also assigns system-metadata to these objects, which it uses for managing objects.\\n    For more information, see [Working with object\\n    metadata](./UsingMetadata.html).\\n\\nSubresources\\n:   Amazon S3 uses the subresource mechanism to store object-specific additional information.\\n    Because subresources are subordinates to objects, they are always associated with some\\n    other entity such as an object or a bucket. For more information, see [Object subresources](#ObjectAndSubResource).\\n\\nAccess control information\\n:   You can control access to the objects you store in Amazon S3. Amazon S3 supports both the\\n    resource-based access control, such as an access control list (ACL) and bucket policies,\\n    and user-based access control. For more information about access control, see the\\n    following:\\n\\n    * [Access control in Amazon S3](./access-management.html)\\n    * [Identity and Access Management for Amazon S3](./security-iam.html)\\n    * [Configuring ACLs](./managing-acls.html)\\n\\n    Your Amazon S3 resources (for example, buckets and objects) are private by default. You\\n    must explicitly grant permission for others to access these resources. For more\\n    information about sharing objects, see [Sharing objects with presigned URLs](./ShareObjectPreSignedURL.html).\\n\\nTags\\n:   You can use tags to categorize your stored objects, for access control, or cost allocation.\\n    For more information, see [Tagging your objects](./object-tagging.html).\\n\\n## Object subresources\\n\\nAmazon S3 defines a set of subresources associated with buckets and objects. Subresources are\\nsubordinates to objects. This means that subresources don't exist on their own. They are\\nalways associated with some other entity, such as an object or a bucket.\\n\\nThe following table lists the subresources associated with Amazon S3 objects.\\n\\n| Subresource | Description |\\n| --- | --- |\\n| acl | Contains a list of grants identifying the grantees and the permissions granted. When you create an object, the `acl` identifies the object owner as having full control over the object. You can retrieve an object ACL or replace it with an updated list of grants. Any update to an ACL requires you to replace the existing ACL. For more information about ACLs, see [Access control list (ACL) overview](./acl-overview.html). |\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "aws-documentation__read_documentation"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "The official AWS documentation says a single Amazon S3 object can be up to **50 TB**. The exact ceiling is **53.7 TB (48.8 TiB)**.\n\n- **\"Amazon S3 objects overview\"** (docs.aws.amazon.com/AmazonS3/latest/userguide/UsingObjects.html) says each object \"can be up to 50 TB in size\" and that objects \"can range in size from zero to 50 TB.\" A note on the same page explains that 50 TB is the commonly quoted figure, but the actual maximum is 53.7 TB (48.8 TiB).\n- **Where the limit comes from:** an object can have at most 10,000 parts of up to 5 GiB each, so 10,000 × 5 GiB = 50,000 GiB (53.7 TB).\n- **\"Amazon S3 multipart upload limits\"** (…/userguide/qfacts.html) lists:\n  - Maximum object size: **48.8 TiB**\n  - Maximum parts per upload: **10,000**\n  - Part size: **5 MiB to 5 GiB**, with no minimum for the last part\n\nTo get anywhere near that size you have to use multipart upload. AWS recommends it once an object reaches about 100 MB.\n\nThe older and widely quoted 5 TB limit no longer matches these pages."
+    }
+  ],
+  "final_text": "The official AWS documentation says a single Amazon S3 object can be up to **50 TB**. The exact ceiling is **53.7 TB (48.8 TiB)**.\n\n- **\"Amazon S3 objects overview\"** (docs.aws.amazon.com/AmazonS3/latest/userguide/UsingObjects.html) says each object \"can be up to 50 TB in size\" and that objects \"can range in size from zero to 50 TB.\" A note on the same page explains that 50 TB is the commonly quoted figure, but the actual maximum is 53.7 TB (48.8 TiB).\n- **Where the limit comes from:** an object can have at most 10,000 parts of up to 5 GiB each, so 10,000 × 5 GiB = 50,000 GiB (53.7 TB).\n- **\"Amazon S3 multipart upload limits\"** (…/userguide/qfacts.html) lists:\n  - Maximum object size: **48.8 TiB**\n  - Maximum parts per upload: **10,000**\n  - Part size: **5 MiB to 5 GiB**, with no minimum for the last part\n\nTo get anywhere near that size you have to use multipart upload. AWS recommends it once an object reaches about 100 MB.\n\nThe older and widely quoted 5 TB limit no longer matches these pages.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "aws-documentation/search_documentation"
+    },
+    {
+      "outcome": "tool_error",
+      "tool": "aws-documentation/read_sections"
+    },
+    {
+      "outcome": "tool_error",
+      "tool": "aws-documentation/read_sections"
+    },
+    {
+      "outcome": "ok",
+      "tool": "aws-documentation/read_documentation"
+    },
+    {
+      "outcome": "ok",
+      "tool": "aws-documentation/read_documentation"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 4,
+    "input_tokens": 61264,
+    "output_tokens": 1269,
+    "cache_read_tokens": 27858,
+    "cache_write_tokens": 15506,
+    "tool_schema_tokens_per_request": 643,
+    "tool_schema_tokens_total": 2572,
+    "invocations": 5,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 0,
+    "discovery_latency_ms_mean": 0.0,
+    "first_pick_correct": true,
+    "wall_ms": 220459.4467,
+    "cost_usd": 0.1800816
+  }
+}

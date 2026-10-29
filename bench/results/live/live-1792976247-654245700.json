@@ -1,0 +1,28 @@
+{
+  "arm": "full",
+  "done": true,
+  "events": [
+    {
+      "elapsed_ms": 9280.0,
+      "error": "Claude API 400 Bad Request: prompt is too long: 1429162 tokens > 1000000 maximum",
+      "kind": "error"
+    },
+    {
+      "elapsed_ms": 9291.0,
+      "error": "Claude API 400 Bad Request: prompt is too long: 1429162 tokens > 1000000 maximum",
+      "input_tokens": 0,
+      "kind": "final",
+      "output_tokens": 0,
+      "requests": 0,
+      "stop_reason": "api_error",
+      "text": ""
+    }
+  ],
+  "id": "live-1792976247-654245700",
+  "model": "claude-opus-5-5",
+  "prompt": "Text +15555550100 'Deploy finished' from +15555550199 using Twilio.",
+  "schema_tokens_per_request": 1428973,
+  "started_unix": 1792976247,
+  "tool_defs_sent": 2453,
+  "tools_in_catalog": 2468
+}

@@ -1,0 +1,140 @@
+{
+  "task": "investigate-checkout",
+  "arm": "full",
+  "size": 1000,
+  "model": "claude-opus-5-5",
+  "prompt": "The latest production deployment of checkout-api failed. Find out why it failed and which commit caused it.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "query": "checkout-api"
+          },
+          "name": "deploy__search"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"services\":[{\"name\":\"checkout-api\",\"repo\":\"acme/checkout-api\",\"service_id\":\"svc-checkout\",\"team\":\"payments\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "deploy__search"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "limit": 5,
+            "service_id": "svc-checkout"
+          },
+          "name": "deploy__list_deployments"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"deployments\":[{\"commit_sha\":\"9f3c2ab\",\"deployment_id\":\"dep-4821\",\"environment\":\"production\",\"previous_commit_sha\":\"41d7e0c\",\"service_id\":\"svc-checkout\",\"started_at\":\"2026-10-24T14:02:11Z\",\"status\":\"failed\",\"triggered_by\":\"dana.k\",\"version\":\"v2.14.0\"},{\"commit_sha\":\"41d7e0c\",\"deployment_id\":\"dep-4790\",\"environment\":\"production\",\"previous_commit_sha\":\"7be19d0\",\"service_id\":\"svc-checkout\",\"started_at\":\"2026-10-22T09:15:40Z\",\"status\":\"succeeded\",\"triggered_by\":\"lee.m\",\"version\":\"v2.13.2\"},{\"commit_sha\":\"7be19d0\",\"deployment_id\":\"dep-4733\",\"environment\":\"production\",\"previous_commit_sha\":\"02aa9c4\",\"service_id\":\"svc-checkout\",\"started_at\":\"2026-10-19T10:01:02Z\",\"status\":\"succeeded\",\"triggered_by\":\"dana.k\",\"version\":\"v2.13.1\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "deploy__list_deployments"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "deployment_id": "dep-4821"
+          },
+          "name": "deploy__get_deployment"
+        },
+        {
+          "input": {
+            "base_sha": "41d7e0c",
+            "head_sha": "9f3c2ab",
+            "repo": "acme/checkout-api"
+          },
+          "name": "vcs__compare_commits"
+        },
+        {
+          "input": {
+            "deployment_id": "dep-4821",
+            "level": "error",
+            "limit": 20,
+            "service_id": "svc-checkout"
+          },
+          "name": "observability__get_logs"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"commit_sha\":\"9f3c2ab\",\"deployment_id\":\"dep-4821\",\"environment\":\"production\",\"failure_reason\":\"health check failed: 3/3 pods in CrashLoopBackOff; traffic kept on v2.13.2\",\"previous_commit_sha\":\"41d7e0c\",\"service_id\":\"svc-checkout\",\"started_at\":\"2026-10-24T14:02:11Z\",\"status\":\"failed\",\"triggered_by\":\"dana.k\",\"version\":\"v2.14.0\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "deploy__get_deployment"
+    },
+    {
+      "content": "{\"commits\":[{\"author\":\"dana.k\",\"commit_sha\":\"9f3c2ab\",\"date\":\"2026-10-24T12:40:00Z\",\"diff\":\"deploy/checkout-api.env.tmpl: - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}\\nsrc/config/loader.rs: + secrets now read from ConfigLoader namespace \\\"payments\\\" (namespace not provisioned in production)\",\"files\":[\"src/config/loader.rs\",\"deploy/checkout-api.env.tmpl\"],\"message\":\"Load webhook secrets through new ConfigLoader\",\"pull_request\":1287,\"repo\":\"acme/checkout-api\"}],\"repo\":\"acme/checkout-api\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "vcs__compare_commits"
+    },
+    {
+      "content": "{\"lines\":[{\"deployment_id\":\"dep-4821\",\"level\":\"error\",\"message\":\"config: required env var STRIPE_WEBHOOK_SECRET is not set\",\"service_id\":\"svc-checkout\",\"ts\":\"2026-10-24T14:02:31Z\"},{\"deployment_id\":\"dep-4821\",\"level\":\"fatal\",\"message\":\"panic: failed to initialize payment webhooks: missing webhook secret\",\"service_id\":\"svc-checkout\",\"ts\":\"2026-10-24T14:02:31Z\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "observability__get_logs"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I found the cause. The latest production deployment of checkout-api (svc-checkout) failed, and the commit behind it is **9f3c2ab**.\n\n**Deployment:** dep-4821, version v2.14.0, started by dana.k at 2026-10-24T14:02:11Z. Status: failed.\n\n**Why it failed:** The health check failed because all 3 pods were stuck in CrashLoopBackOff (crashing on startup and restarting). Production traffic stayed on the previous version, v2.13.2 (dep-4790, commit 41d7e0c). The deployment's error logs show:\n- `config: required env var STRIPE_WEBHOOK_SECRET is not set`\n- `panic: failed to initialize payment webhooks: missing webhook secret`\n\n**Commit responsible:** 9f3c2ab, \"Load webhook secrets through new ConfigLoader\", by dana.k in PR #1287. It's the only commit between the last good deployment (41d7e0c) and the failed one.\n- In `deploy/checkout-api.env.tmpl`, it removed the line `STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}`.\n- In `src/config/loader.rs`, it switched secrets to be read from the ConfigLoader namespace \"payments\". According to the diff note, that namespace hasn't been set up in production.\n\nSo the webhook secret is missing in production and the service crashes on startup. To fix it, either set up the \"payments\" ConfigLoader namespace in production or revert 9f3c2ab. I haven't changed anything, and no rollback is needed because traffic is still on v2.13.2."
+    }
+  ],
+  "final_text": "I found the cause. The latest production deployment of checkout-api (svc-checkout) failed, and the commit behind it is **9f3c2ab**.\n\n**Deployment:** dep-4821, version v2.14.0, started by dana.k at 2026-10-24T14:02:11Z. Status: failed.\n\n**Why it failed:** The health check failed because all 3 pods were stuck in CrashLoopBackOff (crashing on startup and restarting). Production traffic stayed on the previous version, v2.13.2 (dep-4790, commit 41d7e0c). The deployment's error logs show:\n- `config: required env var STRIPE_WEBHOOK_SECRET is not set`\n- `panic: failed to initialize payment webhooks: missing webhook secret`\n\n**Commit responsible:** 9f3c2ab, \"Load webhook secrets through new ConfigLoader\", by dana.k in PR #1287. It's the only commit between the last good deployment (41d7e0c) and the failed one.\n- In `deploy/checkout-api.env.tmpl`, it removed the line `STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}`.\n- In `src/config/loader.rs`, it switched secrets to be read from the ConfigLoader namespace \"payments\". According to the diff note, that namespace hasn't been set up in production.\n\nSo the webhook secret is missing in production and the service crashes on startup. To fix it, either set up the \"payments\" ConfigLoader namespace in production or revert 9f3c2ab. I haven't changed anything, and no rollback is needed because traffic is still on v2.13.2.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "deploy/search"
+    },
+    {
+      "outcome": "ok",
+      "tool": "deploy/list_deployments"
+    },
+    {
+      "outcome": "ok",
+      "tool": "deploy/get_deployment"
+    },
+    {
+      "outcome": "ok",
+      "tool": "vcs/compare_commits"
+    },
+    {
+      "outcome": "ok",
+      "tool": "observability/get_logs"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 4,
+    "input_tokens": 366127,
+    "output_tokens": 992,
+    "cache_read_tokens": 273604,
+    "cache_write_tokens": 92513,
+    "tool_schema_tokens_per_request": 90844,
+    "tool_schema_tokens_total": 363376,
+    "invocations": 5,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 0,
+    "discovery_latency_ms_mean": 0.0,
+    "wall_ms": 16551.0307,
+    "cost_usd": 0.5371658
+  }
+}

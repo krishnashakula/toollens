@@ -1,0 +1,119 @@
+{
+  "task": "digitalocean-droplets",
+  "arm": "lens",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "List all droplets in our DigitalOcean account.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "list DigitalOcean droplets",
+            "limit": 5
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"digitalocean/docs-find-for-service\",\"role\":\"match\",\"summary\":\"Given a DigitalOcean service name (e.g., \\\"droplets\\\", \\\"managed kubernetes\\\", \\\"app platform\\\"), return a list of relevant documentation pages wi…\",\"why\":\"matches list, digital, ocean, droplet\"},{\"id\":\"digitalocean/marketplace-1-click-list\",\"role\":\"match\",\"summary\":\"List available 1-click applications from the DigitalOcean marketplace\",\"why\":\"matches list, digital, ocean, droplet\"},{\"id\":\"digitalocean/docs-get-quickstart\",\"role\":\"match\",\"summary\":\"Get the quickstart or getting-started guide for a DigitalOcean service\",\"why\":\"matches digital, ocean, droplet\"},{\"id\":\"digitalocean/docs-get-page\",\"role\":\"match\",\"summary\":\"Fetch the full markdown content of a specific DigitalOcean docs page\",\"why\":\"matches digital, ocean, droplet\"},{\"id\":\"digitalocean/functions-list-triggers\",\"role\":\"match\",\"summary\":\"List all triggers for a DigitalOcean Functions namespace\",\"why\":\"matches list, digital, ocean\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "get all droplets virtual machines in account",
+            "limit": 8
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"amazon-mq/rabbitmq_broker_list_vhosts\",\"role\":\"match\",\"summary\":\"List all the virtual hosts (vhosts) in the broker\",\"why\":\"matches all, virtual\"},{\"id\":\"twilio/TwilioApiV2010--ListAvailablePhoneNumberMachineToMachine\",\"role\":\"match\",\"summary\":\"Twilio - Api: This is the public Twilio REST API\",\"why\":\"matches get, all, machin, account\"},{\"id\":\"amazon-mq/rabbitmq_broker_get_shovel_info\",\"role\":\"match\",\"summary\":\"Get detailed information about specific shovel by name that is in a selected virtual host (vhost) in the RabbitMQ broker\",\"why\":\"matches get, virtual\"},{\"id\":\"amazon-mq/rabbitmq_broker_get_broker_definition\",\"role\":\"match\",\"summary\":\"Get the RabbitMQ definitions: exchanges, queues, bindings, users, virtual hosts, permissions, topic permissions, and parameters\",\"why\":\"matches get, virtual\"},{\"id\":\"twilio/TwilioApiV2010--CreateCall\",\"role\":\"match\",\"summary\":\"Twilio - Api: This is the public Twilio REST API\",\"why\":\"matches get, machin, account\"},{\"id\":\"digitalocean/droplet-list\",\"role\":\"match\",\"summary\":\"List all droplets for the user\",\"why\":\"matches all, droplet\"},{\"id\":\"digitalocean/droplet-get\",\"role\":\"match\",\"summary\":\"Get a droplet by its ID\",\"why\":\"matches get, droplet\"},{\"id\":\"twilio/TwilioApiV2010--CreateParticipant\",\"role\":\"match\",\"summary\":\"Twilio - Api: This is the public Twilio REST API\",\"why\":\"matches get, machin, account\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "digitalocean/droplet-list"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"idempotentHint\":true,\"openWorldHint\":false,\"readOnlyHint\":true},\"description\":\"List all droplets for the user. Supports pagination.\",\"id\":\"digitalocean/droplet-list\",\"input_schema\":{\"properties\":{\"Page\":{\"default\":1,\"description\":\"Page number\",\"type\":\"number\"},\"PerPage\":{\"default\":50,\"description\":\"Items per page\",\"type\":\"number\"}},\"required\":[],\"type\":\"object\"},\"name\":\"droplet-list\",\"output_schema\":{\"$defs\":{\"BackupWindow\":{\"properties\":{\"end\":{\"format\":\"date-time\",\"type\":[\"string\",\"null\"]},\"start\":{\"format\":\"date-time\",\"type\":[\"string\",\"null\"]}},\"type\":[\"object\",\"null\"]},\"DiskInfo\":{\"properties\":{\"size\":{\"$ref\":\"#/$defs/DiskSize\"},\"type\":{\"type\":[\"string\",\"null\"]}},\"type\":[\"object\",\"null\"]},\"DiskSize\":{\"properties\":{\"amount\":{\"type\":[\"integer\",\"null\"]},\"unit\":{\"type\":[\"string\",\"null\"]}},\"type\":[\"object\",\"null\"]},\"GPUInfo\":{\"properties\":{\"count\":{\"type\":[\"integer\",\"null\"]},\"model\":{\"type\":[\"string\",\"null\"]},\"supported_partition_modes\":{\"items\":{\"type\":[\"string\",\"null\"]},\"type\":[\"array\",\"null\"]},\"vram\":{\"$ref\":\"#/$defs/VRAM\"}},\"type\":[\"object\",\"null\"]},\"Image\":{\"properties\":{\"created_at\":{\"type\":[\"string\",\"null\"]},\"description\":{\"type\":[\"string\",\"null\"]},\"distribution\":{\"type\":[\"string\",\"null\"]},\"error_message\":{\"type\":[\"string\",\"null\"]},\"id\":{\"type\":[\"integer\",\"null\"]},\"min_disk_size\":{\"type\":[\"integer\",\"null\"]},\"name\":{\"type\":[\"string\",\"null\"]},\"public\":{\"type\":[\"boolean\",\"null\"]},\"regions\":{\"items\":{\"type\":[\"string\",\"null\"]},\"type\":[\"array\",\"null\"]},\"size_gigabytes\":{\"type\":[\"number\",\"null\"]},\"slug\":{\"type\":[\"string\",\"null\"]},\"status\":{\"type\":[\"string\",\"null\"]},\"tags\":{\"items\":{\"type\":[\"string\",\"null\"]},\"type\":[\"array\",\"null\"]},\"type\":{\"type\":[\"string\",\"null\"]}},\"type\":[\"object\",\"null\"]},\"Kernel\":{\"properties\":{\"id\":{\"type\":[\"integer\",\"null\"]},\"name\":{\"type\":[\"string\",\"null\"]},\"version\":{\"type\":[\"string\",\"null\"]}},\"type\":[\"object\",\"null\"]},\"NetworkV4\":{\"properties\":{\"gateway\":{\"type\":[\"string\",\"null\"]},\"ip_address\":{\"type\":[\"string\",\"null\"]},\"netmask\":{\"type\":[\"string\",\"null\"]},\"type\":{\"type\":[\"string\",\"null\"]}},\"type\":[\"object\",\"null\"]},\"NetworkV6\":{\"properties\":{\"gateway\":{\"type\":[\"string\",\"null\"]},\"ip_address\":{\"type\":[\"string\",\"null\"]},\"netmask\":{\"type\":[\"integer\",\"null\"]},\"type\":{\"type\":[\"string\",\"null\"]}},\"type\":[\"object\",\"null\"]},\"Networks\":{\"properties\":{\"v4\":{\"items\":{\"$ref\":\"#/$defs/NetworkV4\"},\"type\":[\"array\",\"null\"]},\"v6\":{\"items\":{\"$ref\":\"#/$defs/NetworkV6\"},\"type\":[\"array\",\"null\"]}},\"type\":[\"object\",\"null\"]},\"Region\":{\"properties\":{\"available\":{\"type\":[\"boolean\",\"null\"]},\"features\":{\"items\":{\"type\":[\"string\",\"null\"]},\"type\":[\"array\",\"null\"]},\"name\":{\"type\":[\"string\",\"null\"]},\"sizes\":{\"items\":{\"type\":[\"string\",\"null\"]},\"type\":[\"array\",\"null\"]},\"slug\":{\"type\":[\"string\",\"null\"]}},\"type\":[\"object\",\"null\"]},\"Size\":{\"properties\":{\"available\":{\"type\":[\"boolean\",\"null\"]},\"description\":{\"type\":[\"string\",\"null\"]},\"disk\":{\"type\":[\"integer\",\"null\"]},\"disk_info\":{\"items\":{\"$ref\":\"#/$defs/DiskInfo\"},\"type\":[\"array\",\"null\"]},\"gpu_info\":{\"$ref\":\"#/$defs/GPUInfo\"},\"memory\":{\"type\":[\"integer\",\"null\"]},\"price_hourly\":{\"type\":[\"number\",\"null\"]},\"price_monthly\":{\"type\":[\"number\",\"null\"]},\"regions\":{\"items\":{\"type\":[\"string\",\"null\"]},\"type\":[\"array\",\"null\"]},\"slug\":{\"type\":[\"string\",\"null\"]},\"transfer\":{\"type\":[\"number\",\"null\"]},\"vcpus\":{\"type\":[\"integer\",\"null\"]}},\"type\":[\"object\",\"null\"]},\"VRAM\":{\"properties\":{\"amount\":{\"type\":[\"integer\",\"null\"]},\"unit\":{\"type\":[\"string\",\"null\"]}},\"type\":[\"object\",\"null\"]},\"dropletSummary\":{\"properties\":{\"backup_ids\":{\"items\":{\"type\":[\"integer\",\"null\"]},\"type\":[\"array\",\"null\"]},\"created_at\":{\"type\":[\"string\",\"null\"]},\"disk\":{\"type\":[\"integer\",\"null\"]},\"features\":{\"items\":{\"type\":[\"string\",\"null\"]},\"type\":[\"array\",\"null\"]},\"id\":{\"type\":[\"integer\",\"null\"]},\"image\":{\"$ref\":\"#/$defs/Image\"},\"kernel\":{\"$ref\":\"#/$defs/Kernel\"},\"locked\":{\"type\":[\"boolean\",\"null\"]},\"memory\":{\"type\":[\"integer\",\"null\"]},\"name\":{\"type\":[\"string\",\"null\"]},\"networks\":{\"$ref\":\"#/$defs/Networks\"},\"next_backup_window\":{\"$ref\":\"#/$defs/BackupWindow\"},\"region\":{\"$ref\":\"#/$defs/Region\"},\"size\":{\"$ref\":\"#/$defs/Size\"},\"size_slug\":{\"type\":[\"string\",\"null\"]},\"snapshot_ids\":{\"items\":{\"type\":[\"integer\",\"null\"]},\"type\":[\"array\",\"null\"]},\"status\":{\"type\":[\"string\",\"null\"]},\"tags\":{\"items\":{\"type\":[\"string\",\"null\"]},\"type\":[\"array\",\"null\"]},\"vcpus\":{\"type\":[\"integer\",\"null\"]},\"volume_ids\":{\"items\":{\"type\":[\"string\",\"null\"]},\"type\":[\"array\",\"null\"]},\"vpc_uuid\":{\"type\":[\"string\",\"null\"]}},\"type\":[\"object\",\"null\"]}},\"properties\":{\"droplets\":{\"items\":{\"$ref\":\"#/$defs/dropletSummary\"},\"type\":[\"array\",\"null\"]}},\"required\":[\"droplets\"],\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache -e DIGITALOCEAN_API_TOKEN=dummy-not-a-real-credential toollens-sandbox:1 npx -y @digitalocean/mcp@1.6.1\",\"first_seen\":\"2026-10-25T23:30:27.234Z\",\"last_seen\":\"2026-10-25T23:50:45.439Z\",\"schema_hash\":\"35ef422d63897f85\",\"server\":\"digitalocean\"},\"schema_hash\":\"35ef422d63897f85\",\"server\":\"digitalocean\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "Page": 1,
+              "PerPage": 200
+            },
+            "tool_id": "digitalocean/droplet-list"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "api error: GET https://api.digitalocean.com/v2/droplets?page=1&per_page=200: 401 (request \"1defecf3-064b-4e0a-a8f3-f9eddb436285\") Unable to authenticate you",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I couldn't list the droplets. The gateway allowed the call to `digitalocean/droplet-list`, but DigitalOcean's API rejected it with **401 \"Unable to authenticate you\"** (request ID `1defecf3-064b-4e0a-a8f3-f9eddb436285`).\n\nThe likely cause is the setup, not a permissions rule. The DigitalOcean connection is set up with a placeholder API token (`DIGITALOCEAN_API_TOKEN=dummy-not-a-real-credential`), so it can't log in to the account. No droplet data came back, so I can't give you any droplet names, IDs or counts.\n\nTo fix this, someone with admin access to the gateway needs to replace that placeholder with a valid DigitalOcean API token that has read access to droplets. Once that's done, I can run the request again."
+    }
+  ],
+  "final_text": "I couldn't list the droplets. The gateway allowed the call to `digitalocean/droplet-list`, but DigitalOcean's API rejected it with **401 \"Unable to authenticate you\"** (request ID `1defecf3-064b-4e0a-a8f3-f9eddb436285`).\n\nThe likely cause is the setup, not a permissions rule. The DigitalOcean connection is set up with a placeholder API token (`DIGITALOCEAN_API_TOKEN=dummy-not-a-real-credential`), so it can't log in to the account. No droplet data came back, so I can't give you any droplet names, IDs or counts.\n\nTo fix this, someone with admin access to the gateway needs to replace that placeholder with a valid DigitalOcean API token that has read access to droplets. Once that's done, I can run the request again.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "tool_error",
+      "tool": "digitalocean/droplet-list"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 5,
+    "input_tokens": 14412,
+    "output_tokens": 602,
+    "cache_read_tokens": 9551,
+    "cache_write_tokens": 4849,
+    "tool_schema_tokens_per_request": 951,
+    "tool_schema_tokens_total": 4755,
+    "invocations": 1,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 2,
+    "discovery_latency_ms_mean": 4.36335,
+    "first_pick_correct": true,
+    "wall_ms": 13380.6577,
+    "cost_usd": 0.0382432
+  }
+}

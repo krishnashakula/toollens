@@ -1,0 +1,140 @@
+{
+  "task": "alerts-auth",
+  "arm": "lens",
+  "size": 300,
+  "model": "claude-opus-5-5",
+  "prompt": "Are there any active alerts for auth-service right now? Name them.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "list active alerts for a service",
+            "limit": 5
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":300,\"tools\":[{\"id\":\"observability/list_alerts\",\"role\":\"match\",\"summary\":\"List monitoring alerts, optionally for one service\",\"why\":\"matches list, activ, alert, servic\"},{\"id\":\"bizops/list_invoices\",\"role\":\"match\",\"summary\":\"List invoices in Billing, filtered by status or service\",\"why\":\"matches list, servic\"},{\"id\":\"bizops/get_invoice\",\"role\":\"dependency\",\"summary\":\"Get one invoice from Billing by id\",\"why\":\"can use `invoice_id` returned by bizops/list_invoices\"},{\"id\":\"bizops/update_invoice\",\"role\":\"dependency\",\"summary\":\"Update a invoice in Billing\",\"why\":\"can use `invoice_id` returned by bizops/list_invoices\"},{\"id\":\"bizops/list_pipelines\",\"role\":\"match\",\"summary\":\"List pipelines in Ci, filtered by status or service\",\"why\":\"matches list, servic\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "observability/list_alerts"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"readOnlyHint\":true},\"description\":\"List monitoring alerts, optionally for one service. Includes active and recently resolved alerts.\",\"id\":\"observability/list_alerts\",\"input_schema\":{\"additionalProperties\":false,\"properties\":{\"service_id\":{\"description\":\"Optional service id filter.\",\"type\":\"string\"}},\"required\":[],\"type\":\"object\"},\"name\":\"list_alerts\",\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"toollens.exe\",\"first_seen\":\"2026-10-25T21:32:29.584Z\",\"last_seen\":\"2026-10-25T21:32:29.584Z\",\"schema_hash\":\"1efbd5299093abc9\",\"server\":\"observability\"},\"schema_hash\":\"1efbd5299093abc9\",\"server\":\"observability\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "service_id": "auth-service"
+            },
+            "tool_id": "observability/list_alerts"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"alerts\":[]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {},
+            "tool_id": "observability/list_alerts"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"alerts\":[{\"alert\":\"CheckoutDeployFailed\",\"service_id\":\"svc-checkout\",\"severity\":\"warning\",\"since\":\"2026-10-24T14:04:00Z\",\"state\":\"active\"},{\"alert\":\"AuthTokenLatencyHigh\",\"service_id\":\"svc-auth\",\"severity\":\"critical\",\"since\":\"2026-10-24T13:12:00Z\",\"state\":\"active\"},{\"alert\":\"PaymentsWorkerErrorRate\",\"service_id\":\"svc-payworker\",\"severity\":\"critical\",\"since\":\"2026-10-23T16:45:00Z\",\"state\":\"resolved\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "look up service by name to get service id",
+            "limit": 3
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":300,\"tools\":[{\"id\":\"observability/search\",\"role\":\"match\",\"summary\":\"Full-text search over log messages across all services\",\"why\":\"matches look, servic, id\"},{\"id\":\"observability/get_logs\",\"role\":\"dependency\",\"summary\":\"Fetch log lines for a service, optionally for a single deployment and minimum level\",\"why\":\"can use `deployment_id` returned by observability/search\"},{\"id\":\"deploy/get_deployment\",\"role\":\"dependency\",\"summary\":\"Get one deployment's details, including the failure reason when it failed or was rolled back\",\"why\":\"can use `deployment_id` returned by observability/search\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "Yes, auth-service has one active alert:\n\n- **AuthTokenLatencyHigh**: severity **critical**, active since 2026-10-24T13:12:00Z, on service id `svc-auth`.\n\nWhen I searched using the name \"auth-service\", nothing came back, because alerts are stored under internal service ids. I listed all alerts instead and found this one under `svc-auth`. I'm assuming `svc-auth` is auth-service. I couldn't find a tool to confirm which service name goes with which id.\n\nThe other alerts in the system are for different services: CheckoutDeployFailed on `svc-checkout` (active) and PaymentsWorkerErrorRate on `svc-payworker` (resolved)."
+    }
+  ],
+  "final_text": "Yes, auth-service has one active alert:\n\n- **AuthTokenLatencyHigh**: severity **critical**, active since 2026-10-24T13:12:00Z, on service id `svc-auth`.\n\nWhen I searched using the name \"auth-service\", nothing came back, because alerts are stored under internal service ids. I listed all alerts instead and found this one under `svc-auth`. I'm assuming `svc-auth` is auth-service. I couldn't find a tool to confirm which service name goes with which id.\n\nThe other alerts in the system are for different services: CheckoutDeployFailed on `svc-checkout` (active) and PaymentsWorkerErrorRate on `svc-payworker` (resolved).",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "observability/list_alerts"
+    },
+    {
+      "outcome": "ok",
+      "tool": "observability/list_alerts"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 6,
+    "input_tokens": 11424,
+    "output_tokens": 723,
+    "cache_read_tokens": 8753,
+    "cache_write_tokens": 2657,
+    "tool_schema_tokens_per_request": 950,
+    "tool_schema_tokens_total": 5700,
+    "invocations": 2,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 2,
+    "discovery_latency_ms_mean": 0.19645,
+    "wall_ms": 9387.2325,
+    "cost_usd": 0.029551599999999997
+  }
+}

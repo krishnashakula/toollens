@@ -1,0 +1,162 @@
+{
+  "task": "payworker-rollback-cause",
+  "arm": "full",
+  "size": 300,
+  "model": "claude-opus-5-5",
+  "prompt": "The latest payments-worker deployment was rolled back automatically. Which code change caused it, and who wrote it?",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "query": "payments-worker"
+          },
+          "name": "deploy__search"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"services\":[{\"name\":\"payments-worker\",\"repo\":\"acme/payments-worker\",\"service_id\":\"svc-payworker\",\"team\":\"payments\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "deploy__search"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "limit": 5,
+            "service_id": "svc-payworker"
+          },
+          "name": "deploy__list_deployments"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"deployments\":[{\"commit_sha\":\"5ad0b3e\",\"deployment_id\":\"dep-4815\",\"environment\":\"production\",\"previous_commit_sha\":\"3e1f2d0\",\"service_id\":\"svc-payworker\",\"started_at\":\"2026-10-23T16:40:27Z\",\"status\":\"rolled_back\",\"triggered_by\":\"sam.r\",\"version\":\"v1.9.3\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "deploy__list_deployments"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "deployment_id": "dep-4815"
+          },
+          "name": "deploy__get_deployment"
+        },
+        {
+          "input": {
+            "base_sha": "3e1f2d0",
+            "head_sha": "5ad0b3e",
+            "repo": "acme/payments-worker"
+          },
+          "name": "vcs__compare_commits"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"commit_sha\":\"5ad0b3e\",\"deployment_id\":\"dep-4815\",\"environment\":\"production\",\"failure_reason\":\"automatic rollback: error rate above 5% SLO for 10 minutes\",\"previous_commit_sha\":\"3e1f2d0\",\"service_id\":\"svc-payworker\",\"started_at\":\"2026-10-23T16:40:27Z\",\"status\":\"rolled_back\",\"triggered_by\":\"sam.r\",\"version\":\"v1.9.3\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "deploy__get_deployment"
+    },
+    {
+      "content": "cannot compare 3e1f2d0..5ad0b3e in acme/payments-worker",
+      "is_error": true,
+      "kind": "tool",
+      "name": "vcs__compare_commits"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "commit_sha": "5ad0b3e"
+          },
+          "name": "vcs__get_commit"
+        },
+        {
+          "input": {
+            "deployment_id": "dep-4815",
+            "level": "error",
+            "limit": 20,
+            "service_id": "svc-payworker"
+          },
+          "name": "observability__get_logs"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"author\":\"sam.r\",\"commit_sha\":\"5ad0b3e\",\"date\":\"2026-10-23T15:55:00Z\",\"diff\":\"src/ledger/client.rs: - timeout: Duration::from_secs(2) + timeout: Duration::from_millis(200)\",\"files\":[\"src/ledger/client.rs\"],\"message\":\"Lower ledger client timeout from 2s to 200ms\",\"pull_request\":412,\"repo\":\"acme/payments-worker\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "vcs__get_commit"
+    },
+    {
+      "content": "{\"lines\":[{\"deployment_id\":\"dep-4815\",\"level\":\"error\",\"message\":\"ledger-service call timed out after 200ms (retry budget exhausted)\",\"service_id\":\"svc-payworker\",\"ts\":\"2026-10-23T16:44:02Z\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "observability__get_logs"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "The rollback was caused by commit **5ad0b3e**, \"Lower ledger client timeout from 2s to 200ms\" (PR #412 in acme/payments-worker). It was written by **sam.r**, who also triggered the deployment.\n\n- **Deployment:** dep-4815 put v1.9.3 (commit 5ad0b3e) on svc-payworker in production at 2026-10-23T16:40:27Z. Its status is `rolled_back`, and the recorded reason is \"automatic rollback: error rate above 5% SLO for 10 minutes.\"\n- **The change:** the commit changes one file, `src/ledger/client.rs`, cutting the ledger client timeout from `Duration::from_secs(2)` to `Duration::from_millis(200)`.\n- **Log evidence:** the error logs for dep-4815 show \"ledger-service call timed out after 200ms (retry budget exhausted)\" at 16:44:02Z. That matches the new timeout.\n\nOne gap: I couldn't list every commit between the previous deployment (3e1f2d0) and 5ad0b3e, because the comparison tool returned \"cannot compare 3e1f2d0..5ad0b3e\". So I can't rule out other commits in that range. Still, the timeout errors in the logs point directly at this change."
+    }
+  ],
+  "final_text": "The rollback was caused by commit **5ad0b3e**, \"Lower ledger client timeout from 2s to 200ms\" (PR #412 in acme/payments-worker). It was written by **sam.r**, who also triggered the deployment.\n\n- **Deployment:** dep-4815 put v1.9.3 (commit 5ad0b3e) on svc-payworker in production at 2026-10-23T16:40:27Z. Its status is `rolled_back`, and the recorded reason is \"automatic rollback: error rate above 5% SLO for 10 minutes.\"\n- **The change:** the commit changes one file, `src/ledger/client.rs`, cutting the ledger client timeout from `Duration::from_secs(2)` to `Duration::from_millis(200)`.\n- **Log evidence:** the error logs for dep-4815 show \"ledger-service call timed out after 200ms (retry budget exhausted)\" at 16:44:02Z. That matches the new timeout.\n\nOne gap: I couldn't list every commit between the previous deployment (3e1f2d0) and 5ad0b3e, because the comparison tool returned \"cannot compare 3e1f2d0..5ad0b3e\". So I can't rule out other commits in that range. Still, the timeout errors in the logs point directly at this change.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "ok",
+      "tool": "deploy/search"
+    },
+    {
+      "outcome": "ok",
+      "tool": "deploy/list_deployments"
+    },
+    {
+      "outcome": "ok",
+      "tool": "deploy/get_deployment"
+    },
+    {
+      "outcome": "tool_error",
+      "tool": "vcs/compare_commits"
+    },
+    {
+      "outcome": "ok",
+      "tool": "vcs/get_commit"
+    },
+    {
+      "outcome": "ok",
+      "tool": "observability/get_logs"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 5,
+    "input_tokens": 141657,
+    "output_tokens": 957,
+    "cache_read_tokens": 112557,
+    "cache_write_tokens": 29088,
+    "tool_schema_tokens_per_request": 27701,
+    "tool_schema_tokens_total": 138505,
+    "invocations": 6,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 0,
+    "discovery_latency_ms_mean": 0.0,
+    "wall_ms": 16674.931,
+    "cost_usd": 0.18713939999999998
+  }
+}

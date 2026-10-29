@@ -1,0 +1,149 @@
+{
+  "task": "web-search-news",
+  "arm": "native",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "Search the web for news about the official MCP server registry.",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "query": "official MCP server registry Model Context Protocol",
+            "workflow": "news"
+          },
+          "name": "kagi__kagi_search_fetch"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "Error calling tool 'kagi_search_fetch': No Kagi API key found. Send `Authorization: Bearer <key>` or set KAGI_API_KEY.",
+      "is_error": true,
+      "kind": "tool",
+      "name": "kagi__kagi_search_fetch"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "query": "official MCP Registry Model Context Protocol server registry news"
+          },
+          "name": "brave-search__brave_web_search"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "Error: Brave API error: 422 \n{\"error\":{\"code\":\"SUBSCRIPTION_TOKEN_INVALID\",\"detail\":\"The provided subscription token is invalid.\",\"meta\":{\"component\":\"authentication\"},\"status\":422},\"type\":\"ErrorResponse\"}",
+      "is_error": true,
+      "kind": "tool",
+      "name": "brave-search__brave_web_search"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "max_results": 8,
+            "query": "official MCP Registry Model Context Protocol server registry news"
+          },
+          "name": "perplexity__perplexity_search"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "Perplexity API error: 401 Unauthorized\n{\"error\":{\"message\":\"Invalid API key provided. You can find your API key at https://console.perplexity.ai.\",\"type\":\"invalid_api_key\",\"code\":401}}\n",
+      "is_error": true,
+      "kind": "tool",
+      "name": "perplexity__perplexity_search"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "numResults": 8,
+            "query": "news article about the official MCP Registry for Model Context Protocol servers"
+          },
+          "name": "exa__web_search_exa"
+        },
+        {
+          "input": {
+            "limit": 8,
+            "query": "official MCP Registry Model Context Protocol servers",
+            "sources": [
+              "news",
+              "web"
+            ]
+          },
+          "name": "firecrawl__firecrawl_search"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "web_search_exa error (401): API key must be provided as an argument or as an environment variable (EXA_API_KEY)\nTimestamp: 2026-10-26T00:03:25.522Z",
+      "is_error": true,
+      "kind": "tool",
+      "name": "exa__web_search_exa"
+    },
+    {
+      "content": "{\"creditsUsed\":2,\"data\":{\"news\":[],\"web\":[{\"category\":\"github\",\"description\":\"# MCP Registry\\n## About\\nA community driven registry service for Model Context Protocol (MCP) servers.\",\"position\":1,\"title\":\"modelcontextprotocol/registry: A community driven ...\",\"url\":\"https://github.com/modelcontextprotocol/registry\"},{\"description\":\"Discover Model Context Protocol servers. Investor research for trading agents. MCP server for Tandem docs, install guides, SDKs, workflows, and agent setup ...\",\"position\":2,\"title\":\"Official MCP Registry\",\"url\":\"https://registry.modelcontextprotocol.io/\"},{\"description\":\"We've initially launched with a curated selection of MCP servers, but we're also working with the Model Context Protocol steering committee on ...\",\"position\":3,\"title\":\"GitHub MCP Registry: The fastest way to discover AI tools\",\"url\":\"https://github.blog/changelog/2025-09-16-github-mcp-registry-the-fastest-way-to-discover-ai-tools/\"},{\"description\":\"# New arrivals\\n## New arrivals\\n[![](https://avatars.githubusercontent.com/u/205374328?v=4)\\\\\\n\\\\\\n**cp0x MCP**\\\\\\n\\\\\\ncp0x\\\\\\n\\\\\\nRead-only MCP server over cp0x public data: referral deals and codes, trading races, a monitor of DeFi interface geo-restrictions, x402 catalogs, and facts about cp0x.\\\\\\n\\\\\\nAdded 6 hours ago](https://mcp.so/servers/cp0x-mcp) [![](https://cdn.mcp.so/uploads/7f606650e97fc8ca6a277f77016b1dda.png)\\\\\\n\\\\\\n**watchcron-mcp**\\\\\\n\\\\\\nwatchcron\\\\\\n\\\\\\nMonitor cron jobs and scheduled tasks from AI agents. Create monitors, get ping URLs for your crontab, check status, view ping history and incidents, pause/resume monitors, and list notification channels. Supports simple\\\\\\n\\\\\\nAdded 12 hours ago](https://mcp.so/servers/watchcron-mcp) [![](https://avatars.githubusercontent.com/u/347400921?v=4)\\\\\\n\\\\\\n**guarddog-mcp**\\\\\\n\\\\\\nGuarddog-top\\\\\\n\\\\\\nOfficial Model Context Protocol (MCP) server for GuardDog — 23ms on-chain token safety & honeypot detection (PASS/WARN/BITE) for Claude, Cursor, and AI trading agents.\\\\\\n\\\\\\nAdded 13 hours ago](https://mcp.so/servers/guarddog-mcp) [![](https://avatars.githubusercontent.com/u/64490922?v=4)\\\\\\n\\\\\\n**3Dsellers MCP Server**\\\\\\n\\\\\\n3Dsellers\\\\\\n\\\\\\nThe hosted eBay MCP server for ecommerce sellers. Manage eBay, Amazon, Walmart, Etsy, Shopify and TikTok Shop listings, products, inventory, orders and buyer messages from Claude, ChatGPT, Cursor or any AI assistant. 150\\\\\\n\\\\\\nAdded 2 days ago](https://mcp.so/servers/3dsellers-mcp-server) [![](https://avatars.githubusercontent.com/u/98965418?v=4)\\\\\\n\\\\\\n**LinkedIn MCP Server: DMs, Inbox & Network for Claude, ChatGPT, Cursor**\\\\\\n\\\\\\nTalkToHumans\\\\\\n\\\\\\nLinkedIn MCP server for Claude, ChatGPT, Cursor & Codex. Read LinkedIn DMs, search your network, enrich profiles and draft messages you review before sending.\\\\\\n\\\\\\nAdded 2 days ago\\\\\\n\\\\\\n1](https://mcp.so/servers/linkedin-mcp-970122) [![](https://avatars.githubusercontent.com/u/64911037?v=4)\\\\\\n\\\\\\n**hausverbot**\\\\\\n\\\\\\neliduarte37\\\\\\n\\\\\\nBERGHAIN MCP server — sovereign AI stress-testing\\\\\\n\\\\\\nmcp / ai / multi-agent / adversarial / stress-test / claude\\\\\\n\\\\\\nAdded 2 days ago](https://mcp.so/servers/hausverbot) [![](https://cdn.mcp.so/uploads/2e521764a51b7bc8f1032ba11170294d.png)\\\\\\n\\\\\\n**JSON2Video**\\\\\\n\\\\\\nJSON2Video\\\\\\n\\\\\\nOfficial JSON2Video MCP server. Video API for automated video production at scale: render videos from templates with AI voiceovers, subtitles and AI images.\\\\\\n\\\\\\nAdded 2 days ago](https://mcp.so/servers/json2video) [![](https://avatars.githubusercontent.com/u/320507715?v=4)\\\\\\n\\\\\\n**Cliptude**\\\\\\n\\\\\\nCliptude\\\\\\n\\\\\\nTurn a topic or script into a finished 6–60 minute faceless YouTube documentary with voiceover, real footage, animated maps and charts. Your AI agent plans every shot; Cliptude voices, sources and renders it.\\\\\\n\\\\\\nAdded 2 days ago](https://mcp.so/servers/clitpude-mcp)\",\"position\":4,\"title\":\"MCP.so: What Is MCP? MCP Servers, Clients & AI Tools\",\"url\":\"https://mcp.so/\"},{\"description\":\"## Types of MCP registries\\nThe [[official MCP Registry]([https://modelcontextprotocol.io/registry/about)official](https://modelcontextprotocol.io/registry/about)official) MCP Registry](https://modelcontextprotocol.io/registry/about) at `registry.modelcontextprotocol.io` is community-maintained, fully open, and implements the MCP Registry Specification.\\n\\n## Frequently asked questions\\n**Is there a registry of MCP servers?**\\n\\nThe official MCP Registry at `registry.modelcontextprotocol.io` is the community-maintained public registry implementing the open specification.\",\"position\":5,\"title\":\"What is an MCP Registry? The Centralized Directory for AI ...\",\"url\":\"https://konghq.com/blog/learning-center/what-is-an-mcp-registry\"},{\"description\":\"What is the Model Context Protocol (MCP)? Publish an MCP Server to the MCP Registry. Require Server requests to be associated with a Client request.\",\"position\":6,\"title\":\"Registries\",\"url\":\"https://modelcontextprotocol.info/registry/\"},{\"description\":\"Official MCP Registry (registry.modelcontextprotocol.io) A centralized repository of public metadata for MCP servers, backed by Anthropic, ...\",\"position\":7,\"title\":\"Best MCP Registries in 2026: Compared for Developers ...\",\"url\":\"https://www.truefoundry.com/blog/best-mcp-registries\"},{\"description\":\"## [​](https://modelcontextprotocol.io/community/working-groups/registry#mission-statement)  Mission Statement\\nThe Registry Working Group exists to build and maintain the official MCP Registry — an open catalog and API for publicly available MCP servers — so that clients, sub-registries, and end users can discover, evaluate, and install servers with confidence.\",\"position\":8,\"title\":\"Registry Charter\",\"url\":\"https://modelcontextprotocol.io/community/working-groups/registry\"}]},\"success\":true}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "firecrawl__firecrawl_search"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I found results for the official MCP server registry, but no news articles. Firecrawl was the only search tool that worked, and its news results came back empty, so everything below is from ordinary web pages.\n\n**Other search tools failed because of credentials, not the query:**\n- Kagi: no API key is set up.\n- Brave: the subscription token was rejected as invalid (422).\n- Perplexity: the API key was rejected as invalid (401).\n- Exa: no API key was provided (401).\n\n**What the web results say:**\n- **The official registry:** It's at https://registry.modelcontextprotocol.io/. A Kong article calls it community-maintained and fully open. It follows the published MCP Registry Specification.\n- **Source code:** The project is at https://github.com/modelcontextprotocol/registry, described as \"a community driven registry service for MCP servers.\"\n- **Who runs it:** The MCP Registry Working Group builds and maintains it as \"an open catalog and API for publicly available MCP servers\" (https://modelcontextprotocol.io/community/working-groups/registry). A TrueFoundry blog says it's backed by Anthropic, among others.\n- **GitHub's registry (2025-09-16):** GitHub launched its own MCP Registry with a curated set of servers. It says it's working with the MCP steering committee on the official registry (https://github.blog/changelog/2025-09-16-github-mcp-registry-the-fastest-way-to-discover-ai-tools/).\n- **Comparisons:** TrueFoundry's \"Best MCP Registries in 2026\" and Kong's \"What is an MCP Registry?\" compare the official registry with alternatives like MCP.so.\n\nFor actual recent news, someone needs to fix the API keys for Kagi, Brave, Perplexity or Exa, and then the news search can be run again."
+    }
+  ],
+  "final_text": "I found results for the official MCP server registry, but no news articles. Firecrawl was the only search tool that worked, and its news results came back empty, so everything below is from ordinary web pages.\n\n**Other search tools failed because of credentials, not the query:**\n- Kagi: no API key is set up.\n- Brave: the subscription token was rejected as invalid (422).\n- Perplexity: the API key was rejected as invalid (401).\n- Exa: no API key was provided (401).\n\n**What the web results say:**\n- **The official registry:** It's at https://registry.modelcontextprotocol.io/. A Kong article calls it community-maintained and fully open. It follows the published MCP Registry Specification.\n- **Source code:** The project is at https://github.com/modelcontextprotocol/registry, described as \"a community driven registry service for MCP servers.\"\n- **Who runs it:** The MCP Registry Working Group builds and maintains it as \"an open catalog and API for publicly available MCP servers\" (https://modelcontextprotocol.io/community/working-groups/registry). A TrueFoundry blog says it's backed by Anthropic, among others.\n- **GitHub's registry (2025-09-16):** GitHub launched its own MCP Registry with a curated set of servers. It says it's working with the MCP steering committee on the official registry (https://github.blog/changelog/2025-09-16-github-mcp-registry-the-fastest-way-to-discover-ai-tools/).\n- **Comparisons:** TrueFoundry's \"Best MCP Registries in 2026\" and Kong's \"What is an MCP Registry?\" compare the official registry with alternatives like MCP.so.\n\nFor actual recent news, someone needs to fix the API keys for Kagi, Brave, Perplexity or Exa, and then the news search can be run again.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "tool_error",
+      "tool": "kagi/kagi_search_fetch"
+    },
+    {
+      "outcome": "tool_error",
+      "tool": "brave-search/brave_web_search"
+    },
+    {
+      "outcome": "tool_error",
+      "tool": "perplexity/perplexity_search"
+    },
+    {
+      "outcome": "tool_error",
+      "tool": "exa/web_search_exa"
+    },
+    {
+      "outcome": "ok",
+      "tool": "firecrawl/firecrawl_search"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 5,
+    "input_tokens": 40466,
+    "output_tokens": 1157,
+    "cache_read_tokens": 23694,
+    "cache_write_tokens": 10475,
+    "tool_schema_tokens_per_request": 643,
+    "tool_schema_tokens_total": 3215,
+    "invocations": 5,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 0,
+    "discovery_latency_ms_mean": 0.0,
+    "first_pick_correct": true,
+    "wall_ms": 355748.49069999997,
+    "cost_usd": 0.1054418
+  }
+}

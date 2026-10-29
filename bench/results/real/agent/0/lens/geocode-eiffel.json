@@ -1,0 +1,212 @@
+{
+  "task": "geocode-eiffel",
+  "arm": "lens",
+  "size": 0,
+  "model": "claude-opus-5-5",
+  "prompt": "What are the latitude and longitude of the Eiffel Tower?",
+  "steps": [
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "geocode a place name to latitude and longitude",
+            "limit": 5
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"aws-location/reverse_geocode\",\"role\":\"match\",\"summary\":\"Reverse geocode coordinates to an address using Amazon Location Service geo-places reverse_geocode API\",\"why\":\"matches geocod, plac, latitud, longitud\"},{\"id\":\"mapbox/place_details_tool\",\"role\":\"dependency\",\"summary\":\"Retrieve detailed information about a specific place using its Mapbox ID\",\"why\":\"provides `latitude` that aws-location/reverse_geocode requires\"},{\"id\":\"mapbox/search_and_geocode_tool\",\"role\":\"dependency\",\"summary\":\"Search for POIs, brands, chains, geocode cities, towns, addresses\",\"why\":\"provides `mapbox_id` that mapbox/place_details_tool requires\"},{\"id\":\"mapbox/reverse_geocode_tool\",\"role\":\"match\",\"summary\":\"Convert geographic coordinates (longitude, latitude) into a human-readable address or place name\",\"why\":\"matches geocod, plac, name, latitud, longitud\"},{\"id\":\"google-maps/maps_reverse_geocode\",\"role\":\"match\",\"summary\":\"Convert coordinates into an address\",\"why\":\"matches geocod, latitud, longitud\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "mapbox/search_and_geocode_tool"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"annotations\":{\"destructiveHint\":false,\"idempotentHint\":true,\"openWorldHint\":true,\"readOnlyHint\":true,\"title\":\"Search and Geocode Tool\"},\"description\":\"Search for POIs, brands, chains, geocode cities, towns, addresses. Do not use for generic place types such as 'museums', 'coffee shops', 'tacos', etc, because category_search_tool is better for that. Setting a proximity point is strongly encouraged for more local results. The underlying Search Box API is rolling out natural-language query understanding (e.g. 'quiet coffee shops with wifi near downtown'), so richer free-text phrasing in `q` can work well for category + place + attribute combinations — but as of this writing, big-box retail brand searches tied to a specific address (e.g. 'Costco near <address>', 'Walmart near <address>', 'Target near <address>') are unreliable and often return unrelated results; verify those results before relying on them.\",\"id\":\"mapbox/search_and_geocode_tool\",\"input_schema\":{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"properties\":{\"auto_complete\":{\"description\":\"Enable partial and fuzzy matching\",\"type\":\"boolean\"},\"bbox\":{\"description\":\"Bounding box to limit results within [minLon, minLat, maxLon, maxLat]\",\"properties\":{\"maxLatitude\":{\"maximum\":90,\"minimum\":-90,\"type\":\"number\"},\"maxLongitude\":{\"maximum\":180,\"minimum\":-180,\"type\":\"number\"},\"minLatitude\":{\"maximum\":90,\"minimum\":-90,\"type\":\"number\"},\"minLongitude\":{\"maximum\":180,\"minimum\":-180,\"type\":\"number\"}},\"required\":[\"minLongitude\",\"minLatitude\",\"maxLongitude\",\"maxLatitude\"],\"type\":\"object\"},\"country\":{\"description\":\"Array of ISO 3166 alpha 2 country codes to limit results\",\"items\":{\"maxLength\":2,\"minLength\":2,\"type\":\"string\"},\"type\":\"array\"},\"eta_type\":{\"description\":\"Request estimated time of arrival (ETA) to results\",\"enum\":[\"navigation\"],\"type\":\"string\"},\"language\":{\"description\":\"ISO language code for the response (e.g., \\\"en\\\", \\\"es\\\", \\\"fr\\\", \\\"de\\\", \\\"ja\\\")\",\"type\":\"string\"},\"navigation_profile\":{\"description\":\"Routing profile for ETA calculations\",\"enum\":[\"driving\",\"walking\",\"cycling\"],\"type\":\"string\"},\"origin\":{\"properties\":{\"latitude\":{\"maximum\":90,\"minimum\":-90,\"type\":\"number\"},\"longitude\":{\"maximum\":180,\"minimum\":-180,\"type\":\"number\"}},\"required\":[\"longitude\",\"latitude\"],\"type\":\"object\"},\"poi_category\":{\"description\":\"Array of POI categories to include (e.g., [\\\"restaurant\\\", \\\"cafe\\\"])\",\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"proximity\":{\"description\":\"Location to bias results towards as {longitude, latitude}. If not provided, defaults to IP-based location. STRONGLY ENCOURAGED for relevant results.\",\"properties\":{\"latitude\":{\"maximum\":90,\"minimum\":-90,\"type\":\"number\"},\"longitude\":{\"maximum\":180,\"minimum\":-180,\"type\":\"number\"}},\"required\":[\"longitude\",\"latitude\"],\"type\":\"object\"},\"q\":{\"description\":\"Search query text. Limited to 200 characters (the API rejects longer queries with a 400, despite the docs stating 256). Supports natural-language phrasing combining category, place, and attributes (e.g. \\\"quiet coffee shops with wifi near downtown Seattle\\\"), though big-box retail brand + address queries (e.g. \\\"Costco near <address>\\\") are currently unreliable.\",\"maxLength\":200,\"type\":\"string\"},\"types\":{\"description\":\"Array of feature types to filter results (e.g., [\\\"poi\\\", \\\"address\\\", \\\"place\\\"])\",\"items\":{\"type\":\"string\"},\"type\":\"array\"}},\"required\":[\"q\"],\"type\":\"object\"},\"name\":\"search_and_geocode_tool\",\"output_schema\":{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"additionalProperties\":false,\"properties\":{\"attribution\":{\"type\":\"string\"},\"features\":{\"items\":{\"additionalProperties\":false,\"properties\":{\"geometry\":{\"additionalProperties\":false,\"properties\":{\"coordinates\":{\"items\":{\"type\":\"number\"},\"maxItems\":2,\"minItems\":2,\"type\":\"array\"},\"type\":{\"const\":\"Point\",\"type\":\"string\"}},\"required\":[\"type\",\"coordinates\"],\"type\":\"object\"},\"properties\":{\"additionalProperties\":{},\"properties\":{\"address_number\":{\"type\":\"string\"},\"bbox\":{\"items\":{\"type\":\"number\"},\"maxItems\":4,\"minItems\":4,\"type\":\"array\"},\"brand\":{\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"brand_id\":{\"anyOf\":[{\"type\":\"string\"},{\"items\":{\"type\":\"string\"},\"type\":\"array\"}]},\"context\":{\"additionalProperties\":false,\"properties\":{\"address\":{\"additionalProperties\":false,\"properties\":{\"address_number\":{\"type\":\"string\"},\"street_name\":{\"type\":\"string\"}},\"type\":\"object\"},\"country\":{\"additionalProperties\":false,\"properties\":{\"country_code\":{\"type\":\"string\"},\"country_code_alpha_3\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"}},\"type\":\"object\"},\"district\":{\"additionalProperties\":false,\"properties\":{\"name\":{\"type\":\"string\"}},\"type\":\"object\"},\"locality\":{\"additionalProperties\":false,\"properties\":{\"name\":{\"type\":\"string\"}},\"type\":\"object\"},\"neighborhood\":{\"additionalProperties\":false,\"properties\":{\"name\":{\"type\":\"string\"}},\"type\":\"object\"},\"place\":{\"additionalProperties\":false,\"properties\":{\"name\":{\"type\":\"string\"}},\"type\":\"object\"},\"postcode\":{\"additionalProperties\":false,\"properties\":{\"name\":{\"type\":\"string\"}},\"type\":\"object\"},\"region\":{\"additionalProperties\":false,\"properties\":{\"name\":{\"type\":\"string\"},\"region_code\":{\"type\":\"string\"},\"region_code_full\":{\"type\":\"string\"}},\"type\":\"object\"},\"street\":{\"additionalProperties\":false,\"properties\":{\"name\":{\"type\":\"string\"}},\"type\":\"object\"}},\"type\":\"object\"},\"coordinates\":{\"additionalProperties\":false,\"properties\":{\"accuracy\":{\"type\":\"string\"},\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"routable_points\":{\"items\":{\"additionalProperties\":false,\"properties\":{\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"name\":{\"type\":\"string\"}},\"required\":[\"name\",\"latitude\",\"longitude\"],\"type\":\"object\"},\"type\":\"array\"}},\"required\":[\"longitude\",\"latitude\"],\"type\":\"object\"},\"country\":{\"type\":\"string\"},\"eta\":{\"anyOf\":[{\"type\":\"number\"},{\"additionalProperties\":false,\"properties\":{\"distance\":{\"type\":\"number\"},\"duration\":{\"type\":\"number\"}},\"type\":\"object\"}]},\"external_ids\":{\"additionalProperties\":{\"type\":\"string\"},\"propertyNames\":{\"type\":\"string\"},\"type\":\"object\"},\"feature_type\":{\"type\":\"string\"},\"full_address\":{\"type\":\"string\"},\"maki\":{\"type\":\"string\"},\"mapbox_id\":{\"type\":\"string\"},\"metadata\":{\"additionalProperties\":false,\"properties\":{\"primary_photo\":{\"anyOf\":[{\"type\":\"string\"},{\"items\":{\"type\":\"string\"},\"type\":\"array\"}]},\"reading\":{\"additionalProperties\":false,\"properties\":{\"ja_kana\":{\"type\":\"string\"},\"ja_latin\":{\"type\":\"string\"}},\"type\":\"object\"}},\"type\":\"object\"},\"name\":{\"type\":\"string\"},\"name_preferred\":{\"type\":\"string\"},\"operational_status\":{\"type\":\"string\"},\"place_formatted\":{\"type\":\"string\"},\"poi_category\":{\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"poi_category_ids\":{\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"street_name\":{\"type\":\"string\"}},\"type\":\"object\"},\"type\":{\"const\":\"Feature\",\"type\":\"string\"}},\"required\":[\"type\",\"geometry\",\"properties\"],\"type\":\"object\"},\"type\":\"array\"},\"mapboxRender\":{\"additionalProperties\":false,\"description\":\"Map-payload reference for `render_map_tool`. Surfaced so the LLM can chain the next call without re-emitting geometry.\",\"properties\":{\"ref\":{\"description\":\"Server-side payload reference. Pass to `render_map_tool` via `payload_refs: [\\\"<this ref>\\\"]` to display the data on a live Mapbox GL JS map.\",\"type\":\"string\"}},\"required\":[\"ref\"],\"type\":\"object\"},\"type\":{\"const\":\"FeatureCollection\",\"type\":\"string\"}},\"required\":[\"type\",\"features\"],\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache toollens-sandbox:1 npx -y @mapbox/mcp-server@0.16.0\",\"first_seen\":\"2026-10-25T23:30:27.534Z\",\"last_seen\":\"2026-10-25T23:50:45.698Z\",\"schema_hash\":\"676d6fdae8cb5ff8\",\"server\":\"mapbox\"},\"schema_hash\":\"676d6fdae8cb5ff8\",\"server\":\"mapbox\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "country": [
+                "FR"
+              ],
+              "proximity": {
+                "latitude": 48.85,
+                "longitude": 2.35
+              },
+              "q": "Eiffel Tower, Paris"
+            },
+            "tool_id": "mapbox/search_and_geocode_tool"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "No access token available. Please provide via Bearer auth or MAPBOX_ACCESS_TOKEN env var",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "google maps geocode address or place name to coordinates",
+            "limit": 6
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": "Mapbox lacks a token; try Google Maps."
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"google-maps/maps_geocode\",\"role\":\"match\",\"summary\":\"Convert an address into geographic coordinates\",\"why\":\"matches googl, map, geocod, address, coordinat\"},{\"id\":\"mapbox/place_details_tool\",\"role\":\"dependency\",\"summary\":\"Retrieve detailed information about a specific place using its Mapbox ID\",\"why\":\"provides `address` that google-maps/maps_geocode requires\"},{\"id\":\"mapbox/search_and_geocode_tool\",\"role\":\"dependency\",\"summary\":\"Search for POIs, brands, chains, geocode cities, towns, addresses\",\"why\":\"provides `mapbox_id` that mapbox/place_details_tool requires\"},{\"id\":\"google-maps/maps_reverse_geocode\",\"role\":\"match\",\"summary\":\"Convert coordinates into an address\",\"why\":\"matches googl, map, geocod, address, coordinat\"},{\"id\":\"aws-location/geocode\",\"role\":\"match\",\"summary\":\"Get coordinates for a location name or address using Amazon Location Service geo-places geocode API\",\"why\":\"matches geocod, address, plac, name, coordinat\"},{\"id\":\"mapbox/reverse_geocode_tool\",\"role\":\"match\",\"summary\":\"Convert geographic coordinates (longitude, latitude) into a human-readable address or place name\",\"why\":\"matches geocod, address, plac, name, coordinat\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "address": "Eiffel Tower, Paris, France"
+            },
+            "tool_id": "google-maps/maps_geocode"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "Geocoding failed: The provided API key is invalid. ",
+      "is_error": true,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "tool_id": "aws-location/geocode"
+          },
+          "name": "inspect_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"description\":\"Get coordinates for a location name or address using Amazon Location Service geo-places geocode API.\",\"id\":\"aws-location/geocode\",\"input_schema\":{\"properties\":{\"location\":{\"description\":\"Location name or address to geocode\",\"title\":\"Location\",\"type\":\"string\"}},\"required\":[\"location\"],\"title\":\"geocodeArguments\",\"type\":\"object\"},\"name\":\"geocode\",\"output_schema\":{\"properties\":{\"result\":{\"additionalProperties\":true,\"title\":\"Result\",\"type\":\"object\"}},\"required\":[\"result\"],\"title\":\"geocodeOutput\",\"type\":\"object\"},\"permission\":{\"decision\":\"allow\",\"rule\":\"default allow\"},\"provenance\":{\"changed_since_first_seen\":false,\"command\":\"docker run -i --rm --init --label toollens-real=1 --memory 768m --cpus 1 --pids-limit 512 -v toollens-cache:/cache -e AWS_DEFAULT_REGION=us-east-1 -e AWS_REGION=us-east-1 -e FASTMCP_LOG_LEVEL=ERROR toollens-sandbox:1 uvx awslabs.aws-location-mcp-server@2.1.1\",\"first_seen\":\"2026-10-25T23:19:01.560Z\",\"last_seen\":\"2026-10-25T23:50:45.144Z\",\"schema_hash\":\"0d2bddc16922a634\",\"server\":\"aws-location\"},\"schema_hash\":\"0d2bddc16922a634\",\"server\":\"aws-location\"}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "inspect_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "arguments": {
+              "location": "Eiffel Tower, Paris, France"
+            },
+            "tool_id": "aws-location/geocode"
+          },
+          "name": "invoke_tool"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"result\":{\"error\":\"AWS geo-places Service error: An error occurred (AccessDeniedException) when calling the Geocode operation: authentication failed: The security token included in the request is invalid.\"}}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "invoke_tool"
+    },
+    {
+      "calls": [
+        {
+          "input": {
+            "goal": "OpenStreetMap nominatim search place coordinates",
+            "limit": 6
+          },
+          "name": "discover_tools"
+        }
+      ],
+      "kind": "assistant",
+      "text": ""
+    },
+    {
+      "content": "{\"catalog_size\":2468,\"tools\":[{\"id\":\"aws-location/search_places_open_now\",\"role\":\"match\",\"summary\":\"Search for places that are open now using Amazon Location Service geo-places search_text API and filter by opening hours\",\"why\":\"matches open, search, plac\"},{\"id\":\"mapbox/static_map_image_tool\",\"role\":\"match\",\"summary\":\"Generates a static map image from Mapbox Static Images API\",\"why\":\"matches street, map, plac, coordinat\"},{\"id\":\"mapbox/render_map_tool\",\"role\":\"dependency\",\"summary\":\"Display a live, interactive Mapbox GL JS map\",\"why\":\"provides `center` that mapbox/static_map_image_tool requires\"},{\"id\":\"google-maps/maps_search_places\",\"role\":\"match\",\"summary\":\"Search for places using Google Places API\",\"why\":\"matches map, search, plac\"},{\"id\":\"mapbox/place_details_tool\",\"role\":\"match\",\"summary\":\"Retrieve detailed information about a specific place using its Mapbox ID\",\"why\":\"matches open, search, plac, coordinat\"},{\"id\":\"aws-location/search_places\",\"role\":\"match\",\"summary\":\"Search for places using Amazon Location Service geo-places search_text API\",\"why\":\"matches open, search, plac\"}]}",
+      "is_error": false,
+      "kind": "tool",
+      "name": "discover_tools"
+    },
+    {
+      "calls": [],
+      "kind": "assistant",
+      "text": "I couldn't get the Eiffel Tower's coordinates. I tried three geocoding services and all three failed because of missing or invalid credentials, so the request was never processed:\n\n1. **Mapbox** (`mapbox/search_and_geocode_tool`): failed with \"No access token available\". The Mapbox server has no access token set up.\n2. **Google Maps** (`google-maps/maps_geocode`): failed with \"The provided API key is invalid.\"\n3. **Amazon Location Service** (`aws-location/geocode`): failed with \"AccessDeniedException… The security token included in the request is invalid.\"\n\nI looked for other location tools, but they all use these same three services, so they would fail the same way. To get an answer from our systems, someone needs to fix one of these: add a Mapbox access token, replace the Google Maps API key, or renew the AWS credentials."
+    }
+  ],
+  "final_text": "I couldn't get the Eiffel Tower's coordinates. I tried three geocoding services and all three failed because of missing or invalid credentials, so the request was never processed:\n\n1. **Mapbox** (`mapbox/search_and_geocode_tool`): failed with \"No access token available\". The Mapbox server has no access token set up.\n2. **Google Maps** (`google-maps/maps_geocode`): failed with \"The provided API key is invalid.\"\n3. **Amazon Location Service** (`aws-location/geocode`): failed with \"AccessDeniedException… The security token included in the request is invalid.\"\n\nI looked for other location tools, but they all use these same three services, so they would fail the same way. To get an answer from our systems, someone needs to fix one of these: add a Mapbox access token, replace the Google Maps API key, or renew the AWS credentials.",
+  "stop_reason": "end_turn",
+  "error": null,
+  "invoked": [
+    {
+      "outcome": "tool_error",
+      "tool": "mapbox/search_and_geocode_tool"
+    },
+    {
+      "outcome": "tool_error",
+      "tool": "google-maps/maps_geocode"
+    },
+    {
+      "outcome": "ok",
+      "tool": "aws-location/geocode"
+    }
+  ],
+  "metrics": {
+    "completed": true,
+    "requests": 9,
+    "input_tokens": 43913,
+    "output_tokens": 1088,
+    "cache_read_tokens": 36859,
+    "cache_write_tokens": 7034,
+    "tool_schema_tokens_per_request": 951,
+    "tool_schema_tokens_total": 8559,
+    "invocations": 3,
+    "incorrect_selections": 0,
+    "unauthorized_attempts": 0,
+    "discovery_calls": 3,
+    "discovery_latency_ms_mean": 5.969833333333334,
+    "first_pick_correct": true,
+    "wall_ms": 25433.3424,
+    "cost_usd": 0.0643818
+  }
+}
