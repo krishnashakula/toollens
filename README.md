@@ -50,6 +50,22 @@ tool search at **half the cost per task**, while exposing every tool was not an 
 Methodology, the controlled benchmark and every caveat are [below](#benchmarks); every number comes
 from transcripts committed in [`bench/results/`](bench/results).
 
+## What do your MCP servers cost you?
+
+`toollens tax` starts the servers in your existing client config and measures what their tool
+definitions add to every request. It runs locally; `--exact` instead counts with Anthropic's free
+`count_tokens` endpoint, which means sending it the tool definitions (never env or args).
+
+```bash
+toollens tax --config .mcp.json        # Claude Code project servers; ~/.claude.json for user-scope ones
+toollens tax --config "<Claude Desktop config>"   # %APPDATA%\Claude\ or ~/Library/Application Support/Claude/claude_desktop_config.json
+```
+
+It ranks servers and tools by tokens and lists tools whose schemas the Claude API refuses and
+servers that failed to start. Across the benchmark's 110 servers ([full table](bench/real/tool-tax.md)),
+DigitalOcean alone is about 130K tokens per request, and its `apps-create-app-from-spec` tool about
+19.7K by itself.
+
 ## Quick start
 
 Download the archive for your platform (Linux x86_64, macOS Apple silicon, Windows x86_64) from the
@@ -89,9 +105,17 @@ actually need: the lookup that resolves a service name to its id, the logs, and 
 
 ## Use it from Claude Code, Claude Desktop or any MCP client
 
-**1. Put your servers behind the gateway.** `gateway.json` uses the same `mcpServers` shape as
-Claude Desktop and Claude Code, so you can paste your existing server list into it, then add a
-`policy`:
+**1. Put your servers behind the gateway.** `toollens init` reads your client config, writes a
+gateway config with the same server entries (`toollens.json` beside it), and prints the client
+change; `--write` applies it and keeps a `.bak`. `~/.claude.json` is never edited, only printed,
+because Claude Code rewrites it while running.
+
+```bash
+toollens init --from .mcp.json         # or claude_desktop_config.json
+```
+
+The gateway config uses the same `mcpServers` shape as Claude Desktop and Claude Code, including
+`${VAR}` and `${VAR:-default}` references, plus a `policy`:
 
 ```json
 {
@@ -103,8 +127,9 @@ Claude Desktop and Claude Code, so you can paste your existing server list into 
 }
 ```
 
-**2. Point your client at ToolLens instead of at the servers.** For Claude Code use `.mcp.json` at
-your project root; Claude Desktop uses `claude_desktop_config.json`:
+**2. Point your client at ToolLens instead of at the servers.** This is what `init` prints. For
+Claude Code it goes in `.mcp.json` at your project root; Claude Desktop uses
+`claude_desktop_config.json`:
 
 ```json
 {
@@ -318,6 +343,9 @@ learning was off. This benchmark found real bugs before the final numbers; all a
 ./target/release/toollens bench retrieval --config examples/gateway.json --tasks bench/tasks.json
 ./target/release/toollens bench agent --config examples/gateway.json --tasks bench/tasks.json   # ~$7.60, needs ANTHROPIC_API_KEY
 ```
+
+`--runs N` repeats every task N times. Runs already on disk are kept, so an interrupted run
+resumes, and `agent.json` then reports each arm's min, mean and max across runs.
 
 The real-world benchmark needs Docker; its exact steps are in [CLAUDE.md](CLAUDE.md)
 ("Real-world catalog"). The full three-arm run cost about $4 at list price. The demo video is made

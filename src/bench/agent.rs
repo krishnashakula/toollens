@@ -18,6 +18,7 @@ use tokio::{sync::Semaphore, task::JoinSet};
 
 use super::{Grade, Task, claude::Claude, lens_for_size, load_tasks, percentile, unix_now};
 use crate::{
+    catalog::ToolRecord,
     config::Config,
     lens::{DiscoverOpts, Invocation, Lens},
     meta::{self, Output},
@@ -78,6 +79,10 @@ impl Arm {
     pub fn schema_tokens(&self) -> u64 {
         self.schema_tokens
     }
+
+    pub fn excluded(&self) -> &[String] {
+        &self.excluded
+    }
 }
 
 pub struct Arm {
@@ -101,6 +106,9 @@ pub struct Options<'a> {
     pub db: Option<&'a Path>,
     /// Only measure each arm's tool-definition tokens (count_tokens is free); run no episodes.
     pub dry_run: bool,
+    /// Make sure this many runs of each task exist, keeping the ones already on disk (unless
+    /// they ended in an error), so an interrupted paid run resumes. None: run once, overwriting.
+    pub runs: Option<usize>,
 }
 
 pub async fn run(cfg: &Config, tasks: &Path, opts: Options<'_>) -> anyhow::Result<()> {
@@ -112,6 +120,7 @@ pub async fn run(cfg: &Config, tasks: &Path, opts: Options<'_>) -> anyhow::Resul
         only,
         db,
         dry_run,
+        runs,
     } = opts;
     let mut tasks = load_tasks(tasks)?;
     if let Some(only) = only {
@@ -139,8 +148,8 @@ pub async fn run(cfg: &Config, tasks: &Path, opts: Options<'_>) -> anyhow::Resul
         for arm_name in arms {
             // A fresh gateway per arm: stateful servers (e.g. a memory graph) must not carry one
             // arm's writes into the next. Lazy catalogs reload from the index cache, so it is cheap.
-            let lens = Arc::new(lens_for_size(cfg, base, size, db).await?);
-            let arm = Arc::new(build_arm(&claude, &lens, arm_name, model).await?);
+            let mut lens = Arc::new(lens_for_size(cfg, base, size, db).await?);
+            let mut arm = Arc::new(build_arm(&claude, &lens, arm_name, model).await?);
             eprintln!(
                 "size {size} arm {arm_name}: {} tool defs, {} schema tokens/request",
                 arm.tools.len(),
@@ -155,53 +164,64 @@ pub async fn run(cfg: &Config, tasks: &Path, opts: Options<'_>) -> anyhow::Resul
             if dry_run {
                 continue;
             }
-            let mut episodes = vec![];
-            // First episode alone so its request writes the prompt cache the rest can read.
-            let mut queue = tasks.iter().cloned();
-            if let Some(first) = queue.next() {
-                episodes.push(episode(&claude, &lens, &arm, &first, model, size).await);
-            }
-            let sem = Arc::new(Semaphore::new(CONCURRENCY));
-            let mut set = JoinSet::new();
-            for task in queue {
-                let (claude, lens, arm, sem, model) = (
-                    claude.clone(),
-                    lens.clone(),
-                    arm.clone(),
-                    sem.clone(),
-                    model.to_string(),
-                );
-                set.spawn(async move {
-                    let _permit = sem.acquire_owned().await.expect("semaphore open");
-                    episode(&claude, &lens, &arm, &task, &model, size).await
-                });
-            }
-            while let Some(e) = set.join_next().await {
-                episodes.push(e.context("episode task panicked")?);
-            }
-            episodes.sort_by_key(|e| tasks.iter().position(|t| t.id == e.task));
-            let dir = out.join("agent").join(size.to_string()).join(arm_name);
-            std::fs::create_dir_all(&dir)?;
-            for e in &episodes {
-                std::fs::write(
-                    dir.join(format!("{}.json", e.task)),
-                    serde_json::to_string_pretty(e)?,
-                )?;
-                eprintln!(
-                    "  {:<26} {:<5} req={:<2} in={:<7} wrong={} unauth={} {}",
-                    e.task,
-                    if e.metrics.completed { "PASS" } else { "FAIL" },
-                    e.metrics.requests,
-                    e.metrics.input_tokens,
-                    e.metrics.incorrect_selections,
-                    e.metrics.unauthorized_attempts,
-                    e.error.as_deref().unwrap_or("")
-                );
+            let arm_dir = out.join("agent").join(size.to_string()).join(arm_name);
+            let mut used = false;
+            for n in 1..=runs.unwrap_or(1) {
+                let dir = run_dir(&arm_dir, n);
+                let todo: Vec<Task> = tasks
+                    .iter()
+                    .filter(|t| runs.is_none() || !finished(&dir, &t.id))
+                    .cloned()
+                    .collect();
+                if todo.is_empty() {
+                    continue;
+                }
+                if used {
+                    // A fresh gateway per run too, for the same reason as per arm.
+                    lens = Arc::new(lens_for_size(cfg, base, size, db).await?);
+                    arm = Arc::new(build_arm(&claude, &lens, arm_name, model).await?);
+                }
+                used = true;
+                if runs.is_some() {
+                    eprintln!("  run {n}: {} tasks", todo.len());
+                }
+                let episodes = run_tasks(&claude, &lens, &arm, todo, model, size).await?;
+                std::fs::create_dir_all(&dir)?;
+                for e in &episodes {
+                    std::fs::write(
+                        dir.join(format!("{}.json", e.task)),
+                        serde_json::to_string_pretty(e)?,
+                    )?;
+                    eprintln!(
+                        "  {:<26} {:<5} req={:<2} in={:<7} wrong={} unauth={} {}",
+                        e.task,
+                        if e.metrics.completed { "PASS" } else { "FAIL" },
+                        e.metrics.requests,
+                        e.metrics.input_tokens,
+                        e.metrics.incorrect_selections,
+                        e.metrics.unauthorized_attempts,
+                        e.error.as_deref().unwrap_or("")
+                    );
+                }
             }
             // Summarize every transcript on disk for this (size, arm), so re-running a subset
             // of tasks (--only) updates those tasks without dropping the others.
-            let mut row = summarize(size, lens.tools().len(), arm_name, &load_episodes(&dir)?);
+            let mut row = summarize(
+                size,
+                lens.tools().len(),
+                arm_name,
+                &load_episodes(&arm_dir)?,
+            );
             row["tools_excluded"] = json!(arm.excluded);
+            let all = load_runs(&arm_dir)?;
+            if all.len() > 1 {
+                let s = spread(&all);
+                eprintln!(
+                    "  {arm_name}: {} complete runs; completed {}; cost/task {}",
+                    s["complete_runs"], s["completed"], s["cost_per_task_usd"]
+                );
+                row["spread"] = s;
+            }
             rows.push(row);
         }
     }
@@ -257,6 +277,113 @@ fn load_episodes(dir: &Path) -> anyhow::Result<Vec<Episode>> {
     Ok(eps)
 }
 
+/// Runs `todo` over one gateway and arm, `CONCURRENCY` at a time; episodes in task order.
+async fn run_tasks(
+    claude: &Arc<Claude>,
+    lens: &Arc<Lens>,
+    arm: &Arc<Arm>,
+    todo: Vec<Task>,
+    model: &str,
+    size: usize,
+) -> anyhow::Result<Vec<Episode>> {
+    let order: Vec<String> = todo.iter().map(|t| t.id.clone()).collect();
+    let mut episodes = vec![];
+    // First episode alone so its request writes the prompt cache the rest can read.
+    let mut queue = todo.into_iter();
+    if let Some(first) = queue.next() {
+        episodes.push(episode(claude, lens, arm, &first, model, size).await);
+    }
+    let sem = Arc::new(Semaphore::new(CONCURRENCY));
+    let mut set = JoinSet::new();
+    for task in queue {
+        let (claude, lens, arm, sem, model) = (
+            claude.clone(),
+            lens.clone(),
+            arm.clone(),
+            sem.clone(),
+            model.to_string(),
+        );
+        set.spawn(async move {
+            let _permit = sem.acquire_owned().await.expect("semaphore open");
+            episode(&claude, &lens, &arm, &task, &model, size).await
+        });
+    }
+    while let Some(e) = set.join_next().await {
+        episodes.push(e.context("episode task panicked")?);
+    }
+    episodes.sort_by_key(|e| order.iter().position(|id| *id == e.task));
+    Ok(episodes)
+}
+
+/// Run 1 sits directly in the arm's directory (the layout from before `--runs`, which the
+/// console reads); run N > 1 in `run<N>/`.
+fn run_dir(arm_dir: &Path, n: usize) -> PathBuf {
+    if n == 1 {
+        arm_dir.to_path_buf()
+    } else {
+        arm_dir.join(format!("run{n}"))
+    }
+}
+
+/// Whether `dir` already holds this task's transcript and it did not end in an error.
+fn finished(dir: &Path, task: &str) -> bool {
+    std::fs::read_to_string(dir.join(format!("{task}.json")))
+        .ok()
+        .and_then(|s| serde_json::from_str::<Episode>(&s).ok())
+        .is_some_and(|e| e.error.is_none())
+}
+
+/// Every run on disk for one (size, arm), run 1 first.
+fn load_runs(arm_dir: &Path) -> anyhow::Result<Vec<Vec<Episode>>> {
+    let mut runs = vec![];
+    for n in 1.. {
+        let dir = run_dir(arm_dir, n);
+        if !dir.is_dir() {
+            break;
+        }
+        runs.push(load_episodes(&dir)?);
+    }
+    Ok(runs)
+}
+
+/// Each run's totals and their range over complete runs: with one run per task, a one-task
+/// difference (26 vs 25) cannot be told apart from noise.
+fn spread(runs: &[Vec<Episode>]) -> Value {
+    let full = runs.iter().map(Vec::len).max().unwrap_or(0);
+    let per_run: Vec<Value> = runs
+        .iter()
+        .zip(1..)
+        .map(|(eps, n)| {
+            let count = eps.len().max(1) as f64;
+            json!({
+                "run": n,
+                "episodes": eps.len(),
+                "completed": eps.iter().filter(|e| e.metrics.completed).count(),
+                "cost_per_task_usd": eps.iter().map(|e| e.metrics.cost_usd).sum::<Option<f64>>().map(|c| c / count),
+                "mean_input_tokens": eps.iter().map(|e| e.metrics.input_tokens as f64).sum::<f64>() / count,
+            })
+        })
+        .collect();
+    let complete: Vec<&Value> = per_run.iter().filter(|r| r["episodes"] == full).collect();
+    let range = |k: &str| {
+        let v: Vec<f64> = complete.iter().filter_map(|r| r[k].as_f64()).collect();
+        (!v.is_empty()).then(|| {
+            json!({
+                "min": v.iter().copied().fold(f64::INFINITY, f64::min),
+                "mean": v.iter().sum::<f64>() / v.len() as f64,
+                "max": v.iter().copied().fold(f64::NEG_INFINITY, f64::max),
+            })
+        })
+    };
+    json!({
+        "complete_runs": complete.len(),
+        "completed": range("completed"),
+        "cost_per_task_usd": range("cost_per_task_usd"),
+        "mean_input_tokens": range("mean_input_tokens"),
+        "runs": per_run,
+    })
+}
+
 /// Model-facing name for a catalog tool: `server__tool`, API-safe characters, at most 64 long.
 /// Longer names keep a prefix plus a hash so they stay unique.
 fn api_name(id: &str) -> String {
@@ -300,7 +427,7 @@ pub async fn build_arm(
     let mut names = HashMap::new();
     let mut excluded = vec![];
     let tools: Vec<Value> = if name == "lens" {
-        meta::specs(lens).into_iter().map(|s| json!({"name": s.name, "description": s.description, "input_schema": s.input_schema})).collect()
+        meta_tools(lens)
     } else {
         // full: every tool loaded up front. native: every tool deferred behind Anthropic's own
         // server-side BM25 tool search, which loads matches into context on demand.
@@ -316,9 +443,8 @@ pub async fn build_arm(
                 ok
             })
             .map(|t| {
-                let n = api_name(&t.id);
-                names.insert(n.clone(), t.id.clone());
-                let mut def = json!({"name": n, "description": t.description, "input_schema": api_schema(&t.input_schema)});
+                names.insert(api_name(&t.id), t.id.clone());
+                let mut def = api_tool(t);
                 if deferred {
                     def["defer_loading"] = json!(true);
                 }
@@ -353,31 +479,59 @@ pub async fn build_arm(
     })
 }
 
-/// Whether the Messages API accepts this schema for a native tool: every property name must
-/// match `^[a-zA-Z0-9_.-]{1,64}$`, at any depth. Real servers ship names like `$vectorSearch`
-/// or `EndTime<`, and one such tool makes the API reject the whole request.
+/// A catalog tool as a native tool definition for the Messages API.
+pub fn api_tool(t: &ToolRecord) -> Value {
+    json!({"name": api_name(&t.id), "description": t.description, "input_schema": api_schema(&t.input_schema)})
+}
+
+/// ToolLens's three tools as native tool definitions.
+pub fn meta_tools(lens: &Lens) -> Vec<Value> {
+    meta::specs(lens)
+        .into_iter()
+        .map(|s| json!({"name": s.name, "description": s.description, "input_schema": s.input_schema}))
+        .collect()
+}
+
 fn api_compatible(schema: &Value) -> bool {
-    let key_ok = |k: &String| {
-        (1..=64).contains(&k.len())
-            && k.chars()
-                .all(|c| c.is_ascii_alphanumeric() || matches!(c, '_' | '.' | '-'))
-    };
-    let Some(o) = schema.as_object() else {
-        return true;
-    };
-    let props_ok = o
-        .get("properties")
-        .and_then(Value::as_object)
-        .is_none_or(|p| p.iter().all(|(k, v)| key_ok(k) && api_compatible(v)));
-    let nested_ok = ["items", "additionalProperties"]
-        .iter()
-        .all(|k| o.get(*k).is_none_or(api_compatible));
-    let lists_ok = ["anyOf", "oneOf", "allOf"].iter().all(|k| {
-        o.get(*k)
-            .and_then(Value::as_array)
-            .is_none_or(|a| a.iter().all(api_compatible))
-    });
-    props_ok && nested_ok && lists_ok
+    rejected_property_names(schema).is_empty()
+}
+
+/// Property names the Messages API refuses in a native tool's schema: each must match
+/// `^[a-zA-Z0-9_.-]{1,64}$`, at any depth. Real servers ship names like `$vectorSearch` or
+/// `EndTime<`, and one such tool makes the API reject the whole request.
+pub fn rejected_property_names(schema: &Value) -> Vec<String> {
+    fn walk(schema: &Value, bad: &mut Vec<String>) {
+        let Some(o) = schema.as_object() else {
+            return;
+        };
+        for (k, v) in o
+            .get("properties")
+            .and_then(Value::as_object)
+            .into_iter()
+            .flatten()
+        {
+            let ok = (1..=64).contains(&k.len())
+                && k.chars()
+                    .all(|c| c.is_ascii_alphanumeric() || matches!(c, '_' | '.' | '-'));
+            if !ok {
+                bad.push(k.clone());
+            }
+            walk(v, bad);
+        }
+        for k in ["items", "additionalProperties"] {
+            if let Some(v) = o.get(k) {
+                walk(v, bad);
+            }
+        }
+        for k in ["anyOf", "oneOf", "allOf"] {
+            for v in o.get(k).and_then(Value::as_array).into_iter().flatten() {
+                walk(v, bad);
+            }
+        }
+    }
+    let mut bad = vec![];
+    walk(schema, &mut bad);
+    bad
 }
 
 /// One agent conversation over an arm's tools.
@@ -671,6 +825,68 @@ mod tests {
             api_compatible(&json!(true)),
             "non-object schemas are left to the API"
         );
+    }
+
+    fn ep(task: &str, completed: bool, cost: f64) -> Episode {
+        Episode {
+            task: task.into(),
+            arm: "lens".into(),
+            size: 0,
+            model: "m".into(),
+            prompt: String::new(),
+            steps: vec![],
+            final_text: String::new(),
+            stop_reason: String::new(),
+            error: None,
+            invoked: vec![],
+            metrics: Metrics {
+                completed,
+                cost_usd: Some(cost),
+                ..Default::default()
+            },
+        }
+    }
+
+    #[test]
+    fn spread_ranges_over_complete_runs_only() {
+        let runs = vec![
+            vec![ep("a", true, 0.5), ep("b", true, 0.5)],
+            vec![ep("a", true, 0.25), ep("b", false, 0.25)],
+            vec![ep("a", false, 9.0)], // interrupted run: listed, but left out of the ranges
+        ];
+        let s = spread(&runs);
+        assert_eq!(s["complete_runs"], 2);
+        assert_eq!(s["completed"], json!({"min": 1.0, "mean": 1.5, "max": 2.0}));
+        assert_eq!(
+            s["cost_per_task_usd"],
+            json!({"min": 0.25, "mean": 0.375, "max": 0.5})
+        );
+        assert_eq!(s["runs"].as_array().unwrap().len(), 3);
+    }
+
+    #[test]
+    fn runs_resume_and_run_one_stays_where_the_console_reads_it() {
+        let dir = tempfile::tempdir().unwrap();
+        let d = dir.path();
+        assert_eq!(run_dir(d, 1), d);
+        assert_eq!(run_dir(d, 3), d.join("run3"));
+        let mut e = ep("a", true, 0.0);
+        std::fs::write(d.join("a.json"), serde_json::to_string(&e).unwrap()).unwrap();
+        assert!(finished(d, "a"));
+        assert!(!finished(d, "b"));
+        e.error = Some("overloaded".into());
+        std::fs::write(d.join("a.json"), serde_json::to_string(&e).unwrap()).unwrap();
+        assert!(!finished(d, "a"), "an errored episode is run again");
+        std::fs::create_dir(d.join("run2")).unwrap();
+        std::fs::write(d.join("run2/a.json"), serde_json::to_string(&e).unwrap()).unwrap();
+        assert_eq!(load_runs(d).unwrap().len(), 2);
+        assert_eq!(load_episodes(d).unwrap().len(), 1, "run2/ is not a task");
+    }
+
+    #[test]
+    fn rejected_property_names_are_named() {
+        let s = json!({"properties": {"ok": {}, "EndTime<": {}, "nested": {"items": {"properties": {"$vectorSearch": {}}}}}});
+        assert_eq!(rejected_property_names(&s), ["EndTime<", "$vectorSearch"]);
     }
 
     #[test]

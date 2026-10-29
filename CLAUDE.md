@@ -17,6 +17,8 @@ cargo fmt --check; cargo clippy --all-targets -- -D warnings
 ./target/release/toollens bench retrieval --config examples/gateway.json --tasks bench/tasks.json   # free, needs Ollama for semantic modes
 ./target/release/toollens bench agent --config examples/gateway.json --tasks bench/tasks.json       # COSTS MONEY (ANTHROPIC_API_KEY)
 ./target/release/toollens console --config examples/gateway.json --noise 982                        # prints http://127.0.0.1:7300/#token=…; /api needs that token
+./target/release/toollens tax --config examples/gateway.json [--exact]        # tool-definition tokens per request; --exact uses count_tokens (free, needs ANTHROPIC_API_KEY)
+./target/release/toollens init --from <client config> [--write]               # move a client's stdio servers behind ToolLens
 cd demo; npm ci; npx playwright install chromium; node record.mjs   # 4K60 video; needs the console on bench/real/catalog.json, $env:TOOLLENS_URL (the printed URL) and $env:FFMPEG (STORYBOARD.md)
 ```
 
@@ -37,7 +39,8 @@ python bench/real/select_servers.py config                       # gateway.json
 python bench/real/select_servers.py config bench/real/index-report.json   # learn fixes, re-run index until stable
 python bench/real/select_servers.py finalize bench/real/index-report.json # catalog.json = indexed servers only
 ./target/release/toollens bench retrieval --config bench/real/catalog.json --db bench/real/.toollens.db --tasks bench/real/tasks.json --sizes 0 --out bench/results/real
-./target/release/toollens bench agent --config bench/real/catalog.json --db bench/real/.toollens.db --tasks bench/real/tasks.json --sizes 0 --arms lens,native,full --out bench/results/real   # COSTS MONEY
+./target/release/toollens bench agent --config bench/real/catalog.json --db bench/real/.toollens.db --tasks bench/real/tasks.json --sizes 0 --arms lens,native,full --out bench/results/real   # COSTS MONEY; add --runs N to repeat (resumes, keeps runs on disk)
+./target/release/toollens tax --config bench/real/catalog.json --db bench/real/.toollens.db --exact --top 25 > bench/real/tool-tax.md
 docker rm -f $(docker ps -q --filter label=toollens-real=1)      # containers a timed-out start left behind
 ```
 
@@ -59,6 +62,7 @@ tokens for free.
 - `fixtures/`: simulated servers.
 - `bench/`: the benchmarks.
 - `console/`: axum and a single `index.html`.
+- `tax.rs`, `init.rs`: the `tax` and `init` commands (measure a client config; move it behind ToolLens).
 
 ## Rules
 

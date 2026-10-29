@@ -3,6 +3,19 @@
 Newest first. One entry per bug: symptom, cause, fix, and the command that proves it.
 Entries 015–026 came from a pre-release review of the whole codebase.
 
+## 029 — `${VAR}` in a pasted Claude Code server list reached the server literally
+
+**Cause:** the README says `gateway.json` takes the same `mcpServers` shape as Claude Code, but
+Claude Code expands `${VAR}` / `${VAR:-default}` in `.mcp.json` and ToolLens did not, so a pasted
+entry like `"env": {"GITHUB_TOKEN": "${GITHUB_TOKEN}"}` handed the server the literal text. Repro:
+`{"mcpServers":{"deploy":{"command":"@self","args":["fixture","${TL_KIND}"]}}}` with
+`TL_KIND=deploy toollens index --config …` → `unknown fixture "${TL_KIND}"`, no server indexed.
+**Fix:** `ServerConfig::resolved` expands command, args and env values when the server is spawned
+(src/config.rs `expand`, src/upstream.rs `connect`); a missing variable fails only that server and
+names the variable, never a value.
+**Verified:** same command → `"servers": {"deploy": 6}`, exit 0; with `TL_KIND` unset →
+`environment variable TL_KIND is not set`. `cargo test --lib expands_env_references_like_claude_code`.
+
 ## 028 — Every command panicked on a Linux system without CA certificates
 
 **Cause:** `Embedder::from_env` built the Ollama HTTP client eagerly with `.expect(...)`, and every

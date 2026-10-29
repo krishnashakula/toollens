@@ -20,8 +20,10 @@ USAGE:
   toollens index    --config <file> [--reindex]     list every server's tools, report failures
   toollens discover --config <file> --goal <text> [--mode M] [--limit N] [--no-deps] [--noise N]
   toollens bench retrieval --config <file> --tasks <file> [--sizes 30,100,300,1000] [--db <file>] [--out <dir>]
-  toollens bench agent     --config <file> --tasks <file> [--sizes ...] [--arms full,lens,native] [--model ID] [--only id,..] [--db <file>] [--dry-run] [--out <dir>]
+  toollens bench agent     --config <file> --tasks <file> [--sizes ...] [--arms full,lens,native] [--model ID] [--only id,..] [--runs N] [--db <file>] [--dry-run] [--out <dir>]
   toollens console  --config <file> [--results <dir>] [--noise N] [--port 7300] [--model ID]
+  toollens tax      --config <client config> [--top N] [--exact] [--db <file>]   tool-definition tokens per request
+  toollens init     --from <client config> [--out <file>] [--write]              put a client's servers behind ToolLens
   toollens fixture  deploy|observability|vcs|noise [--count N] [--seed N]
 
 Logs go to stderr (stdout carries the MCP protocol); filter with RUST_LOG.";
@@ -42,7 +44,12 @@ impl Args {
         let mut it = std::env::args().skip(1).peekable();
         while let Some(arg) = it.next() {
             match arg.strip_prefix("--") {
-                Some(name) if matches!(name, "no-deps" | "help" | "reindex" | "dry-run") => {
+                Some(name)
+                    if matches!(
+                        name,
+                        "no-deps" | "help" | "reindex" | "dry-run" | "exact" | "write"
+                    ) =>
+                {
                     a.switches.push(name.into())
                 }
                 Some(name) => {
@@ -185,6 +192,10 @@ async fn main() -> anyhow::Result<()> {
                         only: args.get("only"),
                         db: args.get("db").map(Path::new),
                         dry_run: args.switches.iter().any(|s| s == "dry-run"),
+                        runs: match args.get("runs") {
+                            Some(_) => Some(args.num("runs", 1)?.max(1)),
+                            None => None,
+                        },
                     };
                     toollens::bench::agent::run(&cfg, &tasks, opts).await
                 }
@@ -201,6 +212,25 @@ async fn main() -> anyhow::Result<()> {
             let lens = Arc::new(Lens::start(&cfg, &db_path(&args, &path)).await?);
             let model = args.get("model").unwrap_or("claude-opus-5-5").to_string();
             toollens::console::serve(lens, results, port, model).await
+        }
+        ["tax"] => {
+            let path = PathBuf::from(args.get("config").context("--config <file> is required")?);
+            // In memory by default: measuring a client config must not leave a database beside it.
+            let db = PathBuf::from(args.get("db").unwrap_or(":memory:"));
+            let opts = toollens::tax::Options {
+                top: args.num("top", 5)?,
+                exact: args.switches.iter().any(|s| s == "exact"),
+                model: args.get("model").unwrap_or("claude-opus-5-5"),
+            };
+            toollens::tax::run(&path, &db, opts).await
+        }
+        ["init"] => {
+            let from = PathBuf::from(
+                args.get("from")
+                    .context("--from <client config> is required")?,
+            );
+            let write = args.switches.iter().any(|s| s == "write");
+            toollens::init::run(&from, args.get("out").map(Path::new), write)
         }
         _ => bail!("unknown command {:?}\n\n{USAGE}", args.positional.join(" ")),
     }

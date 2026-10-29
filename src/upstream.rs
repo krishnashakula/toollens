@@ -54,6 +54,7 @@ pub struct Upstream {
 
 impl Upstream {
     async fn connect(name: &str, cfg: &ServerConfig) -> anyhow::Result<(Self, Vec<Tool>)> {
+        let cfg = &cfg.resolved()?;
         let program = program(cfg)?;
         let mut cmd = tokio::process::Command::new(&program);
         // Upstream servers are third-party code: they get the system basics plus their own
