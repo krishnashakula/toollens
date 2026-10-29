@@ -1,0 +1,51 @@
+name: Release binaries
+
+# Builds the tagged commit for each platform and attaches an archive (binary, README, LICENSE,
+# examples/) to the GitHub release. Runs on publish; run it by hand to fill an existing release.
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to build and upload to (e.g. v0.1.0)
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: ${{ matrix.target }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # 22.04 rather than latest: older glibc, so the binary runs on more distros.
+          - { os: ubuntu-22.04, target: x86_64-unknown-linux-gnu }
+          - { os: windows-latest, target: x86_64-pc-windows-msvc, ext: .exe }
+          - { os: macos-latest, target: aarch64-apple-darwin }
+    runs-on: ${{ matrix.os }}
+    env:
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo build --release --locked
+      - name: Package and upload
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          name="toollens-$TAG-${{ matrix.target }}"
+          mkdir "$name"
+          cp "target/release/toollens${{ matrix.ext }}" README.md LICENSE "$name/"
+          cp -r examples "$name/"
+          if [ "$RUNNER_OS" = Windows ]; then
+            asset="$name.zip"; 7z a "$asset" "$name" > /dev/null
+          else
+            asset="$name.tar.gz"; tar czf "$asset" "$name"
+          fi
+          gh release upload "$TAG" "$asset" --clobber

@@ -5,6 +5,13 @@ edition = "2024"
 rust-version = "1.89"
 description = "MCP gateway that shows an agent the few tools it needs from a catalog of thousands"
 license = "MIT"
+repository = "https://github.com/krishnashakula/toollens"
+readme = "README.md"
+keywords = ["mcp", "ai-agents", "llm", "gateway", "claude"]
+categories = ["command-line-utilities", "development-tools"]
+# bench/ (28 MB of transcripts) and demo/ stay on GitHub.
+# Anchored: `include` overrides .gitignore, and unanchored names also match inside demo/node_modules.
+include = ["/src/**", "/examples/*.json", "/README.md", "/LICENSE"]
 
 [dependencies]
 rmcp = { version = "3.7", features = ["server", "client", "transport-io", "transport-child-process"] }

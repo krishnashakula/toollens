@@ -20,6 +20,10 @@ cargo fmt --check; cargo clippy --all-targets -- -D warnings
 cd demo; npm ci; npx playwright install chromium; node record.mjs   # 4K60 video; needs the console on bench/real/catalog.json, $env:TOOLLENS_URL (the printed URL) and $env:FFMPEG (STORYBOARD.md)
 ```
 
+Releases: publishing a GitHub release runs `.github/workflows/release.yml`, which attaches Linux,
+macOS and Windows archives; `gh workflow run release.yml -f tag=vX.Y.Z` refills an existing one.
+`cargo publish --dry-run` shows what goes to crates.io (the anchored `include` list in Cargo.toml).
+
 Semantic retrieval needs Ollama with `nomic-embed-text` (`ollama pull nomic-embed-text`);
 override with `OLLAMA_HOST` and `TOOLLENS_EMBED_MODEL`.
 

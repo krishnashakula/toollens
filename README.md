@@ -52,14 +52,22 @@ from transcripts committed in [`bench/results/`](bench/results).
 
 ## Quick start
 
-Requires Rust 1.89+.
+Download the archive for your platform (Linux x86_64, macOS Apple silicon, Windows x86_64) from the
+[latest release](https://github.com/krishnashakula/toollens/releases/latest) and unpack it. Or
+build from source with Rust 1.89+, then use `./target/release/toollens`:
 
 ```bash
-git clone https://github.com/krishnashakula/toollens && cd toollens
-cargo build --release
-# Three simulated servers (deploy, observability, vcs) plus 982 generated distractor tools:
-./target/release/toollens discover --config examples/gateway.json --noise 982 --goal "investigate a failed deployment"
+git clone https://github.com/krishnashakula/toollens && cd toollens && cargo build --release
 ```
+
+From the unpacked folder:
+
+```bash
+# Three simulated servers (deploy, observability, vcs) plus 982 generated distractor tools:
+./toollens discover --config examples/gateway.json --noise 982 --goal "investigate a failed deployment"
+```
+
+On macOS the binary is unsigned; if it is blocked, run `xattr -d com.apple.quarantine toollens`.
 
 ```jsonc
 {

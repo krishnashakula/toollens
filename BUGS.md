@@ -3,6 +3,17 @@
 Newest first. One entry per bug: symptom, cause, fix, and the command that proves it.
 Entries 015–026 came from a pre-release review of the whole codebase.
 
+## 027 — The crates.io package would have shipped the local audit database
+
+**Cause:** Cargo's `include` overrides `.gitignore`, and unanchored patterns match at any depth.
+`include = ["examples/**", "README.md", ...]` packaged `examples/.toollens.db` (local SQLite store
+with the audit log) and files from `demo/node_modules`: 9.0 MiB. Caught by
+`cargo package --list` before anything was published.
+**Fix:** anchored patterns, `["/src/**", "/examples/*.json", "/README.md", "/LICENSE"]`
+(Cargo.toml `include`).
+**Verified:** `cargo package --list --allow-dirty` lists only Cargo files, LICENSE, README.md,
+examples/gateway.json and src/; `cargo publish --dry-run` packages 33 files, 378.5 KiB, and builds.
+
 ## 026 — A fixture server panicked on a non-ASCII commit sha
 
 **Cause:** `&sha[..7]` slices bytes; byte 7 inside a multi-byte character panics. Repro:

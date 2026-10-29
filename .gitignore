@@ -10,6 +10,9 @@ node_modules/
 # Demo recordings: published as release assets, not git history
 demo/out/
 
+# Launch copy: kept local
+launch/
+
 # Secrets
 .env
 .env.*
