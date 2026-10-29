@@ -125,8 +125,11 @@ and cached in SQLite, and each server starts only when one of its tools is calle
 `maxLive` running and the least recently used stopped first. Bare launcher names such as `npx` and
 `uvx` resolve on Windows too.
 
-The end-to-end test drives `serve` with the official rmcp client over stdio. It has **not** been
-tested inside Claude Desktop or Claude Code yet; reports welcome.
+The end-to-end test drives `serve` with the official rmcp client over stdio. Tested in Claude Code
+2.1.312 with `examples/gateway.json`: asked to investigate a failed deployment and roll it back,
+Claude found the cause through the gateway (deployment, commit, logs) and did not attempt the
+rollback because `inspect_tool` showed the policy denies it. Claude Desktop is untested
+([#1](https://github.com/krishnashakula/toollens/issues/1)); reports welcome.
 
 ## The console
 
