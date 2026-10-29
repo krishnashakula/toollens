@@ -1,0 +1,26 @@
+name: Bug report
+description: Something in ToolLens does not work as documented
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Security issues (policy bypass, secret leaks) go through [private reporting](https://github.com/krishnashakula/toollens/security/advisories/new), not here.
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction
+      description: The command or MCP calls, and the gateway.json (remove secrets).
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behaviour
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      placeholder: "OS, `rustc --version`, MCP client (Claude Code, Claude Desktop, ...)"
