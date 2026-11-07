@@ -19,6 +19,7 @@ cargo fmt --check; cargo clippy --all-targets -- -D warnings
 ./target/release/toollens console --config examples/gateway.json --noise 982                        # prints http://127.0.0.1:7300/#token=…; /api needs that token
 ./target/release/toollens tax --config examples/gateway.json [--exact]        # tool-definition tokens per request; --exact uses count_tokens (free, needs ANTHROPIC_API_KEY)
 ./target/release/toollens init --from <client config> [--write]               # move a client's stdio servers behind ToolLens
+docker build -t toollens .; docker run -i --rm toollens                     # demo gateway on stdio in a container: what Glama and other MCP directories start
 cd demo; npm ci; npx playwright install chromium; node record.mjs   # 4K60 video; needs the console on bench/real/catalog.json, $env:TOOLLENS_URL (the printed URL) and $env:FFMPEG (STORYBOARD.md)
 ```
 
