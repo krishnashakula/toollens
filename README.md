@@ -156,6 +156,18 @@ Claude found the cause through the gateway (deployment, commit, logs) and did no
 rollback because `inspect_tool` showed the policy denies it. Claude Desktop is untested
 ([#1](https://github.com/krishnashakula/toollens/issues/1)); reports welcome.
 
+### In Docker
+
+The image serves the `gateway.json` in a mounted folder. Servers launched with `npx` or `uvx` run
+inside the container; pass their keys with `-e` (for `${VAR}` references) or write them in the
+file's `env`. Servers started any other way (`docker`, paths on your machine) do not work from
+inside it. With no arguments the image serves the built-in demo servers.
+
+```bash
+docker build -t toollens .
+docker run -i --rm -v /path/to/folder:/config:ro toollens serve --config /config/gateway.json --db /app/toollens.db
+```
+
 ## The console
 
 ```bash
