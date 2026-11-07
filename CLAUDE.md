@@ -26,6 +26,9 @@ cd demo; npm ci; npx playwright install chromium; node record.mjs   # 4K60 video
 Releases: publishing a GitHub release runs `.github/workflows/release.yml`, which attaches Linux,
 macOS and Windows archives; `gh workflow run release.yml -f tag=vX.Y.Z` refills an existing one.
 `cargo publish --dry-run` shows what goes to crates.io (the anchored `include` list in Cargo.toml).
+`plugin.json` and `mcp.json` at the root are the Agent Plugins manifest (agent-plugins.org 1.0.0)
+that plugin directories such as cursor.directory scan; `mcp.json` has no dot so Claude Code does
+not offer it as this repo's own server.
 
 Semantic retrieval needs Ollama with `nomic-embed-text` (`ollama pull nomic-embed-text`);
 override with `OLLAMA_HOST` and `TOOLLENS_EMBED_MODEL`.

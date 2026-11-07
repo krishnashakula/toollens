@@ -1,0 +1,10 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "toollens",
+  "description": "MCP gateway that shows an agent the few tools it needs from a catalog of thousands. Needs the toollens binary on PATH (GitHub releases). This plugin runs the built-in demo servers; for your own, run `toollens init` and point --config at the gateway.json it writes.",
+  "author": { "name": "Krishna Shakula", "url": "https://github.com/krishnashakula" },
+  "homepage": "https://github.com/krishnashakula/toollens",
+  "repository": "https://github.com/krishnashakula/toollens",
+  "license": "MIT",
+  "keywords": ["mcp", "mcp-gateway", "tool-search", "ai-agents", "claude", "rust"]
+}
