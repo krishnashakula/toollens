@@ -291,7 +291,15 @@ async fn run_tasks(
     // First episode alone so its request writes the prompt cache the rest can read.
     let mut queue = todo.into_iter();
     if let Some(first) = queue.next() {
-        episodes.push(episode(claude, lens, arm, &first, model, size).await);
+        let e = episode(claude, lens, arm, &first, model, size).await;
+        // Docker down, say: every episode would fail the same way, so stop before paying for them.
+        if let Some(err) = e.error.as_deref().filter(|m| m.starts_with(UNAVAILABLE)) {
+            anyhow::bail!(
+                "{}: {err}. Make sure the servers can start, then run the same command again",
+                e.task
+            );
+        }
+        episodes.push(e);
     }
     let sem = Arc::new(Semaphore::new(CONCURRENCY));
     let mut set = JoinSet::new();
@@ -346,8 +354,8 @@ fn load_runs(arm_dir: &Path) -> anyhow::Result<Vec<Vec<Episode>>> {
     Ok(runs)
 }
 
-/// Each run's totals and their range over complete runs: with one run per task, a one-task
-/// difference (26 vs 25) cannot be told apart from noise.
+/// Each run's totals and their range over complete runs (every task, no errors): with one run
+/// per task, a one-task difference (26 vs 25) cannot be told apart from noise.
 fn spread(runs: &[Vec<Episode>]) -> Value {
     let full = runs.iter().map(Vec::len).max().unwrap_or(0);
     let per_run: Vec<Value> = runs
@@ -358,13 +366,17 @@ fn spread(runs: &[Vec<Episode>]) -> Value {
             json!({
                 "run": n,
                 "episodes": eps.len(),
+                "errors": eps.iter().filter(|e| e.error.is_some()).count(),
                 "completed": eps.iter().filter(|e| e.metrics.completed).count(),
                 "cost_per_task_usd": eps.iter().map(|e| e.metrics.cost_usd).sum::<Option<f64>>().map(|c| c / count),
                 "mean_input_tokens": eps.iter().map(|e| e.metrics.input_tokens as f64).sum::<f64>() / count,
             })
         })
         .collect();
-    let complete: Vec<&Value> = per_run.iter().filter(|r| r["episodes"] == full).collect();
+    let complete: Vec<&Value> = per_run
+        .iter()
+        .filter(|r| r["episodes"] == full && r["errors"] == 0)
+        .collect();
     let range = |k: &str| {
         let v: Vec<f64> = complete.iter().filter_map(|r| r[k].as_f64()).collect();
         (!v.is_empty()).then(|| {
@@ -672,6 +684,8 @@ async fn episode(
         .filter(|c| c.kind == "invoke")
         .map(|c| json!({"tool": c.target, "outcome": c.outcome}))
         .collect();
+    // A server that never started says nothing about the model: an error, so the task runs again.
+    let error = error.or_else(|| unavailable(&invoked));
     m.invocations = invoked.len();
     m.incorrect_selections = invoked
         .iter()
@@ -719,6 +733,18 @@ async fn episode(
         invoked,
         metrics: m,
     }
+}
+
+const UNAVAILABLE: &str = "server unavailable for";
+
+/// The tools an episode could not reach because their server never started, as its error.
+fn unavailable(invoked: &[Value]) -> Option<String> {
+    let tools: Vec<&str> = invoked
+        .iter()
+        .filter(|c| c["outcome"] == "unavailable")
+        .filter_map(|c| c["tool"].as_str())
+        .collect();
+    (!tools.is_empty()).then(|| format!("{UNAVAILABLE} {}", tools.join(", ")))
 }
 
 async fn execute(
@@ -849,10 +875,13 @@ mod tests {
 
     #[test]
     fn spread_ranges_over_complete_runs_only() {
+        let mut down = ep("b", false, 9.0);
+        down.error = Some("server unavailable for s/list".into());
         let runs = vec![
             vec![ep("a", true, 0.5), ep("b", true, 0.5)],
             vec![ep("a", true, 0.25), ep("b", false, 0.25)],
             vec![ep("a", false, 9.0)], // interrupted run: listed, but left out of the ranges
+            vec![ep("a", true, 9.0), down], // a server never started: also left out
         ];
         let s = spread(&runs);
         assert_eq!(s["complete_runs"], 2);
@@ -861,7 +890,18 @@ mod tests {
             s["cost_per_task_usd"],
             json!({"min": 0.25, "mean": 0.375, "max": 0.5})
         );
-        assert_eq!(s["runs"].as_array().unwrap().len(), 3);
+        assert_eq!(s["runs"].as_array().unwrap().len(), 4);
+    }
+
+    #[test]
+    fn an_unreachable_server_is_an_error_not_a_failed_task() {
+        let ran = json!({"tool": "git/git_log", "outcome": "failed"});
+        let down = json!({"tool": "git/git_log", "outcome": "unavailable"});
+        assert_eq!(unavailable(std::slice::from_ref(&ran)), None);
+        assert_eq!(
+            unavailable(&[ran, down]).as_deref(),
+            Some("server unavailable for git/git_log")
+        );
     }
 
     #[test]

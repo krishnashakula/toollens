@@ -437,8 +437,9 @@ impl Lens {
         let up = match self.pool.get(&tool.server).await {
             Ok(up) => up,
             Err(e) => {
+                // Not "failed": the benchmark must tell a server that never started from a tool that ran.
                 return reject(
-                    "failed",
+                    "unavailable",
                     format!("server {} unavailable: {e:#}", tool.server),
                 );
             }
@@ -521,9 +522,8 @@ mod tests {
         assert!(rrf(&[]).is_empty());
     }
 
-    #[tokio::test]
-    async fn audit_log_never_stores_argument_values() {
-        let dir = tempfile::tempdir().unwrap();
+    /// One tool, `s/list`, whose server `s` has no config, so it can never start.
+    fn lens_without_server(dir: &std::path::Path) -> Lens {
         let schema = json!({"type": "object", "properties": {"limit": {"type": "integer"}}});
         let tool = rmcp::model::Tool::new(
             "list",
@@ -534,13 +534,35 @@ mod tests {
             default: crate::policy::Default_::Allow,
             ..Policy::default()
         };
-        let lens = Lens::new(
+        Lens::new(
             vec![ToolRecord::from_mcp("s", &tool)],
             Pool::new(BTreeMap::new(), 1),
             vec![],
             policy,
-            Store::open(&dir.path().join("audit.db")).unwrap(),
+            Store::open(&dir.join("audit.db")).unwrap(),
+        )
+    }
+
+    #[tokio::test]
+    async fn a_server_that_cannot_start_is_unavailable_not_failed() {
+        let dir = tempfile::tempdir().unwrap();
+        let lens = lens_without_server(dir.path());
+        let Invocation::Rejected { outcome, .. } =
+            lens.invoke("t", "s/list", json!({"limit": 4})).await
+        else {
+            panic!("a tool without a server was executed");
+        };
+        assert_eq!(outcome, "unavailable");
+        assert_eq!(
+            lens.store.calls(Some("t"), 10).unwrap()[0].outcome,
+            "unavailable"
         );
+    }
+
+    #[tokio::test]
+    async fn audit_log_never_stores_argument_values() {
+        let dir = tempfile::tempdir().unwrap();
+        let lens = lens_without_server(dir.path());
         let inv = lens
             .invoke("t", "s/list", json!({"limit": "4111111111111111"}))
             .await;

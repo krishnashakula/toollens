@@ -345,7 +345,9 @@ learning was off. This benchmark found real bugs before the final numbers; all a
 ```
 
 `--runs N` repeats every task N times. Runs already on disk are kept, so an interrupted run
-resumes, and `agent.json` then reports each arm's min, mean and max across runs.
+resumes, and `agent.json` then reports each arm's min, mean and max across runs. An episode whose
+server could not start (Docker stopped, say) is recorded as an error, not a failed task, and runs
+again next time; a run stops after its first episode if that one could not reach its server.
 
 The real-world benchmark needs Docker; its exact steps are in [CLAUDE.md](CLAUDE.md)
 ("Real-world catalog"). The full three-arm run cost about $4 at list price. The demo video is made

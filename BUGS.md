@@ -3,6 +3,25 @@
 Newest first. One entry per bug: symptom, cause, fix, and the command that proves it.
 Entries 015–026 came from a pre-release review of the whole codebase.
 
+## 030 — `bench agent --runs` graded episodes whose servers never started as model failures
+
+**Cause:** a server that cannot start returned outcome `failed`, the same as a tool that ran and
+errored, so the benchmark could not tell them apart. Runs 2–5 of the real-world benchmark ran with
+Docker Desktop stopped: in 26–27 of 28 episodes per run and arm every call came back
+`server … unavailable: failed to connect to the docker API`. Answer tasks then failed, selection
+tasks still passed (`selected` counts `failed` as a valid pick), and nothing was marked as an error,
+so `--runs` did not repeat them and `spread` averaged them in: lens 22.6/28, native 21.8/28,
+against 26 and 25 in the clean run 1. The transcripts are the reproduction
+(`bench/results/real/agent/0/*/run2/fetch-example.json`, not committed).
+**Fix:** a server that never started is outcome `unavailable` (src/lens.rs `invoke_inner`); an
+episode that hit one gets an error, so it is run again on resume (src/bench/agent.rs `unavailable`,
+`episode`); a run stops after its first episode if that one hit it (`run_tasks`); `spread` leaves
+runs with errored episodes out of the ranges.
+**Verified:** `cargo test --lib a_server_that_cannot_start_is_unavailable_not_failed` failed before
+the fix (`left: "failed"`, `right: "unavailable"`) and passes after;
+`an_unreachable_server_is_an_error_not_a_failed_task` and `spread_ranges_over_complete_runs_only`
+pass. Not run end to end: that needs a paid run with Docker stopped.
+
 ## 029 — `${VAR}` in a pasted Claude Code server list reached the server literally
 
 **Cause:** the README says `gateway.json` takes the same `mcpServers` shape as Claude Code, but
